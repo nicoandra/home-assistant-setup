@@ -1,0 +1,22 @@
+version: '3'
+services:
+  homeassistant:
+    container_name: home-assistant
+    image: homeassistant/home-assistant
+    volumes:
+      - ./config:/config
+      - /etc/localtime:/etc/localtime:ro
+    restart: always
+    network_mode: host
+
+
+  mqtt:
+    image: ansi/mosquitto
+    container_name: mosquitto
+    ports:
+      - 1883:1883
+    entrypoint: /usr/local/sbin/mosquitto -c /etc/mosquitto/mosquitto.conf
+    volumes:
+      - ./etc/mosquitto:/etc/mosquitto:ro
+      - ./var/log/mosquitto:/var/log/mosquitto:rw
+      - ./var/lib/mosquitto/mosquitto.db:/var/lib/mosquitto/mosquitto.db
