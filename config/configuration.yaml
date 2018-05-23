@@ -55,6 +55,9 @@ map:
 # Track the sun
 sun:
 
+mqtt:
+  broker: mqtt
+
 # Weather prediction
 sensor:
   - platform: yr
@@ -62,6 +65,17 @@ sensor:
     api_key: !secret openweathermap_apikey
     monitored_conditions:
       - weather
+  - platform: mqtt
+    name: "Temperature"
+    state_topic: "office/sensor1"
+    unit_of_measurement: '°C'
+    value_template: "{{ value_json.temperature }}"
+  - platform: mqtt
+    name: "Humidity"
+    state_topic: "office/sensor1"
+    unit_of_measurement: '%'
+    value_template: "{{ value_json.humidity }}"
+
 # Text to speech
 tts:
   - platform: google

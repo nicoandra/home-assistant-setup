@@ -8,11 +8,13 @@ services:
       - /etc/localtime:/etc/localtime:ro
     restart: always
     network_mode: host
+    depends_on:
+      - mqtt
 
 
   mqtt:
     image: ansi/mosquitto
-    container_name: mosquitto
+    container_name: homeassistant-mosquitto
     ports:
       - 1883:1883
     entrypoint: /usr/local/sbin/mosquitto -c /etc/mosquitto/mosquitto.conf
