@@ -14,13 +14,13 @@ homeassistant:
   customize: !include customize.yaml
 
 # Show links to resources in log and frontend
-introduction: false
+# introduction: false
 
 # Enables the frontend
-frontend: false
+frontend:
 
 # Enables configuration UI
-config: true
+config:
 
 http:
   # Secrets are defined in the file secrets.yaml
@@ -47,7 +47,7 @@ conversation:
 history:
 
 # View all events in a logbook
-logbook: false
+logbook:
 
 # Enables a map showing the location of tracked devices
 map:
@@ -68,12 +68,12 @@ sensor:
   - platform: mqtt
     name: "Temperature"
     state_topic: "office/sensor1"
-    unit_of_measurement: '°C'
+    unit_of_measurement: "°C"
     value_template: "{{ value_json.temperature }}"
   - platform: mqtt
     name: "Humidity"
     state_topic: "office/sensor1"
-    unit_of_measurement: '%'
+    unit_of_measurement: "%"
     value_template: "{{ value_json.humidity }}"
 
 # Text to speech

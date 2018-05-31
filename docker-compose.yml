@@ -7,7 +7,9 @@ services:
       - ./config:/config
       # - /etc/localtime:/etc/localtime:ro
     restart: always
-    network_mode: host
+    # network_mode: host
+    ports:
+      - 8123:8123
     depends_on:
       - mqtt
     environment:

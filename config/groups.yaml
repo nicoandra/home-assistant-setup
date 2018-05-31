@@ -1,0 +1,15 @@
+group:
+  default_view:
+    view: yes
+    icon: mdi:home
+    entities:
+      - group.kitchen
+      - group.living
+      - group.climate
+      - group.office
+      - group.front
+      - group.balcony
+      - group.main_bedroom
+      - group.small_beroom
+      - group.doors
+      - group.heaters
