@@ -1,15 +1,39 @@
-group:
-  default_view:
-    view: yes
-    icon: mdi:home
-    entities:
-      - group.kitchen
-      - group.living
-      - group.climate
-      - group.office
-      - group.front
-      - group.balcony
-      - group.main_bedroom
-      - group.small_beroom
-      - group.doors
-      - group.heaters
+default_view:
+  view: yes
+  entities:
+    - group.kitchen
+    - group.living
+    - group.office
+    - group.bedroom
+    - group.guestroom
+
+weather:
+  name: Weather in Montréal
+  entities:
+    -  sensor.owm_condition
+
+kitchen:
+  name: Kitchen
+  entities:
+    - light.kitchen
+
+living:
+  name: Living room
+  entities:
+    - light.livingroom
+
+office:
+  name: Office
+  entities:
+    - light.office
+    - sensor.office_humidity
+    - sensor.office_temperature
+    - switch.dummy_switch_for_scripts
+
+bedroom:
+  name: Main Bedroom
+  entities:
+    - sun.sun
+
+guestroom:
+  name: Guest bedroom
