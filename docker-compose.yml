@@ -5,12 +5,15 @@ services:
     image: homeassistant/home-assistant
     volumes:
       - ./config:/config
-      - /etc/localtime:/etc/localtime:ro
+      # - /etc/localtime:/etc/localtime:ro
     restart: always
-    network_mode: host
+    # network_mode: host
+    ports:
+      - 8123:8123
     depends_on:
       - mqtt
-
+    environment:
+      - TZ=America/Montreal
 
   mqtt:
     image: ansi/mosquitto
@@ -23,3 +26,5 @@ services:
       - ./etc/mosquitto:/etc/mosquitto:ro
       - ./var/log/mosquitto:/var/log/mosquitto:rw
       - ./var/lib/mosquitto/mosquitto.db:/var/lib/mosquitto/mosquitto.db
+    environment:
+      - TZ=America/Montreal
