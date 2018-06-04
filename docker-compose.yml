@@ -14,9 +14,10 @@ services:
 
   mqtt:
     image: ansi/mosquitto
+    network_mode: host
     container_name: homeassistant-mosquitto
-    ports:
-      - 1883:1883
+    # ports:
+    #   - 1883:1883
     entrypoint: /usr/local/sbin/mosquitto -c /etc/mosquitto/mosquitto.conf
     volumes:
       - ./etc/mosquitto:/etc/mosquitto:ro

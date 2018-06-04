@@ -1,0 +1,3 @@
+[submodule "devices/espurna-based/espurna"]
+	path = devices/espurna-based/espurna
+	url = git@github.com:xoseperez/espurna.git
