@@ -74,6 +74,16 @@ sensor:
     name: "Humidity"
     state_topic: "/ESP_Easy/Temp/Humidity"
     unit_of_measurement: '%'
+  - platform: template
+    sensors:
+      setpoint_status:
+        friendly_name: "Setpoint Reached"
+        value_template: >-
+          {% if states('sensor.temperature')|float > states('input_number.living_temperature')|float %}
+            yes
+          {% else %}
+            no
+          {% endif %}
     # value_template: "{{ value_json.humidity }}"
   # - name: espurna-test temperature
   #   platform: mqtt
@@ -92,7 +102,7 @@ sensor:
 # Cloud
 cloud:
 
-# group: !include groups.yaml
+group: !include groups.yaml
 automation: !include automations.yaml
 script: !include scripts.yaml
 
@@ -121,7 +131,7 @@ light:
           fade: on
         - number: 4
           type: rgbw
-          name: Livingroom
+          name: Couch
           fade: on
   - platform: yeelight
     devices:
@@ -135,7 +145,11 @@ light:
         transition: 1000
         use_music_mode: False #(defaults to False)
         save_on_change: True #(defaults to True)
-
+      192.168.1.234:
+        name: Bedroom lamp
+        transition: 1000
+        use_music_mode: False #(defaults to False)
+        save_on_change: True #(defaults to True)
 
 
 switch:
@@ -144,3 +158,23 @@ switch:
     command_topic: "home/dummy/switch1/set" # Tricky, this will EXPOSE the status
     state_topic: "home/dummy/switch1/state" # This will SET the status
     optimistic: true
+
+
+climate:
+  - platform: generic_thermostat # See https://www.home-assistant.io/components/climate.generic_thermostat/
+    name: Living
+    heater: switch.dummy_switch_for_scripts
+    target_sensor: sensor.temperature
+    target_temp: 16
+    keep_alive:
+      minutes: 2
+    min_cycle_duration:
+      seconds: 30
+
+input_number:
+  living_temperature:
+    name: Living °C
+    initial: 16
+    min: 12
+    max: 33
+    step: .5

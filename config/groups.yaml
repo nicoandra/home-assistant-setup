@@ -1,0 +1,41 @@
+default_view:
+  view: yes
+  entities:
+    - group.all_lights
+    - group.kitchen
+    - group.living
+    - group.climate
+    - group.office
+kitchen:
+  name: Kitchen
+  view: no
+  entities:
+    - light.kitchen
+living:
+  name: Living
+  view: no
+  entities:
+    - light.living_moon
+    - light.couch
+    - sensor.humidity
+    - sensor.temperature
+    - climate.living
+    - switch.dummy_switch_for_scripts
+    - input_number.living_temperature
+    - sensor.setpoint_status
+climate:
+  name: Climate
+  view: no
+  entities:
+    - sun.sun
+    - sensor.humidity
+    - sensor.temperature
+    - climate.living
+    - switch.dummy_switch_for_scripts
+    - input_number.living_temperature
+office:
+  name: Office
+  view: no
+  entities:
+    - light.office
+    - light.office_yee
