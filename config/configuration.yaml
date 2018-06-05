@@ -86,42 +86,57 @@ sensor:
 
 
 # Text to speech
-tts:
-  - platform: google
+# tts:
+#  - platform: google
 
 # Cloud
 cloud:
 
-group: !include groups.yaml
+# group: !include groups.yaml
 automation: !include automations.yaml
 script: !include scripts.yaml
 
+# mqtt_statestream:
+#   base_topic: homeassistant
+#   publish_attributes: false
+#   publish_timestamps: false
 
-mqtt_statestream:
-  base_topic: homeassistant
-  publish_attributes: false
-  publish_timestamps: false
 
 # Example configuration.yaml entry
+
 light:
-  platform: limitlessled
-  bridges:
-    - host: 192.168.1.148
-      version: 4
-      port: 8899
-      groups:
-      - number: 1
-        type: rgbw
-        name: Office
-        fade: on
-      - number: 2
-        type: rgbw
-        name: Kitchen
-        fade: on
-      - number: 4
-        type: rgbw
-        name: Livingroom
-        fade: on
+  - platform: limitlessled
+    bridges:
+     - host: 192.168.1.148
+       version: 4
+       port: 8899
+       groups:
+        - number: 1
+          type: rgbw
+          name: Office
+          fade: on
+        - number: 2
+          type: rgbw
+          name: Kitchen
+          fade: on
+        - number: 4
+          type: rgbw
+          name: Livingroom
+          fade: on
+  - platform: yeelight
+    devices:
+      192.168.1.232:
+        name: Office Yee
+        transition: 1000
+        use_music_mode: False #(defaults to False)
+        save_on_change: True #(defaults to True)
+      192.168.1.147:
+        name: Living Moon
+        transition: 1000
+        use_music_mode: False #(defaults to False)
+        save_on_change: True #(defaults to True)
+
+
 
 switch:
   - platform: mqtt
