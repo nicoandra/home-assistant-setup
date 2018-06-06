@@ -66,38 +66,62 @@ sensor:
     monitored_conditions:
       - weather
   - platform: mqtt
-    name: "Temperature"
-    state_topic: "/ESP_Easy/Temp/Temperature"
+    name: "Living Temperature"
+    state_topic: "/living/temp/temperature"
     unit_of_measurement: '°C'
     # value_template: "{{ value_json.temperature }}"
   - platform: mqtt
-    name: "Humidity"
-    state_topic: "/ESP_Easy/Temp/Humidity"
+    name: "Living Humidity"
+    state_topic: "/living/temp/humidity"
+    unit_of_measurement: '%'
+  - platform: mqtt
+    name: "Office Temperature"
+    state_topic: "/office/temp/temperature"
+    unit_of_measurement: '°C'
+    # value_template: "{{ value_json.temperature }}"
+  - platform: mqtt
+    name: "Office Humidity"
+    state_topic: "/office/temp/humidity"
+    unit_of_measurement: '%'
+  - platform: mqtt
+    name: "Kitchen Temperature"
+    state_topic: "/kitchen/temp/temperature"
+    unit_of_measurement: '°C'
+    # value_template: "{{ value_json.temperature }}"
+  - platform: mqtt
+    name: "Kitchen Humidity"
+    state_topic: "/kitchen/temp/humidity"
     unit_of_measurement: '%'
   - platform: template
     sensors:
-      setpoint_status:
-        friendly_name: "Setpoint Reached"
+      - living_temperature_setpoint:
+        friendly_name: "Living Room Setpoint Reached"
         value_template: >-
-          {% if states('sensor.temperature')|float > states('input_number.living_temperature')|float %}
+          {% if states('sensor.living_temperature')|float > states('input_number.living_temperature')|float %}
             yes
           {% else %}
             no
           {% endif %}
-    # value_template: "{{ value_json.humidity }}"
-  # - name: espurna-test temperature
-  #   platform: mqtt
-  #   state_topic: espurna-test/temperature
-  #   unit_of_measurement: °C
-  # - name: espurna-test humidity
-  #   platform: mqtt
-  #   state_topic: espurna-test/humidity
-  #   unit_of_measurement: "%"
-
+      - office_temperature_setpoint:
+        friendly_name: "Office Setpoint Reached"
+        value_template: >-
+          {% if states('sensor.office_temperature')|float > states('input_number.office_temperature')|float %}
+            yes
+          {% else %}
+            no
+          {% endif %}
+      - kitchen_temperature_setpoint:
+        friendly_name: "Kitchen Setpoint Reached"
+        value_template: >-
+          {% if states('sensor.kitchen_temperature')|float > states('input_number.kitchen_temperature')|float %}
+            yes
+          {% else %}
+            no
+          {% endif %}
 
 # Text to speech
-# tts:
-#  - platform: google
+tts:
+ - platform: google
 
 # Cloud
 cloud:
@@ -154,17 +178,44 @@ light:
 
 switch:
   - platform: mqtt
-    name: "Dummy switch for scripts"
-    command_topic: "home/dummy/switch1/set" # Tricky, this will EXPOSE the status
-    state_topic: "home/dummy/switch1/state" # This will SET the status
+    name: "living_heater"
+    command_topic: "living/temperature/switch1/set" # Tricky, this will EXPOSE the status
+    state_topic: "living/temperature/switch1/state" # This will SET the status
     optimistic: true
-
+  - platform: mqtt
+    name: "office_heater"
+    command_topic: "office/temperature/switch2/set" # Tricky, this will EXPOSE the status
+    state_topic: "office/temperature/switch2/state" # This will SET the status
+    optimistic: true
+  - platform: mqtt
+    name: "kitchen_heater"
+    command_topic: "kitchen/temperature/switch2/set" # Tricky, this will EXPOSE the status
+    state_topic: "kitchen/temperature/switch2/state" # This will SET the status
+    optimistic: true
 
 climate:
   - platform: generic_thermostat # See https://www.home-assistant.io/components/climate.generic_thermostat/
     name: Living
-    heater: switch.dummy_switch_for_scripts
-    target_sensor: sensor.temperature
+    heater: switch.living_heater
+    target_sensor: sensor.living_temperature
+    target_temp: 16
+    keep_alive:
+      minutes: 2
+    min_cycle_duration:
+      seconds: 30
+  - platform: generic_thermostat # See https://www.home-assistant.io/components/climate.generic_thermostat/
+    name: Office
+    heater: switch.office_heater
+    target_sensor: sensor.office_temperature
+    target_temp: 16
+    keep_alive:
+      minutes: 2
+    min_cycle_duration:
+      seconds: 30
+  - platform: generic_thermostat # See https://www.home-assistant.io/components/climate.generic_thermostat/
+    name: Kitchen
+    heater: switch.kitchen_heater
+    target_sensor: sensor.kitchen_temperature
     target_temp: 16
     keep_alive:
       minutes: 2
@@ -172,8 +223,20 @@ climate:
       seconds: 30
 
 input_number:
-  living_temperature:
+  - living_temperature:
     name: Living °C
+    initial: 16
+    min: 12
+    max: 33
+    step: .5
+  - kitchen_temperature:
+    name: Kitchen °C
+    initial: 16
+    min: 12
+    max: 33
+    step: .5
+  - office_temperature:
+    name: Office °C
     initial: 16
     min: 12
     max: 33

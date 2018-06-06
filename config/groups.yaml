@@ -39,3 +39,10 @@ office:
   entities:
     - light.office
     - light.office_yee
+debug:
+  name: Debug
+  view: yes
+  entities:
+    - sensor.living_temperature_setpoint
+    - sensor.office_temperature_setpoint
+    - sensor.kitchen_temperature_setpoint
