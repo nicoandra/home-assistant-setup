@@ -95,23 +95,31 @@ sensor:
   - platform: template
     sensors:
       living_temperature_setpoint:
-        friendly_name: "Living Room Setpoint Reached"
+        friendly_name: "Living Setpoint Reached"
         value_template: >-
-          {% if states('sensor.living_temperature')|float > states('input_number.living_temperature')|float %}
-            yes
-          {% else %}
+          {% if states('sensor.living_temperature')|float < states('input_number.living_temperature')|float %}
             no
+          {% else %}
+            yes
           {% endif %}
 
       office_temperature_setpoint:
-        friendly_name: "Office Room Setpoint Reached"
+        friendly_name: "Office Setpoint Reached"
         value_template: >-
-          {% if states('sensor.office_temperature')|float > states('input_number.office_temperature')|float %}
-            yes
-          {% else %}
+          {% if states('sensor.office_temperature')|float < states('input_number.office_temperature')|float %}
             no
+          {% else %}
+            yes
           {% endif %}
 
+      kitchen_temperature_setpoint:
+        friendly_name: "Kitchen Setpoint Reached"
+        value_template: >-
+          {% if states('sensor.kitchen_temperature')|float < states('input_number.kitchen_temperature')|float %}
+            no
+          {% else %}
+            yes
+          {% endif %}
 
 # Text to speech
 tts:

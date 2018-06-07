@@ -13,22 +13,23 @@ kitchen:
   view: no
   entities:
     - light.kitchen
+    - group.kitchen_climate
 living:
   name: Living
   view: no
   entities:
     - light.living_moon
     - light.couch
-    - climate.living
-    - switch.living_heater
-    - input_number.living_temperature
-    - sensor.setpoint_status
+    - group.living_climate
 climate:
   name: Climate
   view: no
   entities:
     - sun.sun
     - group.living_climate
+    - group.office_climate
+    - group.kitchen_climate
+
 living_climate:
   view: no
   entities:
@@ -43,6 +44,13 @@ office_climate:
     - input_number.office_temperature
     - switch.office_heater
     - sensor.office_temperature_setpoint
+kitchen_climate:
+  view: no
+  entities:
+    - climate.kitchen
+    - input_number.kitchen_temperature
+    - switch.kitchen_heater
+    - sensor.kitchen_temperature_setpoint
 
 office:
   name: Office
