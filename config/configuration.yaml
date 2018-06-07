@@ -94,7 +94,7 @@ sensor:
     unit_of_measurement: '%'
   - platform: template
     sensors:
-      - living_temperature_setpoint:
+      living_temperature_setpoint:
         friendly_name: "Living Room Setpoint Reached"
         value_template: >-
           {% if states('sensor.living_temperature')|float > states('input_number.living_temperature')|float %}
@@ -102,22 +102,16 @@ sensor:
           {% else %}
             no
           {% endif %}
-      - office_temperature_setpoint:
-        friendly_name: "Office Setpoint Reached"
+
+      office_temperature_setpoint:
+        friendly_name: "Office Room Setpoint Reached"
         value_template: >-
           {% if states('sensor.office_temperature')|float > states('input_number.office_temperature')|float %}
             yes
           {% else %}
             no
           {% endif %}
-      - kitchen_temperature_setpoint:
-        friendly_name: "Kitchen Setpoint Reached"
-        value_template: >-
-          {% if states('sensor.kitchen_temperature')|float > states('input_number.kitchen_temperature')|float %}
-            yes
-          {% else %}
-            no
-          {% endif %}
+
 
 # Text to speech
 tts:
@@ -223,19 +217,19 @@ climate:
       seconds: 30
 
 input_number:
-  - living_temperature:
+  living_temperature:
     name: Living °C
     initial: 16
     min: 12
     max: 33
     step: .5
-  - kitchen_temperature:
+  kitchen_temperature:
     name: Kitchen °C
     initial: 16
     min: 12
     max: 33
     step: .5
-  - office_temperature:
+  office_temperature:
     name: Office °C
     initial: 16
     min: 12

@@ -6,6 +6,8 @@ default_view:
     - group.living
     - group.climate
     - group.office
+    - group.debugpanel
+    - group.debug
 kitchen:
   name: Kitchen
   view: no
@@ -17,10 +19,8 @@ living:
   entities:
     - light.living_moon
     - light.couch
-    - sensor.humidity
-    - sensor.temperature
     - climate.living
-    - switch.dummy_switch_for_scripts
+    - switch.living_heater
     - input_number.living_temperature
     - sensor.setpoint_status
 climate:
@@ -28,20 +28,32 @@ climate:
   view: no
   entities:
     - sun.sun
-    - sensor.humidity
-    - sensor.temperature
+    - group.living_climate
+living_climate:
+  view: no
+  entities:
     - climate.living
-    - switch.dummy_switch_for_scripts
     - input_number.living_temperature
+    - switch.living_heater
+    - sensor.living_temperature_setpoint
+office_climate:
+  view: no
+  entities:
+    - climate.office
+    - input_number.office_temperature
+    - switch.office_heater
+    - sensor.office_temperature_setpoint
+
 office:
   name: Office
   view: no
   entities:
     - light.office
     - light.office_yee
-debug:
+    - group.office_climate
+debugpanel:
   name: Debug
-  view: yes
+  view: no
   entities:
     - sensor.living_temperature_setpoint
     - sensor.office_temperature_setpoint
