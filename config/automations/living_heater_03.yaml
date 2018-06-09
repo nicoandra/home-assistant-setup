@@ -1,0 +1,11 @@
+alias: Living Heater On
+trigger:
+  platform: state
+  entity_id: climate.living_climate
+condition:
+  - condition: state
+    entity_id: sensor.living_temperature_setpoint
+    state: 'yes'
+action:
+  service: switch.turn_off
+  entity_id: switch.living_heater

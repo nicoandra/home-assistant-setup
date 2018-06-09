@@ -129,8 +129,7 @@ tts:
 cloud:
 
 group: !include groups.yaml
-automation: !include automations.yaml
-script: !include scripts.yaml
+automation: !include_dir_list automations
 
 # mqtt_statestream:
 #   base_topic: homeassistant
