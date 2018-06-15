@@ -125,6 +125,8 @@ sensor:
 tts:
  - platform: google
 
+scene: !include scenes.yaml
+
 # Cloud
 cloud:
 

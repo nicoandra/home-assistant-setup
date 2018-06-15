@@ -66,3 +66,9 @@ debugpanel:
     - sensor.living_temperature_setpoint
     - sensor.office_temperature_setpoint
     - sensor.kitchen_temperature_setpoint
+scenes:
+  name: Scenes
+  view: yes
+  entities:
+    - scene.movies
+    - scene.romantic
