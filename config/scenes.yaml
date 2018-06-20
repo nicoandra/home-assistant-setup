@@ -1,0 +1,58 @@
+- name: Home alone - evening
+  entities:
+    light.bedroom: off
+    light.living_moon: off
+    light.kitchen:
+      state: off
+    light.office_yee:
+      state: on
+      brightness: 30
+      effect: white
+    light.office:
+      state: on
+      effect: white
+      brightness: 30
+    light.couch:
+      state: on
+      brightness: 30
+      effect: white
+- name: Romantic
+  entities:
+    group.all_lights:
+      state: off
+    light.office_yee:
+      state: on
+      brightness: 100
+    light.office:
+      state: on
+      effect: white
+      brightness: 100
+- name: Movies
+  entities:
+    group.all_lights:
+      state: off
+    light.office_yee:
+      state: on
+      brightness: 50
+    light.office:
+      state: off
+      color: white
+    light.couch:
+      state: on
+      brightness: 255
+- name: Home Alone at evening
+  entities:
+    group.all_lights:
+      state: off
+    light.office_yee:
+      state: on
+      brightness: 50
+      effect: white
+    light.office:
+      state: off
+    light.couch:
+      state: on
+      brightness: 255
+    light.kitchen:
+      state: on
+      brightness: 120
