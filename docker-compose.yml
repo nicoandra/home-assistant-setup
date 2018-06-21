@@ -19,8 +19,8 @@ services:
     image: ansi/mosquitto
     network_mode: host
     container_name: homeassistant-mosquitto
-    # ports:
-    #   - 1883:1883
+    ports:
+     - 1883:1883
     entrypoint: /usr/local/sbin/mosquitto -c /etc/mosquitto/mosquitto.conf
     volumes:
       - ./etc/mosquitto:/etc/mosquitto:ro
@@ -28,3 +28,15 @@ services:
       - ./var/lib/mosquitto/mosquitto.db:/var/lib/mosquitto/mosquitto.db
     environment:
       - TZ=America/Montreal
+
+
+  # locative-endpoint:
+  #   build: ../locative-endpoint
+  #   image: node:9.11.2-jessie
+  #   network_mode: host
+  #   container_name: locative-endpoint
+  #   ports:
+  #     - 3999:3999
+  #   volumes:
+  #     - ../locative-endpoint:/app
+  #   command: /app/node_modules/nodemon/bin/nodemon.js /app/index.js

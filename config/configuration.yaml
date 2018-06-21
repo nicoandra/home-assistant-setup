@@ -2,8 +2,8 @@ homeassistant:
   # Name of the location where Home Assistant is running
   name: Home
   # Location required to calculate the time the sun rises and sets
-  latitude: 45.5049
-  longitude: -73.7142
+  latitude: 45.5303786
+  longitude: -73.5545572
   # Impacts weather/sunrise data (altitude above sea level in meters)
   elevation: 0
   # metric for Metric, imperial for Imperial
@@ -24,9 +24,9 @@ config:
 
 http:
   # Secrets are defined in the file secrets.yaml
-  # api_password: !secret http_password
+  api_password: !secret http_password
   # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
-  # base_url: example.duckdns.org:8123
+  base_url: example.duckdns.org:8123
 
 # Checks for available updates
 # Note: This component will send some information about your system to
@@ -56,7 +56,7 @@ map:
 sun:
 
 mqtt:
-  broker: 192.168.1.250
+  broker: mqtt
 
 # Weather prediction
 sensor:
@@ -120,6 +120,11 @@ sensor:
           {% else %}
             yes
           {% endif %}
+      nico_moto5_battery:
+        friendly_name: Cell Nico
+        unit_of_measurement: "%"
+        value_template: '{{ states.device_tracker.nico_moto5.attributes.battery|int }}'
+        device_class: battery
 
 # Text to speech
 tts:
@@ -138,6 +143,8 @@ automation: !include_dir_list automations
 #   publish_attributes: false
 #   publish_timestamps: false
 
+device_tracker:
+  - platform: owntracks_http
 
 # Example configuration.yaml entry
 
@@ -244,3 +251,10 @@ input_number:
     min: 12
     max: 33
     step: .5
+
+zone:
+  - name: Work
+    latitude: 45.539926
+    longitude: -73.655023
+    radius: 250
+    icon: mdi:school
