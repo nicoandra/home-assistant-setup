@@ -8,6 +8,7 @@ default_view:
     - group.office
     - group.debugpanel
     - group.debug
+    - group.presence
 kitchen:
   name: Kitchen
   view: no
@@ -72,3 +73,9 @@ scenes:
   entities:
     - scene.movies
     - scene.romantic
+presence:
+  name: Presence
+  view: yes
+  entities:
+    - device_tracker.nico_moto5
+    - group.all_devices
