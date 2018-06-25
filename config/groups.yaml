@@ -78,6 +78,7 @@ presence:
   entities:
     - sensor.nico_moto5_battery
     - device_tracker.nico_moto5
+    - group.all_devices
 lights_interior:
   name: Interior lights
   entities:
