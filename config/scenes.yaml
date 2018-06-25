@@ -3,19 +3,44 @@
     light.bedroom: off
     light.living_moon: off
     light.kitchen:
-      state: off
+      state: on
+      white_value: 255
     light.office_yee:
       state: on
-      brightness: 30
+      brightness: 255
       effect: white
     light.office:
       state: on
       effect: white
-      brightness: 30
+      brightness: 255
     light.couch:
       state: on
-      brightness: 30
-      effect: white
+      white_value: 255
+- name: At Home
+  entities:
+    light.living_moon:
+      state: on
+      brightness: 255
+      color_temp: 338
+      hs_color: 27.896,58.048
+    light.bedroom:
+      state: on
+      brightness: 255
+      color_temp: 338
+      hs_color: 27.896,58.048
+    light.office_yee:
+      state: on
+      brightness: 255
+      color_temp: 338
+      hs_color: 27.896,58.048
+    light.office:
+      state: on
+      brightness: 255
+      rgb_color: 255,255,255
+    light.couch:
+      state: on
+      brightness: 255
+      rgb_color: 255,255,255
 - name: Romantic
   entities:
     group.all_lights:
@@ -40,19 +65,3 @@
     light.couch:
       state: on
       brightness: 255
-- name: Home Alone at evening
-  entities:
-    group.all_lights:
-      state: off
-    light.office_yee:
-      state: on
-      brightness: 50
-      effect: white
-    light.office:
-      state: off
-    light.couch:
-      state: on
-      brightness: 255
-    light.kitchen:
-      state: on
-      brightness: 120
