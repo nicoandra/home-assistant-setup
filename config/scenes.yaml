@@ -4,43 +4,82 @@
     light.living_moon: off
     light.kitchen:
       state: on
-      white_value: 255
+      brightness: 255
+      color_temp: 324
     light.office_yee:
       state: on
       brightness: 255
-      effect: white
+      color_temp: 324
     light.office:
       state: on
-      effect: white
       brightness: 255
+      color_temp: 324
     light.couch:
       state: on
-      white_value: 255
+      brightness: 255
+      color_temp: 324
+- name: Arrived at home - late
+  entities:
+    light.bedroom:
+      state: on
+      brightness: 255
+      hs_color: 0,0
+    light.living_moon: off
+    light.kitchen:
+      state: on
+      brightness: 255
+      hs_color: 0,0
+    light.office_yee:
+      state: on
+      brightness: 255
+      color_temp: 324
+      hs_color: 27.689,54.608
+    light.office:
+      state: on
+      brightness: 255
+      hs_color: 0,0
+    light.couch:
+      state: on
+      brightness: 255
+      hs_color: 0,0
+- name: Home alone - waiting for Nico
+  entities:
+    light.kitchen: off
+    light.office: off
+    light.bedroom:
+      state: on
+      brightness: 70
+    light.living_moon:
+      state: on
+      brightness: 70
+      color_temp: 324
+    light.office_yee:
+      state: on
+      brightness: 70
+      color_temp: 324
+    light.couch:
+      state: on
+      brightness: 60
 - name: At Home
   entities:
     light.living_moon:
       state: on
       brightness: 255
       color_temp: 338
-      hs_color: 27.896,58.048
     light.bedroom:
       state: on
       brightness: 255
       color_temp: 338
-      hs_color: 27.896,58.048
     light.office_yee:
       state: on
       brightness: 255
       color_temp: 338
-      hs_color: 27.896,58.048
     light.office:
       state: on
       brightness: 255
-      rgb_color: 255,255,255
     light.couch:
       state: on
       brightness: 255
-      rgb_color: 255,255,255
 - name: Romantic
   entities:
     group.all_lights:
