@@ -1,106 +1,42 @@
-- name: Home alone - evening
+- name: Alone - late
   entities:
-    light.bedroom: off
-    light.living_moon: off
-    light.kitchen:
-      state: on
-      brightness: 255
-      color_temp: 324
-    light.office_yee:
-      state: on
-      brightness: 255
-      color_temp: 324
-    light.office:
-      state: on
-      brightness: 255
-      color_temp: 324
-    light.couch:
-      state: on
-      brightness: 255
-      color_temp: 324
-- name: Arrived at home - late
-  entities:
-    light.bedroom:
-      state: on
-      brightness: 255
-      hs_color: 0,0
-    light.living_moon: off
-    light.kitchen:
-      state: on
-      brightness: 255
-      hs_color: 0,0
-    light.office_yee:
-      state: on
-      brightness: 255
-      color_temp: 324
-      hs_color: 27.689,54.608
-    light.office:
-      state: on
-      brightness: 255
-      hs_color: 0,0
-    light.couch:
-      state: on
-      brightness: 255
-      hs_color: 0,0
-- name: Home alone - waiting for Nico
-  entities:
-    light.kitchen: off
-    light.office: off
-    light.bedroom:
-      state: on
-      brightness: 70
     light.living_moon:
-      state: on
-      brightness: 70
-      color_temp: 324
+      state: off
     light.office_yee:
       state: on
-      brightness: 70
+      brightness: 43
       color_temp: 324
+    light.bedroom_lamp:
+      state: on
+      brightness: 84
+      color_temp: 324
+    light.office:
+      state: off
     light.couch:
       state: on
-      brightness: 60
-- name: At Home
+      brightness: 101
+    light.kitchen:
+      state: off
+- name: Alone - evening
   entities:
+    light.kitchen:
+      state: on
+      brightness: 132
+    light.office:
+      state: on
+      brightness: 61
+    light.couch:
+      state: on
+      brightness: 102
+    light.office_yee:
+      state: on
+      brightness: 59
+      color_temp: 358
     light.living_moon:
       state: on
       brightness: 255
-      color_temp: 338
-    light.bedroom:
+      color_temp: 324
+    light.bedroom_lamp:
       state: on
-      brightness: 255
-      color_temp: 338
-    light.office_yee:
-      state: on
-      brightness: 255
-      color_temp: 338
-    light.office:
-      state: on
-      brightness: 255
-    light.couch:
-      state: on
-      brightness: 255
-- name: Romantic
-  entities:
-    group.all_lights:
-      state: off
-    light.office_yee:
-      state: on
-      brightness: 100
-    light.office:
-      state: on
-      effect: white
-      brightness: 100
-- name: Movies
-  entities:
-    group.all_lights:
-      state: off
-    light.office_yee:
-      state: on
-      brightness: 50
-    light.office:
-      state: off
-      color: white
-    light.couch:
-      state: on
-      brightness: 255
+      brightness: 82
+      color_temp: 393
