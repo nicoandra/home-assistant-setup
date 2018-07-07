@@ -71,8 +71,8 @@ scenes:
   name: Scenes
   view: yes
   entities:
-    - scene.movies
-    - scene.romantic
+    - scene.alone__evening
+    - scene.alone__late
 presence:
   name: Presence
   entities:
