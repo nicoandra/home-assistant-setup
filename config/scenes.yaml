@@ -4,17 +4,20 @@
       state: off
     light.office_yee:
       state: on
-      brightness: 43
+      brightness: 20
       color_temp: 324
     light.bedroom_lamp:
       state: on
-      brightness: 84
+      brightness: 20
       color_temp: 324
     light.office:
       state: off
     light.couch:
       state: on
-      brightness: 101
+      brightness: 50
+    light.countertop:
+      state: on
+      brightness: 50
     light.kitchen:
       state: off
 - name: Alone - evening
@@ -28,15 +31,67 @@
     light.couch:
       state: on
       brightness: 102
+    light.countertop:
+      state: on
+      brightness: 102
     light.office_yee:
       state: on
       brightness: 59
       color_temp: 358
     light.living_moon:
-      state: on
+      state: off
       brightness: 100
       color_temp: 324
     light.bedroom_lamp:
       state: on
       brightness: 82
       color_temp: 393
+- name: Sleeping - not alone
+  entities:
+    light.office:
+      state: off
+    light.countertop:
+      state: off
+    light.kitchen:
+      state: off
+    light.couch:
+      state: on
+      brightness: 22
+    light.living_moon:
+      state: off
+    light.bedroom_lamp:
+      state: off
+    light.office_yee:
+      state: off
+- name: Someone got home
+  entities:
+    switch.kitchen_heater:
+      state: off
+    switch.living_heater:
+      state: off
+    switch.office_heater:
+      state: off
+    light.office:
+      state: on
+      brightness: 117
+    light.countertop:
+      state: on
+      brightness: 255
+    light.kitchen:
+      state: on
+      brightness: 255
+    light.couch:
+      state: on
+      brightness: 255
+    light.living_moon:
+      state: on
+      brightness: 130
+      color_temp: 588
+    light.bedroom_lamp:
+      state: on
+      brightness: 41
+      color_temp: 393
+    light.office_yee:
+      state: on
+      brightness: 97
+      color_temp: 358

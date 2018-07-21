@@ -166,6 +166,10 @@ light:
           type: rgbw
           name: Kitchen
           fade: on
+        - number: 3
+          type: rgbw
+          name: Countertop
+          fade: on
         - number: 4
           type: rgbw
           name: Couch

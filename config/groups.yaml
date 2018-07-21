@@ -3,6 +3,7 @@ default_view:
   entities:
     - group.all_lights
     - group.kitchen
+    - group.countertop
     - group.living
     - group.climate
     - group.office
@@ -14,6 +15,7 @@ kitchen:
   view: no
   entities:
     - light.kitchen
+    - light.countertop
     - group.kitchen_climate
 living:
   name: Living
@@ -73,6 +75,8 @@ scenes:
   entities:
     - scene.alone__evening
     - scene.alone__late
+    - scene.sleeping__not_alone
+    - scene.someone_got_home
 presence:
   name: Presence
   entities:
@@ -87,4 +91,5 @@ lights_interior:
     - light.bedroom
     - light.kitchen
     - light.couch
+    - light.countertop
     - light.living_moon
