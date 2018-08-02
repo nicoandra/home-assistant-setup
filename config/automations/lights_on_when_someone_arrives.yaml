@@ -1,15 +1,9 @@
-alias: Lights on when home is alone
+alias: Lights on when someone arrives
 trigger:
-    - platform: sun
-      event: sunset
-      offset: "-00:45:00"
     - platform: state
       entity_id: group.all_devices
-      to: not_home
+      to: home
 condition:
-  - condition: state
-    entity_id: group.all_devices
-    state: not_home
   - condition:
     condition: or  # 'when dark' condition: either after sunset or before sunrise
     conditions:
@@ -19,8 +13,8 @@ condition:
         before: sunrise
 action:
   - service: scene.turn_on
-    entity_id: scene.alone__evening
+    entity_id: scene.someone_got_home
   - service: input_text.set_value
     data:
       entity_id: input_text.current_scene
-      value: "Lights on when home is alone"
+      value: "Lights on when someone arrives"

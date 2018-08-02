@@ -192,6 +192,10 @@ light:
         use_music_mode: False #(defaults to False)
         save_on_change: True #(defaults to True)
 
+input_text:
+  current_scene:
+    name: Current Scene
+    
 
 switch:
   - platform: mqtt

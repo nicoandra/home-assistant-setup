@@ -65,12 +65,6 @@
       state: off
 - name: Someone got home
   entities:
-    switch.kitchen_heater:
-      state: off
-    switch.living_heater:
-      state: off
-    switch.office_heater:
-      state: off
     light.office:
       state: on
       brightness: 117

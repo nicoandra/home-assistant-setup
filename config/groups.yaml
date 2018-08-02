@@ -69,6 +69,7 @@ debugpanel:
     - sensor.living_temperature_setpoint
     - sensor.office_temperature_setpoint
     - sensor.kitchen_temperature_setpoint
+    - input_text.current_scene
 scenes:
   name: Scenes
   view: yes

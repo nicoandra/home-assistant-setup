@@ -1,11 +1,20 @@
 alias: Lights off when it is late
 trigger:
-    platform: time
-    at: "01:00"
+    - platform: time
+      at: "01:00"
+    - platform: state
+      entity_id: group.all_devices
+      to: not_home
 condition:
     - condition: state
       entity_id: group.all_devices
       state: not_home
+    - condition: time
+      after: "01:00"
 action:
-  service: homeassistant.turn_off
-  entity_id: group.lights_interior
+  - service: homeassistant.turn_off
+    entity_id: group.lights_interior
+  - service: input_text.set_value
+    data:
+      entity_id: input_text.current_scene
+      value: "Lights off when it is late"
