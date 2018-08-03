@@ -56,7 +56,7 @@
       state: off
     light.couch:
       state: on
-      brightness: 22
+      brightness: 1
     light.living_moon:
       state: off
     light.bedroom_lamp:
