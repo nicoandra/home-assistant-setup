@@ -9,7 +9,6 @@ condition:
     conditions:
       - condition: sun
         after: sunset
-        offset: "-01:45:00"
       - condition: sun
         before: sunrise
 action:
