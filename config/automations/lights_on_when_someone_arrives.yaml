@@ -4,8 +4,7 @@ trigger:
       entity_id: group.all_devices
       to: home
 condition:
-  - condition:
-    condition: or  # 'when dark' condition: either after sunset or before sunrise
+  - condition: or  # 'when dark' condition: either after sunset or before sunrise
     conditions:
       - condition: sun
         after: sunset
