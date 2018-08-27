@@ -78,6 +78,7 @@ scenes:
     - scene.alone__late
     - scene.sleeping__not_alone
     - scene.someone_got_home
+    - scene.all_full
 presence:
   name: Presence
   entities:
