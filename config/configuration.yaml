@@ -59,7 +59,7 @@ map:
 sun:
 
 mqtt:
-  broker: 192.168.1.106
+  broker: mosquitto
 
 # Weather prediction
 sensor:
@@ -97,32 +97,6 @@ sensor:
     unit_of_measurement: '%'
   - platform: template
     sensors:
-      living_temperature_setpoint:
-        friendly_name: "Living Setpoint Reached"
-        value_template: >-
-          {% if states('sensor.living_temperature')|float < states('input_number.living_temperature')|float %}
-            no
-          {% else %}
-            yes
-          {% endif %}
-
-      office_temperature_setpoint:
-        friendly_name: "Office Setpoint Reached"
-        value_template: >-
-          {% if states('sensor.office_temperature')|float < states('input_number.office_temperature')|float %}
-            no
-          {% else %}
-            yes
-          {% endif %}
-
-      kitchen_temperature_setpoint:
-        friendly_name: "Kitchen Setpoint Reached"
-        value_template: >-
-          {% if states('sensor.kitchen_temperature')|float < states('input_number.kitchen_temperature')|float %}
-            no
-          {% else %}
-            yes
-          {% endif %}
       nico_moto5_battery:
         friendly_name: Cell Nico
         unit_of_measurement: "%"
@@ -195,7 +169,7 @@ light:
 input_text:
   current_scene:
     name: Current Scene
-    
+
 
 switch:
   - platform: mqtt

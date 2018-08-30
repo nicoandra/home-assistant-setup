@@ -1,11 +1,10 @@
-alias: Living Heater On
+alias: Living Heater
 trigger:
   platform: state
-  entity_id: sensor.living_temperature_setpoint
-condition:
-  - condition: state
-    entity_id: sensor.living_temperature_setpoint
-    state: 'no'
+  entity_id: input_number.living_temperature
 action:
-  service: switch.turn_on
-  entity_id: switch.living_heater
+  service: mqtt.publish
+  data_template:
+    topic: '/ThermoDev/Desired01'
+    retain: true
+    payload: "{{ states('input_number.living_temperature') | float }}"
