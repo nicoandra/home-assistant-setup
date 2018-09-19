@@ -9,7 +9,7 @@
     light.bedroom_lamp:
       state: on
       brightness: 20
-      color_temp: 324
+      color_temp: 370
     light.office:
       state: off
     light.couch:
@@ -43,7 +43,7 @@
     light.bedroom_lamp:
       state: on
       brightness: 82
-      color_temp: 393
+      color_temp: 370
 - name: Sleeping - not alone
   entities:
     light.office:
@@ -82,7 +82,7 @@
     light.bedroom_lamp:
       state: on
       brightness: 41
-      color_temp: 393
+      color_temp: 370
     light.office_yee:
       state: on
       brightness: 97
@@ -97,6 +97,7 @@
     light.bedroom_lamp:
       state: on
       brightness: 255
+      color_temp: 370
     light.countertop:
       state: on
       brightness: 255
