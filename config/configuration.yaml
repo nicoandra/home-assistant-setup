@@ -70,21 +70,21 @@ sensor:
       - weather
   - platform: mqtt
     name: "Living Temperature"
-    state_topic: "/living/temp/temperature"
+    state_topic: "/ThermoDev/Sensor01/Temperature"
     unit_of_measurement: '°C'
     # value_template: "{{ value_json.temperature }}"
   - platform: mqtt
     name: "Living Humidity"
-    state_topic: "/living/temp/humidity"
+    state_topic: "/ThermoDev/Sensor01/Humidity"
     unit_of_measurement: '%'
   - platform: mqtt
     name: "Office Temperature"
-    state_topic: "/office/temp/temperature"
+    state_topic: "/ThermoDev/Sensor02/Temperature"
     unit_of_measurement: '°C'
     # value_template: "{{ value_json.temperature }}"
   - platform: mqtt
     name: "Office Humidity"
-    state_topic: "/office/temp/humidity"
+    state_topic: "/ThermoDev/Sensor02/Humidity"
     unit_of_measurement: '%'
   - platform: mqtt
     name: "Kitchen Temperature"
@@ -175,17 +175,23 @@ switch:
   - platform: mqtt
     name: "living_heater"
     command_topic: "living/temperature/switch1/set" # Tricky, this will EXPOSE the status
-    state_topic: "living/temperature/switch1/state" # This will SET the status
+    state_topic: "/ThermoDev/Heaters/PowerHeater01" # This will SET the status
+    state_on: 1111
+    state_off: 1100
     optimistic: true
   - platform: mqtt
     name: "office_heater"
     command_topic: "office/temperature/switch2/set" # Tricky, this will EXPOSE the status
-    state_topic: "office/temperature/switch2/state" # This will SET the status
+    state_topic: "/ThermoDev/Heaters/PowerHeater02" # This will SET the status
+    state_on: 1111
+    state_off: 1100
     optimistic: true
   - platform: mqtt
     name: "kitchen_heater"
     command_topic: "kitchen/temperature/switch2/set" # Tricky, this will EXPOSE the status
-    state_topic: "kitchen/temperature/switch2/state" # This will SET the status
+    state_topic: "/ThermoDev/Heaters/PowerHeater03" # This will SET the status
+    state_on: 1111
+    state_off: 1100
     optimistic: true
 
 climate:
@@ -217,6 +223,14 @@ climate:
     min_cycle_duration:
       seconds: 30
 
+rest_command:
+  zoneminder_stop:
+    url: 'https://192.168.1.106:8180/zm/api/states/change/stop.json'
+    method: POST
+  zoneminder_start:
+    url: 'https://192.168.1.106:8180/zm/api/states/change/start.json'
+    method: POST
+    
 input_number:
   living_temperature:
     name: Living °C

@@ -1,7 +1,7 @@
 version: '3'
 services:
   homeassistant:
-    container_name: home-assistant
+    # container_name: home-assistant
     image: homeassistant/home-assistant
     volumes:
       - ./config:/config
@@ -11,14 +11,14 @@ services:
     ports:
       - 8123:8123
     depends_on:
-      - mqtt
+      - mosquitto
     environment:
       - TZ=America/Montreal
 
-  mqtt:
+  mosquitto:
     image: ansi/mosquitto
-    network_mode: host
-    container_name: homeassistant-mosquitto
+#    network_mode: host
+    # container_name: homeassistant-mosquitto
     ports:
      - 1883:1883
     entrypoint: /usr/local/sbin/mosquitto -c /etc/mosquitto/mosquitto.conf
