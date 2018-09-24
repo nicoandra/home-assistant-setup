@@ -1,0 +1,27 @@
+- platform: generic_thermostat # See https://www.home-assistant.io/components/climate.generic_thermostat/
+  name: Living
+  heater: switch.living_heater
+  target_sensor: sensor.living_temperature
+  target_temp: 16
+  keep_alive:
+    minutes: 2
+  min_cycle_duration:
+    seconds: 30
+- platform: generic_thermostat # See https://www.home-assistant.io/components/climate.generic_thermostat/
+  name: Office
+  heater: switch.office_heater
+  target_sensor: sensor.office_temperature
+  target_temp: 16
+  keep_alive:
+    minutes: 2
+  min_cycle_duration:
+    seconds: 30
+- platform: generic_thermostat # See https://www.home-assistant.io/components/climate.generic_thermostat/
+  name: Kitchen
+  heater: switch.kitchen_heater
+  target_sensor: sensor.kitchen_temperature
+  target_temp: 16
+  keep_alive:
+    minutes: 2
+  min_cycle_duration:
+    seconds: 30

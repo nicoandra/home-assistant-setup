@@ -1,0 +1,39 @@
+- platform: yr
+- platform: openweathermap
+  api_key: !secret openweathermap_apikey
+  monitored_conditions:
+    - weather
+- platform: mqtt
+  name: "Living Temperature"
+  state_topic: "/ThermoDev/Sensor01/Temperature"
+  unit_of_measurement: '°C'
+  # value_template: "{{ value_json.temperature }}"
+- platform: mqtt
+  name: "Living Humidity"
+  state_topic: "/ThermoDev/Sensor01/Humidity"
+  unit_of_measurement: '%'
+- platform: mqtt
+  name: "Office Temperature"
+  state_topic: "/ThermoDev/Sensor02/Temperature"
+  unit_of_measurement: '°C'
+  # value_template: "{{ value_json.temperature }}"
+- platform: mqtt
+  name: "Office Humidity"
+  state_topic: "/ThermoDev/Sensor02/Humidity"
+  unit_of_measurement: '%'
+- platform: mqtt
+  name: "Kitchen Temperature"
+  state_topic: "/kitchen/temp/temperature"
+  unit_of_measurement: '°C'
+  # value_template: "{{ value_json.temperature }}"
+- platform: mqtt
+  name: "Kitchen Humidity"
+  state_topic: "/kitchen/temp/humidity"
+  unit_of_measurement: '%'
+- platform: template
+  sensors:
+    nico_moto5_battery:
+      friendly_name: Cell Nico
+      unit_of_measurement: "%"
+      value_template: '{{ states.device_tracker.nico_moto5.attributes.battery|int }}'
+      device_class: battery

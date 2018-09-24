@@ -62,46 +62,7 @@ mqtt:
   broker: mosquitto
 
 # Weather prediction
-sensor:
-  - platform: yr
-  - platform: openweathermap
-    api_key: !secret openweathermap_apikey
-    monitored_conditions:
-      - weather
-  - platform: mqtt
-    name: "Living Temperature"
-    state_topic: "/ThermoDev/Sensor01/Temperature"
-    unit_of_measurement: '°C'
-    # value_template: "{{ value_json.temperature }}"
-  - platform: mqtt
-    name: "Living Humidity"
-    state_topic: "/ThermoDev/Sensor01/Humidity"
-    unit_of_measurement: '%'
-  - platform: mqtt
-    name: "Office Temperature"
-    state_topic: "/ThermoDev/Sensor02/Temperature"
-    unit_of_measurement: '°C'
-    # value_template: "{{ value_json.temperature }}"
-  - platform: mqtt
-    name: "Office Humidity"
-    state_topic: "/ThermoDev/Sensor02/Humidity"
-    unit_of_measurement: '%'
-  - platform: mqtt
-    name: "Kitchen Temperature"
-    state_topic: "/kitchen/temp/temperature"
-    unit_of_measurement: '°C'
-    # value_template: "{{ value_json.temperature }}"
-  - platform: mqtt
-    name: "Kitchen Humidity"
-    state_topic: "/kitchen/temp/humidity"
-    unit_of_measurement: '%'
-  - platform: template
-    sensors:
-      nico_moto5_battery:
-        friendly_name: Cell Nico
-        unit_of_measurement: "%"
-        value_template: '{{ states.device_tracker.nico_moto5.attributes.battery|int }}'
-        device_class: battery
+sensor: !include sensors.yaml
 
 # Text to speech
 tts:
@@ -125,46 +86,7 @@ device_tracker:
 
 # Example configuration.yaml entry
 
-light:
-  - platform: limitlessled
-    bridges:
-     - host: 192.168.1.148
-       version: 4
-       port: 8899
-       groups:
-        - number: 1
-          type: rgbw
-          name: Office
-          fade: on
-        - number: 2
-          type: rgbw
-          name: Kitchen
-          fade: on
-        - number: 3
-          type: rgbw
-          name: Countertop
-          fade: on
-        - number: 4
-          type: rgbw
-          name: Couch
-          fade: on
-  - platform: yeelight
-    devices:
-      192.168.1.232:
-        name: Office Yee
-        transition: 1000
-        use_music_mode: False #(defaults to False)
-        save_on_change: True #(defaults to True)
-      192.168.1.147:
-        name: Living Moon
-        transition: 1000
-        use_music_mode: False #(defaults to False)
-        save_on_change: True #(defaults to True)
-      192.168.1.234:
-        name: Bedroom lamp
-        transition: 1000
-        use_music_mode: False #(defaults to False)
-        save_on_change: True #(defaults to True)
+light: !include lights.yaml
 
 input_text:
   current_scene:
@@ -194,34 +116,7 @@ switch:
     state_off: 1100
     optimistic: true
 
-climate:
-  - platform: generic_thermostat # See https://www.home-assistant.io/components/climate.generic_thermostat/
-    name: Living
-    heater: switch.living_heater
-    target_sensor: sensor.living_temperature
-    target_temp: 16
-    keep_alive:
-      minutes: 2
-    min_cycle_duration:
-      seconds: 30
-  - platform: generic_thermostat # See https://www.home-assistant.io/components/climate.generic_thermostat/
-    name: Office
-    heater: switch.office_heater
-    target_sensor: sensor.office_temperature
-    target_temp: 16
-    keep_alive:
-      minutes: 2
-    min_cycle_duration:
-      seconds: 30
-  - platform: generic_thermostat # See https://www.home-assistant.io/components/climate.generic_thermostat/
-    name: Kitchen
-    heater: switch.kitchen_heater
-    target_sensor: sensor.kitchen_temperature
-    target_temp: 16
-    keep_alive:
-      minutes: 2
-    min_cycle_duration:
-      seconds: 30
+climate: !include climate.yaml
 
 rest_command:
   zoneminder_stop:
@@ -230,7 +125,7 @@ rest_command:
   zoneminder_start:
     url: 'https://192.168.1.106:8180/zm/api/states/change/start.json'
     method: POST
-    
+
 input_number:
   living_temperature:
     name: Living °C
@@ -251,14 +146,4 @@ input_number:
     max: 33
     step: .5
 
-zone:
-  - name: Work
-    latitude: 45.539926
-    longitude: -73.655023
-    radius: 250
-    icon: mdi:school
-  - name: Home
-    latitude: 45.5303786
-    longitude: -73.5545572
-    radius: 25
-    icon: mdi:home
+zone: !include zones.yaml
