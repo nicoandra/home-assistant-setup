@@ -29,6 +29,8 @@ climate:
   view: no
   entities:
     - sun.sun
+    - sensor.owm_condition
+    - sensor.yr_symbol
     - group.living_climate
     - group.office_climate
     - group.kitchen_climate
