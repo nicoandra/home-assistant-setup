@@ -81,17 +81,12 @@ automation: !include_dir_list automations
 #   publish_attributes: false
 #   publish_timestamps: false
 
-device_tracker:
-  - platform: owntracks_http
-
-# Example configuration.yaml entry
-
+device_tracker: !include device_trackers.yaml
 light: !include lights.yaml
 
 input_text:
   current_scene:
     name: Current Scene
-
 
 switch:
   - platform: mqtt
