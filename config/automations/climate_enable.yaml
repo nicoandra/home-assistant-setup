@@ -1,0 +1,19 @@
+alias: heaters enable
+trigger:
+  platform: state
+  entity_id:  group.all_devices
+  to: 'home'
+condition:
+  - condition: state
+    entity_id: group.all_devices
+    state: home
+action:
+  - service: mqtt.publish
+    data_template:
+      topic: '/HAYALGUIENONO'
+      retain: true
+      payload: "LLEGO LA YEGUA"
+  - service: input_number.set_value
+    data_template:
+      entity_id: input_number.living_temperature_slider
+      value: 20.5

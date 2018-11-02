@@ -1,0 +1,27 @@
+alias: heaters disable
+trigger:
+  - platform: state
+    entity_id: device_tracker.nico_moto5
+    from : 'home'
+    to: 'Around home'
+  - platform: state
+    entity_id: device_tracker.nico_moto5_ping
+    from : 'home'
+    to: 'not_home'
+  - platform: state
+    entity_id: device_tracker.vsmbr
+    to: 'not_home'
+condition:
+  - condition: state
+    entity_id: group.all_devices
+    state: not_home
+action:
+  - service: mqtt.publish
+    data_template:
+      topic: '/HAYALGUIENONO'
+      retain: true
+      payload: "A LA MIERDA"
+  - service: input_number.set_value
+    data_template:
+      entity_id: input_number.living_temperature_slider
+      value: 17

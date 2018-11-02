@@ -1,10 +1,19 @@
 - name: Work
   latitude: 45.539926
   longitude: -73.655023
-  radius: 250
+  radius: 200
   icon: mdi:school
 - name: Home
   latitude: 45.5303786
   longitude: -73.5545572
-  radius: 25
+  radius: 100
+  icon: mdi:home
+- name: Kiko's
+  latitude: 45.543552
+  longitude: -73.547492
+  radius: 100
+- name: Around home
+  latitude: 45.5303786
+  longitude: -73.5545572
+  radius: 250
   icon: mdi:home

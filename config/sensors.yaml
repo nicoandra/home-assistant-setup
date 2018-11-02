@@ -3,33 +3,38 @@
   api_key: !secret openweathermap_apikey
   monitored_conditions:
     - weather
+
 - platform: mqtt
   name: "Living Temperature"
-  state_topic: "/ThermoDev/Sensor01/Temperature"
+  state_topic: "/ThermoDev/Sensor01/CurrentTemperature"
   unit_of_measurement: '°C'
   # value_template: "{{ value_json.temperature }}"
+
 - platform: mqtt
   name: "Living Humidity"
-  state_topic: "/ThermoDev/Sensor01/Humidity"
+  state_topic: "/ThermoDev/Sensor01/CurrentHumidity"
   unit_of_measurement: '%'
+
+- platform: mqtt
+  name: "Living On/Off"
+  state_topic: "/ThermoDev/Sensor01/CurrentState"
+
+
 - platform: mqtt
   name: "Office Temperature"
-  state_topic: "/ThermoDev/Sensor02/Temperature"
+  state_topic: "/ThermoDev/Sensor02/CurrentTemperature"
   unit_of_measurement: '°C'
   # value_template: "{{ value_json.temperature }}"
+
 - platform: mqtt
   name: "Office Humidity"
-  state_topic: "/ThermoDev/Sensor02/Humidity"
+  state_topic: "/ThermoDev/Sensor02/CurrentHumidity"
   unit_of_measurement: '%'
+
 - platform: mqtt
-  name: "Kitchen Temperature"
-  state_topic: "/kitchen/temp/temperature"
-  unit_of_measurement: '°C'
-  # value_template: "{{ value_json.temperature }}"
-- platform: mqtt
-  name: "Kitchen Humidity"
-  state_topic: "/kitchen/temp/humidity"
-  unit_of_measurement: '%'
+  name: "Office On/Off"
+  state_topic: "/ThermoDev/Sensor02/CurrentState"
+
 - platform: template
   sensors:
     nico_moto5_battery:

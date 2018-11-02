@@ -21,7 +21,6 @@ logger:
 
 # Enables the frontend
 frontend:
-
 # Enables configuration UI
 config:
 
@@ -40,78 +39,54 @@ updater:
   # Optional, allows Home Assistant developers to focus on popular components.
   include_used_components: true
 
-# Discover some devices automatically
-discovery:
+binary_sensor:
+  - platform: mqtt
+    name: Living heater state
+    state_topic: "/ThermoDev/Sensor01/CurrentState"
+    payload_on: "ON"
+    payload_off: "OFF"
+  - platform: mqtt
+    name: Office heater state
+    state_topic: "/ThermoDev/Sensor02/CurrentState"
+    payload_on: "ON"
+    payload_off: "OFF"
 
-# Allows you to issue voice commands from the frontend in enabled browsers
-conversation:
-
-# Enables support for tracking state changes over time
-history:
-
-# View all events in a logbook
-logbook:
-
-# Enables a map showing the location of tracked devices
-map:
-
-# Track the sun
-sun:
+discovery: # Discover some devices automatically
+conversation: # Allows you to issue voice commands from the frontend in enabled browsers
+history: # Enables support for tracking state changes over time
+logbook: # View all events in a logbook
+map: # Enables a map showing the location of tracked devices
+sun: # Track the sun
+cloud:
+tts: # Text to speech
+ - platform: google
 
 mqtt:
   broker: mosquitto
 
-# Weather prediction
-sensor: !include sensors.yaml
-
-# Text to speech
-tts:
- - platform: google
-
 scene: !include scenes.yaml
-
-# Cloud
-cloud:
-
+sensor: !include sensors.yaml
 group: !include groups.yaml
 automation: !include_dir_list automations
-
-# mqtt_statestream:
-#   base_topic: homeassistant
-#   publish_attributes: false
-#   publish_timestamps: false
-
 device_tracker: !include device_trackers.yaml
+climate: !include climate.yaml
+rest_command: !include rest_commands.yaml
 light: !include lights.yaml
+zone: !include zones.yaml
+# Example configuration.yaml entry
 
 input_text:
   current_scene:
     name: Current Scene
 
-switch:
-  - platform: mqtt
-    name: "living_heater"
-    command_topic: "living/temperature/switch1/set" # Tricky, this will EXPOSE the status
-    state_topic: "/ThermoDev/Heaters/PowerHeater01" # This will SET the status
-    state_on: 1111
-    state_off: 1100
-    optimistic: true
-  - platform: mqtt
-    name: "office_heater"
-    command_topic: "office/temperature/switch2/set" # Tricky, this will EXPOSE the status
-    state_topic: "/ThermoDev/Heaters/PowerHeater02" # This will SET the status
-    state_on: 1111
-    state_off: 1100
-    optimistic: true
-  - platform: mqtt
-    name: "kitchen_heater"
-    command_topic: "kitchen/temperature/switch2/set" # Tricky, this will EXPOSE the status
-    state_topic: "/ThermoDev/Heaters/PowerHeater03" # This will SET the status
-    state_on: 1111
-    state_off: 1100
-    optimistic: true
+input_number:
+  living_temperature_slider:
+    name: Living Slider °C
+    initial: 18
+    min: 12
+    max: 33
+    step: .25
 
-climate: !include climate.yaml
 
 rest_command:
   zoneminder_stop:
@@ -119,26 +94,4 @@ rest_command:
     method: POST
   zoneminder_start:
     url: 'https://192.168.1.106:8180/zm/api/states/change/start.json'
-    method: POST
-
-input_number:
-  living_temperature:
-    name: Living °C
-    initial: 16
-    min: 12
-    max: 33
-    step: .5
-  kitchen_temperature:
-    name: Kitchen °C
-    initial: 16
-    min: 12
-    max: 33
-    step: .5
-  office_temperature:
-    name: Office °C
-    initial: 16
-    min: 12
-    max: 33
-    step: .5
-
-zone: !include zones.yaml
+    method: POST    

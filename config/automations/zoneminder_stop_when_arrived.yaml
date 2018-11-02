@@ -1,0 +1,7 @@
+alias: Zoneminder stop when arrived home
+trigger:
+    - platform: state
+      entity_id: group.all_devices
+      to: home
+action:
+  - service: rest_command.zoneminder_stop

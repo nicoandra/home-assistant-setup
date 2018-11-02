@@ -38,24 +38,24 @@ climate:
 living_climate:
   view: no
   entities:
-    - climate.living
-    - input_number.living_temperature
-    - switch.living_heater
-    - sensor.living_temperature_setpoint
+    - sensor.living_temperature
+    - binary_sensor.living_heater_state
+    - input_number.living_temperature_slider
+    - sensor.living_humidity
+
 office_climate:
   view: no
   entities:
     - climate.office
     - input_number.office_temperature
     - switch.office_heater
-    - sensor.office_temperature_setpoint
+
 kitchen_climate:
   view: no
   entities:
     - climate.kitchen
     - input_number.kitchen_temperature
     - switch.kitchen_heater
-    - sensor.kitchen_temperature_setpoint
 
 office:
   name: Office
@@ -68,10 +68,9 @@ debugpanel:
   name: Debug
   view: no
   entities:
-    - sensor.living_temperature_setpoint
-    - sensor.office_temperature_setpoint
-    - sensor.kitchen_temperature_setpoint
+    - sensor.living_temperature
     - input_text.current_scene
+
 scenes:
   name: Scenes
   view: yes
