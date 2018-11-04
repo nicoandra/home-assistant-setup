@@ -1,0 +1,29 @@
+On TemperatureReceiver#Desired02 do
+    TaskValueSet 5,4,[TemperatureReceiver#Desired02]
+
+    if [TemperatureReceiver#Desired02]>30
+        TaskValueSet 5,4,30
+    endif
+
+    if [TemperatureReceiver#Desired02]<5
+        TaskValueSet 5,4,15
+    endif
+endon
+
+On Sensor02#Humidity do
+    Publish /%sysname%/Sensor02/CurrentHumidity,[Sensor02#Humidity]
+endon
+
+On Sensor02#Temperature do
+    Publish /%sysname%/Sensor02/CurrentTemperature,[Sensor02#Temperature]
+
+    if [Sensor02#Temperature]<[Heaters#DesiredHeater02]
+        Publish /%sysname%/Sensor02/CurrentState,ON
+        TaskValueSet 5,2,1111
+        GPIO 4,0
+    else
+        Publish /%sysname%/Sensor02/CurrentState,OFF
+        TaskValueSet 5,2,1100
+        GPIO 4,1
+    endif
+endon

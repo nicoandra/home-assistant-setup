@@ -1,0 +1,36 @@
+On System#Boot do    //When the ESP boots, do
+    TaskValueSet 5,1,1100 // Set default desired temperature at boot
+    TaskValueSet 5,2,1100
+    TaskValueSet 5,3,18
+    TaskValueSet 5,4,18
+endon
+
+On TemperatureReceiver#Desired01 do
+    TaskValueSet 5,3,[TemperatureReceiver#Desired01]
+
+    if [TemperatureReceiver#Desired01]>30
+        TaskValueSet 5,3,30
+    endif
+
+    if [TemperatureReceiver#Desired01]<5
+        TaskValueSet 5,3,15
+    endif
+endon
+
+On Sensor01#Humidity do
+    Publish /%sysname%/Sensor01/CurrentHumidity,[Sensor01#Humidity]
+endon
+
+On Sensor01#Temperature do
+    Publish /%sysname%/Sensor01/CurrentTemperature,[Sensor01#Temperature]
+    Publish /%sysname%/availability,online
+    if [Sensor01#Temperature]<[Heaters#DesiredHeater01]
+        Publish /%sysname%/Sensor01/CurrentState,ON
+        TaskValueSet 5,1,1111
+        GPIO 5,0
+    else
+        Publish /%sysname%/Sensor01/CurrentState,OFF
+        TaskValueSet 5,1,1100
+        GPIO 5,1
+    endif
+endon

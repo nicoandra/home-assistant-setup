@@ -39,23 +39,19 @@ living_climate:
   view: no
   entities:
     - sensor.living_temperature
+    - sensor.living_humidity
     - binary_sensor.living_heater_state
     - input_number.living_temperature_slider
-    - sensor.living_humidity
+    - group.presence
 
 office_climate:
   view: no
   entities:
-    - climate.office
-    - input_number.office_temperature
-    - switch.office_heater
-
-kitchen_climate:
-  view: no
-  entities:
-    - climate.kitchen
-    - input_number.kitchen_temperature
-    - switch.kitchen_heater
+    - sensor.office_temperature
+    - sensor.office_humidity
+    - binary_sensor.office_heater_state
+    - input_number.office_temperature_slider
+    - group.presence
 
 office:
   name: Office
@@ -64,6 +60,14 @@ office:
     - light.office
     - light.office_yee
     - group.office_climate
+
+tab_climate:
+  name: Climate
+  view: yes
+  entities:
+    - group.office_climate
+    - group.living_climate
+
 debugpanel:
   name: Debug
   view: no

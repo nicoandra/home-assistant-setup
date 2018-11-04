@@ -83,15 +83,24 @@ input_number:
   living_temperature_slider:
     name: Living Slider °C
     initial: 18
-    min: 12
-    max: 33
-    step: .25
-
-
-rest_command:
-  zoneminder_stop:
-    url: 'https://192.168.1.106:8180/zm/api/states/change/stop.json'
-    method: POST
-  zoneminder_start:
-    url: 'https://192.168.1.106:8180/zm/api/states/change/start.json'
-    method: POST    
+    min: 15
+    max: 28
+    step: .5
+  office_temperature_slider:
+    name: Office Slider °C
+    initial: 18
+    min: 15
+    max: 28
+    step: .5
+  home_alone_temperature_slider:
+    name: Desired Home Alone Temp
+    initial: 18
+    min: 15
+    max: 28
+    step: .5
+  at_home_temperature_slider:
+    name: Desired temperature when coming back home
+    initial: 18
+    min: 15
+    max: 28
+    step: .5
