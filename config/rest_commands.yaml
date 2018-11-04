@@ -1,6 +1,6 @@
-zoneminder_stop:
-  url: 'https://192.168.1.106:8180/zm/api/states/change/stop.json'
-  method: POST
-zoneminder_start:
-  url: 'https://192.168.1.106:8180/zm/api/states/change/start.json'
-  method: POST
+# zoneminder_stop:
+#   url: 'https://192.168.1.106:8180/zm/api/states/change/stop.json'
+#   method: POST
+# zoneminder_start:
+#   url: 'https://192.168.1.106:8180/zm/api/states/change/start.json'
+#   method: POST
