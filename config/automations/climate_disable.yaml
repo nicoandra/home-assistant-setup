@@ -1,6 +1,8 @@
 alias: heaters disable
 trigger:
   - platform: state
+    entity_id: input_number.home_alone_temperature_slider
+  - platform: state
     entity_id: device_tracker.nico_moto5
     from : 'home'
     to: 'Around home'
@@ -24,4 +26,8 @@ action:
   - service: input_number.set_value
     data_template:
       entity_id: input_number.living_temperature_slider
-      value: 17
+      value: '{{ states.input_number.home_alone_temperature_slider.state | float }}'
+  - service: input_number.set_value
+    data_template:
+      entity_id: input_number.office_temperature_slider
+      value: '{{ states.input_number.home_alone_temperature_slider.state | float }}'

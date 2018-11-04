@@ -93,13 +93,13 @@ input_number:
     max: 28
     step: .5
   home_alone_temperature_slider:
-    name: Desired Home Alone Temp
+    name: Home Alone Temp
     initial: 18
     min: 15
     max: 28
     step: .5
   at_home_temperature_slider:
-    name: Desired temperature when coming back home
+    name: Welcoming Temp
     initial: 18
     min: 15
     max: 28

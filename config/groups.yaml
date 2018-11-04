@@ -24,19 +24,10 @@ living:
     - light.living_moon
     - light.couch
     - group.living_climate
-climate:
-  name: Climate
-  view: no
-  entities:
-    - sun.sun
-    - sensor.owm_condition
-    - sensor.yr_symbol
-    - group.living_climate
-    - group.office_climate
-    - group.kitchen_climate
 
 living_climate:
   view: no
+  name: Living ºC
   entities:
     - sensor.living_temperature
     - sensor.living_humidity
@@ -45,6 +36,7 @@ living_climate:
     - group.presence
 
 office_climate:
+  name: Office ºC
   view: no
   entities:
     - sensor.office_temperature
@@ -52,6 +44,13 @@ office_climate:
     - binary_sensor.office_heater_state
     - input_number.office_temperature_slider
     - group.presence
+
+home_climate:
+  name: Automation
+  view: no
+  entities:
+    - input_number.at_home_temperature_slider
+    - input_number.home_alone_temperature_slider
 
 office:
   name: Office
@@ -65,8 +64,11 @@ tab_climate:
   name: Climate
   view: yes
   entities:
+    - sun.sun
     - group.office_climate
     - group.living_climate
+    - group.home_climate
+    - group.presence
 
 debugpanel:
   name: Debug
