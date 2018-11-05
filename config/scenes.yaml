@@ -20,6 +20,7 @@
       brightness: 50
     light.kitchen:
       state: off
+
 - name: Alone - evening
   entities:
     light.kitchen:
@@ -44,6 +45,7 @@
       state: on
       brightness: 82
       color_temp: 370
+
 - name: Sleeping - not alone
   entities:
     light.office:
@@ -61,6 +63,7 @@
       state: off
     light.office_yee:
       state: off
+
 - name: Someone got home
   entities:
     light.office:
@@ -114,3 +117,49 @@
       state: on
       brightness: 255
       color_temp: 588
+
+- name: Chillin
+  entities:
+    light.couch:
+      state: on
+      brightness: 124
+    light.countertop:
+      state: on
+      brightness: 255
+    light.kitchen:
+      state: on
+      brightness: 27
+    light.office:
+      state: on
+      brightness: 109
+    light.bedroom_lamp:
+      state: on
+      brightness: 102
+      color_temp: 370
+    light.living_moon:
+      state: on
+      brightness: 161
+      color_temp: 528
+    light.office_yee:
+      state: on
+      brightness: 125
+      color_temp: 370
+
+- name: Morning
+  entities:
+    light.office_yee:
+      state: off
+    light.bedroom_lamp:
+      state: off
+    light.living_moon:
+      state: off
+    light.couch:
+      state: off
+    light.office:
+      state: off
+    light.kitchen:
+      state: on
+      brightness: 155
+    light.countertop:
+      state: on
+      brightness: 255

@@ -77,7 +77,7 @@ debugpanel:
     - sensor.living_temperature
     - input_text.current_scene
 
-scenes:
+tab_scenes:
   name: Scenes
   view: yes
   entities:
@@ -86,6 +86,10 @@ scenes:
     - scene.sleeping__not_alone
     - scene.someone_got_home
     - scene.all_full
+    - scene.chillin
+    - scene.morning
+
+
 presence:
   name: Presence
   entities:
