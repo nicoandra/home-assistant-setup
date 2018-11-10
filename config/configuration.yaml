@@ -41,12 +41,12 @@ updater:
 
 binary_sensor:
   - platform: mqtt
-    name: Living heater state
+    name: Office heater state
     state_topic: "/ThermoDev/Sensor01/CurrentState"
     payload_on: "ON"
     payload_off: "OFF"
   - platform: mqtt
-    name: Office heater state
+    name: Living heater state
     state_topic: "/ThermoDev/Sensor02/CurrentState"
     payload_on: "ON"
     payload_off: "OFF"
