@@ -1,10 +1,10 @@
 alias: ThermoDev 02
 trigger:
   platform: state
-  entity_id: input_number.office_temperature_slider
+  entity_id: input_number.living_temperature_slider
 action:
   service: mqtt.publish
   data_template:
     topic: '/ThermoDev/Desired02'
     retain: true
-    payload: "{{ states('input_number.office_temperature_slider') | float }}"
+    payload: "{{ states('input_number.living_temperature_slider') | float }}"

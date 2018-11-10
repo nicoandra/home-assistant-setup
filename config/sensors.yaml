@@ -6,34 +6,34 @@
 
 - platform: mqtt
   name: "Living Temperature"
-  state_topic: "/ThermoDev/Sensor01/CurrentTemperature"
-  unit_of_measurement: '°C'
-  # value_template: "{{ value_json.temperature }}"
-
-- platform: mqtt
-  name: "Living Humidity"
-  state_topic: "/ThermoDev/Sensor01/CurrentHumidity"
-  unit_of_measurement: '%'
-
-- platform: mqtt
-  name: "Living On/Off"
-  state_topic: "/ThermoDev/Sensor01/CurrentState"
-
-
-- platform: mqtt
-  name: "Office Temperature"
   state_topic: "/ThermoDev/Sensor02/CurrentTemperature"
   unit_of_measurement: '°C'
   # value_template: "{{ value_json.temperature }}"
 
 - platform: mqtt
-  name: "Office Humidity"
+  name: "Living Humidity"
   state_topic: "/ThermoDev/Sensor02/CurrentHumidity"
   unit_of_measurement: '%'
 
 - platform: mqtt
-  name: "Office On/Off"
+  name: "Living On/Off"
   state_topic: "/ThermoDev/Sensor02/CurrentState"
+
+
+- platform: mqtt
+  name: "Office Temperature"
+  state_topic: "/ThermoDev/Sensor01/CurrentTemperature"
+  unit_of_measurement: '°C'
+  # value_template: "{{ value_json.temperature }}"
+
+- platform: mqtt
+  name: "Office Humidity"
+  state_topic: "/ThermoDev/Sensor01/CurrentHumidity"
+  unit_of_measurement: '%'
+
+- platform: mqtt
+  name: "Office On/Off"
+  state_topic: "/ThermoDev/Sensor01/CurrentState"
 
 # - platform: template
 #   sensors:
