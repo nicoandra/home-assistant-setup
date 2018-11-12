@@ -1,7 +1,9 @@
 alias: ThermoDev 01
 trigger:
-  platform: state
-  entity_id: input_number.office_temperature_slider
+  - platform: state
+    entity_id: input_number.office_temperature_slider
+  - platform: time
+    minutes: '/5'
 action:
   service: mqtt.publish
   data_template:

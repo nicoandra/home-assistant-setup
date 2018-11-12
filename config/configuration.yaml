@@ -84,13 +84,13 @@ input_number:
     name: Living Slider °C
     initial: 18
     min: 15
-    max: 28
+    max: 24
     step: .5
   office_temperature_slider:
     name: Office Slider °C
     initial: 18
     min: 15
-    max: 28
+    max: 24
     step: .5
   home_alone_temperature_slider:
     name: Home Alone Temp
