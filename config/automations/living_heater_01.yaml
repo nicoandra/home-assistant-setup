@@ -3,7 +3,7 @@ trigger:
   - platform: state
     entity_id: input_number.office_temperature_slider
   - platform: time
-    minutes: '/5'
+    seconds: '/31'
 action:
   service: mqtt.publish
   data_template:
