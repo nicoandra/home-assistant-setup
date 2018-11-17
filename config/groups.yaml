@@ -69,6 +69,7 @@ tab_climate:
     - group.living_climate
     - group.home_climate
     - group.presence
+    - input_text.device_heartbeat_thermodev
 
 debugpanel:
   name: Debug

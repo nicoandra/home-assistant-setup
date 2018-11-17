@@ -1,0 +1,10 @@
+alias: ThermoDev HeartBeat
+trigger:
+    platform: mqtt
+    topic: /ThermoDev/availability
+action:
+  - service: input_text.set_value
+    data:
+      entity_id: input_text.device_heartbeat_thermodev
+    data_template:
+      value: "{{ now() }}"
