@@ -7,4 +7,4 @@ action:
     data:
       entity_id: input_text.device_heartbeat_thermodev
     data_template:
-      value: "{{ now() }}"
+      value: "{{ trigger.payload }}"
