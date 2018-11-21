@@ -96,13 +96,19 @@ input_number:
     step: .5
   home_alone_temperature_slider:
     name: Home Alone Temp
-    initial: 18
+    initial: 17
     min: 15
-    max: 28
+    max: 24
     step: .5
   at_home_temperature_slider:
     name: Welcoming Temp
+    initial: 19
+    min: 15
+    max: 24
+    step: .5
+  at_home_sleeping:
+    name: During the night
     initial: 18
     min: 15
-    max: 28
+    max: 24
     step: .5

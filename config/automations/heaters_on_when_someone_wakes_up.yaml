@@ -1,0 +1,28 @@
+alias: Enable heaters when I wake up
+trigger:
+  - platform: state
+    entity_id:  group.all_lights
+    to: 'on'
+  - platform: time
+    at: "07:00:00"
+condition:
+  - condition: time
+    after: "00:10:00"
+  - condition: time
+    before: "07:01:00"
+  - condition: state
+    entity_id: group.all_devices
+    state: home
+action:
+  - service: input_number.set_value
+    data_template:
+      entity_id: input_number.living_temperature_slider
+      value: '{{ states.input_number.at_home_temperature_slider.state | float }}'
+  - service: input_number.set_value
+    data_template:
+      entity_id: input_number.living_temperature_slider
+      value: '{{ states.input_number.at_home_temperature_slider.state | float }}'
+  - service: input_number.set_value
+    data_template:
+      entity_id: input_number.office_temperature_slider
+      value: '{{ states.input_number.at_home_temperature_slider.state | float }}'

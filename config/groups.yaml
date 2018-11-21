@@ -51,6 +51,7 @@ home_climate:
   entities:
     - input_number.at_home_temperature_slider
     - input_number.home_alone_temperature_slider
+    - input_number.at_home_sleeping
 
 office:
   name: Office
