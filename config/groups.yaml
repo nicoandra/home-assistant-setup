@@ -53,6 +53,13 @@ home_climate:
     - input_number.home_alone_temperature_slider
     - input_number.at_home_sleeping
 
+home_climate_sensors:
+  name: Sensors
+  view: no
+  entities:
+   - sensor.office_temperature
+   - sensor.living_temperature
+
 office:
   name: Office
   view: no
@@ -71,6 +78,7 @@ tab_climate:
     - group.home_climate
     - group.presence
     - input_text.device_heartbeat_thermodev
+    - group.home_climate_sensors
 
 debugpanel:
   name: Debug
