@@ -11,7 +11,7 @@ condition:
     entity_id: group.all_lights
     state: "off"
   - condition: time
-    after: "00:10:00"
+    after: "22:00:00"
   - condition: time
     before: "07:00:00"
   - condition: state
