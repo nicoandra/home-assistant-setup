@@ -2,7 +2,7 @@
   count: 5
   hosts:
     nico_moto5_ping: 192.168.1.141
-    vsmbr_phone: 192.168.1.199
+    vsmbr_phone: 192.168.1.200
     vsmbr_laptop: 192.168.1.127
 
 - platform: owntracks_http
