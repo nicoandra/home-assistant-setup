@@ -163,3 +163,12 @@
     light.countertop:
       state: on
       brightness: 255
+
+- name: Alarm
+  entities:
+    light.office_yee:
+        state: on
+        effect: Police
+    light.living_moon:
+        state: on
+        effect: Police2

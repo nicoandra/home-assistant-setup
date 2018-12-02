@@ -1,0 +1,8 @@
+alias: Screen01 Listener Single OnOff
+trigger:
+  - platform: mqtt
+    topic: /Screen01/Lights/Single/OnOff
+    payload: 'OnOff'
+action:
+  - service: scene.turn_on
+    entity_id: scene.all_full
