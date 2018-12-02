@@ -3,7 +3,7 @@ trigger:
   - platform: state
     entity_id:  group.all_devices
     to: 'home'
-  - platform: states
+  - platform: state
     entity_id: input_number.at_home_temperature_slider
 condition:
   - condition: state
@@ -15,10 +15,6 @@ action:
       topic: '/HAYALGUIENONO'
       retain: true
       payload: "LLEGO LA YEGUA"
-  - service: input_number.set_value
-    data_template:
-      entity_id: input_number.living_temperature_slider
-      value: 20.5
   - service: input_number.set_value
     data_template:
       entity_id: input_number.living_temperature_slider
