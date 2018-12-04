@@ -3,17 +3,6 @@ trigger:
   - platform: state
     entity_id: input_number.home_alone_temperature_slider
   - platform: state
-    entity_id: device_tracker.nico_moto5
-    from : 'home'
-    to: 'Around home'
-  - platform: state
-    entity_id: device_tracker.nico_moto5_ping
-    from : 'home'
-    to: 'not_home'
-  - platform: state
-    entity_id: device_tracker.vsmbr
-    to: 'not_home'
-  - platform: state
     entity_id: group.all_devices
     to: 'not_home'
 condition:
