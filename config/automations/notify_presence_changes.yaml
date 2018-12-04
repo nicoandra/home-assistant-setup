@@ -1,0 +1,8 @@
+alias: Notify presence changes
+trigger:
+  - platform: state
+    entity_id:  group.all_devices
+action:
+  - service: rest_command.let_nico_know
+    data_template:
+      text: "Presence change. Temperature set to {{ group.all_devices.state }}"
