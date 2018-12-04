@@ -7,9 +7,7 @@
       brightness: 20
       color_temp: 324
     light.bedroom_lamp:
-      state: on
-      brightness: 20
-      color_temp: 370
+      state: off
     light.office:
       state: off
     light.couch:

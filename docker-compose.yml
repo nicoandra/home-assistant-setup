@@ -29,21 +29,6 @@ services:
     environment:
       - TZ=America/Montreal
 
-  externalMosquitto:
-    image: ansi/mosquitto
-#    network_mode: host
-    # container_name: homeassistant-mosquitto
-    ports:
-     - 1883:1884
-    entrypoint: /usr/local/sbin/mosquitto -c /etc/mosquitto/mosquitto.conf
-    volumes:
-      - ./etc/mosquitto:/etc/mosquitto:ro
-      - ./var/log/mosquitto:/var/log/mosquitto:rw
-      - ./var/lib/mosquitto/mosquitto.db:/var/lib/mosquitto/mosquitto.db
-    environment:
-      - TZ=America/Montreal
-
-
   locative-endpoint:
     build: ../locative-endpoint
     container_name: locative-endpoint
