@@ -29,14 +29,38 @@ services:
     environment:
       - TZ=America/Montreal
 
+  externalMosquitto:
+    image: ansi/mosquitto
+#    network_mode: host
+    # container_name: homeassistant-mosquitto
+    ports:
+     - 1883:1884
+    entrypoint: /usr/local/sbin/mosquitto -c /etc/mosquitto/mosquitto.conf
+    volumes:
+      - ./etc/mosquitto:/etc/mosquitto:ro
+      - ./var/log/mosquitto:/var/log/mosquitto:rw
+      - ./var/lib/mosquitto/mosquitto.db:/var/lib/mosquitto/mosquitto.db
+    environment:
+      - TZ=America/Montreal
 
-  # locative-endpoint:
-  #   build: ../locative-endpoint
-  #   image: node:9.11.2-jessie
-  #   network_mode: host
-  #   container_name: locative-endpoint
-  #   ports:
-  #     - 3999:3999
-  #   volumes:
-  #     - ../locative-endpoint:/app
-  #   command: /app/node_modules/nodemon/bin/nodemon.js /app/index.js
+
+  locative-endpoint:
+    build: ../locative-endpoint
+    container_name: locative-endpoint
+    environment:
+      - LOCATIVE_PORT=3998
+    ports:
+      - 3998:3998
+    volumes:
+      - ../locative-endpoint:/app
+    command: /app/node_modules/nodemon/bin/nodemon.js /app/index.js
+
+  ssl-nginx:
+    image: nginx
+    container_name: nginx-proxy
+    ports:
+      - 8443:443  # To serve HomeAssistant, SSL-Terminated
+      - 3999:3999 # To serve locative endpoint
+    volumes:
+    - ./etc/nginx/locative.conf:/etc/nginx/conf.d/locative.conf
+    - ./etc/certificates:/etc/certificates
