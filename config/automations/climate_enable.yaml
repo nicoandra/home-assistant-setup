@@ -1,7 +1,7 @@
 alias: heaters enable
 trigger:
   - platform: state
-    entity_id:  group.all_devices
+    entity_id: group.all_devices
     to: 'home'
   - platform: state
     entity_id: input_number.at_home_temperature_slider

@@ -17,7 +17,7 @@ homeassistant:
 # introduction: false
 
 logger:
-  default: warn
+  default: info
 
 # Enables the frontend
 frontend:
