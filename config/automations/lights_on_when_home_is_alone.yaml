@@ -12,11 +12,15 @@ condition:
     state: not_home
   - condition: or  # 'when dark' condition: either after sunset or before sunrise
     conditions:
+      - condition: and
+        conditions:
+          - condition: sun
+            before: sunrise
+          - condition: time
+            before: "00:00:00"
       - condition: sun
         after: sunset
         after_offset: "-02:00:00"
-      - condition: sun
-        before: sunrise
 action:
   - service: scene.turn_on
     entity_id: scene.alone__evening
