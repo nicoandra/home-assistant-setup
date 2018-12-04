@@ -52,3 +52,4 @@ services:
     - ./etc/certificates:/etc/certificates
     depends_on:
       - locative-endpoint
+      - homeassistant

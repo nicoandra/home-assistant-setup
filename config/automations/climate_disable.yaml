@@ -34,3 +34,6 @@ action:
     data_template:
       entity_id: input_number.office_temperature_slider
       value: '{{ states.input_number.home_alone_temperature_slider.state | float }}'
+  - service: rest_command.let_nico_know
+    data_template:
+      text: "Home is alone. Temperature set to {{ states.input_number.home_alone_temperature_slider.state | float }}"

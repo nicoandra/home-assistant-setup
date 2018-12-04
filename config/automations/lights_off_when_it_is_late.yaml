@@ -20,3 +20,6 @@ action:
     data:
       entity_id: input_text.current_scene
       value: "Lights off when it is late"
+  - service: rest_command.let_nico_know
+    data_template:
+      text: "Turned lights off as per rule Lights off when it is late"

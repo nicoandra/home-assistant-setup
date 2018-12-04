@@ -1,0 +1,8 @@
+alias: Firewall Notifications
+trigger:
+    platform: mqtt
+    topic: /System/Firewall
+action:
+  - service: rest_command.let_nico_know
+    data_template:
+      text: "Firewall message: {{ trigger.payload }}"
