@@ -5,11 +5,9 @@ services:
     image: homeassistant/home-assistant
     volumes:
       - ./config:/config
-      # - /etc/localtime:/etc/localtime:ro
     restart: always
-    # network_mode: host
     ports:
-      - 8123:8123
+      - 8124:8123
     depends_on:
       - mosquitto
     environment:
@@ -44,8 +42,13 @@ services:
     image: nginx
     container_name: nginx-proxy
     ports:
-      - 8443:443  # To serve HomeAssistant, SSL-Terminated
+      - 8443:443  # To serve HomeAssistant, SSL-Terminated (work in progress)
+      - 8123:8123  # To serve HomeAssistant, SSL-Terminated (work in progress)
       - 3999:3999 # To serve locative endpoint
+      - 4443:4443 # To serve locative endpoint, SSL (work in progress)
     volumes:
     - ./etc/nginx/locative.conf:/etc/nginx/conf.d/locative.conf
+    - ./etc/nginx/homeassistant.conf:/etc/nginx/conf.d/homeassistant.conf
     - ./etc/certificates:/etc/certificates
+    depends_on:
+      - locative-endpoint
