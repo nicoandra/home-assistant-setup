@@ -18,6 +18,13 @@ action:
     data_template:
       entity_id: input_number.office_temperature_slider
       value: '{{ states.input_number.at_home_temperature_slider.state | float }}'
-  - service: rest_command.let_nico_know
+#  - service: rest_command.let_nico_know
+    # data_template:
+    #   text: "Heaters set. Temperature set to {{ states('input_number.at_home_temperature_slider') | float }}.
+    #    Living: {{ states('sensor.living_temperature') | float }} C,
+    #    Office: {{ states('sensor.office_temperature') | float }} C"
+  - service: mqtt.publish
     data_template:
-      text: "Heaters set. Temperature set to {{ states.input_number.at_home_temperature_slider.state | float }}"
+      topic: '/Home/Climate/DesiredTemperature'
+      retain: true
+      payload: "{{ states('input_number.at_home_temperature_slider') | float }}"

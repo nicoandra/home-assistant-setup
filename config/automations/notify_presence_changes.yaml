@@ -5,4 +5,4 @@ trigger:
 action:
   - service: rest_command.let_nico_know
     data_template:
-      text: "Presence change. Presence set to: {{ states.group.all_devices.state }}"
+      text: "Presence change. Presence set to: {{ states('group.all_devices') }}"
