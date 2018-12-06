@@ -35,6 +35,17 @@
   name: "Office On/Off"
   state_topic: "/ThermoDev/Sensor01/CurrentState"
 
+- platform: template
+  sensors:
+    average_temperature:
+      friendly_name: "Average Temperature"
+      value_template: "{{ ( ( (states('sensor.living_temperature') | float ) + (states('sensor.office_temperature') | float) ) / 2 )| float }}"
+      entity_id:
+        - sensor.living_temperature
+        - sensor.office_temperature
+      friendly_name: 'Average temperature'
+      unit_of_measurement: "C"
+
 # - platform: template
 #   sensors:
 #     nico_moto5_battery:

@@ -14,6 +14,7 @@ main:
     - group.all_lights
     - group.presence
     - input_number.at_home_temperature_slider
+    - sensor.average_temperature
 
 lights:
   view: yes
