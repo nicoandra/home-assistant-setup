@@ -1,7 +1,7 @@
 # alias: Zoneminder start when leaving home
-# trigger:
+trigger:
 #     - platform: state
 #       entity_id: group.all_devices
 #       to: not_home
-# action:
+action:
 #   - service: rest_command.zoneminder_start

@@ -1,15 +1,27 @@
 default_view:
   view: yes
   entities:
+    - group.main
+
+main:
+  view: no
+  name: Main
+  entities:
+    - scene.someone_got_home
+    - scene.all_full
+    - scene.chillin
+    - scene.morning
     - group.all_lights
-    - group.kitchen
-    - group.countertop
-    - group.living
-    - group.climate
-    - group.office
-    - group.debugpanel
-    - group.debug
     - group.presence
+    - input_number.at_home_temperature_slider
+
+lights:
+  view: yes
+  name: Lights
+  entities:
+    - group.lights_interior
+    - group.scenes
+
 kitchen:
   name: Kitchen
   view: no
@@ -87,6 +99,20 @@ debugpanel:
     - sensor.living_temperature
     - input_text.current_scene
 
+
+scenes:
+  name: Scenes
+  view: no
+  entities:
+    - scene.alone__evening
+    - scene.alone__late
+    - scene.sleeping__not_alone
+    - scene.someone_got_home
+    - scene.all_full
+    - scene.chillin
+    - scene.morning
+
+
 tab_scenes:
   name: Scenes
   view: yes
@@ -108,6 +134,7 @@ presence:
     - device_tracker.vsmbr_phone
     - device_tracker.nico_moto5_ping
     - group.all_devices
+
 lights_interior:
   name: Interior lights
   entities:

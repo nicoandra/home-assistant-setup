@@ -165,8 +165,23 @@
 - name: Alarm
   entities:
     light.office_yee:
-        state: on
-        effect: Police
+      state: on
+      effect: "Police"
+    light.countertop:
+      state: on
+      brightness: 255
+    light.kitchen:
+      state: on
+      brightness: 255
+    light.couch:
+      state: on
+      brightness: 255
+    light.office:
+      state: on
+      brightness: 255
+    light.bedroom_lamp:
+      state: on
+      effect: "Police"
     light.living_moon:
-        state: on
-        effect: Police2
+      state: on
+      effect: "Police"

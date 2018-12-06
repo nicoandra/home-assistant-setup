@@ -21,6 +21,24 @@ logger:
 
 # Enables the frontend
 frontend:
+  themes:
+    home:
+      primary-color: "#03a9f4"
+      primary-text-color: "#212121"
+      accent-color: "#ff9800"
+      text-primary-color: "#ffffff"
+      secondary-background-color: "#e5e5e5"
+      light-primary-color: "#b3e5fC"
+      paper-item-icon-color: "#03a9f4"
+    not_home:
+      primary-color: "#8e1d1d"
+      primary-text-color: "#000000"
+      accent-color: "#FF0000"
+      light-primary-color: "#8e1c1d91"
+      text-primary-color: "#000000"
+      secondary-background-color: "#5d4747"
+      paper-item-icon-color: "#8e1c1d"
+
 # Enables configuration UI
 config:
 
