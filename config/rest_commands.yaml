@@ -6,7 +6,13 @@
 #   method: POST
 
 let_nico_know:
-    url: https://hooks.slack.com/services/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
+    url: !secret one_slack_channel
+    method: POST
+    payload: '{"text":"{{ text }}" }'
+    content_type:  'application/json; charset=utf-8'
+
+let_nico_know_debug:
+    url: http://locative-endpoint:3998/
     method: POST
     payload: '{"text":"{{ text }}" }'
     content_type:  'application/json; charset=utf-8'
