@@ -4,3 +4,9 @@
 # zoneminder_start:
 #   url: 'https://192.168.1.106:8180/zm/api/states/change/start.json'
 #   method: POST
+
+let_nico_know:
+    url: https://hooks.slack.com/services/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
+    method: POST
+    payload: '{"text":"{{ text }}" }'
+    content_type:  'application/json; charset=utf-8'
