@@ -6,6 +6,7 @@ default_view:
 main:
   view: no
   name: Main
+  control: hidden
   entities:
     - scene.someone_got_home
     - scene.all_full
