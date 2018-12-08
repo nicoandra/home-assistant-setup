@@ -2,7 +2,7 @@ version: '3'
 services:
   homeassistant:
     # container_name: home-assistant
-    image: homeassistant/home-assistant
+    image: homeassistant/home-assistant:0.83.3
     volumes:
       - ./config:/config
     restart: always
