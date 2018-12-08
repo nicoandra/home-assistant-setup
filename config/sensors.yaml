@@ -38,8 +38,7 @@
 - platform: template
   sensors:
     average_temperature:
-      friendly_name: "Average Temperature"
-      value_template: "{{ ( ( (states('sensor.living_temperature') | float ) + (states('sensor.office_temperature') | float) ) / 2 )| float }}"
+      value_template: "{{ ( ( (states('sensor.living_temperature') | float ) + (states('sensor.office_temperature') | float) ) / 2 ) | round(2) }}"
       entity_id:
         - sensor.living_temperature
         - sensor.office_temperature

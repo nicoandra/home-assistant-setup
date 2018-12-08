@@ -2,10 +2,10 @@ alias: Notify presence changes
 trigger:
   - platform: state
     entity_id: group.all_devices
-    to: 'not_home'
+    to: not_home
   - platform: state
     entity_id: group.all_devices
-    to: 'home'
+    to: home
 action:
   - service: rest_command.let_nico_know
     data_template:
