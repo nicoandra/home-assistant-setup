@@ -106,6 +106,7 @@ tts: # Text to speech
 mqtt:
   broker: mosquitto
 
+camera: !include camera.yaml
 scene: !include scenes.yaml
 sensor: !include sensors.yaml
 group: !include groups.yaml

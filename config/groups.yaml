@@ -17,6 +17,13 @@ main:
     - input_number.at_home_temperature_slider
     - sensor.average_temperature
 
+tab_cameras:
+  name: Cameras
+  view: yes
+  entities:
+    - camera.door
+    - camera.kitchen
+
 lights:
   view: yes
   name: Lights
