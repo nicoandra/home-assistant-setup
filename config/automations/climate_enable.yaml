@@ -5,6 +5,8 @@ trigger:
     to: 'home'
   - platform: state
     entity_id: input_number.at_home_temperature_slider
+  - platform: homeassistant
+    event: start
 condition:
   - condition: state
     entity_id: group.all_devices

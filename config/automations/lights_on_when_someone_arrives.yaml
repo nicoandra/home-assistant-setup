@@ -18,3 +18,6 @@ action:
     data:
       entity_id: input_text.current_scene
       value: "Lights on when someone arrives"
+  - service: rest_command.let_nico_know
+    data_template:
+      text: "Lights on when someone arrives Kicked in: {{ states('group.all_devices') }}"

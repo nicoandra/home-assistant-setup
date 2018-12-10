@@ -5,6 +5,8 @@ trigger:
   - platform: state
     entity_id: group.all_devices
     to: 'not_home'
+  - platform: homeassistant
+    event: start
 condition:
   - condition: state
     entity_id: group.all_devices
