@@ -12,6 +12,7 @@ main:
     - scene.all_full
     - scene.chillin
     - scene.morning
+    - scene.movies
     - group.all_lights
     - group.presence
     - input_number.at_home_temperature_slider
@@ -113,14 +114,14 @@ scenes:
   name: Scenes
   view: no
   entities:
+    - scene.morning
     - scene.alone__evening
     - scene.alone__late
-    - scene.sleeping__not_alone
     - scene.someone_got_home
     - scene.all_full
     - scene.chillin
-    - scene.morning
-
+    - scene.movies
+    - scene.sleeping__not_alone
 
 tab_scenes:
   name: Scenes
