@@ -39,10 +39,10 @@
       color_temp: 358
     light.living_moon:
       state: off
-    light.bedroom_lamp:
-      state: on
-      brightness: 82
-      color_temp: 370
+    # light.bedroom_lamp:
+    #   state: on
+    #   brightness: 82
+    #   color_temp: 370
 
 - name: Sleeping - not alone
   entities:
@@ -142,6 +142,31 @@
       state: on
       brightness: 125
       color_temp: 370
+
+- name: Movies
+  entities:
+    light.couch:
+      state: on
+      brightness: 1
+    light.countertop:
+      state: on
+      brightness: 1
+    light.kitchen:
+      state: off
+    light.office:
+      state: on
+      brightness: 1
+    light.bedroom_lamp:
+      state: on
+      brightness: 1
+      color_temp: 370
+    light.living_moon:
+      state: off
+    light.office_yee:
+      state: on
+      brightness: 1
+      color_temp: 370
+
 
 - name: Morning
   entities:

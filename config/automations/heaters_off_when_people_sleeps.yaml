@@ -3,6 +3,8 @@ trigger:
   - platform: state
     entity_id:  group.all_lights
     to: 'off'
+  - platform: state
+    entity_id: input_number.at_home_sleeping
   - platform: time
     minutes: '/2'
     seconds: 0
