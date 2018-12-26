@@ -7,7 +7,7 @@ trigger:
     entity_id: group.all_devices
     to: home
   - platform: homeassistant
-  event: start
+    event: start
 action:
   - service: rest_command.let_nico_know
     data_template:
