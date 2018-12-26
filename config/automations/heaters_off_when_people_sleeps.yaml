@@ -6,7 +6,7 @@ trigger:
   - platform: state
     entity_id: input_number.at_home_sleeping
   - platform: time
-    minutes: '/2'
+    minutes: '/5'
     seconds: 0
 condition:
   - condition: state
