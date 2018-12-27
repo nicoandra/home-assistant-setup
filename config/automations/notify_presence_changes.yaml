@@ -2,10 +2,6 @@ alias: Notify presence changes
 trigger:
   - platform: state
     entity_id: group.all_devices
-    to: not_home
-  - platform: state
-    entity_id: group.all_devices
-    to: home
   - platform: homeassistant
     event: start
 action:

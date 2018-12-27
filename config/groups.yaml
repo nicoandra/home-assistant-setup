@@ -109,7 +109,6 @@ debugpanel:
     - sensor.living_temperature
     - input_text.current_scene
 
-
 scenes:
   name: Scenes
   view: no
