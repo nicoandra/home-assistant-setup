@@ -18,6 +18,8 @@ homeassistant:
 
 logger:
   default: warning
+  logs:
+    homeassistant.components.device_tracker: debug
 
 # Enables the frontend
 frontend:
