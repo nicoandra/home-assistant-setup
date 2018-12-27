@@ -134,7 +134,6 @@ tab_scenes:
     - scene.chillin
     - scene.morning
 
-
 presence:
   name: Presence
   entities:

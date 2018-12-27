@@ -1,0 +1,43 @@
+title: My Awesome Home
+views:
+    # View tab title.
+  - id: 0  # Automatically created id
+    title: Example
+    cards:
+        # The markdown card will render markdown text.
+      - id: 4c4a9b53cfe64ba3a35deeee555e58fc  # Automatically created id
+        type: markdown
+        title: Lovelace
+        content: >
+          Welcome to your **Lovelace UI**.
+        # The filter card will filter entities for their state
+      - type: entity-filter
+        entities:
+          - group.all_devices
+        state_filter:
+          - 'home'
+        card:
+          type: glance
+          title: People that are home
+
+        # The picture entity card will represent an entity with a picture
+      - type: picture-entity
+        image: https://www.home-assistant.io/images/default-social.png
+        entity: light.bed_light
+
+
+  - title: Second view
+    icon: mdi:home-assistant
+    cards:
+        # Entities card will take a list of entities and show their state.
+      - type: entities
+        # Title of the entities card
+        title: Temperature
+        # The entities here will be shown in the same order as specified.
+        # Each entry is an entity ID or a map with extra options.
+        entities:
+          - input_number.living_temperature_slider
+          - input_number.office_temperature_slider
+          - entity: light.living_moon
+            # Override the name to use
+            name: Living Moon :)
