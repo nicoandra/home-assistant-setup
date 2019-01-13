@@ -2,34 +2,20 @@ title: My Awesome Home
 views:
     # View tab title.
   - id: 0  # Automatically created id
-    title: Example
+    title: Main
     cards:
         # The markdown card will render markdown text.
-      - id: 4c4a9b53cfe64ba3a35deeee555e58fc  # Automatically created id
-        type: markdown
-        title: Lovelace
-        content: >
-          Welcome to your **Lovelace UI**.
-        # The filter card will filter entities for their state
-      - type: entity-filter
-        entities:
-          - group.all_devices
-        state_filter:
-          - 'home'
-        card:
-          type: glance
-          title: People that are home
-
         # The picture entity card will represent an entity with a picture
-      - type: picture-entity
-        image: https://www.home-assistant.io/images/default-social.png
-        entity: light.bed_light
-
-
-  - title: Second view
-    icon: mdi:home-assistant
-    cards:
-        # Entities card will take a list of entities and show their state.
+      - type: entities
+        entities:
+          - group.lights_interior
+          - entity: scene.all_full
+            icon: mdi:lightbulb-on-outline
+          - scene.chillin
+          - scene.morning
+          - scene.movies
+          - input_number.at_home_temperature_slider
+          - sensor.average_temperature
       - type: entities
         # Title of the entities card
         title: Temperature
@@ -41,3 +27,66 @@ views:
           - entity: light.living_moon
             # Override the name to use
             name: Living Moon :)
+      - type: glance
+        entities:
+        - entity: scene.all_full
+          name: All full
+          icon: mdi:lightbulb-on-outline
+          tap_action:
+          - action: more-info
+        - scene.chillin
+        - scene.morning
+        - scene.movies
+
+      - type: horizontal-stack
+        cards:
+        - type: sensor
+          entity: sensor.living_temperature
+          name: Living Temperature
+        - type: sensor
+          entity: sensor.office_temperature
+          name: Office Temperature
+
+
+      - type: glance
+        entities:
+        - entity: sensor.average_temperature
+          name: Home
+          icon: mdi:home
+        - entity: sensor.living_temperature
+          name: Living
+        - entity: sensor.office_temperature
+          name: Office
+      - type: gauge
+        entity: sensor.average_temperature
+        name: Home Temp
+        min: 14
+        max: 28
+        unit: C
+      - type: gauge
+        entity: sensor.living_temperature
+        name: Living Temp
+        min: 14
+        max: 28
+        unit: C
+      - type: gauge
+        entity: sensor.office_temperature
+        name: Office Temp
+        min: 14
+        max: 28
+        unit: C
+
+  - id: 2
+    title: Presence
+    icon: mdi:home-assistant
+    cards:
+      - type: entity-filter
+        entities:
+          - device_tracker.nico_moto5
+          - device_tracker.vsmbr_phone
+          - device_tracker.nico_moto5_ping
+        state_filter:
+          - 'home'
+        card:
+          type: glance
+          title: People that are home
