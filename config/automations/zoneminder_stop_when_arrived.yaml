@@ -1,4 +1,4 @@
-# alias: Zoneminder stop when arrived home
+alias: Zoneminder stop when arrived home
 trigger:
 #     - platform: state
 #       entity_id: group.all_devices

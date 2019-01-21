@@ -109,7 +109,6 @@ debugpanel:
     - sensor.living_temperature
     - input_text.current_scene
 
-
 scenes:
   name: Scenes
   view: no
@@ -134,7 +133,6 @@ tab_scenes:
     - scene.all_full
     - scene.chillin
     - scene.morning
-
 
 presence:
   name: Presence

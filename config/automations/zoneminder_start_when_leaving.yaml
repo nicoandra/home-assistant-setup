@@ -1,4 +1,4 @@
-# alias: Zoneminder start when leaving home
+alias: Zoneminder start when leaving home
 trigger:
 #     - platform: state
 #       entity_id: group.all_devices
