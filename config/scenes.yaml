@@ -205,3 +205,26 @@
     light.living_moon:
       state: on
       effect: "Police"
+
+- name: WalkAroundAtNight
+  entities:
+    light.bedroom_lamp:
+      state: off
+    light.living_moon:
+      state: off
+    light.office_yee:
+      state: off
+    light.office:
+      state: on
+      brightness: 1
+    light.countertop:
+      state: on
+      brightness: 1
+    light.kitchen:
+      state: off
+    light.bathroom:
+      state: off
+    light.couch:
+      state: on
+      brightness: 1
+
