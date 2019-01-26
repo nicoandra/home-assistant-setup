@@ -148,7 +148,6 @@ lights_interior:
   entities:
     - light.office
     - light.office_yee
-    - light.bedroom_lamp
     - light.kitchen
     - light.couch
     - light.countertop

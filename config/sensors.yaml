@@ -5,13 +5,13 @@
     - weather
 
 - platform: mqtt
-  name: "Living Temperature"
+  name: "Raw Living Temperature"
   state_topic: "/ThermoDev/Sensor02/CurrentTemperature"
   unit_of_measurement: '°C'
   # value_template: "{{ value_json.temperature }}"
 
 - platform: mqtt
-  name: "Living Humidity"
+  name: "Raw Living Humidity"
   state_topic: "/ThermoDev/Sensor02/CurrentHumidity"
   unit_of_measurement: '%'
 
@@ -21,13 +21,13 @@
 
 
 - platform: mqtt
-  name: "Office Temperature"
+  name: "Raw Office Temperature"
   state_topic: "/ThermoDev/Sensor01/CurrentTemperature"
   unit_of_measurement: '°C'
   # value_template: "{{ value_json.temperature }}"
 
 - platform: mqtt
-  name: "Office Humidity"
+  name: "Raw Office Humidity"
   state_topic: "/ThermoDev/Sensor01/CurrentHumidity"
   unit_of_measurement: '%'
 
@@ -44,6 +44,40 @@
         - sensor.office_temperature
       friendly_name: 'Average temperature'
       unit_of_measurement: "C"
+
+- platform: filter
+  name: "Living Temperature"
+  entity_id: sensor.raw_living_temperature
+  filters:
+  - filter: lowpass
+    time_constant: 2
+    precision: 2
+
+- platform: filter
+  name: "Living Humidity"
+  entity_id: sensor.raw_living_humidity
+  filters:
+  - filter: lowpass
+    time_constant: 2
+    precision: 2
+
+- platform: filter
+  name: "Office Temperature"
+  entity_id: sensor.raw_office_temperature
+  filters:
+  - filter: lowpass
+    time_constant: 2
+    precision: 2
+
+- platform: filter
+  name: "Office Humidity"
+  entity_id: sensor.raw_office_humidity
+  filters:
+  - filter: lowpass
+    time_constant: 2
+    precision: 2
+
+
 
 # - platform: template
 #   sensors:

@@ -37,12 +37,12 @@
       transition: 1000
       use_music_mode: False #(defaults to False)
       save_on_change: True #(defaults to True)
-
 # See https://www.home-assistant.io/components/light.mqtt/#brightness_command_topic
+
 - platform: mqtt
-    name: LedStrip 01
-    command_topic: /dimmer01/set
-    brightness_command_topic: /dimmer01/set
-    brightness_scale: 1024
-    brightness_state_topic: /dimmer01/set/status
-    brightness_value_template: {{ value_json.state }}
+  schema: json
+  name: Bathroom
+  command_topic: /bathroom/light/set
+  brightness: true
+  brightness_scale: 255
+  state_topic: /bathroom/light/state

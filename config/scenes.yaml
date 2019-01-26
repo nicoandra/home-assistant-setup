@@ -40,9 +40,7 @@
     light.living_moon:
       state: off
     light.bedroom_lamp:
-      state: on
-      brightness: 20
-      color_temp: 370
+      state: off
 
 - name: Sleeping - not alone
   entities:
@@ -130,7 +128,7 @@
       brightness: 109
     light.bedroom_lamp:
       state: on
-      brightness: 72
+      brightness: 3
       color_temp: 370
     light.living_moon:
       state: on
@@ -164,7 +162,6 @@
       state: on
       brightness: 1
       color_temp: 370
-
 
 - name: Morning
   entities:
