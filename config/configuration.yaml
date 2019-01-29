@@ -24,7 +24,7 @@ logger:
   default: warning
   logs:
     homeassistant.components.device_tracker: warning
-    homeassistant.components.mqtt: debug
+    homeassistant.components.mqtt: warning
 
 # Enables the frontend
 frontend:
