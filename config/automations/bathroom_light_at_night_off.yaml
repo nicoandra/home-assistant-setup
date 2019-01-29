@@ -5,7 +5,7 @@ trigger:
   to: 'off'
   from: 'on'
   for:
-    seconds: 5
+    seconds: 90
 condition:
 - condition: state
   entity_id: group.all_devices
