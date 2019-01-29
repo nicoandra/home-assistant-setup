@@ -1,0 +1,18 @@
+alias: "Bathroom light at night ON"
+trigger:
+- platform: state
+  entity_id: sensor.movement_detected_near_bathroom
+  to: 'on'
+condition:
+- condition: state
+  entity_id: group.all_devices
+  state: home
+- condition: or  # 'when dark' condition: either after sunset or before sunrise
+  conditions:
+  - condition: time
+    after: "18:00:00"
+  - condition: time
+    before: "8:00:00"
+action:
+- service: scene.turn_on
+  entity_id: scene.walkaroundatnight

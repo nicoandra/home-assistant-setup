@@ -50,7 +50,7 @@
   entity_id: sensor.raw_living_temperature
   filters:
   - filter: lowpass
-    time_constant: 2
+    time_constant: 4
     precision: 2
 
 - platform: filter
@@ -58,7 +58,7 @@
   entity_id: sensor.raw_living_humidity
   filters:
   - filter: lowpass
-    time_constant: 2
+    time_constant: 4
     precision: 2
 
 - platform: filter
@@ -66,7 +66,7 @@
   entity_id: sensor.raw_office_temperature
   filters:
   - filter: lowpass
-    time_constant: 2
+    time_constant: 4
     precision: 2
 
 - platform: filter
@@ -74,8 +74,13 @@
   entity_id: sensor.raw_office_humidity
   filters:
   - filter: lowpass
-    time_constant: 2
+    time_constant: 4
     precision: 2
+
+- platform: mqtt
+  name: "Movement detected near bathroom"
+  state_topic: /bathroom/distance/state
+  value_template: '{% if ( (value|float) < 1) %}on{% else %}off{% endif %}'
 
 
 

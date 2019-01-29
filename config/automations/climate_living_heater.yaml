@@ -1,0 +1,13 @@
+alias: ThermoDev 01 Climate
+trigger:
+  - platform: state
+    entity_id: climate.office
+  - platform: time
+    seconds: '/31'
+    minutes: '/5'
+action:
+  - service: mqtt.publish
+    data_template:
+      topic: '/ThermoDev/Desired01'
+      retain: true
+      payload: "{{ states('climate.office') | float }}"
