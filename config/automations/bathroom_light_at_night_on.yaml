@@ -6,7 +6,7 @@ trigger:
 condition:
 - condition: state
   entity_id: group.all_lights
-  state: off
+  state: 'off'
 - condition: state
   entity_id: group.all_devices
   state: home
