@@ -20,9 +20,5 @@ action:
       value: '{{ states.input_number.at_home_temperature_slider.state | float }}'
   - service: input_number.set_value
     data_template:
-      entity_id: input_number.living_temperature_slider
-      value: '{{ states.input_number.at_home_temperature_slider.state | float }}'
-  - service: input_number.set_value
-    data_template:
       entity_id: input_number.office_temperature_slider
       value: '{{ states.input_number.at_home_temperature_slider.state | float }}'
