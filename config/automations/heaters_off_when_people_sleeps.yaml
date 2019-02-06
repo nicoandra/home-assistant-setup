@@ -1,7 +1,7 @@
 alias: Disable heaters while people sleeps
 trigger:
   - platform: state
-    entity_id:  group.all_lights
+    entity_id: group.lights_interior
     to: 'off'
   - platform: state
     entity_id: input_number.at_home_sleeping
