@@ -152,3 +152,20 @@ lights_interior:
     - light.couch
     - light.countertop
     - light.living_moon
+
+lights_moesdimmer01:
+  name: "Dimmable 01"
+  entities:
+  - light.office
+  - light.couch
+  - light.countertop
+
+lights_moesdimmer02:
+  name: "Dimmable 02"
+  entities:
+  - light.office
+  - light.kitchen
+  - light.countertop
+  - light.couch
+  - light.living_moon
+  - light.bedroom_lamp
