@@ -4,7 +4,7 @@ trigger:
   entity_id: light.moesdimmer01
   to: 'on'
 - platform: mqtt
-  topic: /sonoff/switch/living/RESULT
+  topic: stat/sonoff/switch/living/RESULT
 action:
 - service: light.turn_on
   data_template:
