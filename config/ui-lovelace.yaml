@@ -69,6 +69,29 @@ views:
         unit: C
 
   - id: 1
+    title: Lights
+    icon: mdi:lightbulb
+    cards:
+    - type: entities
+      title: "Office"
+      icon: mdi:desktop-classic
+      entities:
+        - light.office
+        - light.office_yee
+        - light.office_ceiling
+    - type: entities
+      icon: mdi:fridge-outline
+      title: "Kitchen"
+      entities:
+        - light.countertop
+        - light.kitchen
+    - type: entities
+      title: "Living"
+      entities:
+        - light.couch
+        - light.living_moon
+
+  - id: 2
     title: Settings
     icon: mdi:home-assistant
     cards:
@@ -99,7 +122,7 @@ views:
           name: Office
 
 
-  - id: 2
+  - id: 3
     title: Presence
     icon: mdi:home-assistant
     cards:

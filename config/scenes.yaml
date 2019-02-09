@@ -6,7 +6,7 @@
       state: on
       brightness: 20
       color_temp: 324
-    light.bedroom_lamp:
+    light.office_ceiling:
       state: off
     light.office:
       state: off
@@ -39,7 +39,7 @@
       color_temp: 358
     light.living_moon:
       state: off
-    light.bedroom_lamp:
+    light.office_ceiling:
       state: off
 
 - name: Sleeping - not alone
@@ -55,35 +55,19 @@
       brightness: 1
     light.living_moon:
       state: off
-    light.bedroom_lamp:
+    light.office_ceiling:
       state: off
     light.office_yee:
       state: off
 
 - name: Someone got home
   entities:
-    light.office:
-      state: on
-      brightness: 117
-    light.countertop:
+    light.moesdimmer01:
       state: on
       brightness: 255
-    light.kitchen:
+    light.moesdimmer02:
       state: on
-      brightness: 255
-    light.couch:
-      state: on
-      brightness: 255
-    light.living_moon:
-      state: on
-      brightness: 130
-      color_temp: 588
-    light.bedroom_lamp:
-      state: off
-    light.office_yee:
-      state: on
-      brightness: 97
-      color_temp: 358
+      brightness: 128
 
 - name: All full
   entities:
@@ -91,10 +75,6 @@
       state: on
       brightness: 255
       color_temp: 335
-    light.bedroom_lamp:
-      state: on
-      brightness: 255
-      color_temp: 370
     light.kitchen:
       state: on
       brightness: 255
@@ -123,10 +103,6 @@
     light.office:
       state: on
       brightness: 109
-    light.bedroom_lamp:
-      state: on
-      brightness: 3
-      color_temp: 370
     light.living_moon:
       state: on
       brightness: 161
@@ -149,10 +125,6 @@
     light.office:
       state: on
       brightness: 1
-    light.bedroom_lamp:
-      state: on
-      brightness: 1
-      color_temp: 370
     light.living_moon:
       state: off
     light.office_yee:
@@ -163,8 +135,6 @@
 - name: Morning
   entities:
     light.office_yee:
-      state: off
-    light.bedroom_lamp:
       state: off
     light.living_moon:
       state: off
@@ -196,7 +166,7 @@
     light.office:
       state: on
       brightness: 255
-    light.bedroom_lamp:
+    light.office_ceiling:
       state: on
       effect: "Police"
     light.living_moon:
@@ -205,8 +175,6 @@
 
 - name: WalkAroundAtNight
   entities:
-    light.bedroom_lamp:
-      state: off
     light.living_moon:
       state: off
     light.office_yee:

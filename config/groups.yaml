@@ -169,7 +169,7 @@ lights_moesdimmer02:
   - light.countertop
   - light.couch
   - light.living_moon
-  - light.bedroom_lamp
+  - light.office_ceiling
 
 
 dimmers_all:
