@@ -89,28 +89,25 @@
   entities:
     light.office_yee:
       state: on
-      brightness: 186
+      brightness: 255
       color_temp: 335
     light.bedroom_lamp:
       state: on
       brightness: 255
       color_temp: 370
-    light.countertop:
-      state: on
-      brightness: 255
     light.kitchen:
-      state: on
-      brightness: 255
-    light.couch:
-      state: on
-      brightness: 255
-    light.office:
       state: on
       brightness: 255
     light.living_moon:
       state: on
       brightness: 255
       color_temp: 588
+    light.moesdimmer01:
+      state: on
+      brightness: 255
+    light.moesdimmer02:
+      state: on
+      brightness: 255
 
 - name: Chillin
   entities:

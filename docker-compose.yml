@@ -1,8 +1,6 @@
 version: '3'
 services:
   homeassistant:
-    # container_name: home-assistant
-    # image: homeassistant/home-assistant:0.83.3 # OK STABLE
     image: homeassistant/home-assistant:0.86.0
 
     volumes:
@@ -17,8 +15,6 @@ services:
 
   mosquitto:
     image: ansi/mosquitto
-#    network_mode: host
-    # container_name: homeassistant-mosquitto
     ports:
      - 1883:1883
     entrypoint: /usr/local/sbin/mosquitto -c /etc/mosquitto/mosquitto.conf
@@ -42,7 +38,6 @@ services:
 
   ssl-nginx:
     image: nginx
-    container_name: nginx-proxy
     ports:
       - 8123:8123 # To serve HomeAssistant plain text
       - 3999:3999 # To serve locative endpoint plain text
@@ -55,3 +50,10 @@ services:
     depends_on:
       - locative-endpoint
       - homeassistant
+
+  tools-mqtt:
+    image: node:8.15.0-alpine
+    volumes:
+    - ./tools:/code
+    command: node /code/index.js
+    

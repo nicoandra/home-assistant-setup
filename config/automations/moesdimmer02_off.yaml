@@ -8,4 +8,8 @@ condition:
 action:
 - service: light.turn_off
   entity_id: group.lights_moesdimmer02
+- service: light.turn_off
+  entity_id: light.office_yee
+- service: light.turn_off
+  entity_id: light.office_yee  
 # {{states.light.moesdimmer01.attributes.brightness }} 
