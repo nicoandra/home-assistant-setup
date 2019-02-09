@@ -7,15 +7,13 @@ views:
         # The markdown card will render markdown text.
         # The picture entity card will represent an entity with a picture
       - type: entities
+        title: Main
         entities:
+
           - group.lights_interior
           - entity: scene.all_full
             icon: mdi:lightbulb-on-outline
-          - scene.chillin
-          - scene.morning
-          - scene.movies
           - input_number.at_home_temperature_slider
-          - sensor.average_temperature
       - type: entities
         # Title of the entities card
         title: Temperature
@@ -24,9 +22,7 @@ views:
         entities:
           - input_number.living_temperature_slider
           - input_number.office_temperature_slider
-          - entity: light.living_moon
-            # Override the name to use
-            name: Living Moon :)
+          
       - type: glance
         entities:
         - entity: scene.all_full
@@ -47,7 +43,6 @@ views:
           entity: sensor.office_temperature
           name: Office Temperature
 
-
       - type: glance
         entities:
         - entity: sensor.average_temperature
@@ -55,8 +50,10 @@ views:
           icon: mdi:home
         - entity: sensor.living_temperature
           name: Living
+          size: small
         - entity: sensor.office_temperature
           name: Office
+          size: small
       - type: gauge
         entity: sensor.average_temperature
         name: Home Temp

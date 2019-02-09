@@ -5,7 +5,7 @@ trigger:
     to: 'off'
   - platform: state
     entity_id: input_number.at_home_sleeping
-  - platform: time
+  - platform: time_pattern
     minutes: '/5'
     seconds: 0
 condition:

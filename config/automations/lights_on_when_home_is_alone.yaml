@@ -19,7 +19,7 @@ condition:
         after_offset: "-02:00:00"
 action:
   - service: scene.turn_on
-    entity_id: scene.alone__evening
+    entity_id: scene.alone_evening
   - service: input_text.set_value
     data:
       entity_id: input_text.current_scene

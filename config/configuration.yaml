@@ -49,6 +49,9 @@ frontend:
 # Enables configuration UI
 config:
 
+lovelace:
+  mode: yaml
+
 recorder:
   purge_interval: 4
 

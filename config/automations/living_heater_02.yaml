@@ -2,7 +2,7 @@ alias: ThermoDev 02
 trigger:
   - platform: state
     entity_id: input_number.living_temperature_slider
-  - platform: time
+  - platform: time_pattern
     seconds: '/31'
     minutes: '/5'
 action:

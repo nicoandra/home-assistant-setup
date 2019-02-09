@@ -3,7 +3,7 @@ services:
   homeassistant:
     # container_name: home-assistant
     # image: homeassistant/home-assistant:0.83.3 # OK STABLE
-    image: homeassistant/home-assistant:0.85.0
+    image: homeassistant/home-assistant:0.86.0
 
     volumes:
       - ./config:/config
@@ -44,10 +44,10 @@ services:
     image: nginx
     container_name: nginx-proxy
     ports:
-      - 8123:8123  # To serve HomeAssistant plain text
+      - 8123:8123 # To serve HomeAssistant plain text
       - 3999:3999 # To serve locative endpoint plain text
-      - 4443:4443 # To serve HomeAssistant and the cert, SSL (work in progress)
-      - 3997:3997 # To serve locative endpoint SSL
+#      - 4443:4443 # To serve HomeAssistant and the cert, SSL (work in progress)
+#      - 3997:3997 # To serve locative endpoint SSL
     volumes:
     - ./etc/nginx/locative.conf:/etc/nginx/conf.d/locative.conf
     - ./etc/nginx/homeassistant.conf:/etc/nginx/conf.d/homeassistant.conf

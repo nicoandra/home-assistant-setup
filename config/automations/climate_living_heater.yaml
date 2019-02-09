@@ -2,7 +2,7 @@ alias: ThermoDev 01 Climate
 trigger:
   - platform: state
     entity_id: climate.office
-  - platform: time
+  - platform: time_pattern
     seconds: '/31'
     minutes: '/5'
 action:
