@@ -12,7 +12,9 @@ views:
           - group.lights_interior
           - entity: scene.all_full
             icon: mdi:lightbulb-on-outline
-          - input_number.at_home_temperature_slider
+          - entity: input_number.at_home_temperature_slider
+            name: At home
+            icon: mdi:home
           - entity: light.moesdimmer01
             name: "Living dimmer"
           - entity: light.moesdimmer02
@@ -31,11 +33,12 @@ views:
         - entity: scene.all_full
           name: All full
           icon: mdi:lightbulb-on-outline
-          tap_action:
-          - action: more-info
-        - scene.chillin
-        - scene.morning
-        - scene.movies
+        - entity: scene.chillin
+          name: Chillin
+        - entity: scene.morning
+          name: Morning
+        - entity: scene.movies
+          name: Movies
 
       - type: horizontal-stack
         cards:
@@ -46,17 +49,6 @@ views:
           entity: sensor.office_temperature
           name: Office Temperature
 
-      - type: glance
-        entities:
-        - entity: sensor.average_temperature
-          name: Home
-          icon: mdi:home
-        - entity: sensor.living_temperature
-          name: Living
-          size: small
-        - entity: sensor.office_temperature
-          name: Office
-          size: small
       - type: gauge
         entity: sensor.average_temperature
         name: Home Temp
@@ -76,6 +68,37 @@ views:
         max: 28
         unit: C
 
+  - id: 1
+    title: Settings
+    icon: mdi:home-assistant
+    cards:
+      - type: entities
+        title: Temperature settings
+        entities:
+        - entity: input_number.at_home_temperature_slider
+          name: At home
+          icon: mdi:home
+        - entity: input_number.at_home_sleeping
+          name: Sleeping
+          icon: mdi:sleep
+        - entity: input_number.home_alone_temperature_slider
+          name: When alone
+          icon: mdi:home-lock
+
+      - type: glance
+        entities:
+        - entity: sensor.living_temperature
+          name: Living
+          icon: mdi:thermometer
+        - entity: binary_sensor.living_heater_state
+          name: Living
+        - entity: sensor.office_temperature
+          name: Office
+          icon: mdi:thermometer
+        - entity: binary_sensor.office_heater_state
+          name: Office
+
+
   - id: 2
     title: Presence
     icon: mdi:home-assistant
@@ -89,4 +112,4 @@ views:
           - 'home'
         card:
           type: glance
-          title: People that are home
+          title: People at home
