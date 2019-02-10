@@ -48,6 +48,7 @@ frontend:
 
 # Enables configuration UI
 config:
+system_health:
 
 lovelace:
   mode: yaml

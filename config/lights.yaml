@@ -46,7 +46,7 @@
   state_value_template: "{{value_json.POWER}}"
   brightness_command_topic: "cmnd/sonoff/switch/living/DIMMER"
   brightness_state_topic: "stat/sonoff/switch/living/RESULT/filtered"
-  brightness_scale: 100
+  brightness_scale: 99
   on_command_type: "brightness"
   brightness_value_template: "{{value_json.Dimmer}}"
   payload_on: "ON"
@@ -65,7 +65,7 @@
   state_value_template: "{{value_json.POWER}}"
   brightness_command_topic: "cmnd/sonoff/switch/office/DIMMER"
   brightness_state_topic: "stat/sonoff/switch/office/RESULT/filtered"
-  brightness_scale: 100
+  brightness_scale: 99
   on_command_type: "brightness"
   brightness_value_template: "{{value_json.Dimmer}}"
   payload_on: "ON"
