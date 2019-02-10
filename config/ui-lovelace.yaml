@@ -3,6 +3,7 @@ views:
     # View tab title.
   - id: 0  # Automatically created id
     title: Main
+    icon: mdi:home
     cards:
         # The markdown card will render markdown text.
         # The picture entity card will represent an entity with a picture
@@ -19,14 +20,6 @@ views:
             name: "Living dimmer"
           - entity: light.moesdimmer02
             name: "Office dimmer"
-      - type: entities
-        # Title of the entities card
-        title: Temperature
-        # The entities here will be shown in the same order as specified.
-        # Each entry is an entity ID or a map with extra options.
-        entities:
-          - input_number.living_temperature_slider
-          - input_number.office_temperature_slider
           
       - type: glance
         entities:
@@ -93,7 +86,7 @@ views:
 
   - id: 2
     title: Settings
-    icon: mdi:home-assistant
+    icon: mdi:thermometer
     cards:
       - type: entities
         title: Temperature settings
@@ -107,7 +100,14 @@ views:
         - entity: input_number.home_alone_temperature_slider
           name: When alone
           icon: mdi:home-lock
-
+      - type: entities
+        # Title of the entities card
+        title: Temperature
+        # The entities here will be shown in the same order as specified.
+        # Each entry is an entity ID or a map with extra options.
+        entities:
+          - input_number.living_temperature_slider
+          - input_number.office_temperature_slider  
       - type: glance
         entities:
         - entity: sensor.living_temperature
@@ -120,7 +120,6 @@ views:
           icon: mdi:thermometer
         - entity: binary_sensor.office_heater_state
           name: Office
-
 
   - id: 3
     title: Presence
