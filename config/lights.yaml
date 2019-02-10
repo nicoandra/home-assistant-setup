@@ -41,7 +41,6 @@
 
 - platform: mqtt
   name: "MoesDimmer01"
-  alias: "Living Dimmer"
   command_topic: "cmnd/sonoff/switch/living/POWER"
   state_topic: "stat/sonoff/switch/living/RESULT/filtered"
   state_value_template: "{{value_json.POWER}}"
@@ -61,7 +60,6 @@
 
 - platform: mqtt
   name: "MoesDimmer02"
-  alias: "Office Dimmer"
   command_topic: "cmnd/sonoff/switch/office/POWER"
   state_topic: "stat/sonoff/switch/office/RESULT/filtered"
   state_value_template: "{{value_json.POWER}}"

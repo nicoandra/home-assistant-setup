@@ -65,24 +65,33 @@ views:
     title: Lights
     icon: mdi:lightbulb
     cards:
+    - type: glance
+      title: Global
+      entities:
+      - entity: group.all_lights
+        name: "All"
+      - entity: light.moesdimmer01
+        name: "Dimmer Leds"
+      - entity: light.moesdimmer02
+        name: "Dimmer Lamps"
     - type: entities
       title: "Office"
       icon: mdi:desktop-classic
       entities:
-        - light.office
-        - light.office_yee
-        - light.office_ceiling
+      - light.office
+      - light.office_yee
+      - light.office_ceiling
     - type: entities
       icon: mdi:fridge-outline
       title: "Kitchen"
       entities:
-        - light.countertop
-        - light.kitchen
+      - light.countertop
+      - light.kitchen
     - type: entities
       title: "Living"
       entities:
-        - light.couch
-        - light.living_moon
+      - light.couch
+      - light.living_moon
 
   - id: 2
     title: Settings
@@ -127,9 +136,12 @@ views:
     cards:
       - type: entity-filter
         entities:
-          - device_tracker.nico_moto5
-          - device_tracker.vsmbr_phone
-          - device_tracker.nico_moto5_ping
+          - entity: device_tracker.nico_moto5
+            name: Nico Moto5
+          - entity: device_tracker.vsmbr_phone
+            name: Vick
+          - entity: device_tracker.nico_moto5_ping
+            name: Nico
         state_filter:
           - 'home'
         card:
