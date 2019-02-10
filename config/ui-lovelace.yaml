@@ -35,31 +35,26 @@ views:
 
       - type: horizontal-stack
         cards:
-        - type: sensor
+        - type: gauge
+          entity: sensor.average_temperature
+          name: Home
+          min: 16
+          max: 28
+          unit: C
+          severity:
+        - type: gauge
           entity: sensor.living_temperature
-          name: Living Temperature
-        - type: sensor
+          name: Living
+          min: 16
+          max: 28
+          unit: C
+        - type: gauge
           entity: sensor.office_temperature
-          name: Office Temperature
+          name: Office
+          min: 16
+          max: 28
+          unit: C
 
-      - type: gauge
-        entity: sensor.average_temperature
-        name: Home Temp
-        min: 14
-        max: 28
-        unit: C
-      - type: gauge
-        entity: sensor.living_temperature
-        name: Living Temp
-        min: 14
-        max: 28
-        unit: C
-      - type: gauge
-        entity: sensor.office_temperature
-        name: Office Temp
-        min: 14
-        max: 28
-        unit: C
 
   - id: 1
     title: Lights
