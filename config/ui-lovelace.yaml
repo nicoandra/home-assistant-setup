@@ -65,10 +65,6 @@ views:
       entities:
       - entity: group.all_lights
         name: "All"
-      - entity: light.moesdimmer01
-        name: "Dimmer Leds"
-      - entity: light.moesdimmer02
-        name: "Dimmer Lamps"
     - type: entities
       title: "Office"
       icon: mdi:desktop-classic
@@ -87,6 +83,18 @@ views:
       entities:
       - light.couch
       - light.living_moon
+    - type: horizontal-stack
+      cards:
+      - type: entities
+        entities:
+        - entity: group.all_lights
+        name: "All"      
+      - type: light
+        entity: light.moesdimmer01
+        name: "Dimmer Leds"
+      - type: light
+        entity: light.moesdimmer02
+        name: "Dimmer Lamps"
 
   - id: 2
     title: Settings
@@ -124,6 +132,27 @@ views:
           icon: mdi:thermometer
         - entity: binary_sensor.office_heater_state
           name: Office
+      - type: history-graph
+        hours_to_show: 12
+        refresh_interval: 60
+        title: History
+        entities:
+        - entity: sensor.living_temperature
+          name: Living ºC
+          icon: mdi:thermometer
+        - entity: binary_sensor.living_heater_state
+          name: Living
+        - entity: sensor.office_temperature
+          name: Office ºC
+          icon: mdi:thermometer
+        - entity: binary_sensor.office_heater_state
+          name: Office         
+        - entity: input_number.office_temperature_slider
+          name: Office Set
+          icon: mdi:thermometer
+        - entity: input_number.living_temperature_slider
+          name: Kitchen Set
+          icon: mdi:thermometer                     
 
   - id: 3
     title: Presence
@@ -142,3 +171,17 @@ views:
         card:
           type: glance
           title: People at home
+  - id: 4
+    title: Cameras
+    cards:
+    - type: picture-glance
+      entities:
+      - camera.door
+      title: Door
+      camera_image: camera.door
+    - type: picture-glance
+      entities:
+      - light.countertop
+      - light.kitchen
+      title: Kitchen
+      camera_image: camera.kitchen
