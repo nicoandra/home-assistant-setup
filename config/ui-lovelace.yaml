@@ -100,6 +100,19 @@ views:
     title: Settings
     icon: mdi:thermometer
     cards:
+      - type: glance
+        entities:
+        - entity: sensor.living_temperature
+          name: Living
+          icon: mdi:thermometer
+        - entity: binary_sensor.living_heater_state
+          name: Living
+        - entity: sensor.office_temperature
+          name: Office
+          icon: mdi:thermometer
+        - entity: binary_sensor.office_heater_state
+          name: Office
+
       - type: entities
         title: Temperature settings
         entities:
@@ -120,18 +133,6 @@ views:
         entities:
           - input_number.living_temperature_slider
           - input_number.office_temperature_slider  
-      - type: glance
-        entities:
-        - entity: sensor.living_temperature
-          name: Living
-          icon: mdi:thermometer
-        - entity: binary_sensor.living_heater_state
-          name: Living
-        - entity: sensor.office_temperature
-          name: Office
-          icon: mdi:thermometer
-        - entity: binary_sensor.office_heater_state
-          name: Office
       - type: history-graph
         hours_to_show: 12
         refresh_interval: 60
@@ -173,6 +174,7 @@ views:
           title: People at home
   - id: 4
     title: Cameras
+    icon: mdi:camcorder
     cards:
     - type: picture-glance
       entities:

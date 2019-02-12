@@ -164,9 +164,8 @@ lights_moesdimmer01:
 lights_moesdimmer02:
   name: "Dimmable 02"
   entities:
-  - light.office
+  - light.office_yee
   - light.kitchen
-  - light.countertop
   - light.couch
   - light.living_moon
   - light.office_ceiling
