@@ -157,15 +157,13 @@ lights_interior:
 lights_moesdimmer01:
   name: "Dimmable 01"
   entities:
-  - light.office
-  - light.couch
   - light.countertop
+  - light.couch
 
 lights_moesdimmer02:
   name: "Dimmable 02"
   entities:
   - light.office_yee
-  - light.kitchen
   - light.living_moon
 
 lights_moesdimmerdev:
