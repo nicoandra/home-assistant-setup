@@ -26,29 +26,32 @@
       name: Office Yee
       transition: 1000
       use_music_mode: False #(defaults to False)
-      save_on_change: True #(defaults to True)
+      save_on_change: false #(defaults to false)
+      model: color2
     192.168.1.147:
       name: Living Moon
       transition: 1000
       use_music_mode: False #(defaults to False)
-      save_on_change: True #(defaults to True)
+      save_on_change: false #(defaults to false)
+      model: color2
     192.168.1.234:
       name: Kitchen
       transition: 1000
       use_music_mode: False #(defaults to False)
-      save_on_change: True #(defaults to True)
+      save_on_change: false #(defaults to false)
+      model: color2
 # See https://www.home-assistant.io/components/light.mqtt/#brightness_command_topic
 
 - platform: mqtt
   name: "MoesDimmer01"
   command_topic: "cmnd/sonoff/switch/living/POWER"
-  state_topic: "stat/sonoff/switch/living/RESULT/filtered"
+  state_topic: stat/sonoff/switch/living/RESULT/filtered
   state_value_template: "{{value_json.POWER}}"
   brightness_command_topic: "cmnd/sonoff/switch/living/DIMMER"
-  brightness_state_topic: "stat/sonoff/switch/living/RESULT/filtered"
+  brightness_state_topic: stat/sonoff/switch/living/RESULT/filtered
   brightness_scale: 99
   on_command_type: "brightness"
-  brightness_value_template: "{{value_json.Dimmer}}"
+  brightness_value_template: "{{ value_json.Dimmer }}"
   payload_on: "ON"
   payload_off: "OFF"
   availability_topic: "tele/sonoff/switch/living/LWT"

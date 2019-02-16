@@ -9,6 +9,6 @@ action:
 - service: light.turn_on
   data_template:
     entity_id: group.lights_moesdimmer02
-    brightness: "{{  state_attr('light.moesdimmer02', 'brightness')|int }}"
+    brightness: "{{ state_attr('light.moesdimmer02', 'brightness')|int }}"
 
 # {{states.light.moesdimmer01.attributes.brightness }} 
