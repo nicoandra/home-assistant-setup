@@ -1,8 +1,8 @@
 alias: Moes Dimmer 01 ON
 trigger:
-# - platform: state
-#   entity_id: light.moesdimmer01
-#   to: 'on'
+- platform: state
+  entity_id: light.moesdimmer01
+  to: 'on'
 - platform: mqtt
   topic: stat/sonoff/switch/living/RESULT/filtered
 action:

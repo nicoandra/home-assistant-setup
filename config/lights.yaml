@@ -57,7 +57,6 @@
   qos: 1
   retain: false
 
-
 - platform: mqtt
   name: "MoesDimmer02"
   command_topic: "cmnd/sonoff/switch/office/POWER"
@@ -75,3 +74,21 @@
   payload_not_available: "Offline"
   qos: 1
   retain: false
+
+- platform: mqtt
+  name: "MoesDimmerDev"
+  command_topic: "cmnd/sonoff/switch/dev/POWER"
+  state_topic: "stat/sonoff/switch/dev/RESULT/filtered"
+  state_value_template: "{{value_json.POWER}}"
+  brightness_command_topic: "cmnd/sonoff/switch/dev/DIMMER"
+  brightness_state_topic: "stat/sonoff/switch/dev/RESULT/filtered"
+  brightness_scale: 99
+  on_command_type: "brightness"
+  brightness_value_template: "{{value_json.Dimmer}}"
+  payload_on: "ON"
+  payload_off: "OFF"
+  availability_topic: "tele/sonoff/switch/dev/LWT"
+  payload_available: "Online"
+  payload_not_available: "Offline"
+  qos: 1
+  retain: false  

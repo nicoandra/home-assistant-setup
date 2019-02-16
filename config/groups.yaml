@@ -166,11 +166,17 @@ lights_moesdimmer02:
   entities:
   - light.office_yee
   - light.kitchen
-  - light.couch
   - light.living_moon
+
+lights_moesdimmerdev:
+  name: "Dimmable Dev"
+  entities:
+  - light.office_ceiling
 
 dimmers_all:
   name: All dimmers
   entities:
   - light.moesdimmer01
   - light.moesdimmer02
+
+
