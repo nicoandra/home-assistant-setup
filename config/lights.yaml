@@ -10,7 +10,7 @@
         fade: on
       - number: 2
         type: rgbw
-        name: Kitchen
+        name: Office Ceiling
         fade: on
       - number: 3
         type: rgbw
@@ -33,7 +33,7 @@
       use_music_mode: False #(defaults to False)
       save_on_change: True #(defaults to True)
     192.168.1.234:
-      name: Office ceiling
+      name: Kitchen
       transition: 1000
       use_music_mode: False #(defaults to False)
       save_on_change: True #(defaults to True)
