@@ -43,7 +43,7 @@
 # See https://www.home-assistant.io/components/light.mqtt/#brightness_command_topic
 
 - platform: mqtt
-  name: "MoesDimmer01"
+  name: "MoesDimmer Strips"
   command_topic: "cmnd/sonoff/switch/living/POWER"
   state_topic: stat/sonoff/switch/living/RESULT/filtered
   state_value_template: "{{value_json.POWER}}"
@@ -79,7 +79,7 @@
   retain: false
 
 - platform: mqtt
-  name: "MoesDimmerDev"
+  name: "MoesDimmer Dev"
   command_topic: "cmnd/sonoff/switch/dev/POWER"
   state_topic: "stat/sonoff/switch/dev/RESULT/filtered"
   state_value_template: "{{value_json.POWER}}"

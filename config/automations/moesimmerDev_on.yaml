@@ -1,14 +1,14 @@
 alias: Moes Dimmer Dev ON
 trigger:
 - platform: state
-  entity_id: light.moesdimmerdev
+  entity_id: light.moesdimmer_dev
   to: 'on'
 - platform: mqtt
   topic: stat/sonoff/switch/dev/RESULT/filtered
 action:
 - service: light.turn_on
   data_template:
-    entity_id: group.lights_moesdimmerdev
-    brightness: "{{  state_attr('light.moesdimmerdev', 'brightness')|int }}"
+    entity_id: group.lights_moesdimmer_dev
+    brightness: "{{  state_attr('light.moesdimmer_dev', 'brightness')|int }}"
 
 # {{states.light.moesdimmer01.attributes.brightness }} 

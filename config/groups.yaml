@@ -154,8 +154,8 @@ lights_interior:
     - light.living_moon
     - group.dimmers_all
 
-lights_moesdimmer01:
-  name: "Dimmable 01"
+lights_moesdimmer_strips:
+  name: "Dim Strips"
   entities:
   - light.countertop
   - light.couch
@@ -167,15 +167,14 @@ lights_moesdimmer02:
   - light.living_moon
   - light.kitchen
 
-lights_moesdimmerdev:
+lights_moesdimmer_dev:
   name: "Dimmable Dev"
   entities:
-  - light.office_ceiling
+  - light.countertop
+  - light.couch
 
 dimmers_all:
   name: All dimmers
   entities:
   - light.moesdimmer01
   - light.moesdimmer02
-
-
