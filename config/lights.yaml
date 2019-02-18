@@ -44,17 +44,17 @@
 
 - platform: mqtt
   name: "MoesDimmer Strips"
-  command_topic: "cmnd/sonoff/switch/living/POWER"
-  state_topic: stat/sonoff/switch/living/RESULT/filtered
+  command_topic: "cmnd/sonoff/switch/strips/POWER"
+  state_topic: stat/sonoff/switch/strips/RESULT/filtered
   state_value_template: "{{value_json.POWER}}"
-  brightness_command_topic: "cmnd/sonoff/switch/living/DIMMER"
-  brightness_state_topic: stat/sonoff/switch/living/RESULT/filtered
+  brightness_command_topic: "cmnd/sonoff/switch/strips/DIMMER"
+  brightness_state_topic: stat/sonoff/switch/strips/RESULT/filtered
   brightness_scale: 99
   on_command_type: "brightness"
-  brightness_value_template: "{{ value_json.Dimmer }}"
+  brightness_value_template: "{{value_json.Dimmer}}"
   payload_on: "ON"
   payload_off: "OFF"
-  availability_topic: "tele/sonoff/switch/living/LWT"
+  availability_topic: "tele/sonoff/switch/strips/LWT"
   payload_available: "Online"
   payload_not_available: "Offline"
   qos: 1

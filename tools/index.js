@@ -7,7 +7,7 @@ client.on('connect', function () {
     console.log("Connected!");
     client.subscribe('stat/sonoff/switch/dev/RESULT', function (err) {})
     client.subscribe('stat/sonoff/switch/office/RESULT', function (err) {})
-    client.subscribe('stat/sonoff/switch/living/RESULT', function (err) {})
+    client.subscribe('stat/sonoff/switch/strips/RESULT', function (err) {})
 })
 
 client.on('message', function (topic, message) {
