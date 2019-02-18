@@ -1,11 +1,11 @@
-alias: Moes Dimmer 01 OFF
+# alias: Moes Dimmer 01 OFF
 trigger:
-- platform: state
-  entity_id: light.moesdimmer_strips
-  from: 'on'
-  to: 'off'
+# - platform: state
+#   entity_id: light.moesdimmer_strips
+#   from: 'on'
+#   to: 'off'
 condition:
 action:
-- service: light.turn_off
-  entity_id: group.lights_moesdimmer_strips
-# {{states.light.moesdimmer01.attributes.brightness }} 
+# - service: light.turn_off
+#   entity_id: group.lights_moesdimmer_strips
+# # {{states.light.moesdimmer01.attributes.brightness }} 
