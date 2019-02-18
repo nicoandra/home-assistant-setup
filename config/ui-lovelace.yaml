@@ -16,7 +16,7 @@ views:
           - entity: input_number.at_home_temperature_slider
             name: At home
             icon: mdi:home
-          - entity: light.moesdimmer01
+          - entity: light.moesdimmer_strips
             name: "Living dimmer"
           - entity: light.moesdimmer02
             name: "Office dimmer"
