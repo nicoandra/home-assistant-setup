@@ -1,72 +1,105 @@
 title: My Awesome Home
 views:
-    # View tab title.
-  - id: 0  # Automatically created id
-    title: Main
+
+  - id: 1
+    title: Lights
     icon: mdi:home
     cards:
-        # The markdown card will render markdown text.
-        # The picture entity card will represent an entity with a picture
-      - type: entities
-        title: Main
-        entities:
-          - group.lights_interior
-          - entity: scene.all_full
-            icon: mdi:lightbulb-on-outline
-          - entity: input_number.at_home_temperature_slider
-            name: At home
-            icon: mdi:home
-          - entity: light.moesdimmer_strips
-            name: "Strips"
-          - entity: light.moesdimmer02
-            name: "Lamps"
-          
-      - type: glance
-        entities:
-        - entity: scene.all_full
-          name: All full
-          icon: mdi:lightbulb-on-outline
-        - entity: scene.chillin
-          name: Chillin
-        - entity: scene.morning
-          name: Morning
-        - entity: scene.movies
-          name: Movies
-
-      - type: horizontal-stack
-        cards:
-        - type: gauge
-          entity: sensor.average_temperature
-          name: Home
-          min: 16
-          max: 28
-          unit: C
-          severity:
-
-      - type: horizontal-stack
-        cards:
-        - type: gauge
-          entity: sensor.living_temperature
-          name: Living
-          min: 16
-          max: 28
-          unit: C
-        - type: gauge
-          entity: sensor.office_temperature
-          name: Office
-          min: 16
-          max: 28
-          unit: C
+    - type: horizontal-stack
+      cards:    
+      - type: entity-button
+        entity: group.all_lights
+        tap_action:
+          action: call-service
+          service: light.turn_on
+          service_data:
+            entity_id:  group.all_lights
+        hold_action:
+          action: call-service
+          service: light.turn_off
+          service_data:
+            entity_id: group.all_lights
+      - type: entity-button
+        entity: scene.movies
+        tap_action:
+          action: call-service
+          service: scene.turn_on
+          service_data:
+            entity_id:  scene.movies
+        hold_action:
+          action: call-service
+          service: light.turn_on
+          service_data:
+            entity_id:  group.all_lights
+    - type: glance
+      entities:
+      - entity: sensor.living_temperature
+        name: Living
+        icon: mdi:thermometer
+      - entity: binary_sensor.living_heater_state
+        name: Living
+      - entity: sensor.office_temperature
+        name: Office
+        icon: mdi:thermometer
+      - entity: binary_sensor.office_heater_state
+        name: Office  
+    - type: horizontal-stack
+      cards:
+      - type: light
+        entity: light.moesdimmer_strips
+        name: "Strips"
+      - type: light
+        entity: light.moesdimmer02
+        name: "Lamps"
+    - type: entities
+      title: "Office"
+      icon: mdi:desktop-classic
+      entities:
+      - light.office
+      - light.office_yee
+      - light.office_ceiling
+    - type: entities
+      icon: mdi:fridge-outline
+      title: "Kitchen"
+      entities:
+      - light.countertop
+      - light.kitchen
+    - type: entities
+      title: "Living"
+      entities:
+      - light.couch
+      - light.living_moon
 
   - id: 1
     title: Lights
     icon: mdi:lightbulb
     cards:
-    - type: glance
-      title: Global
-      entities:
-      - entity: group.all_lights
-        name: "All"
+    - type: horizontal-stack
+      cards:    
+      - type: entity-button
+        entity: group.all_lights
+        tap_action:
+          action: call-service
+          service: light.turn_on
+          service_data:
+            entity_id:  group.all_lights
+        hold_action:
+          action: call-service
+          service: light.turn_off
+          service_data:
+            entity_id: group.all_lights
+      - type: entity-button
+        entity: scene.movies
+        tap_action:
+          action: call-service
+          service: scene.turn_on
+          service_data:
+            entity_id:  scene.movies
+        hold_action:
+          action: call-service
+          service: light.turn_on
+          service_data:
+            entity_id:  group.all_lights
     - type: entities
       title: "Office"
       icon: mdi:desktop-classic
@@ -87,16 +120,12 @@ views:
       - light.living_moon
     - type: horizontal-stack
       cards:
-      - type: entities
-        entities:
-        - entity: group.all_lights
-        name: "All"      
       - type: light
-        entity: light.moesdimmer01
-        name: "Dimmer Leds"
+        entity: light.moesdimmer_strips
+        name: "Strips"
       - type: light
         entity: light.moesdimmer02
-        name: "Dimmer Lamps"
+        name: "Lamps"
 
   - id: 2
     title: Settings
@@ -114,7 +143,6 @@ views:
           icon: mdi:thermometer
         - entity: binary_sensor.office_heater_state
           name: Office
-
       - type: entities
         title: Temperature settings
         entities:

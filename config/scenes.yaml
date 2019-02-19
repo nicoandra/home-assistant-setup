@@ -193,3 +193,28 @@
       state: on
       brightness: 1
 
+- name: Red ambient
+  entities:
+    light.office:
+      state: on
+      brightness: 1
+    light.countertop:
+      state: on
+      brightness: 165
+    light.office_ceiling:
+      state: off
+    light.couch:
+      state: on
+      brightness: 191
+    light.kitchen:
+      state: on
+      brightness: 61
+      color_temp: 272
+    light.office_yee:
+      state: on
+      brightness: 3
+      color_temp: 370
+    light.living_moon:
+      state: on
+      brightness: 97
+      color_temp: 393
