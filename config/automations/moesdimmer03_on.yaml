@@ -11,4 +11,4 @@ action:
 - service: light.turn_on
   data_template:
     entity_id: group.lights_moesdimmer_strips
-    brightness: '{{ states.lights.moesdimmer_strips.attributes.brightness|int }}'
+    brightness: '{{ states.light.moesdimmer_strips.attributes.brightness|int }}'
