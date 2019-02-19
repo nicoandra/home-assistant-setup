@@ -69,7 +69,18 @@ views:
       entities:
       - light.couch
       - light.living_moon
-     
+    - type: horizontal-stack
+      cards:
+      - type: gauge
+        entity: sensor.average_temperature
+        title: Home Temperature
+      - type: history-graph
+        hours_to_show: 6
+        refresh_interval: 60
+        entities:
+        - entity: sensor.average_temperature
+          name: C
+          icon: mdi:home     
 
   - id: 1
     title: Lights
@@ -167,7 +178,6 @@ views:
       - type: history-graph
         hours_to_show: 12
         refresh_interval: 60
-        title: History
         entities:
         - entity: sensor.living_temperature
           name: Living ºC
