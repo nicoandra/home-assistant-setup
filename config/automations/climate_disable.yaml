@@ -12,11 +12,6 @@ condition:
     entity_id: group.all_devices
     state: not_home
 action:
-  - service: mqtt.publish
-    data_template:
-      topic: '/HAYALGUIENONO'
-      retain: true
-      payload: "No hay nadiess"
   - service: input_number.set_value
     data_template:
       entity_id: input_number.living_temperature_slider

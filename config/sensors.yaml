@@ -1,8 +1,25 @@
 - platform: yr
 - platform: openweathermap
+  name: Weather Current
   api_key: !secret openweathermap_apikey
   monitored_conditions:
-    - weather
+  - weather
+  - temperature
+  - humidity
+  - clouds
+  - rain
+  - snow  
+- platform: openweathermap
+  name: Weather Foreacast
+  api_key: !secret openweathermap_apikey
+  monitored_conditions:
+  - weather
+  - temperature
+  - humidity
+  - clouds
+  - rain
+  - snow  
+
 
 - platform: mqtt
   name: "Raw Living Temperature"

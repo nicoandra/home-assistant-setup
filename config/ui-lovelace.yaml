@@ -168,6 +168,9 @@ views:
         refresh_interval: 60
         title: History
         entities:
+        - entity: sensor.weather_current_temperature
+          name: Montréal ºC
+          icon: mdi:thermometer
         - entity: sensor.living_temperature
           name: Living ºC
           icon: mdi:thermometer
