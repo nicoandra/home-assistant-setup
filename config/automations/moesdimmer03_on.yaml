@@ -4,9 +4,11 @@ trigger:
   entity_id: light.moesdimmer_strips
   from: 'off'
   to: 'on'
+- platform: mqtt
+  topic: stat/sonoff/switch/strips/RESULT/filtered
 condition:
 action:
 - service: light.turn_on
   data_template:
     entity_id: group.lights_moesdimmer_strips
-    brightness: '{{ states.lights.moesdimmer_strips.attributes.brightness|int }}''
+    brightness: '{{ states.lights.moesdimmer_strips.attributes.brightness|int }}'
