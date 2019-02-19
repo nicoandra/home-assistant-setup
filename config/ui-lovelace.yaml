@@ -42,7 +42,7 @@ views:
         name: Office
         icon: mdi:thermometer
       - entity: binary_sensor.office_heater_state
-        name: Office  
+        name: Office
     - type: horizontal-stack
       cards:
       - type: light
@@ -69,6 +69,7 @@ views:
       entities:
       - light.couch
       - light.living_moon
+     
 
   - id: 1
     title: Lights
@@ -168,9 +169,6 @@ views:
         refresh_interval: 60
         title: History
         entities:
-        - entity: sensor.weather_current_temperature
-          name: Montréal ºC
-          icon: mdi:thermometer
         - entity: sensor.living_temperature
           name: Living ºC
           icon: mdi:thermometer
@@ -186,7 +184,7 @@ views:
           icon: mdi:thermometer
         - entity: input_number.living_temperature_slider
           name: Kitchen Set
-          icon: mdi:thermometer                     
+          icon: mdi:thermometer
 
   - id: 3
     title: Presence
