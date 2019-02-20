@@ -78,6 +78,7 @@
     light.kitchen:
       state: on
       brightness: 255
+      color_temp: 335
     light.living_moon:
       state: on
       brightness: 255
