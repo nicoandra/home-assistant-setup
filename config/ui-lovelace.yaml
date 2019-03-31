@@ -9,16 +9,22 @@ views:
       cards:    
       - type: entity-button
         entity: group.all_lights
+        name: Lighs on
+        icon: mdi:lightbulb-on-outline
         tap_action:
           action: call-service
           service: light.turn_on
           service_data:
             entity_id:  group.all_lights
-        hold_action:
+      - type: entity-button
+        name: Sleep
+        entity: group.all_lights
+        icon: mdi:hotel
+        tap_action:
           action: call-service
           service: light.turn_off
           service_data:
-            entity_id: group.all_lights
+            entity_id:  group.all_lights
       - type: entity-button
         entity: scene.movies
         tap_action:
@@ -82,7 +88,7 @@ views:
           name: C
           icon: mdi:home     
 
-  - id: 1
+  - id: 2
     title: Lights
     icon: mdi:lightbulb
     cards:
@@ -90,16 +96,22 @@ views:
       cards:    
       - type: entity-button
         entity: group.all_lights
+        name: Lighs on
+        icon: mdi:lightbulb-on-outline
         tap_action:
           action: call-service
           service: light.turn_on
           service_data:
             entity_id:  group.all_lights
-        hold_action:
+      - type: entity-button
+        name: Sleep
+        entity: group.all_lights
+        icon: mdi:hotel
+        tap_action:
           action: call-service
           service: light.turn_off
           service_data:
-            entity_id: group.all_lights
+            entity_id:  group.all_lights
       - type: entity-button
         entity: scene.movies
         tap_action:
