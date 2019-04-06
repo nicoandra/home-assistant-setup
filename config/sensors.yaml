@@ -100,7 +100,7 @@
 
 - platform: mqtt
   name: "Raw Basement Temperature"
-  state_topic: "/basement/sensor/basement_temperature/state"
+  state_topic: "basement/sensor/basement_temperature/state"
   unit_of_measurement: '°C'
   # value_template: "{{ value_json.temperature }}"
 
