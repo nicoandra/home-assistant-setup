@@ -36,7 +36,6 @@
   name: "Living On/Off"
   state_topic: "/ThermoDev/Sensor02/CurrentState"
 
-
 - platform: mqtt
   name: "Raw Office Temperature"
   state_topic: "/ThermoDev/Sensor01/CurrentTemperature"
@@ -99,7 +98,32 @@
   state_topic: /bathroom/distance/state
   value_template: '{% if ( (value|float) < 1) %}on{% else %}off{% endif %}'
 
+- platform: mqtt
+  name: "Raw Basement Temperature"
+  state_topic: "/basement/sensor/basement_temperature/state"
+  unit_of_measurement: '°C'
+  # value_template: "{{ value_json.temperature }}"
 
+- platform: mqtt
+  name: "Raw Basement Humidity"
+  state_topic: "basement/sensor/basement_humidity/state"
+  unit_of_measurement: '%'
+
+- platform: filter
+  name: "Basement Temperature"
+  entity_id: sensor.raw_basement_temperature
+  filters:
+  - filter: lowpass
+    time_constant: 2
+    precision: 2
+
+- platform: filter
+  name: "Basement Humidity"
+  entity_id: sensor.raw_basement_humidity
+  filters:
+  - filter: lowpass
+    time_constant: 2
+    precision: 2
 
 # - platform: template
 #   sensors:
