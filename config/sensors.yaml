@@ -113,16 +113,18 @@
   name: "Basement Temperature"
   entity_id: sensor.raw_basement_temperature
   filters:
-  - filter: lowpass
-    time_constant: 2
+  - filter: outlier
+    window_size: 10
+    radius: 15
     precision: 2
 
 - platform: filter
   name: "Basement Humidity"
   entity_id: sensor.raw_basement_humidity
   filters:
-  - filter: lowpass
-    time_constant: 2
+  - filter: outlier
+    window_size: 10
+    radius: 20
     precision: 2
 
 # - platform: template

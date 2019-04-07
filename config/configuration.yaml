@@ -86,6 +86,15 @@ binary_sensor:
     state_topic: "/ThermoDev/Sensor02/CurrentState"
     payload_on: "ON"
     payload_off: "OFF"
+  - platform: template
+    name: Basement
+    sensors:
+      high:
+        value_template: "{{(states('sensor.raw_basement_humidity') | float > 55) or (states('sensor.raw_basement_temperature') | float > 25) }}"
+      low:
+        value_template: "{{(states('sensor.raw_basement_humidity') | float < 10) or (states('sensor.raw_basement_temperature') | float < 10)}}"
+
+    
 
 discovery: # Discover some devices automatically
 conversation: # Allows you to issue voice commands from the frontend in enabled browsers
