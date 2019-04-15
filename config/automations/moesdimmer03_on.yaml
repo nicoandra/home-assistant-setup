@@ -5,7 +5,7 @@ trigger:
   from: 'off'
   to: 'on'
 - platform: mqtt
-  topic: stat/sonoff/switch/strips/RESULT/filtered
+  topic: stat/sonoff/switch/office/RESULT/filtered
 condition:
 action:
 - service: light.turn_on
