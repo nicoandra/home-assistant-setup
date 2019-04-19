@@ -87,7 +87,6 @@ binary_sensor:
     payload_on: "ON"
     payload_off: "OFF"
   - platform: template
-    name: Basement
     sensors:
       high:
         value_template: "{{(states('sensor.raw_basement_humidity') | float > 55) or (states('sensor.raw_basement_temperature') | float > 25) }}"
