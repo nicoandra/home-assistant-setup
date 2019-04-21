@@ -52,10 +52,10 @@ views:
     - type: horizontal-stack
       cards:
       - type: light
-        entity: light.moesdimmer_strips
+        entity: light.moesdimmerliving
         name: "Strips"
       - type: light
-        entity: light.moesdimmer02
+        entity: light.moesdimmeroffice
         name: "Lamps"
     - type: entities
       title: "Office"
