@@ -109,31 +109,6 @@ debugpanel:
     - sensor.living_temperature
     - input_text.current_scene
 
-scenes:
-  name: Scenes
-  view: no
-  entities:
-    - scene.morning
-    - scene.alone_evening
-    - scene.alone_late
-    - scene.someone_got_home
-    - scene.all_full
-    - scene.chillin
-    - scene.movies
-    - scene.sleeping_not_alone
-
-tab_scenes:
-  name: Scenes
-  view: yes
-  entities:
-    - scene.alone_evening
-    - scene.alone_late
-    - scene.sleeping_not_alone
-    - scene.someone_got_home
-    - scene.all_full
-    - scene.chillin
-    - scene.morning
-
 presence:
   name: Presence
   entities:
@@ -160,8 +135,8 @@ lights_moesdimmer_strips:
   - light.countertop
   - light.couch
 
-lights_moesdimmer02:
-  name: "Dimmable 02"
+lights_moesdimmer_lamps:
+  name: "Dim Lamps"
   entities:
   - light.office_yee
   - light.living_moon
