@@ -153,3 +153,9 @@ dimmers_all:
   entities:
   - light.moesdimmer01
   - light.moesdimmer02
+
+
+lights_exterior:
+  name: Exterior Lights
+  entities:
+  - light.front_door

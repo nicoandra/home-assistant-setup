@@ -6,8 +6,6 @@
       state: on
       brightness: 20
       color_temp: 324
-    light.office_ceiling:
-      state: off
     light.office:
       state: off
     light.couch:
@@ -163,9 +161,6 @@
     light.office:
       state: on
       brightness: 255
-    light.office_ceiling:
-      state: on
-      effect: "Police"
     light.living_moon:
       state: on
       effect: "Police"
@@ -198,8 +193,6 @@
     light.countertop:
       state: on
       brightness: 165
-    light.office_ceiling:
-      state: off
     light.couch:
       state: on
       brightness: 191

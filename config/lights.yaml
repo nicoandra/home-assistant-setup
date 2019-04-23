@@ -10,7 +10,7 @@
         fade: on
       - number: 2
         type: rgbw
-        name: Office Ceiling
+        name: Front door
         fade: on
       - number: 3
         type: rgbw
