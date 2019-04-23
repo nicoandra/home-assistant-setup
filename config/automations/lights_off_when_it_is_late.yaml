@@ -1,21 +1,21 @@
 alias: Lights off when it is late
 trigger:
-    - platform: time
-      at: "01:00"
-    - platform: state
-      entity_id: group.all_devices
-      to: not_home
+- platform: time
+  at: "01:01"
+- platform: state
+  entity_id: group.all_devices
+  to: not_home
 condition:
-    - condition: state
-      entity_id: group.all_devices
-      state: not_home
-    - condition: time
-      after: "01:00"
-    - condition: sun
-      before: sunrise
+- condition: state
+  entity_id: group.all_devices
+  state: not_home
+- condition: time
+  after: "01:00"
+- condition: sun
+  before: sunrise
 action:
-  - service: homeassistant.turn_off
-    entity_id: group.lights_interior
-  - service: rest_command.let_nico_know
-    data_template:
-      text: "Turned lights off as per rule Lights off when it is late"
+- service: light.turn_off
+  entity_id: group.lights_interior
+- service: rest_command.let_nico_know
+  data_template:
+    text: "Turned lights off as per rule Lights off when it is late"
