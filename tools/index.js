@@ -7,7 +7,7 @@ client.on('connect', function () {
     console.log("Connected!");
     client.subscribe('stat/sonoff/switch/dev/RESULT', function (err) {})
     client.subscribe('stat/sonoff/switch/office/RESULT', function (err) {})
-    client.subscribe('stat/sonoff/switch/strips/RESULT', function (err) {})
+    client.subscribe('stat/sonoff/switch/living/RESULT', function (err) {})
 })
 
 client.on('message', function (topic, message) {
@@ -19,6 +19,6 @@ client.on('message', function (topic, message) {
         client.publish(topic + '/filtered', message);
         console.log("Sent..." , message);
     }, 500)
-    console.log("Queued..." , message.toString());
+    // console.log("Queued..." , message.toString());
 })
 
