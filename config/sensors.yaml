@@ -66,7 +66,7 @@
   entity_id: sensor.raw_living_temperature
   filters:
   - filter: lowpass
-    time_constant: 4
+    time_constant: 5
     precision: 2
 
 - platform: filter
@@ -74,7 +74,7 @@
   entity_id: sensor.raw_living_humidity
   filters:
   - filter: lowpass
-    time_constant: 4
+    time_constant: 5
     precision: 2
 
 - platform: filter
@@ -82,7 +82,7 @@
   entity_id: sensor.raw_office_temperature
   filters:
   - filter: lowpass
-    time_constant: 4
+    time_constant: 5
     precision: 2
 
 - platform: filter
@@ -90,7 +90,7 @@
   entity_id: sensor.raw_office_humidity
   filters:
   - filter: lowpass
-    time_constant: 4
+    time_constant: 5
     precision: 2
 
 - platform: mqtt
@@ -113,17 +113,16 @@
   name: "Basement Temperature"
   entity_id: sensor.raw_basement_temperature
   filters:
-  - filter: range
-    upper_bound: 200
-  - filter: outlier
-    window_size: 10
-    radius: 15
+  - filter: lowpass
+    window_size: 5
     precision: 2
 
 - platform: filter
   name: "Basement Humidity"
   entity_id: sensor.raw_basement_humidity
   filters:
+  - filter: range
+    upper_bound: 150
   - filter: outlier
     window_size: 10
     radius: 20
