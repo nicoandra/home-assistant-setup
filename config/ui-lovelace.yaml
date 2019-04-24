@@ -210,6 +210,13 @@ views:
     title: Presence
     icon: mdi:home-assistant
     cards:
+      - type: entities
+        entities:
+        - group.all_devices
+        - device_tracker.nico_moto5
+        - device_tracker.nico_moto5_ping
+        - device_tracker.vsmbr_laptop
+        - device_tracker.vsmbr_phone
       - type: entity-filter
         entities:
           - entity: device_tracker.nico_moto5
@@ -223,6 +230,19 @@ views:
         card:
           type: glance
           title: People at home
+      - type: entity-filter
+        entities:
+          - entity: device_tracker.nico_moto5
+            name: Nico Moto5
+          - entity: device_tracker.vsmbr_phone
+            name: Vick
+          - entity: device_tracker.nico_moto5_ping
+            name: Nico
+        state_filter:
+          - 'not_home'
+        card:
+          type: glance
+          title: People absent
   - id: 4
     title: Cameras
     icon: mdi:camcorder
