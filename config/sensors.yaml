@@ -113,6 +113,8 @@
   name: "Basement Temperature"
   entity_id: sensor.raw_basement_temperature
   filters:
+  - filter: range
+    upper_bound: 200
   - filter: outlier
     window_size: 10
     radius: 15

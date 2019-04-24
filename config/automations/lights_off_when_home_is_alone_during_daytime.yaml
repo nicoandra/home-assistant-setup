@@ -3,6 +3,8 @@ trigger:
 - platform: state
   entity_id: group.all_devices
   to: not_home
+- platform: sun
+  event: sunrise
 condition:
 - condition: sun
   after: sunrise
