@@ -205,6 +205,16 @@ views:
         - entity: input_number.living_temperature_slider
           name: Kitchen Set
           icon: mdi:thermometer
+      - type: history-graph
+        hours_to_show: 12
+        refresh_interval: 60
+        entities:
+        - entity: sensor.basement_temperature
+          name: Basement ºC
+          icon: mdi:thermometer
+        - entity: sensor.basement_humidity
+          name: Basement H.
+          icon: mdi:thermometer
 
   - id: 3
     title: Presence
