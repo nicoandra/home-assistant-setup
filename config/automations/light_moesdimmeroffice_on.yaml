@@ -1,13 +1,15 @@
-alias: Moes Dimmer Office On
+alias: Moes Office Living On
 trigger:
-- platform: state
-  entity_id: light.moesdimmeroffice
-  to: 'on'
-- platform: mqtt
-  topic: stat/sonoff/switch/office/RESULT/filtered
+ - platform: state
+   entity_id: light.moesdimmeroffice
+   to: 'on'
+ - platform: mqtt
+   topic: stat/sonoff/switch/office/RESULT/filtered
 condition:
 action:
-- service: light.turn_on
-  data_template:
-    entity_id: group.lights_moesdimmer_lamps
-    brightness: 255
+ - service: light.turn_on
+   data_template:
+     entity_id: group.lights_moesdimmer_lamps
+     brightness: "{{ state_attr('light.moesdimmeroffice', 'brightness')|int }}"
+
+# # {{states.light.moesdimmer01.attributes.brightness }} 
