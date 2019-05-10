@@ -57,3 +57,16 @@ services:
     - ./tools:/code
     command: node /code/index.js
     
+  logs:
+    image: gerchardon/docker-logio
+    links:
+    - logio:logio
+    volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+    command: -h logio -n docker
+    privileged: true
+  logio:
+    image: temal/logio-server
+    ports:
+    - 28777:28777
+    - 28778:28778

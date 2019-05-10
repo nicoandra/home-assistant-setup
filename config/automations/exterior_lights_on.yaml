@@ -3,7 +3,14 @@ trigger:
 - platform: sun
   event: sunset
   offset: "-02:00:00"
+
 condition:
+ - condition: or  # 'when dark' condition: either after sunset or before sunrise - equivalent to a state condition on `sun.sun` of `below_horizon`
+   conditions:
+   - condition: sun
+     after: sunset
+   - condition: sun
+     before: sunrise
 action:
 - service: light.turn_on
   entity_id: group.lights_exterior

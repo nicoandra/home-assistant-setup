@@ -127,7 +127,6 @@ lights_interior:
     - light.couch
     - light.countertop
     - light.living_moon
-    - group.dimmers_all
 
 lights_moesdimmer_strips:
   name: "Dim Strips"
