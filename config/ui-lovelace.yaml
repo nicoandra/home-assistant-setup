@@ -24,7 +24,7 @@ views:
           action: call-service
           service: light.turn_off
           service_data:
-            entity_id:  group.all_lights
+            entity_id: group.lights_interior
       - type: entity-button
         entity: scene.movies
         tap_action:
@@ -104,13 +104,13 @@ views:
             entity_id:  group.all_lights
       - type: entity-button
         name: Sleep
-        entity: group.all_lights
+        entity: group.lights_interior
         icon: mdi:hotel
         tap_action:
           action: call-service
           service: light.turn_off
           service_data:
-            entity_id:  group.all_lights
+            entity_id: group.lights_interior
       - type: entity-button
         entity: scene.movies
         tap_action:
