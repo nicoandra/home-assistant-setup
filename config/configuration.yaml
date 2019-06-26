@@ -97,7 +97,10 @@ binary_sensor:
 
     
 
-discovery: # Discover some devices automatically
+discovery:
+  ignore:
+  - yeelight # Discover some devices automatically
+
 conversation: # Allows you to issue voice commands from the frontend in enabled browsers
 history: # Enables support for tracking state changes over time
 logbook: # View all events in a logbook
@@ -105,7 +108,7 @@ map: # Enables a map showing the location of tracked devices
 sun: # Track the sun
 cloud:
 tts: # Text to speech
- - platform: google
+ - platform: google_translate
 
 mqtt:
   broker: mosquitto
@@ -159,3 +162,30 @@ input_number:
     min: 17
     max: 23
     step: .5
+
+yeelight:
+  devices:
+    192.168.1.202:
+      name: Office Yee
+      transition: 1000
+      use_music_mode: False #(defaults to False)
+      save_on_change: false #(defaults to false)
+      model: color2
+    192.168.1.203:
+      name: Living Moon
+      transition: 1000
+      use_music_mode: False #(defaults to False)
+      save_on_change: false #(defaults to false)
+      model: color2
+    192.168.1.201:
+      name: Kitchen
+      transition: 1000
+      use_music_mode: False #(defaults to False)
+      save_on_change: false #(defaults to false)
+      model: color2
+    192.168.1.204:
+      name: Office ceiling
+      transition: 1000
+      use_music_mode: False #(defaults to False)
+      save_on_change: false #(defaults to false)
+      model: color2

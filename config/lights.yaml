@@ -40,13 +40,14 @@
       use_music_mode: False #(defaults to False)
       save_on_change: false #(defaults to false)
       model: color2
-    192.168.1.77:
-      name: Office Ceiling
+    192.168.1.204:
+      name: new_office
       transition: 1000
       use_music_mode: False #(defaults to False)
       save_on_change: false #(defaults to false)
       model: color2
 # See https://www.home-assistant.io/components/light.mqtt/#brightness_command_topic
+
 
 - platform: mqtt
   name: "MoesDimmerLiving"
