@@ -129,6 +129,7 @@ views:
       entities:
       - light.office
       - light.office_yee
+      - light.office_ceiling
     - type: entities
       icon: mdi:fridge-outline
       title: "Kitchen"
