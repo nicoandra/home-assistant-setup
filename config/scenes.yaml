@@ -7,7 +7,8 @@
       brightness: 20
       color_temp: 324
     light.office:
-      state: off
+      state: on
+      brightness: 60
     light.couch:
       state: on
       brightness: 50
@@ -24,7 +25,7 @@
       brightness: 132
     light.office:
       state: on
-      brightness: 61
+      brightness: 255
     light.couch:
       state: on
       brightness: 102
