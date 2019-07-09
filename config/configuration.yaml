@@ -123,6 +123,7 @@ climate: !include climate.yaml
 rest_command: !include rest_commands.yaml
 light: !include lights.yaml
 zone: !include zones.yaml
+weather: !include weather.yaml
 # Example configuration.yaml entry
 
 input_text:

@@ -1,3 +1,6 @@
+- platform: environment_canada
+  name: Montréal
+  
 - platform: yr
 - platform: openweathermap
   name: Weather Current
@@ -19,7 +22,6 @@
   - clouds
   - rain
   - snow  
-
 
 - platform: mqtt
   name: "Raw Living Temperature"
