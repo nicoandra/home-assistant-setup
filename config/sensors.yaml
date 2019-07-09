@@ -63,7 +63,7 @@
       friendly_name: 'Average temperature'
       unit_of_measurement: "C"
     template_montreal_temperature:
-      value_template: "{{ ( ( (states('sensor.montreal_temperature') | float) ) / 2 ) | round(2) }}"
+      value_template: "{{ ( (states('sensor.montreal_temperature') | float) ) | round(2) }}"
       entity_id:
         - sensor.montreal_temperature
       friendly_name: 'Montreal temperature'

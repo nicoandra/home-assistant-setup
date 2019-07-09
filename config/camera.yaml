@@ -1,7 +1,7 @@
 - platform: mjpeg
   name: "Door"
-  mjpeg_url: http://192.168.1.123/videostream.cgi?user=admin&pwd=admin
+  mjpeg_url: http://192.168.1.230/videostream.cgi?user=admin&pwd=admin
 
 - platform: mjpeg
   name: "Kitchen"
-  mjpeg_url: http://192.168.1.143/videostream.cgi?user=admin&pwd=admin
+  mjpeg_url: http://192.168.1.230/videostream.cgi?user=admin&pwd=admin
