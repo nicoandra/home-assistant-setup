@@ -2,6 +2,7 @@ alias: Exterior lights on at sunset
 trigger:
 - platform: sun
   event: sunset
+  offset: "-02:00:00"
 condition:
 action:
 - service: light.turn_on

@@ -1,6 +1,5 @@
 title: My Awesome Home
 views:
-
   - id: 1
     title: Lights
     icon: mdi:home
@@ -86,7 +85,9 @@ views:
         entities:
         - entity: sensor.average_temperature
           name: C
-          icon: mdi:home     
+          icon: mdi:home
+    - type: weather-forecast
+      entity: weather.longueuil
 
   - id: 2
     title: Lights
@@ -217,7 +218,23 @@ views:
         - entity: sensor.basement_humidity
           name: Basement H.
           icon: mdi:thermometer
-
+      - type: history-graph
+        hours_to_show: 24
+        refresh_interval: 60
+        entities:
+        - entity: sensor.living_temperature
+          name: Living ºC
+          icon: mdi:thermometer
+        - entity: binary_sensor.living_heater_state
+          name: Living
+        - entity: sensor.office_temperature
+          name: Office ºC
+          icon: mdi:thermometer
+      - type: entities
+        entities:
+        - sensor.montreal_temperature
+        - sensor.average_temperature
+        
   - id: 3
     title: Presence
     icon: mdi:home-assistant
