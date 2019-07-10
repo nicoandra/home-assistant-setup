@@ -209,11 +209,8 @@ views:
         hours_to_show: 12
         refresh_interval: 60
         entities:
-        - entity: sensor.average_temperature
-          name: Indoor ºC
-          icon: mdi:thermometer
-        - entity: sensor.montreal_temperature
-          name: Montréal
+        - sensor.average_temperature
+        - sensor.template_montreal_temperature
       - type: history-graph
         hours_to_show: 12
         refresh_interval: 60
@@ -224,7 +221,8 @@ views:
         - entity: sensor.basement_humidity
           name: Basement H.
           icon: mdi:thermometer
-
+      - type: weather-forecast
+        entity: weather.longueuil
   - id: 3
     title: Presence
     icon: mdi:home-assistant
