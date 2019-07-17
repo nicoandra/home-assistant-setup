@@ -213,6 +213,7 @@ views:
         entities:
         - sensor.average_temperature
         - sensor.template_montreal_temperature
+        - sensor.template_montreal_humidex
       - type: history-graph
         hours_to_show: 12
         refresh_interval: 60
@@ -225,6 +226,12 @@ views:
           icon: mdi:thermometer
       - type: weather-forecast
         entity: weather.longueuil
+      - type: history-graph
+        hours_to_show: 12
+        refresh_interval: 120
+        entities:
+        - sensor.template_average_humidity
+        - sensor.template_montreal_humidity
   - id: 3
     title: Presence
     icon: mdi:home-assistant
