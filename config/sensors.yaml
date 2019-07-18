@@ -53,6 +53,14 @@
   name: "Office On/Off"
   state_topic: "/ThermoDev/Sensor01/CurrentState"
 
+- platform: mqtt
+  name: "A/C On/Off"
+  state_topic: "door_and_ac/binary_sensor/ac_noise/state"
+
+- platform: mqtt
+  name: "Office movement"
+  state_topic: "door_and_ac/binary_sensor/office_motion/state"
+
 - platform: template
   sensors:
     average_temperature:
@@ -74,6 +82,19 @@
         - sensor.montreal_humidex
       friendly_name: 'Montreal humidex'
       unit_of_measurement: "C"
+    template_montreal_feelslike:
+      value_template: >-
+        {% if states('sensor.montreal_humidex') | float == 0.0 %}
+          {{ states('sensor.montreal_temperature') | float }}
+        {% else %}
+          {{ states('sensor.montreal_humidex') | float }}
+        {% endif %}
+      entity_id:
+        - sensor.montreal_humidex
+        - sensor.montreal_temperature
+      friendly_name: 'Montreal humidex'
+      unit_of_measurement: "C"
+
     template_average_humidity:
       value_template: "{{ ( states('sensor.office_humidity') | float + states('sensor.living_humidity') | float ) / 2 | round(2) }}"
       friendly_name: "Average humidity"
