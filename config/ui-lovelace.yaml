@@ -179,6 +179,20 @@ views:
         - entity: input_number.home_alone_temperature_slider
           name: When alone
           icon: mdi:home-lock
+      - type: history-graph
+        hours_to_show: 12
+        refresh_interval: 60
+        entities:
+        - entity: binary_sensor.living_heater_state
+          name: Living
+        - entity: binary_sensor.office_heater_state
+          name: Office         
+        - entity: input_number.office_temperature_slider
+          name: Office Set
+          icon: mdi:thermometer
+        - entity: input_number.living_temperature_slider
+          name: Kitchen Set
+          icon: mdi:thermometer
       - type: entities
         # Title of the entities card
         title: Temperature
@@ -194,18 +208,8 @@ views:
         - entity: sensor.living_temperature
           name: Living ºC
           icon: mdi:thermometer
-        - entity: binary_sensor.living_heater_state
-          name: Living
         - entity: sensor.office_temperature
           name: Office ºC
-          icon: mdi:thermometer
-        - entity: binary_sensor.office_heater_state
-          name: Office         
-        - entity: input_number.office_temperature_slider
-          name: Office Set
-          icon: mdi:thermometer
-        - entity: input_number.living_temperature_slider
-          name: Kitchen Set
           icon: mdi:thermometer
       - type: history-graph
         hours_to_show: 12
@@ -214,16 +218,6 @@ views:
         - sensor.average_temperature
         - sensor.template_montreal_temperature
         - sensor.template_montreal_humidex
-      - type: history-graph
-        hours_to_show: 12
-        refresh_interval: 60
-        entities:
-        - entity: sensor.basement_temperature
-          name: Basement ºC
-          icon: mdi:thermometer
-        - entity: sensor.basement_humidity
-          name: Basement H.
-          icon: mdi:thermometer
       - type: weather-forecast
         entity: weather.longueuil
       - type: history-graph
@@ -284,3 +278,16 @@ views:
       - light.kitchen
       title: Kitchen
       camera_image: camera.kitchen
+  - id: 5
+    title: Basement
+    cards:
+    - type: history-graph
+      hours_to_show: 12
+      refresh_interval: 60
+      entities:
+      - entity: sensor.basement_temperature
+        name: Basement ºC
+        icon: mdi:thermometer
+      - entity: sensor.basement_humidity
+        name: Basement H.
+        icon: mdi:thermometer
