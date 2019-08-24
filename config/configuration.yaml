@@ -113,6 +113,7 @@ tts: # Text to speech
 mqtt:
   broker: mosquitto
 
+weather: !include weather.yaml
 camera: !include camera.yaml
 scene: !include scenes.yaml
 sensor: !include sensors.yaml
@@ -123,7 +124,6 @@ climate: !include climate.yaml
 rest_command: !include rest_commands.yaml
 light: !include lights.yaml
 zone: !include zones.yaml
-weather: !include weather.yaml
 # Example configuration.yaml entry
 
 input_text:
@@ -190,3 +190,9 @@ yeelight:
       use_music_mode: False #(defaults to False)
       save_on_change: false #(defaults to false)
       model: color2
+    192.168.1.205:
+      name: Office ambient lamp
+      transition: 1000
+      use_music_mode: False #(defaults to False)
+      save_on_change: false #(defaults to false)
+      model: color2      

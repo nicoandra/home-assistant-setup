@@ -63,6 +63,7 @@ views:
       entities:
       - light.office
       - light.office_yee
+      - light.office_ambient_lamp
       - light.office_ceiling
     - type: entities
       icon: mdi:fridge-outline
@@ -130,7 +131,7 @@ views:
       entities:
       - light.office
       - light.office_yee
-      - light.office_ceiling
+      - light.office_ambient_lamp
     - type: entities
       icon: mdi:fridge-outline
       title: "Kitchen"

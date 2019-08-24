@@ -1,5 +1,4 @@
 - platform: environment_canada
-  name: Montréal
   
 - platform: yr
 - platform: openweathermap

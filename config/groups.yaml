@@ -124,6 +124,7 @@ lights_interior:
     - light.office
     - light.office_yee
     - light.office_ceiling
+    - light.office_ambient_lamp
     - light.kitchen
     - light.couch
     - light.countertop
@@ -138,7 +139,7 @@ lights_moesdimmer_strips:
 lights_moesdimmer_lamps:
   name: "Dim Lamps"
   entities:
-  - light.office_ceiling
+  - light.office_ambient_lamp
   - light.living_moon
   - light.kitchen
 
