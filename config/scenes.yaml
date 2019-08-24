@@ -1,8 +1,9 @@
 - name: Alone - late
   entities:
+    light.office_yee: off
     light.living_moon:
       state: off
-    light.office_yee:
+    light.office_ambient_light:
       state: on
       brightness: 20
       color_temp: 324
@@ -32,7 +33,8 @@
     light.countertop:
       state: on
       brightness: 102
-    light.office_yee:
+    light.office_yee: off
+    light.office_ambient_light:
       state: on
       brightness: 59
       color_temp: 358
