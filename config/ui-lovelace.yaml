@@ -171,7 +171,8 @@ views:
         - entity: binary_sensor.office_heater_state
           name: Office
         - entity: sensor.raw_ac_vibration_sensor
-          name: AC
+          name: A/C
+          icon: mdi:air-conditioner
       - type: entities
         title: Temperature settings
         entities:
@@ -199,7 +200,7 @@ views:
           name: Kitchen Set
           icon: mdi:thermometer
         - entity: sensor.raw_ac_vibration_sensor
-          name: A/C On/Off
+          name: A/C
       - type: entities
         # Title of the entities card
         title: Temperature

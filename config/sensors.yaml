@@ -107,9 +107,9 @@
       friendly_name: "Average humidity"
       unit_of_measurement: "%"
     template_montreal_humidity:
-      value_template: "{{ states('sensor.wather_current_humidity') | float | round(2) }}"
+      value_template: "{{ states('sensor.weather_current_humidity') | float | round(2) }}"
       entity_id:
-        - sensor.wather_current_humidity
+        - sensor.weather_current_humidity
       friendly_name: "Montreal Humidity"
       unit_of_measurement: "%"
 
