@@ -49,6 +49,8 @@ views:
         icon: mdi:thermometer
       - entity: binary_sensor.office_heater_state
         name: Office
+      - entity: sensor.raw_ac_vibration_sensor
+        name: A/C On/Off
     - type: horizontal-stack
       cards:
       - type: light
@@ -187,13 +189,15 @@ views:
         - entity: binary_sensor.living_heater_state
           name: Living
         - entity: binary_sensor.office_heater_state
-          name: Office         
+          name: Office
         - entity: input_number.office_temperature_slider
           name: Office Set
           icon: mdi:thermometer
         - entity: input_number.living_temperature_slider
           name: Kitchen Set
           icon: mdi:thermometer
+        - entity: sensor.raw_ac_vibration_sensor
+          name: A/C On/Off
       - type: entities
         # Title of the entities card
         title: Temperature

@@ -53,8 +53,16 @@
   state_topic: "/ThermoDev/Sensor01/CurrentState"
 
 - platform: mqtt
-  name: "A/C On/Off"
-  state_topic: "door_and_ac/binary_sensor/ac_noise/state"
+  name: "Raw AC vibration sensor"
+  state_topic: "door_and_ac/binary_sensor/vibration/state"
+
+- platform: filter
+  name: "A/C Vibration"
+  entity_id: sensor.raw_ac_vibration_sensor
+  filters:
+  - filter: lowpass
+    time_constant: 5
+    precision: 2  
 
 - platform: mqtt
   name: "Office movement"
@@ -177,12 +185,3 @@
 - platform: mqtt
   name: "Raw Basement noise"
   state_topic: "basement/binary_sensor/basement_noise/state"
-
-
-# - platform: template
-#   sensors:
-#     nico_moto5_battery:
-#       friendly_name: Cell Nico
-#       unit_of_measurement: "%"
-#       value_template: '{{ states.device_tracker.nico_moto5.attributes.battery|int }}'
-#       device_class: battery
