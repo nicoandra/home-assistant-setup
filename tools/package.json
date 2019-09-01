@@ -5,11 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node index.js",
+    "start:dev": "npm i nodemon; nodemon index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "mqtt": "^2.18.8"
+    "mqtt": "^2.18.8",
+    "nodemon": "^1.19.1"
   }
 }
