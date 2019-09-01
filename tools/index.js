@@ -61,16 +61,16 @@ const topic = class {
     }
 
     sequenceOfClicks() {
-        if(this.messageQueue.length === 1) {
-            return false;
-        }
-
         const mirror = this.messageQueue.filter((entry) => !(entry['Dimmer'] || false));
         return mirror.length === this.messageQueue.length;
     }
 
     sendSequenceOfClicks() { 
         this.sendRaw({ clickCounter: this.messageQueue.length });
+
+        if(this.messageQueue.length === 1) {
+            this.sendRaw(this.messageQueue[0]);
+        }        
         this.messageQueue = [];
     }
 
