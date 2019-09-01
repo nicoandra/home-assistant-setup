@@ -195,4 +195,4 @@ yeelight:
       transition: 1000
       use_music_mode: False #(defaults to False)
       save_on_change: false #(defaults to false)
-      model: color2      
+      model: color2
