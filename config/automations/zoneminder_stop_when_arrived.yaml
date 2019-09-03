@@ -1,7 +1,15 @@
-alias: Zoneminder stop when arrived home
-trigger:
-#     - platform: state
-#       entity_id: group.all_devices
-#       to: home
-action:
-#   - service: rest_command.zoneminder_stop
+- alias: Zoneminder stop when arrived home
+  trigger:
+  #     - platform: state
+  #       entity_id: group.all_devices
+  #       to: home
+  action:
+  #   - service: rest_command.zoneminder_stop
+
+- alias: Zoneminder start when leaving home
+  trigger:
+  #     - platform: state
+  #       entity_id: group.all_devices
+  #       to: not_home
+  action:
+  #   - service: rest_command.zoneminder_start
