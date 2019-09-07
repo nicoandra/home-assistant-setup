@@ -1,7 +1,7 @@
-- alias: Handle DimmerLiving Clicks and Messages
+- alias: Handle Dimmer04 Clicks and Messages
   trigger:
   - platform: mqtt
-    topic: stat/sonoff/switch/living/RESULT/filtered
+    topic: stat/sonoff/switch/dimmer04/RESULT/filtered
   condition:
   - condition: template
     value_template: >
@@ -20,10 +20,10 @@
       value: '{{ trigger.payload_json["clickCounter"] | float }}'
 
 
-- alias: Handle DimmerLiving 1-Click
+- alias: Handle Dimmer04 1-Click
   trigger:
   - platform: mqtt
-    topic: stat/sonoff/switch/living/RESULT/filtered
+    topic: stat/sonoff/switch/dimmer04/RESULT/filtered
   condition:
   - condition: template
     value_template: >
@@ -41,14 +41,14 @@
     entity_id: light.couch    
   - service: mqtt.publish
     data_template:
-      topic: cmnd/sonoff/switch/living/POWER/filtered
+      topic: cmnd/sonoff/switch/dimmer04/POWER/filtered
       retain: true
       payload: "ON"
 
-- alias: Handle DimmerLiving 2-Clicks
+- alias: Handle Dimmer04 2-Clicks
   trigger:
   - platform: mqtt
-    topic: stat/sonoff/switch/living/RESULT/filtered
+    topic: stat/sonoff/switch/dimmer04/RESULT/filtered
   condition:
   - condition: template
     value_template: >
@@ -66,15 +66,15 @@
     entity_id: light.couch
   - service: mqtt.publish
     data_template:
-      topic: cmnd/sonoff/switch/living/POWER/filtered
+      topic: cmnd/sonoff/switch/dimmer04/POWER/filtered
       retain: true
       payload: "OFF"
 
 
-- alias: Handle DimmerLiving 3-Clicks
+- alias: Handle Dimmer04 3-Clicks
   trigger:
   - platform: mqtt
-    topic: stat/sonoff/switch/living/RESULT/filtered
+    topic: stat/sonoff/switch/dimmer04/RESULT/filtered
   condition:
   - condition: template
     value_template: >
@@ -90,15 +90,15 @@
     entity_id: group.lights_interior
   - service: mqtt.publish
     data_template:
-      topic: cmnd/sonoff/switch/living/POWER/filtered
+      topic: cmnd/sonoff/switch/dimmer04/POWER/filtered
       retain: true
       payload: "ON"
 
 
-- alias: Handle DimmerLiving 4-Clicks
+- alias: Handle Dimmer04 4-Clicks
   trigger:
   - platform: mqtt
-    topic: stat/sonoff/switch/living/RESULT/filtered
+    topic: stat/sonoff/switch/dimmer04/RESULT/filtered
   condition:
   - condition: template
     value_template: >
@@ -114,6 +114,6 @@
     entity_id: group.lights_interior
   - service: mqtt.publish
     data_template:
-      topic: cmnd/sonoff/switch/living/POWER/filtered
+      topic: cmnd/sonoff/switch/dimmer04/POWER/filtered
       retain: true
       payload: "OFF"
