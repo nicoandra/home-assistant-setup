@@ -41,7 +41,7 @@
 
 - platform: mqtt
   name: "MoesDimmerOffice"
-  command_topic: "cmnd/sonoff/switch/office/POWER"
+  command_topic: "cmnd/sonoff/switch/office/POWER/filtered"
   state_topic: "stat/sonoff/switch/office/RESULT/filtered"
   state_value_template: "{{value_json.POWER}}"
   brightness_command_topic: "cmnd/sonoff/switch/office/DIMMER"
@@ -64,7 +64,7 @@
   state_value_template: "{{value_json.POWER}}"
   brightness_command_topic: "cmnd/sonoff/switch/dev/DIMMER"
   brightness_state_topic: "stat/sonoff/switch/dev/RESULT/filtered"
-  brightness_scale: 99
+  brightness_scale: 100
   on_command_type: "brightness"
   brightness_value_template: "{{value_json.Dimmer}}"
   payload_on: "ON"
@@ -73,4 +73,4 @@
   payload_available: "Online"
   payload_not_available: "Offline"
   qos: 1
-  retain: false  
+  retain: false

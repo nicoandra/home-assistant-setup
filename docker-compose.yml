@@ -52,7 +52,13 @@ services:
 
   tools-mqtt:
     image: node:8.15.0-alpine
+    working_dir: /code
     volumes:
     - ./tools:/code
-    command: node /code/index.js
+    # command: node /code/index.js
+    command: npm run start:dev
+    environment:
+    - ENABLED_DIMMERS=dev,office,living,dimmer04
+    depends_on:
+    - mosquitto
     

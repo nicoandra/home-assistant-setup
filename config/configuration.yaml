@@ -125,7 +125,7 @@ camera: !include camera.yaml
 scene: !include scenes.yaml
 sensor: !include sensors.yaml
 group: !include groups.yaml
-automation: !include_dir_list automations
+automation: !include_dir_merge_list automations
 device_tracker: !include device_trackers.yaml
 climate: !include climate.yaml
 rest_command: !include rest_commands.yaml
@@ -170,6 +170,14 @@ input_number:
     min: 17
     max: 23
     step: .5
+  moes_dimmer_clickcounter:
+    name: moes dimmer dev click counter
+    initial: 0
+    max: 20
+    min: 0
+    step: 1
+
+
 
 yeelight:
   devices:
