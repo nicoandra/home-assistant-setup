@@ -21,56 +21,56 @@
         name: Couch
         fade: on
 
-- platform: mqtt
-  name: "MoesDimmerLiving"
-  command_topic: "cmnd/sonoff/switch/living/POWER"
-  state_topic: stat/sonoff/switch/living/RESULT/filtered
-  state_value_template: "{{value_json.POWER}}"
-  brightness_command_topic: "cmnd/sonoff/switch/living/DIMMER"
-  brightness_state_topic: stat/sonoff/switch/living/RESULT/filtered
-  brightness_scale: 99
-  on_command_type: "brightness"
-  brightness_value_template: "{{value_json.Dimmer}}"
-  payload_on: "ON"
-  payload_off: "OFF"
-  availability_topic: "tele/sonoff/switch/living/LWT"
-  payload_available: "Online"
-  payload_not_available: "Offline"
-  qos: 1
-  retain: false
+# - platform: mqtt
+#   name: "MoesDimmerLiving"
+#   command_topic: "cmnd/sonoff/switch/living/POWER"
+#   state_topic: stat/sonoff/switch/living/RESULT/filtered
+#   state_value_template: "{{value_json.POWER}}"
+#   brightness_command_topic: "cmnd/sonoff/switch/living/DIMMER"
+#   brightness_state_topic: stat/sonoff/switch/living/RESULT/filtered
+#   brightness_scale: 99
+#   on_command_type: "brightness"
+#   brightness_value_template: "{{value_json.Dimmer}}"
+#   payload_on: "ON"
+#   payload_off: "OFF"
+#   availability_topic: "tele/sonoff/switch/living/LWT"
+#   payload_available: "Online"
+#   payload_not_available: "Offline"
+#   qos: 1
+#   retain: false
 
-- platform: mqtt
-  name: "MoesDimmerOffice"
-  command_topic: "cmnd/sonoff/switch/office/POWER/filtered"
-  state_topic: "stat/sonoff/switch/office/RESULT/filtered"
-  state_value_template: "{{value_json.POWER}}"
-  brightness_command_topic: "cmnd/sonoff/switch/office/DIMMER"
-  brightness_state_topic: "stat/sonoff/switch/office/RESULT/filtered"
-  brightness_scale: 99
-  on_command_type: "brightness"
-  brightness_value_template: "{{value_json.Dimmer}}"
-  payload_on: "ON"
-  payload_off: "OFF"
-  availability_topic: "tele/sonoff/switch/office/LWT"
-  payload_available: "Online"
-  payload_not_available: "Offline"
-  qos: 1
-  retain: false
+# - platform: mqtt
+#   name: "MoesDimmerOffice"
+#   command_topic: "cmnd/sonoff/switch/office/POWER/filtered"
+#   state_topic: "stat/sonoff/switch/office/RESULT/filtered"
+#   state_value_template: "{{value_json.POWER}}"
+#   brightness_command_topic: "cmnd/sonoff/switch/office/DIMMER"
+#   brightness_state_topic: "stat/sonoff/switch/office/RESULT/filtered"
+#   brightness_scale: 99
+#   on_command_type: "brightness"
+#   brightness_value_template: "{{value_json.Dimmer}}"
+#   payload_on: "ON"
+#   payload_off: "OFF"
+#   availability_topic: "tele/sonoff/switch/office/LWT"
+#   payload_available: "Online"
+#   payload_not_available: "Offline"
+#   qos: 1
+#   retain: false
 
-- platform: mqtt
-  name: "MoesDimmer Dev"
-  command_topic: "cmnd/sonoff/switch/dev/POWER"
-  state_topic: "stat/sonoff/switch/dev/RESULT/filtered"
-  state_value_template: "{{value_json.POWER}}"
-  brightness_command_topic: "cmnd/sonoff/switch/dev/DIMMER"
-  brightness_state_topic: "stat/sonoff/switch/dev/RESULT/filtered"
-  brightness_scale: 100
-  on_command_type: "brightness"
-  brightness_value_template: "{{value_json.Dimmer}}"
-  payload_on: "ON"
-  payload_off: "OFF"
-  availability_topic: "tele/sonoff/switch/dev/LWT"
-  payload_available: "Online"
-  payload_not_available: "Offline"
-  qos: 1
-  retain: false
+# - platform: mqtt
+#   name: "MoesDimmer Dev"
+#   command_topic: "cmnd/sonoff/switch/dev/POWER"
+#   state_topic: "stat/sonoff/switch/dev/RESULT/filtered"
+#   state_value_template: "{{value_json.POWER}}"
+#   brightness_command_topic: "cmnd/sonoff/switch/dev/DIMMER"
+#   brightness_state_topic: "stat/sonoff/switch/dev/RESULT/filtered"
+#   brightness_scale: 100
+#   on_command_type: "brightness"
+#   brightness_value_template: "{{value_json.Dimmer}}"
+#   payload_on: "ON"
+#   payload_off: "OFF"
+#   availability_topic: "tele/sonoff/switch/dev/LWT"
+#   payload_available: "Online"
+#   payload_not_available: "Offline"
+#   qos: 1
+#   retain: false
