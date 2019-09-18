@@ -51,14 +51,6 @@ views:
         name: Office
       - entity: sensor.raw_ac_vibration_sensor
         name: A/C
-    - type: horizontal-stack
-      cards:
-      - type: light
-        entity: light.moesdimmerliving
-        name: "Strips"
-      - type: light
-        entity: light.moesdimmeroffice
-        name: "Lamps"
     - type: entities
       title: "Office"
       icon: mdi:desktop-classic
