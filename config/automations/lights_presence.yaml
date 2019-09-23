@@ -6,12 +6,12 @@
   - platform: sun
     event: sunrise
   condition:
+  - condition: state  # when home is alone
+    entity_id: group.all_devices
+    state: not_home
   - condition: sun
     after: sunrise
     after_offset: "01:00:00"
-  - condition: state
-    entity_id: group.all_devices
-    state: not_home
   - condition: sun
     before: sunset
     before_offset: "-01:00:00"
@@ -55,7 +55,7 @@
       conditions:
         - condition: sun
           after: sunset
-          after_offset: "-01:45:00"
+          after_offset: "-02:45:00"
         - condition: sun
           before: sunrise
   action:
@@ -63,13 +63,12 @@
       entity_id: scene.someone_got_home
     - service: rest_command.let_nico_know
       data_template:
-        text: "Lights on when someone arrives Kicked in: {{ states('group.all_devices') }}"
+        text: "Automation Lights on when someone arrives - Kicked in: {{ states('group.all_devices') }}"
 
 - alias: Lights on when home is alone
   trigger:
-  - platform: sun
-    event: sunset
-    offset: "-02:00:00"
+  - platform: time
+    at: "16:30:00"
   - platform: state
     entity_id: group.all_devices
     to: not_home
@@ -81,9 +80,8 @@
     conditions:
     - condition: time
       before: "01:00:00"
-    - condition: sun
-      after: sunset
-      after_offset: "-02:10:00"
+    - condition: time
+      after: "16:20:00"
   action:
   - service: scene.turn_on
     entity_id: scene.alone_evening
