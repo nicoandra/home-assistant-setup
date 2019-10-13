@@ -2,16 +2,19 @@ const request = require('request');
 const yaml = require('js-yaml');
 
 
+const getRequestOptions = () => {
+	const options = { 
+		rejectUnauthorized: false,
+		requestCert: true,
+		agent: false,
+		headers: { Authorization: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiIwM2M1NzNkN2U3OGY0N2I1OTNlNjk4OWViMmI1MmNjZiIsImlhdCI6MTU3MDk3NDkyMywiZXhwIjoxODg2MzM0OTIzfQ.TabQZo7JqcZIa7E522nHfwnxgGkFFKL08OqpZgPTopA' }
+	};
+	return options;
+}
+
 const getFromHA = async (url) => {
 	return new Promise((ok, ko) => {
-		const options = { 
-			rejectUnauthorized: false,
-			requestCert: true,
-			agent: false,
-			headers: { Authorization: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiIwM2M1NzNkN2U3OGY0N2I1OTNlNjk4OWViMmI1MmNjZiIsImlhdCI6MTU3MDk3NDkyMywiZXhwIjoxODg2MzM0OTIzfQ.TabQZo7JqcZIa7E522nHfwnxgGkFFKL08OqpZgPTopA' }
-		};
-		
-		request('https://192.168.1.106:8123/api/' + url, options, (e, r) => {
+		request('https://192.168.1.106:8123/api/' + url, getRequestOptions(), (e, r) => {
 			if(e) return ko(e);
 			return ok(r);
 		})
@@ -24,11 +27,35 @@ const getFromHA = async (url) => {
 	});
 }
 
-const isScenesCommand = () => {
-	return process.argv.indexOf('--scenes') > 0
+const postToHA = async (url, data) => {
+	return new Promise((ok, ko) => {
+		const options = { 
+			...getRequestOptions(), 
+			uri: 'https://192.168.1.106:8123/api/' + url, 
+			method: 'POST',
+			json: data
+		};
+
+		request(
+			options,
+			(e, r) => {
+				if(e) return ko(e);
+				return ok(r);
+			}
+		)
+	}).then(function (response) {
+		return response.body;
+	}).then(function (body) {
+		return body
+	}).catch(e => { 
+		console.error(e)
+	});
 }
 
 
+const isScenesCommand = () => {
+	return process.argv.indexOf('--scenes') > 0
+}
 
 const getGroups = async () => {
 	const result = {}
@@ -56,6 +83,18 @@ const buildLightState = (entity) => {
 	// if(attributes.rgb_color != undefined) result.rgb_color = attributes.rgb_color;
 	return result;
 }
+
+const callLightService = async (entityId, values) => {
+	return postToHA(
+		'services/light/turn_on', 
+		{ 
+			entity_id: entityId,
+			brightness: 255
+		}
+	)
+}
+
+callLightService('light.couch').then((a) => { console.log(a)})
 
 if (isScenesCommand()) {
 	const description = {};
