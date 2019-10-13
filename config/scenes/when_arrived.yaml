@@ -1,0 +1,8 @@
+- name: Someone got home
+  entities:
+    light.moesdimmerliving:
+      state: on
+      brightness: 255
+    light.moesdimmeroffice:
+      state: on
+      brightness: 128
