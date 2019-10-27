@@ -1,0 +1,26 @@
+- alias: "BreakfastDimmer is turned off"
+  trigger:
+  - platform: mqtt
+    topic: lightvirtualdimmer01/sensor/rotary/state
+    payload: 0
+  action:
+  - service: light.turn_off
+    entity_id: light.countertop
+
+- alias: "BreakfastDimmer is turned > 0"
+  trigger:
+  - platform: mqtt
+    topic: lightvirtualdimmer01/sensor/rotary/state
+  condition:
+  - condition: template
+    value_template: >
+      {% if trigger.payload == 0 %}
+        false
+      {% else %}
+        true
+      {% endif %}
+  action:
+  - service: light.turn_on
+    data_template:
+      entity_id: light.countertop
+      brightness: '{{ (trigger.payload | float  * 12.55) | int }}'
