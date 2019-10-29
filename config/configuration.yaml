@@ -118,7 +118,8 @@ tts: # Text to speech
  - platform: google_translate
 
 mqtt:
-  broker: mosquitto
+#  broker: mosquitto
+  broker: 192.168.1.106
 
 weather: !include weather.yaml
 camera: !include camera.yaml
