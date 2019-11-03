@@ -13,11 +13,13 @@ homeassistant:
   # Customization file
   customize: !include customize.yaml
   auth_providers:
-   - type: homeassistant
-   - type: trusted_networks
-     trusted_networks:
-      - 192.168.0.0/24
-      - fd00::/8
+  - type: homeassistant
+  - type: trusted_networks
+    trusted_networks:
+    - 192.168.0.0/24
+    - fd00::/8
+  - type: legacy_api_password
+    api_password: !secret http_password
 
 # Show links to resources in log and frontend
 # introduction: false
@@ -26,7 +28,7 @@ logger:
   default: warning
   logs:
     homeassistant.components.device_tracker: warning
-    homeassistant.components.mqtt: warning
+    homeassistant.components.mqtt: info
     homeassistant.components.automations: debug
     homeassistant.components.automation: debug
 
@@ -73,7 +75,6 @@ history_graph:
 
 http:
   # Secrets are defined in the file secrets.yaml
-  api_password: !secret http_password
   # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
   # base_url: example.duckdns.org:8123
 
@@ -118,8 +119,8 @@ tts: # Text to speech
  - platform: google_translate
 
 mqtt:
-#  broker: mosquitto
-  broker: 192.168.1.106
+  broker: mosquitto
+ # broker: 192.168.1.106
 
 weather: !include weather.yaml
 camera: !include camera.yaml
