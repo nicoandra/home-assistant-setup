@@ -86,3 +86,29 @@
       state: on
       brightness: 97
       color_temp: 393
+
+
+- name: Nico Compu
+  entities:
+    light.front_door:
+      state: 'on'
+      brightness: 190
+    light.countertop:
+      state: 'on'
+      brightness: 255
+    light.couch:
+      state: 'on'
+      brightness: 255
+    light.office: 'off'
+    light.office_yee:
+      state: 'on'
+      brightness: 255
+      color_temp: 370
+    light.office_ceiling: 'off'
+    light.kitchen: 'off'
+    light.living_moon: 'off'
+    light.office_ambient_lamp:
+      state: 'on'
+      brightness: 56
+      color_temp: 370
+
