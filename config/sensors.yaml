@@ -101,6 +101,12 @@
         - sensor.template_montreal_temperature
       friendly_name: 'Montreal humidex'
       unit_of_measurement: "C"
+    sun_elevation:
+      friendly_name: "Sun Elevation"
+      unit_of_measurement: '°'
+      value_template: "{{ state_attr('sun.sun', 'elevation') }}"
+      entity_id:
+        - sun.sun
 
     template_average_humidity:
       value_template: "{{ ( states('sensor.office_humidity') | float + states('sensor.living_humidity') | float ) / 2 | round(2) }}"
@@ -187,3 +193,4 @@
 - platform: mqtt
   name: "Raw Basement noise"
   state_topic: "basement/binary_sensor/basement_noise/state"
+
