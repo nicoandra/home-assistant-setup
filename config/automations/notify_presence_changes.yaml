@@ -7,7 +7,7 @@
   action:
     - service: rest_command.let_nico_know
       data_template:
-        text: "*NotifyPresenceChanges* automation: Who's at home? Presence set to: {{ states('group.all_devices') }}"
+        text: ":house: presence set to: {{ states('group.all_devices') }}"
     # - service: frontend.set_theme
     #   data_template:
     #     name: "{{ states('group.all_devices') }}"
