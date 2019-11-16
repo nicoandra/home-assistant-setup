@@ -29,8 +29,8 @@ logger:
   logs:
     homeassistant.components.device_tracker: warning
     homeassistant.components.mqtt: info
-    homeassistant.components.automations: debug
-    homeassistant.components.automation: debug
+    homeassistant.components.automations: info
+    homeassistant.components.automation: info
 
 # Enables configuration UI
 config:
