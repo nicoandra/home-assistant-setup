@@ -1,0 +1,6 @@
+- platform: ping
+  count: 5
+  consider_home: 0:10
+  hosts:
+    nico_moto5_ping: 192.168.1.12
+    vsmbr_phone: 192.168.1.214
