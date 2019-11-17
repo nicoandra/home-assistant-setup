@@ -8,7 +8,9 @@ services:
     ports:
       - 8124:8123
     depends_on:
+      - tools-mqtt
       - mosquitto
+      - locative-endpoint
     environment:
       - TZ=America/Montreal
 
