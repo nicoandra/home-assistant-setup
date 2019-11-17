@@ -1,5 +1,7 @@
 - alias: Off when Empty at Daytime / Late night
   trigger:
+  - platform: homeassistant
+    event: start
   - platform: state
     entity_id: group.all_devices
     to: "not_home"
@@ -23,6 +25,8 @@
 
 - alias: On when someone arrives
   trigger:
+  - platform: homeassistant
+    event: start
   - platform: state
     entity_id: group.all_devices
     from: "not_home"
@@ -45,6 +49,8 @@
 
 - alias: Lights on when home is alone
   trigger:
+  - platform: homeassistant
+    event: start
   - platform: state
     entity_id: group.all_devices
     from: "home"
