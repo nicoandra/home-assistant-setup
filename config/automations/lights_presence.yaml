@@ -69,6 +69,6 @@
       brightness: 180
   - service: rest_command.let_nico_know
     data_template:
-      text: "*Automation* Lights on when home is alone - Kicked in: {{ states('group.all_devices') }}"
+      text: "*Automation* Lights on when home is alone - FINALLY Kicked in: {{ states('group.all_devices') }}"
 
 
