@@ -25,8 +25,8 @@
   trigger:
   - platform: state
     entity_id: group.all_devices
-    from: not_home
-    to: home
+    from: "not_home"
+    to: "home"
   condition:
   - condition: or  # 'when dark' condition: either after sunset or before sunrise
     conditions:
@@ -47,10 +47,11 @@
   trigger:
   - platform: state
     entity_id: group.all_devices
-    to: not_home
+    from: "home"
+    to: "not_home"
   - platform: time_pattern
     # Matches every hour at 5 minutes past whole
-    minutes: "*/5"
+    minutes: "/5"
   condition:
   - condition: state
     entity_id: group.all_devices
