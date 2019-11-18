@@ -1,19 +1,4 @@
 
-## Pushes updates through MQTT every X time just in case
-- alias: ThermoDev 01 Climate
-  trigger:
-    - platform: state
-      entity_id: climate.office
-    - platform: time_pattern
-      seconds: '/31'
-      minutes: '/5'
-  action:
-    - service: mqtt.publish
-      data_template:
-        topic: '/ThermoDev/Desired01/disabled'
-        retain: true
-        payload: "{{ states('climate.office') | float }}"
-
 ## Sends HA-desired values to the thermostat device through MQTT
 - alias: ThermoDev 01
   trigger:
