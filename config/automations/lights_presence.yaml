@@ -21,7 +21,7 @@
     entity_id: group.lights_interior
   - service: rest_command.let_nico_know
     data_template:
-      text: "*Automation* Off when Empty at Daytime / Late night"
+      text: "*Automation* Off when Empty at Daytime / Late night :moon:"
 
 - alias: On when someone arrives
   trigger:
@@ -55,7 +55,7 @@
   - platform: state
     entity_id: group.all_devices
   - platform: time_pattern
-    minutes: "*"
+    minutes: "*/30"
     seconds: "0"
   condition:
   - condition: state
@@ -74,6 +74,6 @@
       brightness: 50  
   - service: rest_command.let_nico_know
     data_template:
-      text: "*Automation* Lights on when the home is alone - Kicked in: {{ states('group.all_devices') }}"
+      text: "*Automation* Lights on when the home is alone :moon: - Kicked in: {{ states('group.all_devices') }}"
 
 
