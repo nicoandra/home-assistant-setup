@@ -5,9 +5,9 @@
   - platform: state
     entity_id: group.all_devices
     to: "not_home"
-  - platform: time_pattern
+#  - platform: time_pattern
     # Matches every hour at 5 minutes past whole
-    minutes: "*/5"
+#    minutes: "*/5"
   condition:
   - condition: state  # when home is alone
     entity_id: group.all_devices
@@ -47,17 +47,16 @@
     data_template:
       text: "*Automation* Lights on when someone arrives - Kicked in: {{ states('group.all_devices') }}"
 
-- alias: Lights on when home is alone
+
+- alias: Lights on when the home is alone
   trigger:
   - platform: homeassistant
     event: start
   - platform: state
     entity_id: group.all_devices
-    from: "home"
-    to: "not_home"
   - platform: time_pattern
-    # Matches every hour at 5 minutes past whole
-    minutes: "/5"
+    minutes: "*"
+    seconds: "0"
   condition:
   - condition: state
     entity_id: group.all_devices
@@ -72,9 +71,9 @@
   - service: light.turn_on
     entity_id: group.lights_interior
     data:
-      brightness: 180
+      brightness: 50  
   - service: rest_command.let_nico_know
     data_template:
-      text: "*Automation* Lights on when home is alone - FINALLY Kicked in: {{ states('group.all_devices') }}"
+      text: "*Automation* Lights on when the home is alone - Kicked in: {{ states('group.all_devices') }}"
 
 
