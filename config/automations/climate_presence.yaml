@@ -60,7 +60,7 @@
     - platform: state
       entity_id: input_number.at_home_sleeping
     - platform: time_pattern
-      minutes: '/5'
+      minutes: '/30'
       seconds: 0
   condition:
     - condition: state
