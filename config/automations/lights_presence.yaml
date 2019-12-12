@@ -4,9 +4,6 @@
     event: start
   - platform: state
     entity_id: group.all_devices
-#  - platform: time_pattern
-    # Matches every hour at 5 minutes past whole
-#    minutes: "*/5"
   condition:
   - condition: state  # when home is alone
     entity_id: group.all_devices
@@ -45,7 +42,6 @@
     data_template:
       text: "*Automation* Lights on when someone arrives - Kicked in: {{ states('group.all_devices') }}"
 
-
 - alias: Lights on when the home is alone
   trigger:
   - platform: homeassistant
@@ -53,7 +49,7 @@
   - platform: state
     entity_id: group.all_devices
   - platform: time_pattern
-    minutes: "*/15"
+    minutes: "/5"
     seconds: "0"
   condition:
   - condition: state
