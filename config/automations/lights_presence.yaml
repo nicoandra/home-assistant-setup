@@ -49,7 +49,7 @@
   - platform: state
     entity_id: group.all_devices
   - platform: time_pattern
-    minutes: "/5"
+    minutes: "/15"
     seconds: "0"
   condition:
   - condition: state
