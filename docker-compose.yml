@@ -11,6 +11,7 @@ services:
       - tools-mqtt
       - mosquitto
       - locative-endpoint
+      - ssl-nginx
     environment:
       - TZ=America/Montreal
 
