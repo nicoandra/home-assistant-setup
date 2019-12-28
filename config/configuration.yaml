@@ -181,40 +181,4 @@ input_number:
     step: 1
 
 
-
-yeelight:
-  devices:
-    192.168.1.202:
-      name: Office Yee
-      transition: 1000
-      use_music_mode: False #(defaults to False)
-      save_on_change: false #(defaults to false)
-      model: color2
-    192.168.1.203:
-      name: Living Moon
-      transition: 1000
-      use_music_mode: False #(defaults to False)
-      save_on_change: false #(defaults to false)
-      model: color2
-    192.168.1.201:
-      name: Kitchen
-      transition: 1000
-      use_music_mode: False #(defaults to False)
-      save_on_change: false #(defaults to false)
-      model: color2
-    192.168.1.204:
-      name: Office ceiling
-      transition: 1000
-      use_music_mode: False #(defaults to False)
-      save_on_change: false #(defaults to false)
-      model: color2
-    192.168.1.205:
-      name: Office ambient lamp
-      transition: 1000
-      use_music_mode: False #(defaults to False)
-      save_on_change: false #(defaults to false)
-      model: color2
-    192.168.1.208:
-      name: Living Tortue
-      transition: 1000
-      model: color2
+yeelight: !include yeelight.yaml

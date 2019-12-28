@@ -129,6 +129,7 @@ lights_interior:
     - light.couch
     - light.countertop
     - light.living_moon
+    - light.living_tortue
 
 lights_moesdimmer_strips:
   name: "Dim Strips"

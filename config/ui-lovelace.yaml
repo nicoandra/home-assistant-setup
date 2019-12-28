@@ -70,6 +70,7 @@ views:
       entities:
       - light.couch
       - light.living_moon
+      - light.living_tortue
     - type: horizontal-stack
       cards:
       - type: gauge
@@ -138,6 +139,7 @@ views:
       entities:
       - light.couch
       - light.living_moon
+      - light.living_tortue
     - type: horizontal-stack
       cards:
       - type: light
