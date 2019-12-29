@@ -6,3 +6,8 @@
     light.moesdimmeroffice:
       state: on
       brightness: 128
+    light.living_tortue:
+      state: on
+      brightness: 23
+      color_temp: 360
+  
