@@ -262,7 +262,7 @@ views:
     icon: mdi:thermometer
     cards:
       - type: vertical-stack
-        cards:          
+        cards: 
         - type: glance
           entities:
           - entity: sensor.living_temperature
@@ -297,9 +297,14 @@ views:
           # Each entry is an entity ID or a map with extra options.
           entities:
             - input_number.living_temperature_slider
-            - input_number.office_temperature_slider  
+            - input_number.office_temperature_slider
+        - type: weather-forecast
+          entity: weather.longueuil
+  
+
+
       - type: vertical-stack
-        cards:
+        cards:                  
         - type: history-graph
           title: 12 Hours
           hours_to_show: 12
@@ -322,8 +327,6 @@ views:
           - entity: sensor.office_temperature
             name: Office ºC
             icon: mdi:thermometer
-        - type: weather-forecast
-          entity: weather.longueuil
         - type: history-graph
           title: 12 Hours
           hours_to_show: 12
@@ -331,8 +334,6 @@ views:
           entities:
           - sensor.template_average_humidity
           - sensor.template_montreal_humidity
-      - type: vertical-stack
-        cards:
         - type: history-graph
           title: 12 Hours      
           hours_to_show: 12
@@ -348,7 +349,7 @@ views:
           entities:
           - sensor.average_temperature
           - sensor.template_montreal_temperature
-          - sensor.template_montreal_humidex        
+          - sensor.template_montreal_humidex      
   
   - id: 4
     title: Presence
