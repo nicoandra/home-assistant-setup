@@ -63,7 +63,7 @@ views:
         - entity: sensor.raw_ac_vibration_sensor
           name: A/C
         state_filter:
-          - 'on'
+        - 'on'
         card:
           type: glance
           title: Power consumption
@@ -259,97 +259,92 @@ views:
 
   - id: 3
     title: Settings
+    panel: true
     icon: mdi:thermometer
     cards:
-      - type: vertical-stack
-        cards: 
-        - type: glance
-          entities:
-          - entity: sensor.living_temperature
-            name: Living
-            icon: mdi:thermometer
-          - entity: binary_sensor.living_heater_state
-            name: Living
-          - entity: sensor.office_temperature
-            name: Office
-            icon: mdi:thermometer
-          - entity: binary_sensor.office_heater_state
-            name: Office
-          - entity: sensor.raw_ac_vibration_sensor
-            name: A/C
-            icon: mdi:air-conditioner          
-        - type: entities
-          title: Temperature settings
-          entities:
-          - entity: input_number.at_home_temperature_slider
-            name: At home
-            icon: mdi:home
-          - entity: input_number.at_home_sleeping
-            name: Sleeping
-            icon: mdi:sleep
-          - entity: input_number.home_alone_temperature_slider
-            name: When alone
-            icon: mdi:home-lock
-        - type: entities
-          # Title of the entities card
-          title: Temperature
-          # The entities here will be shown in the same order as specified.
-          # Each entry is an entity ID or a map with extra options.
-          entities:
+      - type: horizontal-stack
+        cards:
+        - type: vertical-stack
+          cards: 
+          - type: glance
+            entities:
+            - entity: sensor.living_temperature
+              name: Living
+              icon: mdi:thermometer
+            - entity: binary_sensor.living_heater_state
+              name: Living
+            - entity: sensor.office_temperature
+              name: Office
+              icon: mdi:thermometer
+            - entity: binary_sensor.office_heater_state
+              name: Office
+            - entity: sensor.raw_ac_vibration_sensor
+              name: A/C
+              icon: mdi:air-conditioner          
+          - type: entities
+            title: Temperature settings
+            entities:
+            - entity: input_number.at_home_temperature_slider
+              name: At home
+              icon: mdi:home
+            - entity: input_number.at_home_sleeping
+              name: Sleeping
+              icon: mdi:sleep
+            - entity: input_number.home_alone_temperature_slider
+              name: When alone
+              icon: mdi:home-lock
             - input_number.living_temperature_slider
             - input_number.office_temperature_slider
-        - type: weather-forecast
-          entity: weather.longueuil
-  
 
-
-      - type: vertical-stack
-        cards:                  
-        - type: history-graph
-          title: 12 Hours
-          hours_to_show: 12
-          refresh_interval: 60
-          entities:
-          - entity: sensor.living_temperature
-            name: Living ºC
-            icon: mdi:thermometer
-          - entity: sensor.office_temperature
-            name: Office ºC
-            icon: mdi:thermometer
-        - type: history-graph
-          title: 24 Hours
-          hours_to_show: 24
-          refresh_interval: 60
-          entities:
-          - entity: sensor.living_temperature
-            name: Living ºC
-            icon: mdi:thermometer
-          - entity: sensor.office_temperature
-            name: Office ºC
-            icon: mdi:thermometer
-        - type: history-graph
-          title: 12 Hours
-          hours_to_show: 12
-          refresh_interval: 120
-          entities:
-          - sensor.template_average_humidity
-          - sensor.template_montreal_humidity
-        - type: history-graph
-          title: 12 Hours      
-          hours_to_show: 12
-          refresh_interval: 60
-          entities:
-          - sensor.average_temperature
-          - sensor.template_montreal_temperature
-          - sensor.template_montreal_humidex
-        - type: history-graph
-          title: 24 Hours
-          hours_to_show: 24
-          refresh_interval: 120
-          entities:
-          - sensor.average_temperature
-          - sensor.template_montreal_temperature
-          - sensor.template_montreal_humidex      
+          - type: weather-forecast
+            entity: weather.longueuil
+        - type: vertical-stack
+          cards:                  
+          - type: history-graph
+            title: 12 Hours
+            hours_to_show: 12
+            refresh_interval: 60
+            entities:
+            - entity: sensor.living_temperature
+              name: Living ºC
+              icon: mdi:thermometer
+            - entity: sensor.office_temperature
+              name: Office ºC
+              icon: mdi:thermometer
+          - type: history-graph
+            title: 24 Hours
+            hours_to_show: 24
+            refresh_interval: 60
+            entities:
+            - entity: sensor.living_temperature
+              name: Living ºC
+              icon: mdi:thermometer
+            - entity: sensor.office_temperature
+              name: Office ºC
+              icon: mdi:thermometer
+          - type: history-graph
+            title: 12 Hours
+            hours_to_show: 12
+            refresh_interval: 120
+            entities:
+            - sensor.template_average_humidity
+            - sensor.template_montreal_humidity
+          - type: history-graph
+            title: 12 Hours      
+            hours_to_show: 12
+            refresh_interval: 60
+            entities:
+            - sensor.average_temperature
+            - sensor.template_montreal_temperature
+            - sensor.template_montreal_humidex
+          - type: history-graph
+            title: 24 Hours
+            hours_to_show: 24
+            refresh_interval: 120
+            entities:
+            - sensor.average_temperature
+            - sensor.template_montreal_temperature
+            - sensor.template_montreal_humidex      
   
   - id: 4
     title: Presence

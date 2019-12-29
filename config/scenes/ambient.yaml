@@ -3,13 +3,18 @@
     light.couch:
       state: on
       brightness: 124
+    light.office_ceiling: off
     light.countertop:
       state: on
       brightness: 255
     light.kitchen:
       state: on
       brightness: 27
+      color_temp: 528
     light.office:
+      state: on
+      brightness: 109
+    light.office_ambient_lamp:
       state: on
       brightness: 109
     light.living_moon:
