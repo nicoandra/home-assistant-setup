@@ -295,7 +295,6 @@ views:
               icon: mdi:home-lock
             - input_number.living_temperature_slider
             - input_number.office_temperature_slider
-
           - type: weather-forecast
             entity: weather.longueuil
         - type: vertical-stack
@@ -323,30 +322,28 @@ views:
               name: Office ºC
               icon: mdi:thermometer
 
-            - type: history-graph
-              title: 12 Hours
-              hours_to_show: 12
-              refresh_interval: 60
-              entities:
-              - entity: input_number.living_temperature_slider
-                name: Living ºC
-                icon: mdi:thermometer
-              - entity: input_number.office_temperature_slider
-                name: Office ºC
-                icon: mdi:thermometer
-            - type: history-graph
-              title: 24 Hours
-              hours_to_show: 24
-              refresh_interval: 60
-              entities:
-              - entity: input_number.living_temperature_slider
-                name: Living ºC
-                icon: mdi:thermometer
-              - entity: input_number.office_temperature_slider
-                name: Office ºC
-                icon: mdi:thermometer
-  
-
+          - type: history-graph
+            title: 12 Hours
+            hours_to_show: 12
+            refresh_interval: 60
+            entities:
+            - entity: input_number.living_temperature_slider
+              name: Living ºC
+              icon: mdi:thermometer
+            - entity: input_number.office_temperature_slider
+              name: Office ºC
+              icon: mdi:thermometer
+          - type: history-graph
+            title: 24 Hours
+            hours_to_show: 24
+            refresh_interval: 60
+            entities:
+            - entity: input_number.living_temperature_slider
+              name: Living ºC
+              icon: mdi:thermometer
+            - entity: input_number.office_temperature_slider
+              name: Office ºC
+              icon: mdi:thermometer
 
           - type: history-graph
             title: 12 Hours
