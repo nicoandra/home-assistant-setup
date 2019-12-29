@@ -5,71 +5,69 @@ views:
     title: Lights
     icon: mdi:home
     cards:
-    - type: horizontal-stack
-      cards:    
-      - type: entity-button
-        entity: group.all_lights
-        name: Lighs on
-        icon: mdi:lightbulb-on-outline
-        tap_action:
-          action: call-service
-          service: light.turn_on
-          service_data:
-            entity_id:  group.all_lights
-      - type: entity-button
-        name: Sleep
-        entity: group.lights_interior
-        icon: mdi:hotel
-        tap_action:
-          action: call-service
-          service: light.turn_off
-          service_data:
-            entity_id: group.lights_interior
-      - type: entity-button
-        entity: scene.movies
-        tap_action:
-          action: call-service
-          service: scene.turn_on
-          service_data:
-            entity_id:  scene.movies
-        hold_action:
-          action: call-service
-          service: light.turn_on
-          service_data:
-            entity_id:  group.all_lights
-    - type: horizontal-stack
+    - type: vertical-stack
       cards:
-      - type: gauge
-        entity: sensor.average_temperature
-        title: Home Temperature
+      - type: horizontal-stack
+        cards:    
+        - type: entity-button
+          entity: group.all_lights
+          name: Lighs on
+          icon: mdi:lightbulb-on-outline
+          tap_action:
+            action: call-service
+            service: light.turn_on
+            service_data:
+              entity_id:  group.all_lights
+        - type: entity-button
+          name: Sleep
+          entity: group.lights_interior
+          icon: mdi:hotel
+          tap_action:
+            action: call-service
+            service: light.turn_off
+            service_data:
+              entity_id: group.lights_interior
+        - type: entity-button
+          entity: scene.movies
+          tap_action:
+            action: call-service
+            service: scene.turn_on
+            service_data:
+              entity_id:  scene.movies
+          hold_action:
+            action: call-service
+            service: light.turn_on
+            service_data:
+              entity_id:  group.all_lights
+        - type: horizontal-stack
+        cards:
+        - type: sensor
+          entity: sensor.living_temperature
+          name: Living
+          icon: mdi:thermometer
+        - type: sensor
+          entity: sensor.office_temperature
+          name: Office
+          icon: mdi:thermometer        
+        - type: sensor
+          entity: sensor.average_temperature
+          name: Home Temperature
+          icon: mdi:home        
 
       - type: entity-filter
         entities:
-          - entity: device_tracker.nico_moto5
-            name: Nico Moto5
-          - entity: device_tracker.vsmbr_phone
-            name: Vick
-          - entity: device_tracker.nico_moto5_ping
-            name: Nico
+        - entity: binary_sensor.living_heater_state
+          name: Living
+        - entity: binary_sensor.office_heater_state
+          name: Office
+        - entity: sensor.raw_ac_vibration_sensor
+          name: A/C
         state_filter:
-          - 'home'
+          - 'on'
         card:
           type: glance
-          title: People at home        
-    - type: glance
-      entities:
-      - entity: sensor.living_temperature
-        name: Living
-        icon: mdi:thermometer
-      - entity: binary_sensor.living_heater_state
-        name: Living
-      - entity: sensor.office_temperature
-        name: Office
-        icon: mdi:thermometer
-      - entity: binary_sensor.office_heater_state
-        name: Office
-      - entity: sensor.raw_ac_vibration_sensor
-        name: A/C
+          title: Power consumption
+
     - type: vertical-stack
       cards:
       - type: entities
@@ -94,6 +92,18 @@ views:
         - light.living_tortue
     - type: vertical-stack
       cards:
+      - type: entity-filter
+        entities:
+          - entity: device_tracker.nico_moto5
+            name: Nico Moto5
+          - entity: device_tracker.vsmbr_phone
+            name: Vick
+          - entity: device_tracker.nico_moto5_ping
+            name: Nico
+        state_filter:
+          - 'home'
+        card:
+          type: glance
       - type: picture-glance
         entities:
         - camera.door
@@ -105,6 +115,7 @@ views:
         - light.kitchen
         title: Kitchen
         camera_image: camera.kitchen    
+
     - type: entities
       title: Scenes
       entities:
@@ -246,7 +257,7 @@ views:
         entity: light.moesdimmeroffice
         name: "Lamps"
 
-  - id: 2
+  - id: 3
     title: Settings
     icon: mdi:thermometer
     cards:
@@ -339,7 +350,7 @@ views:
           - sensor.template_montreal_temperature
           - sensor.template_montreal_humidex        
   
-  - id: 3
+  - id: 4
     title: Presence
     icon: mdi:home-assistant
     cards:
@@ -376,7 +387,7 @@ views:
         card:
           type: glance
           title: People absent
-  - id: 4
+  - id: 5
     title: Cameras
     icon: mdi:camcorder
     cards:
@@ -391,7 +402,7 @@ views:
       - light.kitchen
       title: Kitchen
       camera_image: camera.kitchen
-  - id: 5
+  - id: 6
     title: Basement
     cards:
     - type: history-graph
