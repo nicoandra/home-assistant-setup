@@ -72,7 +72,6 @@ history_graph:
      - group.presence
     hours_to_show: 6
 
-
 http:
   # Secrets are defined in the file secrets.yaml
   # Uncomment this if you are using SSL/TLS, running in Docker container, etc.

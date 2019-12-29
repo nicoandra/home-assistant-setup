@@ -1,7 +1,7 @@
 version: '3'
 services:
   homeassistant:
-    image: homeassistant/home-assistant:0.101.3
+    image: homeassistant/home-assistant:0.103.5
     volumes:
       - ./config:/config
     restart: always
