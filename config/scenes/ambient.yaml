@@ -20,6 +20,10 @@
       state: on
       brightness: 125
       color_temp: 370
+    light.living_tortue:
+      state: on
+      brightness: 125
+      color_temp: 370    
 - name: Movies
   entities:
     light.couch:
@@ -39,6 +43,10 @@
       state: on
       brightness: 1
       color_temp: 370
+    light.living_tortue:
+      state: on
+      brightness: 10
+      color_temp: 370      
 - name: All full
   entities:
     light.office_yee:
@@ -59,6 +67,11 @@
     light.moesdimmer02:
       state: on
       brightness: 255
+    light.living_tortue:
+      state: on
+      brightness: 255
+      color_temp: 370
+
 - name: Red ambient
   entities:
     light.office:
@@ -104,6 +117,10 @@
     light.office_ambient_lamp:
       state: 'on'
       brightness: 56
+      color_temp: 370
+    light.living_tortue:
+      state: on
+      brightness: 125
       color_temp: 370
 - name: Medium
   entities:
