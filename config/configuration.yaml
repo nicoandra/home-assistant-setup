@@ -157,7 +157,7 @@ input_number:
   home_alone_temperature_slider:
     name: Home Alone Temp
     initial: 17
-    min: 17
+    min: 16
     max: 23
     step: .5
   at_home_temperature_slider:
