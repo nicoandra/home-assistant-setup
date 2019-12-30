@@ -1,4 +1,4 @@
-title: My Awesome Home
+title: The 1961
 views:
 
   - id: 1
@@ -39,20 +39,14 @@ views:
             service: light.turn_on
             service_data:
               entity_id:  group.all_lights
-        - type: horizontal-stack
+        
+      - type: horizontal-stack
         cards:
-        - type: sensor
-          entity: sensor.living_temperature
-          name: Living
-          icon: mdi:thermometer
-        - type: sensor
-          entity: sensor.office_temperature
-          name: Office
-          icon: mdi:thermometer        
         - type: sensor
           entity: sensor.average_temperature
           name: Home Temperature
-          icon: mdi:home        
+          icon: mdi:home
+          graph: true
 
       - type: entity-filter
         entities:
@@ -67,6 +61,7 @@ views:
         card:
           type: glance
           title: Power consumption
+        show_empty: false
 
     - type: vertical-stack
       cards:
@@ -103,20 +98,25 @@ views:
             name: Nico
         state_filter:
           - 'home'
+        show_empty: false
         card:
           type: glance
-      - type: picture-glance
-        entities:
-        - camera.door
-        title: Door
-        camera_image: camera.door
-      - type: picture-glance
-        entities:
-        - light.countertop
-        - light.kitchen
-        - light.kitchen_wall
-        title: Kitchen
-        camera_image: camera.kitchen    
+      - type: horizontal-stack
+        cards: 
+        - type: picture-glance
+          entities:
+          - camera.door
+          title: Door
+          camera_image: camera.door
+        - type: picture-glance
+          entities:
+          - light.countertop
+          - light.kitchen
+          - light.kitchen_wall
+          title: Kitchen
+          camera_image: camera.kitchen
+      - type: weather-forecast
+        entity: weather.longueuil    
 
     - type: entities
       title: Scenes
