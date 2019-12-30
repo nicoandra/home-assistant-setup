@@ -1,0 +1,165 @@
+- id: '1577673229045'
+  name: Saul Goodman
+  entities:
+    light.couch:
+      assumed_state: true
+      brightness: 133
+      effect_list:
+      - colorloop
+      - night
+      - white
+      friendly_name: Couch
+      state: 'on'
+      supported_features: 61
+    light.countertop:
+      assumed_state: true
+      brightness: 224
+      effect_list:
+      - colorloop
+      - night
+      - white
+      friendly_name: Countertop
+      state: 'on'
+      supported_features: 61
+    light.kitchen:
+      effect_list:
+      - Strobe color
+      - Police
+      - Christmas
+      - RGB
+      - Random Loop
+      - Fast Random Loop
+      - LSD
+      - Slowdown
+      - Disco
+      - Strobe epilepsy!
+      - Alarm
+      - Police2
+      - WhatsApp
+      - Facebook
+      - Twitter
+      - Slow Temp
+      - Stop
+      friendly_name: Kitchen
+      max_mireds: 370
+      min_mireds: 153
+      state: unavailable
+      supported_features: 63
+    light.kitchen_wall:
+      brightness: 255
+      color_temp: 370
+      effect_list:
+      - Strobe color
+      - Police
+      - Christmas
+      - RGB
+      - Random Loop
+      - Fast Random Loop
+      - LSD
+      - Slowdown
+      - Disco
+      - Strobe epilepsy!
+      - Alarm
+      - Police2
+      - WhatsApp
+      - Facebook
+      - Twitter
+      - Slow Temp
+      - Stop
+      friendly_name: Kitchen Wall
+      hs_color:
+      - 75.273
+      - 43.137
+      max_mireds: 370
+      min_mireds: 153
+      rgb_color:
+      - 226
+      - 255
+      - 145
+      state: 'on'
+      supported_features: 63
+      xy_color:
+      - 0.361
+      - 0.459
+    light.living_tortue:
+      brightness: 3
+      color_temp: 370
+      effect_list:
+      - Strobe color
+      - Police
+      - Christmas
+      - RGB
+      - Random Loop
+      - Fast Random Loop
+      - LSD
+      - Slowdown
+      - Disco
+      - Strobe epilepsy!
+      - Alarm
+      - Police2
+      - WhatsApp
+      - Facebook
+      - Twitter
+      - Slow Temp
+      - Stop
+      friendly_name: Living Tortue
+      hs_color:
+      - 28.391
+      - 65.659
+      max_mireds: 370
+      min_mireds: 153
+      rgb_color:
+      - 255
+      - 166
+      - 87
+      state: 'on'
+      supported_features: 63
+      xy_color:
+      - 0.526
+      - 0.387
+    light.office:
+      assumed_state: true
+      brightness: 136
+      effect_list:
+      - colorloop
+      - night
+      - white
+      friendly_name: Office
+      state: 'on'
+      supported_features: 61
+    light.office_ambient_lamp:
+      brightness: 135
+      color_temp: 356
+      effect_list:
+      - Strobe color
+      - Police
+      - Christmas
+      - RGB
+      - Random Loop
+      - Fast Random Loop
+      - LSD
+      - Slowdown
+      - Disco
+      - Strobe epilepsy!
+      - Alarm
+      - Police2
+      - WhatsApp
+      - Facebook
+      - Twitter
+      - Slow Temp
+      - Stop
+      friendly_name: Office ambient lamp
+      hs_color:
+      - 28.172
+      - 62.378
+      max_mireds: 370
+      min_mireds: 153
+      rgb_color:
+      - 255
+      - 170
+      - 95
+      state: 'on'
+      supported_features: 63
+      xy_color:
+      - 0.516
+      - 0.386
