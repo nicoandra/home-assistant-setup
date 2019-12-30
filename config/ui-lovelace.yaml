@@ -84,6 +84,7 @@ views:
         entities:
         - light.countertop
         - light.kitchen
+        - light.kitchen_wall
       - type: entities
         title: "Living"
         entities:
@@ -113,6 +114,7 @@ views:
         entities:
         - light.countertop
         - light.kitchen
+        - light.kitchen_wall
         title: Kitchen
         camera_image: camera.kitchen    
 
@@ -242,6 +244,7 @@ views:
       entities:
       - light.countertop
       - light.kitchen
+      - light.kitchen_wall
     - type: entities
       title: "Living"
       entities:
@@ -419,6 +422,7 @@ views:
       entities:
       - light.countertop
       - light.kitchen
+      - light.kitchen_wall
       title: Kitchen
       camera_image: camera.kitchen
   - id: 6

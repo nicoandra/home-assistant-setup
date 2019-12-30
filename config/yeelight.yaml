@@ -33,3 +33,7 @@ devices:
       name: Living Tortue
       transition: 1000
       model: color2
+    192.168.1.182:
+      name: Kitchen Wall
+      transition: 1000
+      model: color2

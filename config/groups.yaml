@@ -130,6 +130,7 @@ lights_interior:
     - light.countertop
     - light.living_moon
     - light.living_tortue
+    - light.kitchen_wall
 
 lights_moesdimmer_strips:
   name: "Dim Strips"
