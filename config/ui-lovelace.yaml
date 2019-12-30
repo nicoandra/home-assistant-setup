@@ -72,7 +72,6 @@ views:
         - light.office
         - light.office_yee
         - light.office_ambient_lamp
-        - light.office_ceiling
       - type: entities
         icon: mdi:fridge-outline
         title: "Kitchen"
@@ -86,6 +85,12 @@ views:
         - light.couch
         - light.living_moon
         - light.living_tortue
+
+      - type: entities
+        title: "Bedroom"
+        icon: mdi:desktop-classic
+        entities:
+        - light.bedroom_wardrobe
     - type: vertical-stack
       cards:
       - type: entity-filter
@@ -237,7 +242,6 @@ views:
       - light.office
       - light.office_yee
       - light.office_ambient_lamp
-      - light.office_ceiling
     - type: entities
       icon: mdi:fridge-outline
       title: "Kitchen"
@@ -251,6 +255,12 @@ views:
       - light.couch
       - light.living_moon
       - light.living_tortue
+
+    - type: entities
+      title: "Bedroom"
+      icon: mdi:desktop-classic
+      entities:
+      - light.bedroom_wardrobe
     - type: horizontal-stack
       cards:
       - type: light
