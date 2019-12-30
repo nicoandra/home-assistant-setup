@@ -150,12 +150,6 @@ views:
           service: scene.turn_on
           service_data:
             entity_id: scene.chillin
-      - entity: scene.morning
-        tap_action:
-          action: call-service
-          service: scene.turn_on
-          service_data:
-            entity_id: scene.morning
       - entity: scene.movies
         tap_action:
           action: call-service
@@ -174,24 +168,12 @@ views:
           service: scene.turn_on
           service_data:
             entity_id: scene.red_ambient
-      - entity: scene.sleeping_not_alone
-        tap_action:
-          action: call-service
-          service: scene.turn_on
-          service_data:
-            entity_id: scene.sleeping_not_alone
       - entity: scene.someone_got_home
         tap_action:
           action: call-service
           service: scene.turn_on
           service_data:
             entity_id: scene.someone_got_home
-      - entity: scene.walkaroundatnight
-        tap_action:
-          action: call-service
-          service: scene.turn_on
-          service_data:
-            entity_id: scene.walkaroundatnight
       - entity: scene.medium
         tap_action:
           action: call-service

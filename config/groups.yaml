@@ -123,7 +123,7 @@ lights_interior:
   entities:
     - light.office
     - light.office_yee
-    - light.office_ceiling
+    - light.bedroom_wardrobe
     - light.office_ambient_lamp
     - light.kitchen
     - light.couch
