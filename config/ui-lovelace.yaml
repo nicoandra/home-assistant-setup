@@ -306,6 +306,24 @@ views:
               name: Office ºC
               icon: mdi:thermometer
           - type: history-graph
+            title: 12 Hours
+            hours_to_show: 12
+            refresh_interval: 60
+            entities:
+            - entity: input_number.living_temperature_slider
+              name: Living ºC
+              icon: mdi:thermometer
+            - entity: input_number.office_temperature_slider
+              name: Office ºC
+              icon: mdi:thermometer
+          - type: history-graph
+            title: 12 Hours
+            hours_to_show: 12
+            refresh_interval: 120
+            entities:
+            - sensor.template_average_humidity
+            - sensor.template_montreal_humidity
+          - type: history-graph
             title: 24 Hours
             hours_to_show: 24
             refresh_interval: 60
@@ -315,19 +333,7 @@ views:
               icon: mdi:thermometer
             - entity: sensor.office_temperature
               name: Office ºC
-              icon: mdi:thermometer
-
-          - type: history-graph
-            title: 12 Hours
-            hours_to_show: 12
-            refresh_interval: 60
-            entities:
-            - entity: input_number.living_temperature_slider
-              name: Living ºC
-              icon: mdi:thermometer
-            - entity: input_number.office_temperature_slider
-              name: Office ºC
-              icon: mdi:thermometer
+              icon: mdi:thermometer  
           - type: history-graph
             title: 24 Hours
             hours_to_show: 24
@@ -340,13 +346,6 @@ views:
               name: Office ºC
               icon: mdi:thermometer
 
-          - type: history-graph
-            title: 12 Hours
-            hours_to_show: 12
-            refresh_interval: 120
-            entities:
-            - sensor.template_average_humidity
-            - sensor.template_montreal_humidity
           - type: history-graph
             title: 12 Hours      
             hours_to_show: 12
