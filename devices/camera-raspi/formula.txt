@@ -1,0 +1,1 @@
+cvlc  --v4l2-width 640 --v4l2-height 480 --v4l2-chroma MJPG --http-host=192.168.1.19 v4l2:///dev/video0 --sout "#transcode{vcodec=MJPG,vb=5000,scale=1,acodec=none}:standard{access=http,mux=mpjpeg}"
