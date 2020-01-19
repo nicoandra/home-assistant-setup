@@ -13,13 +13,13 @@ homeassistant:
   # Customization file
   customize: !include customize.yaml
   auth_providers:
-  - type: homeassistant
-  - type: trusted_networks
-    trusted_networks:
-    - 192.168.0.0/24
-    - fd00::/8
-  - type: legacy_api_password
-    api_password: !secret http_password
+    - type: homeassistant
+    - type: trusted_networks
+      trusted_networks:
+        - 192.168.0.0/24
+        - fd00::/8
+    - type: legacy_api_password
+      api_password: !secret http_password
 
 # Show links to resources in log and frontend
 # introduction: false
@@ -45,31 +45,31 @@ recorder:
   purge_keep_days: 5
   exclude:
     entities:
-    - automation.thermodev_01
-    - automation.thermodev_01_climate
-    - automation.thermodev_02
-    - automation.thermodev_heartbeat
+      - automation.thermodev_01
+      - automation.thermodev_01_climate
+      - automation.thermodev_02
+      - automation.thermodev_heartbeat
     domains:
-    - automation
+      - automation
 
 history_graph:
   temperature_96:
     name: Temperatures
     entities:
-     - sensor.living_temperature
-     - sensor.office_temperature
-     - binary_sensor.living_heater_state
-     - binary_sensor.office_heater_state
-     - group.presence
+      - sensor.living_temperature
+      - sensor.office_temperature
+      - binary_sensor.living_heater_state
+      - binary_sensor.office_heater_state
+      - group.presence
     hours_to_show: 96
   temperature_6:
     name: Temperatures 6 hours
     entities:
-     - sensor.living_temperature
-     - sensor.office_temperature
-     - binary_sensor.living_heater_state
-     - binary_sensor.office_heater_state
-     - group.presence
+      - sensor.living_temperature
+      - sensor.office_temperature
+      - binary_sensor.living_heater_state
+      - binary_sensor.office_heater_state
+      - group.presence
     hours_to_show: 6
 
 http:
@@ -106,7 +106,7 @@ binary_sensor:
 
 discovery:
   ignore:
-  - yeelight # Discover some devices automatically
+    - yeelight # Discover some devices automatically
 
 conversation: # Allows you to issue voice commands from the frontend in enabled browsers
 history: # Enables support for tracking state changes over time
@@ -115,15 +115,16 @@ map: # Enables a map showing the location of tracked devices
 sun: # Track the sun
 cloud:
 tts: # Text to speech
- - platform: google_translate
+  - platform: google_translate
 
 mqtt:
   broker: mosquitto
- # broker: 192.168.1.106
+  # broker: 192.168.1.106
 
 weather: !include weather.yaml
 camera: !include camera.yaml
 scene: !include scenes.yaml
+script: !include scripts.yaml
 sensor: !include sensors.yaml
 group: !include groups.yaml
 automation: !include_dir_merge_list automations
@@ -177,6 +178,11 @@ input_number:
     max: 20
     min: 0
     step: 1
-
+  ir_light_level:
+    name: IR Light Level
+    initial: 5
+    max: 7
+    min: 0
+    step: 1
 
 yeelight: !include yeelight.yaml

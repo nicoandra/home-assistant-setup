@@ -1,256 +1,255 @@
 title: The 1961
 views:
-
   - id: 1
     title: Lights
     icon: mdi:home
     cards:
-    - type: vertical-stack
-      cards:
-      - type: horizontal-stack
-        cards:    
-        - type: entity-button
-          entity: group.all_lights
-          name: Lighs on
-          icon: mdi:lightbulb-on-outline
-          tap_action:
-            action: call-service
-            service: light.turn_on
-            service_data:
-              entity_id:  group.all_lights
-        - type: entity-button
-          name: Sleep
-          entity: group.lights_interior
-          icon: mdi:hotel
-          tap_action:
-            action: call-service
-            service: light.turn_off
-            service_data:
-              entity_id: group.lights_interior
-        - type: entity-button
-          entity: scene.movies
-          tap_action:
-            action: call-service
-            service: scene.turn_on
-            service_data:
-              entity_id:  scene.movies
-          hold_action:
-            action: call-service
-            service: light.turn_on
-            service_data:
-              entity_id:  group.all_lights
-        
-      - type: horizontal-stack
+      - type: vertical-stack
         cards:
-        - type: sensor
-          entity: sensor.average_temperature
-          name: Home Temperature
-          icon: mdi:home
-          graph: true
+          - type: horizontal-stack
+            cards:
+              - type: entity-button
+                entity: group.all_lights
+                name: Lighs on
+                icon: mdi:lightbulb-on-outline
+                tap_action:
+                  action: call-service
+                  service: light.turn_on
+                  service_data:
+                    entity_id: group.all_lights
+              - type: entity-button
+                name: Sleep
+                entity: group.lights_interior
+                icon: mdi:hotel
+                tap_action:
+                  action: call-service
+                  service: light.turn_off
+                  service_data:
+                    entity_id: group.lights_interior
+              - type: entity-button
+                entity: scene.movies
+                tap_action:
+                  action: call-service
+                  service: scene.turn_on
+                  service_data:
+                    entity_id: scene.movies
+                hold_action:
+                  action: call-service
+                  service: light.turn_on
+                  service_data:
+                    entity_id: group.all_lights
 
-      - type: entity-filter
-        entities:
-        - entity: binary_sensor.living_heater_state
-          name: Living
-        - entity: binary_sensor.office_heater_state
-          name: Office
-        - entity: sensor.raw_ac_vibration_sensor
-          name: A/C
-        state_filter:
-        - 'on'
-        card:
-          type: glance
-          title: Power consumption
-        show_empty: false
+          - type: horizontal-stack
+            cards:
+              - type: sensor
+                entity: sensor.average_temperature
+                name: Home Temperature
+                icon: mdi:home
+                graph: true
 
-    - type: vertical-stack
-      cards:
-      - type: entities
-        title: "Office"
-        icon: mdi:desktop-classic
-        entities:
-        - light.office
-        - light.office_yee
-        - light.office_ambient_lamp
-      - type: entities
-        icon: mdi:fridge-outline
-        title: "Kitchen"
-        entities:
-        - light.countertop
-        - light.kitchen
-        - light.kitchen_wall
-      - type: entities
-        title: "Living"
-        entities:
-        - light.couch
-        - light.living_moon
-        - light.living_tortue
+          - type: entity-filter
+            entities:
+              - entity: binary_sensor.living_heater_state
+                name: Living
+              - entity: binary_sensor.office_heater_state
+                name: Office
+              - entity: sensor.raw_ac_vibration_sensor
+                name: A/C
+            state_filter:
+              - "on"
+            card:
+              type: glance
+              title: Power consumption
+            show_empty: false
+
+      - type: vertical-stack
+        cards:
+          - type: entities
+            title: "Office"
+            icon: mdi:desktop-classic
+            entities:
+              - light.office
+              - light.office_yee
+              - light.office_ambient_lamp
+          - type: entities
+            icon: mdi:fridge-outline
+            title: "Kitchen"
+            entities:
+              - light.countertop
+              - light.kitchen
+              - light.kitchen_wall
+          - type: entities
+            title: "Living"
+            entities:
+              - light.couch
+              - light.living_moon
+              - light.living_tortue
+
+          - type: entities
+            title: "Bedroom"
+            icon: mdi:desktop-classic
+            entities:
+              - light.bedroom_wardrobe
+      - type: vertical-stack
+        cards:
+          - type: entity-filter
+            entities:
+              - entity: device_tracker.nico_moto5
+                name: Nico Moto5
+              - entity: device_tracker.vsmbr_phone
+                name: Vick
+              - entity: device_tracker.nico_moto5_ping
+                name: Nico
+            state_filter:
+              - "home"
+            show_empty: false
+            card:
+              type: glance
+          - type: horizontal-stack
+            cards:
+              - type: picture-glance
+                entities:
+                  - camera.door
+                title: Door
+                camera_image: camera.door
+              - type: picture-glance
+                entities:
+                  - light.countertop
+                  - light.kitchen
+                  - light.kitchen_wall
+                title: Kitchen
+                camera_image: camera.kitchen
+          - type: weather-forecast
+            entity: weather.longueuil
 
       - type: entities
-        title: "Bedroom"
-        icon: mdi:desktop-classic
+        title: Scenes
         entities:
-        - light.bedroom_wardrobe
-    - type: vertical-stack
-      cards:
-      - type: entity-filter
-        entities:
-          - entity: device_tracker.nico_moto5
-            name: Nico Moto5
-          - entity: device_tracker.vsmbr_phone
-            name: Vick
-          - entity: device_tracker.nico_moto5_ping
-            name: Nico
-        state_filter:
-          - 'home'
-        show_empty: false
-        card:
-          type: glance
-      - type: horizontal-stack
-        cards: 
-        - type: picture-glance
-          entities:
-          - camera.door
-          title: Door
-          camera_image: camera.door
-        - type: picture-glance
-          entities:
-          - light.countertop
-          - light.kitchen
-          - light.kitchen_wall
-          title: Kitchen
-          camera_image: camera.kitchen
-      - type: weather-forecast
-        entity: weather.longueuil    
-
-    - type: entities
-      title: Scenes
-      entities:
-      - entity: scene.all_full
-        tap_action: 
-          action: call-service
-          service: scene.turn_on
-          service_data:
-            entity_id: scene.all_full
-      - entity: scene.alone_evening
-        tap_action:
-          action: call-service
-          service: scene.turn_on
-          service_data:
-            entity_id: scene.alone_evening
-      - entity: scene.alone_late
-        tap_action:
-          action: call-service
-          service: scene.turn_on
-          service_data:
-            entity_id: scene.alone_late
-      - entity: scene.chillin
-        tap_action:
-          action: call-service
-          service: scene.turn_on
-          service_data:
-            entity_id: scene.chillin
-      - entity: scene.movies
-        tap_action:
-          action: call-service
-          service: scene.turn_on
-          service_data:
-            entity_id: scene.movies
-      - entity: scene.nico_compu
-        tap_action:
-          action: call-service
-          service: scene.turn_on
-          service_data:
-            entity_id: scene.nico_compu
-      - entity: scene.red_ambient
-        tap_action:
-          action: call-service
-          service: scene.turn_on
-          service_data:
-            entity_id: scene.red_ambient
-      - entity: scene.someone_got_home
-        tap_action:
-          action: call-service
-          service: scene.turn_on
-          service_data:
-            entity_id: scene.someone_got_home
-      - entity: scene.medium
-        tap_action:
-          action: call-service
-          service: scene.turn_on
-          service_data:
-            entity_id: scene.medium
+          - entity: scene.all_full
+            tap_action:
+              action: call-service
+              service: scene.turn_on
+              service_data:
+                entity_id: scene.all_full
+          - entity: scene.alone_evening
+            tap_action:
+              action: call-service
+              service: scene.turn_on
+              service_data:
+                entity_id: scene.alone_evening
+          - entity: scene.alone_late
+            tap_action:
+              action: call-service
+              service: scene.turn_on
+              service_data:
+                entity_id: scene.alone_late
+          - entity: scene.chillin
+            tap_action:
+              action: call-service
+              service: scene.turn_on
+              service_data:
+                entity_id: scene.chillin
+          - entity: scene.movies
+            tap_action:
+              action: call-service
+              service: scene.turn_on
+              service_data:
+                entity_id: scene.movies
+          - entity: scene.nico_compu
+            tap_action:
+              action: call-service
+              service: scene.turn_on
+              service_data:
+                entity_id: scene.nico_compu
+          - entity: scene.red_ambient
+            tap_action:
+              action: call-service
+              service: scene.turn_on
+              service_data:
+                entity_id: scene.red_ambient
+          - entity: scene.someone_got_home
+            tap_action:
+              action: call-service
+              service: scene.turn_on
+              service_data:
+                entity_id: scene.someone_got_home
+          - entity: scene.medium
+            tap_action:
+              action: call-service
+              service: scene.turn_on
+              service_data:
+                entity_id: scene.medium
 
   - id: 2
     title: Lights
     icon: mdi:lightbulb
     cards:
-    - type: horizontal-stack
-      cards:    
-      - type: entity-button
-        entity: group.all_lights
-        name: Lighs on
-        icon: mdi:lightbulb-on-outline
-        tap_action:
-          action: call-service
-          service: light.turn_on
-          service_data:
-            entity_id:  group.all_lights
-      - type: entity-button
-        name: Sleep
-        entity: group.lights_interior
-        icon: mdi:hotel
-        tap_action:
-          action: call-service
-          service: light.turn_off
-          service_data:
-            entity_id: group.lights_interior
-      - type: entity-button
-        entity: scene.movies
-        tap_action:
-          action: call-service
-          service: scene.turn_on
-          service_data:
-            entity_id:  scene.movies
-        hold_action:
-          action: call-service
-          service: light.turn_on
-          service_data:
-            entity_id:  group.all_lights
-    - type: entities
-      title: "Office"
-      icon: mdi:desktop-classic
-      entities:
-      - light.office
-      - light.office_yee
-      - light.office_ambient_lamp
-    - type: entities
-      icon: mdi:fridge-outline
-      title: "Kitchen"
-      entities:
-      - light.countertop
-      - light.kitchen
-      - light.kitchen_wall
-    - type: entities
-      title: "Living"
-      entities:
-      - light.couch
-      - light.living_moon
-      - light.living_tortue
+      - type: horizontal-stack
+        cards:
+          - type: entity-button
+            entity: group.all_lights
+            name: Lighs on
+            icon: mdi:lightbulb-on-outline
+            tap_action:
+              action: call-service
+              service: light.turn_on
+              service_data:
+                entity_id: group.all_lights
+          - type: entity-button
+            name: Sleep
+            entity: group.lights_interior
+            icon: mdi:hotel
+            tap_action:
+              action: call-service
+              service: light.turn_off
+              service_data:
+                entity_id: group.lights_interior
+          - type: entity-button
+            entity: scene.movies
+            tap_action:
+              action: call-service
+              service: scene.turn_on
+              service_data:
+                entity_id: scene.movies
+            hold_action:
+              action: call-service
+              service: light.turn_on
+              service_data:
+                entity_id: group.all_lights
+      - type: entities
+        title: "Office"
+        icon: mdi:desktop-classic
+        entities:
+          - light.office
+          - light.office_yee
+          - light.office_ambient_lamp
+      - type: entities
+        icon: mdi:fridge-outline
+        title: "Kitchen"
+        entities:
+          - light.countertop
+          - light.kitchen
+          - light.kitchen_wall
+      - type: entities
+        title: "Living"
+        entities:
+          - light.couch
+          - light.living_moon
+          - light.living_tortue
 
-    - type: entities
-      title: "Bedroom"
-      icon: mdi:desktop-classic
-      entities:
-      - light.bedroom_wardrobe
-    - type: horizontal-stack
-      cards:
-      - type: light
-        entity: light.moesdimmerliving
-        name: "Strips"
-      - type: light
-        entity: light.moesdimmeroffice
-        name: "Lamps"
+      - type: entities
+        title: "Bedroom"
+        icon: mdi:desktop-classic
+        entities:
+          - light.bedroom_wardrobe
+      - type: horizontal-stack
+        cards:
+          - type: light
+            entity: light.moesdimmerliving
+            name: "Strips"
+          - type: light
+            entity: light.moesdimmeroffice
+            name: "Lamps"
 
   - id: 3
     title: Settings
@@ -259,121 +258,121 @@ views:
     cards:
       - type: horizontal-stack
         cards:
-        - type: vertical-stack
-          cards: 
-          - type: glance
-            entities:
-            - entity: sensor.living_temperature
-              name: Living
-              icon: mdi:thermometer
-            - entity: binary_sensor.living_heater_state
-              name: Living
-            - entity: sensor.office_temperature
-              name: Office
-              icon: mdi:thermometer
-            - entity: binary_sensor.office_heater_state
-              name: Office
-            - entity: sensor.raw_ac_vibration_sensor
-              name: A/C
-              icon: mdi:air-conditioner          
-          - type: entities
-            title: Temperature settings
-            entities:
-            - entity: input_number.at_home_temperature_slider
-              name: At home
-              icon: mdi:home
-            - entity: input_number.at_home_sleeping
-              name: Sleeping
-              icon: mdi:sleep
-            - entity: input_number.home_alone_temperature_slider
-              name: When alone
-              icon: mdi:home-lock
-            - input_number.living_temperature_slider
-            - input_number.office_temperature_slider
-          - type: weather-forecast
-            entity: weather.longueuil
-        - type: vertical-stack
-          cards:                  
-          - type: history-graph
-            title: 12 Hours
-            hours_to_show: 12
-            refresh_interval: 60
-            entities:
-            - entity: sensor.living_temperature
-              name: Living ºC
-              icon: mdi:thermometer
-            - entity: sensor.office_temperature
-              name: Office ºC
-              icon: mdi:thermometer
-          - type: history-graph
-            title: 12 Hours
-            hours_to_show: 12
-            refresh_interval: 60
-            entities:
-            - entity: input_number.living_temperature_slider
-              name: Living ºC
-              icon: mdi:thermometer
-            - entity: input_number.office_temperature_slider
-              name: Office ºC
-              icon: mdi:thermometer
-          - type: history-graph
-            title: 12 Hours
-            hours_to_show: 12
-            refresh_interval: 120
-            entities:
-            - sensor.template_average_humidity
-            - sensor.template_montreal_humidity
-          - type: history-graph
-            title: 24 Hours
-            hours_to_show: 24
-            refresh_interval: 60
-            entities:
-            - entity: sensor.living_temperature
-              name: Living ºC
-              icon: mdi:thermometer
-            - entity: sensor.office_temperature
-              name: Office ºC
-              icon: mdi:thermometer  
-          - type: history-graph
-            title: 24 Hours
-            hours_to_show: 24
-            refresh_interval: 60
-            entities:
-            - entity: input_number.living_temperature_slider
-              name: Living ºC
-              icon: mdi:thermometer
-            - entity: input_number.office_temperature_slider
-              name: Office ºC
-              icon: mdi:thermometer
+          - type: vertical-stack
+            cards:
+              - type: glance
+                entities:
+                  - entity: sensor.living_temperature
+                    name: Living
+                    icon: mdi:thermometer
+                  - entity: binary_sensor.living_heater_state
+                    name: Living
+                  - entity: sensor.office_temperature
+                    name: Office
+                    icon: mdi:thermometer
+                  - entity: binary_sensor.office_heater_state
+                    name: Office
+                  - entity: sensor.raw_ac_vibration_sensor
+                    name: A/C
+                    icon: mdi:air-conditioner
+              - type: entities
+                title: Temperature settings
+                entities:
+                  - entity: input_number.at_home_temperature_slider
+                    name: At home
+                    icon: mdi:home
+                  - entity: input_number.at_home_sleeping
+                    name: Sleeping
+                    icon: mdi:sleep
+                  - entity: input_number.home_alone_temperature_slider
+                    name: When alone
+                    icon: mdi:home-lock
+                  - input_number.living_temperature_slider
+                  - input_number.office_temperature_slider
+              - type: weather-forecast
+                entity: weather.longueuil
+          - type: vertical-stack
+            cards:
+              - type: history-graph
+                title: 12 Hours
+                hours_to_show: 12
+                refresh_interval: 60
+                entities:
+                  - entity: sensor.living_temperature
+                    name: Living ºC
+                    icon: mdi:thermometer
+                  - entity: sensor.office_temperature
+                    name: Office ºC
+                    icon: mdi:thermometer
+              - type: history-graph
+                title: 12 Hours
+                hours_to_show: 12
+                refresh_interval: 60
+                entities:
+                  - entity: input_number.living_temperature_slider
+                    name: Living ºC
+                    icon: mdi:thermometer
+                  - entity: input_number.office_temperature_slider
+                    name: Office ºC
+                    icon: mdi:thermometer
+              - type: history-graph
+                title: 12 Hours
+                hours_to_show: 12
+                refresh_interval: 120
+                entities:
+                  - sensor.template_average_humidity
+                  - sensor.template_montreal_humidity
+              - type: history-graph
+                title: 24 Hours
+                hours_to_show: 24
+                refresh_interval: 60
+                entities:
+                  - entity: sensor.living_temperature
+                    name: Living ºC
+                    icon: mdi:thermometer
+                  - entity: sensor.office_temperature
+                    name: Office ºC
+                    icon: mdi:thermometer
+              - type: history-graph
+                title: 24 Hours
+                hours_to_show: 24
+                refresh_interval: 60
+                entities:
+                  - entity: input_number.living_temperature_slider
+                    name: Living ºC
+                    icon: mdi:thermometer
+                  - entity: input_number.office_temperature_slider
+                    name: Office ºC
+                    icon: mdi:thermometer
 
-          - type: history-graph
-            title: 12 Hours      
-            hours_to_show: 12
-            refresh_interval: 60
-            entities:
-            - sensor.average_temperature
-            - sensor.template_montreal_temperature
-            - sensor.template_montreal_humidex
-          - type: history-graph
-            title: 24 Hours
-            hours_to_show: 24
-            refresh_interval: 120
-            entities:
-            - sensor.average_temperature
-            - sensor.template_montreal_temperature
-            - sensor.template_montreal_humidex      
-  
+              - type: history-graph
+                title: 12 Hours
+                hours_to_show: 12
+                refresh_interval: 60
+                entities:
+                  - sensor.average_temperature
+                  - sensor.template_montreal_temperature
+                  - sensor.template_montreal_humidex
+              - type: history-graph
+                title: 24 Hours
+                hours_to_show: 24
+                refresh_interval: 120
+                entities:
+                  - sensor.average_temperature
+                  - sensor.template_montreal_temperature
+                  - sensor.template_montreal_humidex
+
   - id: 4
     title: Presence
     icon: mdi:home-assistant
     cards:
       - type: entities
         entities:
-        - group.all_devices
-        - device_tracker.nico_moto5
-        - device_tracker.nico_moto5_ping
-        - device_tracker.vsmbr_laptop
-        - device_tracker.vsmbr_phone
+          - group.all_devices
+          - device_tracker.nico_moto5
+          - device_tracker.nico_moto5_ping
+          - device_tracker.vsmbr_laptop
+          - device_tracker.vsmbr_phone
       - type: entity-filter
         entities:
           - entity: device_tracker.nico_moto5
@@ -383,7 +382,7 @@ views:
           - entity: device_tracker.nico_moto5_ping
             name: Nico
         state_filter:
-          - 'home'
+          - "home"
         card:
           type: glance
           title: People at home
@@ -396,7 +395,7 @@ views:
           - entity: device_tracker.nico_moto5_ping
             name: Nico
         state_filter:
-          - 'not_home'
+          - "not_home"
         card:
           type: glance
           title: People absent
@@ -404,29 +403,29 @@ views:
     title: Cameras
     icon: mdi:camcorder
     cards:
-    - type: picture-glance
-      entities:
-      - camera.door
-      title: Door
-      camera_image: camera.door
-    - type: picture-glance
-      entities:
-      - light.countertop
-      - light.kitchen
-      - light.kitchen_wall
-      title: Kitchen
-      camera_image: camera.kitchen
+      - type: picture-glance
+        entities:
+          - camera.door
+        title: Door
+        camera_image: camera.door
+      - type: picture-glance
+        entities:
+          - light.countertop
+          - light.kitchen
+          - light.kitchen_wall
+        title: Kitchen
+        camera_image: camera.kitchen
   - id: 6
     title: Basement
     cards:
-    - type: history-graph
-      title: 12 Hours
-      hours_to_show: 12
-      refresh_interval: 60
-      entities:
-      - entity: sensor.basement_temperature
-        name: Basement ºC
-        icon: mdi:thermometer
-      - entity: sensor.basement_humidity
-        name: Basement H.
-        icon: mdi:thermometer
+      - type: history-graph
+        title: 12 Hours
+        hours_to_show: 12
+        refresh_interval: 60
+        entities:
+          - entity: sensor.basement_temperature
+            name: Basement ºC
+            icon: mdi:thermometer
+          - entity: sensor.basement_humidity
+            name: Basement H.
+            icon: mdi:thermometer
