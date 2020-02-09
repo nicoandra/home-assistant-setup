@@ -1,5 +1,14 @@
-version: '3'
+version: "3"
 services:
+  reverse-proxy:
+    image: traefik:v1.7 # The official Traefik docker image
+    command: --api --docker # Enables the web UI and tells Traefik to listen to docker
+    ports:
+      - "8050:80" # The HTTP port
+      - "8051:8080" # The Web UI (enabled by --api)
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock # So that Traefik can listen to the Docker events
+
   homeassistant:
     image: homeassistant/home-assistant:0.103.5
     volumes:
@@ -13,11 +22,13 @@ services:
       - locative-endpoint
     environment:
       - TZ=America/Montreal
+    labels:
+      - "traefik.frontend.rule=Host:1961fullum.nmac.com.ar"
 
   mosquitto:
     image: ansi/mosquitto
     ports:
-     - 1883:1883
+      - 1883:1883
     entrypoint: /usr/local/sbin/mosquitto -c /etc/mosquitto/mosquitto.conf
     volumes:
       - ./etc/mosquitto:/etc/mosquitto:ro
@@ -42,12 +53,12 @@ services:
     ports:
       - 8123:8123 # To serve HomeAssistant plain text
       - 3999:3999 # To serve locative endpoint plain text
-#      - 4443:4443 # To serve HomeAssistant and the cert, SSL (work in progress)
-#      - 3997:3997 # To serve locative endpoint SSL
+    #      - 4443:4443 # To serve HomeAssistant and the cert, SSL (work in progress)
+    #      - 3997:3997 # To serve locative endpoint SSL
     volumes:
-    - ./etc/nginx/locative.conf:/etc/nginx/conf.d/locative.conf
-    - ./etc/nginx/homeassistant.conf:/etc/nginx/conf.d/homeassistant.conf
-    - ./etc/certificates:/etc/certificates
+      - ./etc/nginx/locative.conf:/etc/nginx/conf.d/locative.conf
+      - ./etc/nginx/homeassistant.conf:/etc/nginx/conf.d/homeassistant.conf
+      - ./etc/certificates:/etc/certificates
     depends_on:
       - locative-endpoint
       - homeassistant
@@ -56,11 +67,10 @@ services:
     image: node:8.15.0-alpine
     working_dir: /code
     volumes:
-    - ./tools:/code
+      - ./tools:/code
     # command: node /code/index.js
     command: npm run start:dev
     environment:
-    - ENABLED_DIMMERS=dev,office,living,dimmer04
+      - ENABLED_DIMMERS=dev,office,living,dimmer04
     depends_on:
-    - mosquitto
-    
+      - mosquitto
