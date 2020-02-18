@@ -2,7 +2,7 @@
   trigger:
     - platform: state
       entity_id: group.all_devices
-      to: 'home'
+      to: "home"
     - platform: state
       entity_id: input_number.at_home_temperature_slider
     - platform: homeassistant
@@ -15,14 +15,14 @@
     - service: input_number.set_value
       data_template:
         entity_id: input_number.living_temperature_slider
-        value: '{{ states.input_number.at_home_temperature_slider.state | float }}'
+        value: "{{ states.input_number.at_home_temperature_slider.state | float }}"
     - service: input_number.set_value
       data_template:
         entity_id: input_number.office_temperature_slider
-        value: '{{ states.input_number.at_home_temperature_slider.state | float }}'
+        value: "{{ states.input_number.at_home_temperature_slider.state | float }}"
     - service: mqtt.publish
       data_template:
-        topic: '/Home/Climate/DesiredTemperature'
+        topic: "/Home/Climate/DesiredTemperature"
         retain: true
         payload: "{{ states('input_number.at_home_temperature_slider') | float }}"
 
@@ -32,7 +32,7 @@
       entity_id: input_number.home_alone_temperature_slider
     - platform: state
       entity_id: group.all_devices
-      to: 'not_home'
+      to: "not_home"
     - platform: homeassistant
       event: start
   condition:
@@ -43,11 +43,11 @@
     - service: input_number.set_value
       data_template:
         entity_id: input_number.living_temperature_slider
-        value: '{{ states.input_number.home_alone_temperature_slider.state | float }}'
+        value: "{{ states.input_number.home_alone_temperature_slider.state | float }}"
     - service: input_number.set_value
       data_template:
         entity_id: input_number.office_temperature_slider
-        value: '{{ states.input_number.home_alone_temperature_slider.state | float }}'
+        value: "{{ states.input_number.home_alone_temperature_slider.state | float }}"
     - service: rest_command.let_nico_know
       data_template:
         text: "Nobody at :home:. :chart_with_downwards_trend: heaters set to {{ states.input_number.home_alone_temperature_slider.state | float }} degrees."
@@ -56,7 +56,7 @@
   trigger:
     - platform: state
       entity_id: group.lights_interior
-      to: 'off'
+      to: "off"
     - platform: state
       entity_id: input_number.at_home_sleeping
   condition:
@@ -65,10 +65,10 @@
       state: "off"
     - condition: or
       conditions:
-      - condition: time
-        after: "22:00:00"
-      - condition: time
-        before: "07:00:00"
+        - condition: time
+          after: "22:00:00"
+        - condition: time
+          before: "07:00:00"
     - condition: state
       entity_id: group.all_devices
       state: home
@@ -76,40 +76,39 @@
     - service: input_number.set_value
       data_template:
         entity_id: input_number.living_temperature_slider
-        value: '{{ states.input_number.at_home_sleeping.state | float }}'
+        value: "{{ states.input_number.at_home_sleeping.state | float }}"
     - service: input_number.set_value
       data_template:
         entity_id: input_number.office_temperature_slider
-        value: '{{ states.input_number.at_home_sleeping.state | float }}'
+        value: "{{ states.input_number.at_home_sleeping.state | float }}"
     - service: rest_command.let_nico_know
       data_template:
         text: "We're :sleeping: ... :chart_with_downwards_trend: heaters set to {{ states.input_number.at_home_sleeping.state | float }} degrees."
 
-
 - alias: Enable heaters at morning when someone is at home
   trigger:
-  - platform: state
-    entity_id:  group.all_lights
-    to: 'on'
-  - platform: time
-    at: "07:30:00"
+    - platform: state
+      entity_id: group.lights_interior
+      to: "on"
+    - platform: time
+      at: "07:30:00"
   condition:
-  - condition: time
-    after: "00:10:00"
-  - condition: time
-    before: "07:31:00"
-  - condition: state
-    entity_id: group.all_devices
-    state: home
+    - condition: time
+      after: "00:10:00"
+    - condition: time
+      before: "07:31:00"
+    - condition: state
+      entity_id: group.all_devices
+      state: home
   action:
-  - service: input_number.set_value
-    data_template:
-      entity_id: input_number.living_temperature_slider
-      value: '{{ states.input_number.at_home_temperature_slider.state | float }}'
-  - service: input_number.set_value
-    data_template:
-      entity_id: input_number.office_temperature_slider
-      value: '{{ states.input_number.at_home_temperature_slider.state | float }}'
-  - service: rest_command.let_nico_know
-    data_template:
-      text: ":sun_with_face: :chart_with_upwards_trend: heaters set to {{ states.input_number.at_home_temperature_slider.state | float }} degrees."
+    - service: input_number.set_value
+      data_template:
+        entity_id: input_number.living_temperature_slider
+        value: "{{ states.input_number.at_home_temperature_slider.state | float }}"
+    - service: input_number.set_value
+      data_template:
+        entity_id: input_number.office_temperature_slider
+        value: "{{ states.input_number.at_home_temperature_slider.state | float }}"
+    - service: rest_command.let_nico_know
+      data_template:
+        text: ":sun_with_face: :chart_with_upwards_trend: heaters set to {{ states.input_number.at_home_temperature_slider.state | float }} degrees."
