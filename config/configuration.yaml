@@ -52,7 +52,6 @@ recorder:
     domains:
       - automation
 
-history_graph:
   temperature_96:
     name: Temperatures
     entities:

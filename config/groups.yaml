@@ -1,10 +1,8 @@
 default_view:
-  view: yes
   entities:
     - group.main
 
 main:
-  view: no
   name: Main
   control: hidden
   entities:
@@ -20,13 +18,11 @@ main:
 
 tab_cameras:
   name: Cameras
-  view: yes
   entities:
     - camera.door
     - camera.kitchen
 
 lights:
-  view: yes
   name: Lights
   entities:
     - group.lights_interior
@@ -34,21 +30,18 @@ lights:
 
 kitchen:
   name: Kitchen
-  view: no
   entities:
     - light.kitchen
     - light.countertop
     - group.kitchen_climate
 living:
   name: Living
-  view: no
   entities:
     - light.living_moon
     - light.couch
     - group.living_climate
 
 living_climate:
-  view: no
   name: Living ºC
   entities:
     - sensor.living_temperature
@@ -59,7 +52,6 @@ living_climate:
 
 office_climate:
   name: Office ºC
-  view: no
   entities:
     - sensor.office_temperature
     - sensor.office_humidity
@@ -69,7 +61,6 @@ office_climate:
 
 home_climate:
   name: Automation
-  view: no
   entities:
     - input_number.at_home_temperature_slider
     - input_number.home_alone_temperature_slider
@@ -77,14 +68,12 @@ home_climate:
 
 home_climate_sensors:
   name: Sensors
-  view: no
   entities:
-   - sensor.office_temperature
-   - sensor.living_temperature
+    - sensor.office_temperature
+    - sensor.living_temperature
 
 office:
   name: Office
-  view: no
   entities:
     - light.office
     - light.office_yee
@@ -92,7 +81,6 @@ office:
 
 tab_climate:
   name: Climate
-  view: yes
   entities:
     - sun.sun
     - group.office_climate
@@ -104,7 +92,6 @@ tab_climate:
 
 debugpanel:
   name: Debug
-  view: no
   entities:
     - sensor.living_temperature
     - input_text.current_scene
@@ -135,30 +122,29 @@ lights_interior:
 lights_moesdimmer_strips:
   name: "Dim Strips"
   entities:
-  - light.countertop
-  - light.couch
+    - light.countertop
+    - light.couch
 
 lights_moesdimmer_lamps:
   name: "Dim Lamps"
   entities:
-  - light.office_ambient_lamp
-  - light.living_moon
-  - light.kitchen
+    - light.office_ambient_lamp
+    - light.living_moon
+    - light.kitchen
 
 lights_moesdimmer_dev:
   name: "Dimmable Dev"
   entities:
-  - light.countertop
-  - light.couch
+    - light.countertop
+    - light.couch
 
 dimmers_all:
   name: All dimmers
   entities:
-  - light.moesdimmer01
-  - light.moesdimmer02
-
+    - light.moesdimmer01
+    - light.moesdimmer02
 
 lights_exterior:
   name: Exterior Lights
   entities:
-  - light.front_door
+    - light.front_door
