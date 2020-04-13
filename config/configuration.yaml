@@ -52,25 +52,6 @@ recorder:
     domains:
       - automation
 
-  temperature_96:
-    name: Temperatures
-    entities:
-      - sensor.living_temperature
-      - sensor.office_temperature
-      - binary_sensor.living_heater_state
-      - binary_sensor.office_heater_state
-      - group.presence
-    hours_to_show: 96
-  temperature_6:
-    name: Temperatures 6 hours
-    entities:
-      - sensor.living_temperature
-      - sensor.office_temperature
-      - binary_sensor.living_heater_state
-      - binary_sensor.office_heater_state
-      - group.presence
-    hours_to_show: 6
-
 http:
   # Secrets are defined in the file secrets.yaml
   # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
