@@ -9,15 +9,6 @@ views:
           - type: horizontal-stack
             cards:
               - type: entity-button
-                entity: group.all_lights
-                name: Lighs on
-                icon: mdi:lightbulb-on-outline
-                tap_action:
-                  action: call-service
-                  service: light.turn_on
-                  service_data:
-                    entity_id: group.all_lights
-              - type: entity-button
                 name: Sleep
                 entity: group.lights_interior
                 icon: mdi:hotel
@@ -38,7 +29,6 @@ views:
                   service: light.turn_on
                   service_data:
                     entity_id: group.all_lights
-
           - type: horizontal-stack
             cards:
               - type: sensor
@@ -46,7 +36,12 @@ views:
                 name: Home Temperature
                 icon: mdi:home
                 graph: true
-
+          - type: entities
+            title: "Living"
+            entities:
+              - light.couch
+              - light.living_moon
+              - light.living_tortue
           - type: entity-filter
             entities:
               - entity: binary_sensor.living_heater_state
@@ -61,7 +56,6 @@ views:
               type: glance
               title: Power consumption
             show_empty: false
-
       - type: vertical-stack
         cards:
           - type: entities
@@ -78,18 +72,6 @@ views:
               - light.countertop
               - light.kitchen
               - light.kitchen_wall
-          - type: entities
-            title: "Living"
-            entities:
-              - light.couch
-              - light.living_moon
-              - light.living_tortue
-
-          - type: entities
-            title: "Bedroom"
-            icon: mdi:desktop-classic
-            entities:
-              - light.bedroom_wardrobe
       - type: vertical-stack
         cards:
           - type: entity-filter
@@ -121,7 +103,6 @@ views:
                 camera_image: camera.kitchen
           - type: weather-forecast
             entity: weather.longueuil
-
       - type: entities
         title: Scenes
         entities:
