@@ -18,8 +18,9 @@
   action:
     - service: light.turn_on
       entity_id: light.living_tortue
-#      data_template:
+      data_template:
+        brightness: "{{ state_attr('light.livingdimmer', 'brightness')|int }}"
 #        entity_id: group.living_tortue
-#        brightness: "{{ state_attr('light.livingdimmer', 'brightness')|int }}"
+#
 # # {{states.light.moesdimmer01.attributes.brightness }}
 
