@@ -33,7 +33,7 @@ services:
     volumes:
       - ./etc/mosquitto:/etc/mosquitto:ro
       - ./var/log/mosquitto:/var/log/mosquitto:rw
-      - ./var/lib/mosquitto/mosquitto.db:/var/lib/mosquitto/mosquitto.db
+      - ./var/lib/mosquitto/mosquitto.db:/var/lib/mosquitto/mosquitto.db:rw
     environment:
       - TZ=America/Montreal
 
