@@ -18,7 +18,7 @@
   action:
     - service: light.turn_on
       data_template:
-        entity_id: group.lights_moesdimmer_strips
+        entity_id: group.living_tortue
         brightness: "{{ state_attr('light.livingdimmer', 'brightness')|int }}"
   # # {{states.light.moesdimmer01.attributes.brightness }}
 
