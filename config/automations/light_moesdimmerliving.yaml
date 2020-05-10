@@ -1,27 +1,24 @@
 - alias: Moes Dimmer Living Off
   trigger:
-  - platform: state
-    entity_id: light.moesdimmerliving
-    from: 'on'
-    to: 'off'
+    - platform: state
+      entity_id: light.livingdimmer
+      from: "on"
+      to: "off"
   condition:
   action:
-  - service: light.turn_off
-    entity_id: group.lights_moesdimmer_strips
-  # {{states.light.moesdimmer01.attributes.brightness }} 
+    - service: light.turn_off
+      entity_id: light.living_tortue
 
 - alias: Moes Dimmer Living On
   trigger:
-  - platform: state
-    entity_id: light.moesdimmerliving
-    to: 'on'
-  - platform: mqtt
-    topic: stat/sonoff/switch/living/RESULT/filtered
+    - platform: state
+      entity_id: light.livingdimmer
+      to: "on"
   condition:
   action:
-  - service: light.turn_on
-    data_template:
-      entity_id: group.lights_moesdimmer_strips
-      brightness: "{{ state_attr('light.moesdimmerliving', 'brightness')|int }}"
+    - service: light.turn_on
+      data_template:
+        entity_id: group.lights_moesdimmer_strips
+        brightness: "{{ state_attr('light.livingdimmer', 'brightness')|int }}"
+  # # {{states.light.moesdimmer01.attributes.brightness }}
 
-  # # {{states.light.moesdimmer01.attributes.brightness }}   
