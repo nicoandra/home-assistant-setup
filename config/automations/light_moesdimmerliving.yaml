@@ -1,27 +1,54 @@
 - alias: Moes Dimmer Living Start Timer
   trigger:
     - platform: state
-      entity_id: light.livingdimmer
-      to: "off"
+      entity_id: light.sonoff
   condition:
   action:
     - service: timer.start
-      entity_id: timer.light_moesdimmerliving
+      entity_id:
+        timer.lightmoesdimmerliving
+        # brightness: "{{ state_attr('light.sonoff', 'brightness')|int }}"
 
-- alias: Moes Dimmer Living On
+- alias: Moes Dimmer Living Timer End On
   trigger:
     - platform: event
       event_type: timer.finished
-      entity_id: timer.light_moesdimmerliving
+      event_data:
+        entity_id: timer.lightmoesdimmerliving
   condition:
+    - condition: state
+      entity_id: light.sonoff
+      state: "on"
   action:
-    - service_template: light.turn_on
+    - service: persistent_notification.create
+      data_template:
+        message: >
+          Ended up with state {{ states('light.sonoff') }} Brightness {{ state_attr('light.sonoff', 'brightness')|int }}
+        title: Timer ended.
+    - service: light.turn_on
       entity_id:
         - light.living_tortue
         - light.living_moon
       data_template:
-        brightness: "{{ state_attr('light.livingdimmer', 'brightness')|int }}"
-#        entity_id: group.living_tortue
-#
-# # {{states.light.moesdimmer01.attributes.brightness }}
+        brightness: "{{ state_attr('light.sonoff', 'brightness')|int }}"
 
+- alias: Moes Dimmer Living Timer End Off
+  trigger:
+    - platform: event
+      event_type: timer.finished
+      event_data:
+        entity_id: timer.lightmoesdimmerliving
+  condition:
+    - condition: state
+      entity_id: light.sonoff
+      state: "off"
+  action:
+    - service: persistent_notification.create
+      data_template:
+        message: >
+          Ended up with state {{ states('light.sonoff') }} Brightness {{ state_attr('light.sonoff', 'brightness')|int }}
+        title: Timer ended.
+    - service: light.turn_off
+      entity_id:
+        - light.living_tortue
+        - light.living_moon

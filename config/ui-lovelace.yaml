@@ -417,3 +417,8 @@ views:
           - binary_sensor.basement_motion
           - binary_sensor.basement_noise
           - sensor.basement_temperature_2
+      - type: entities
+        entities:
+          - sensor.sonoff_status
+      - type: light
+        entity: light.sonoff
