@@ -2,22 +2,25 @@
   trigger:
     - platform: state
       entity_id: light.livingdimmer
-      from: "on"
       to: "off"
   condition:
   action:
     - service: light.turn_off
-      entity_id: light.living_tortue
+      entity_id:
+        - light.living_tortue
+        - light.living_moon
 
 - alias: Moes Dimmer Living On
   trigger:
     - platform: state
       entity_id: light.livingdimmer
-      to: "on"
+#      to: "on"
   condition:
   action:
     - service: light.turn_on
-      entity_id: light.living_tortue
+      entity_id:
+        - light.living_tortue
+        - light.living_moon
       data_template:
         brightness: "{{ state_attr('light.livingdimmer', 'brightness')|int }}"
 #        entity_id: group.living_tortue
