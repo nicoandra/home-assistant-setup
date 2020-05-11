@@ -1,13 +1,11 @@
 - alias: Moes Dimmer Living Start Timer
   trigger:
     - platform: state
-      entity_id: light.sonoff
+      entity_id: light.livingdimmer
   condition:
   action:
     - service: timer.start
-      entity_id:
-        timer.lightmoesdimmerliving
-        # brightness: "{{ state_attr('light.sonoff', 'brightness')|int }}"
+      entity_id: timer.lightmoesdimmerliving
 
 - alias: Moes Dimmer Living Timer End On
   trigger:
@@ -17,20 +15,20 @@
         entity_id: timer.lightmoesdimmerliving
   condition:
     - condition: state
-      entity_id: light.sonoff
+      entity_id: light.livingdimmer
       state: "on"
   action:
     - service: persistent_notification.create
       data_template:
         message: >
-          Ended up with state {{ states('light.sonoff') }} Brightness {{ state_attr('light.sonoff', 'brightness')|int }}
+          Ended up with state {{ states('light.livingdimmer') }} Brightness {{ state_attr(' light.livingdimmer', 'brightness')|int }}
         title: Timer ended.
     - service: light.turn_on
       entity_id:
         - light.living_tortue
         - light.living_moon
       data_template:
-        brightness: "{{ state_attr('light.sonoff', 'brightness')|int }}"
+        brightness: "{{ state_attr(' light.livingdimmer', 'brightness')|int }}"
 
 - alias: Moes Dimmer Living Timer End Off
   trigger:
@@ -40,13 +38,13 @@
         entity_id: timer.lightmoesdimmerliving
   condition:
     - condition: state
-      entity_id: light.sonoff
+      entity_id: light.livingdimmer
       state: "off"
   action:
     - service: persistent_notification.create
       data_template:
         message: >
-          Ended up with state {{ states('light.sonoff') }} Brightness {{ state_attr('light.sonoff', 'brightness')|int }}
+          Ended up with state {{ states(' light.livingdimmer') }} Brightness {{ state_attr(' light.livingdimmer', 'brightness')|int }}
         title: Timer ended.
     - service: light.turn_off
       entity_id:

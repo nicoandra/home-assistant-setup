@@ -1,26 +1,52 @@
-- alias: Moes Dimmer Office Off
+- alias: Moes Dimmer Office Start Timer
   trigger:
-  - platform: state
-    entity_id: light.moesdimmeroffice
-    from: 'on'
-    to: 'off'
+    - platform: state
+      entity_id: light.officedimmer
   condition:
   action:
-  - service: light.turn_off
-    entity_id: group.lights_moesdimmer_lamps
+    - service: timer.start
+      entity_id: timer.lightmoesdimmeroffice
 
-- alias: Moes Office Living On
+- alias: Moes Dimmer Office Timer End On
   trigger:
-  - platform: state
-    entity_id: light.moesdimmeroffice
-    to: 'on'
-  - platform: mqtt
-    topic: stat/sonoff/switch/office/RESULT/filtered
+    - platform: event
+      event_type: timer.finished
+      event_data:
+        entity_id: timer.lightmoesdimmeroffice
   condition:
+    - condition: state
+      entity_id: light.officedimmer
+      state: "on"
   action:
-  - service: light.turn_on
-    data_template:
-      entity_id: group.lights_moesdimmer_lamps
-      brightness: "{{ state_attr('light.moesdimmeroffice', 'brightness')|int }}"
+    - service: persistent_notification.create
+      data_template:
+        message: >
+          Ended up with state {{ states('light.officedimmer') }} Brightness {{ state_attr(' light.officedimmer', 'brightness')|int }}
+        title: Timer ended.
+    - service: light.turn_on
+      entity_id:
+        - light.office_yee
+        - light.office
+      data_template:
+        brightness: "{{ state_attr(' light.officedimmer', 'brightness')|int }}"
 
-  # # {{states.light.moesdimmer01.attributes.brightness }} 
+- alias: Moes Dimmer Office Timer End Off
+  trigger:
+    - platform: event
+      event_type: timer.finished
+      event_data:
+        entity_id: timer.lightmoesdimmeroffice
+  condition:
+    - condition: state
+      entity_id: light.officedimmer
+      state: "off"
+  action:
+    - service: persistent_notification.create
+      data_template:
+        message: >
+          Ended up with state {{ states(' light.officedimmer') }} Brightness {{ state_attr(' light.officedimmer', 'brightness')|int }}
+        title: Timer ended.
+    - service: light.turn_off
+      entity_id:
+        - light.office_yee
+        - light.office
