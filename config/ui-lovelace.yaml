@@ -63,6 +63,7 @@ views:
             title: "Office"
             icon: mdi:desktop-classic
             entities:
+              - light.officedimmer
               - light.office
               - light.office_yee
               - light.office_ambient_lamp
@@ -202,6 +203,7 @@ views:
         title: "Office"
         icon: mdi:desktop-classic
         entities:
+          - light.officedimmer
           - light.office
           - light.office_yee
           - light.office_ambient_lamp
