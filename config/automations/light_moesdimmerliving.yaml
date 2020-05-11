@@ -1,23 +1,25 @@
-- alias: Moes Dimmer Living Off
+- alias: Moes Dimmer Living Start Timer
   trigger:
     - platform: state
       entity_id: light.livingdimmer
-      from: "on"
       to: "off"
   condition:
   action:
-    - service: light.turn_off
-      entity_id: light.living_tortue
+    - service: timer.start
+      entity_id: timer.light_moesdimmerliving
 
 - alias: Moes Dimmer Living On
   trigger:
-    - platform: state
-      entity_id: light.livingdimmer
-      to: "on"
+    - platform: event
+      event_type: timer.finished
+      event_data:
+        entity_id: light.livingdimmer
   condition:
   action:
     - service: light.turn_on
-      entity_id: light.living_tortue
+      entity_id:
+        - light.living_tortue
+        - light.living_moon
       data_template:
         brightness: "{{ state_attr('light.livingdimmer', 'brightness')|int }}"
 #        entity_id: group.living_tortue
