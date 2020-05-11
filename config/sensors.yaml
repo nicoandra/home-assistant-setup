@@ -1,8 +1,26 @@
+- platform: environment_canada
+  
 - platform: yr
 - platform: openweathermap
+  name: Weather Current
   api_key: !secret openweathermap_apikey
   monitored_conditions:
-    - weather
+  - weather
+  - temperature
+  - humidity
+  - clouds
+  - rain
+  - snow  
+- platform: openweathermap
+  name: Weather Foreacast
+  api_key: !secret openweathermap_apikey
+  monitored_conditions:
+  - weather
+  - temperature
+  - humidity
+  - clouds
+  - rain
+  - snow  
 
 - platform: mqtt
   name: "Raw Living Temperature"
@@ -19,7 +37,6 @@
   name: "Living On/Off"
   state_topic: "/ThermoDev/Sensor02/CurrentState"
 
-
 - platform: mqtt
   name: "Raw Office Temperature"
   state_topic: "/ThermoDev/Sensor01/CurrentTemperature"
@@ -35,6 +52,22 @@
   name: "Office On/Off"
   state_topic: "/ThermoDev/Sensor01/CurrentState"
 
+- platform: mqtt
+  name: "Raw AC vibration sensor"
+  state_topic: "door_and_ac/binary_sensor/vibration/state"
+
+- platform: filter
+  name: "A/C Vibration"
+  entity_id: sensor.raw_ac_vibration_sensor
+  filters:
+  - filter: lowpass
+    time_constant: 5
+    precision: 2  
+
+- platform: mqtt
+  name: "Office movement"
+  state_topic: "door_and_ac/binary_sensor/office_motion/state"
+
 - platform: template
   sensors:
     average_temperature:
@@ -44,13 +77,54 @@
         - sensor.office_temperature
       friendly_name: 'Average temperature'
       unit_of_measurement: "C"
+    template_montreal_temperature:
+      value_template: "{{ ( (states('sensor.weather_current_temperature') | float) ) | round(2) }}"
+      entity_id:
+        - sensor.weather_current_temperature
+      friendly_name: 'Montreal temperature'
+      unit_of_measurement: "C"
+    template_montreal_humidex:
+      value_template: "{{ states('sensor.humidex') | float | round(2) }}"
+      entity_id:
+        - sensor.humidex
+      friendly_name: 'Montreal humidex'
+      unit_of_measurement: "C"
+    template_montreal_feelslike:
+      value_template: >-
+        {% if states('sensor.template_montreal_humidex') | float == 0 %}
+          {{ states('sensor.template_montreal_temperature') | float }}
+        {% else %}
+          {{ states('sensor.template_montreal_humidex') | float }}
+        {% endif %}
+      entity_id:
+        - sensor.template_montreal_humidex
+        - sensor.template_montreal_temperature
+      friendly_name: 'Montreal humidex'
+      unit_of_measurement: "C"
+    sun_elevation:
+      friendly_name: "Sun Elevation"
+      unit_of_measurement: '°'
+      value_template: "{{ state_attr('sun.sun', 'elevation') }}"
+      entity_id:
+        - sun.sun
+
+    template_average_humidity:
+      value_template: "{{ ( states('sensor.office_humidity') | float + states('sensor.living_humidity') | float ) / 2 | round(2) }}"
+      friendly_name: "Average humidity"
+      unit_of_measurement: "%"
+    template_montreal_humidity:
+      value_template: "{{ states('sensor.weather_current_humidity') | float | round(2) }}"
+      entity_id:
+        - sensor.weather_current_humidity
+      friendly_name: "Montreal Humidity"
+      unit_of_measurement: "%"
 
 - platform: filter
   name: "Living Temperature"
   entity_id: sensor.raw_living_temperature
   filters:
   - filter: lowpass
-    time_constant: 4
+    time_constant: 5
     precision: 2
 
 - platform: filter
@@ -58,7 +132,7 @@
   entity_id: sensor.raw_living_humidity
   filters:
   - filter: lowpass
-    time_constant: 4
+    time_constant: 5
     precision: 2
 
 - platform: filter
@@ -66,7 +140,7 @@
   entity_id: sensor.raw_office_temperature
   filters:
   - filter: lowpass
-    time_constant: 4
+    time_constant: 5
     precision: 2
 
 - platform: filter
@@ -74,7 +148,7 @@
   entity_id: sensor.raw_office_humidity
   filters:
   - filter: lowpass
-    time_constant: 4
+    time_constant: 5
     precision: 2
 
 - platform: mqtt
@@ -82,12 +156,41 @@
   state_topic: /bathroom/distance/state
   value_template: '{% if ( (value|float) < 1) %}on{% else %}off{% endif %}'
 
+- platform: mqtt
+  name: "Raw Basement Temperature"
+  state_topic: "basement/sensor/basement_temperature/state"
+  unit_of_measurement: '°C'
+  # value_template: "{{ value_json.temperature }}"
 
+- platform: mqtt
+  name: "Raw Basement Humidity"
+  state_topic: "basement/sensor/basement_humidity/state"
+  unit_of_measurement: '%'
 
-# - platform: template
-#   sensors:
-#     nico_moto5_battery:
-#       friendly_name: Cell Nico
-#       unit_of_measurement: "%"
-#       value_template: '{{ states.device_tracker.nico_moto5.attributes.battery|int }}'
-#       device_class: battery
+- platform: filter
+  name: "Basement Temperature"
+  entity_id: sensor.raw_basement_temperature
+  filters:
+  - filter: lowpass
+    window_size: 5
+    precision: 2
+
+- platform: filter
+  name: "Basement Humidity"
+  entity_id: sensor.raw_basement_humidity
+  filters:
+  - filter: range
+    upper_bound: 150
+  - filter: outlier
+    window_size: 10
+    radius: 20
+    precision: 2
+
+- platform: mqtt
+  name: "Raw Basement movement"
+  state_topic: "basement/binary_sensor/basement_motion/state"
+
+- platform: mqtt
+  name: "Raw Basement noise"
+  state_topic: "basement/binary_sensor/basement_noise/state"
+

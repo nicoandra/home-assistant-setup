@@ -1,0 +1,52 @@
+- name: Sleeping - not alone
+  entities:
+    light.office:
+      state: off
+    light.countertop:
+      state: off
+    light.kitchen:
+      state: off
+    light.couch:
+      state: on
+      brightness: 1
+    light.living_moon:
+      state: off
+    light.office_yee:
+      state: off
+
+- name: Morning
+  entities:
+    light.office_yee:
+      state: off
+    light.living_moon:
+      state: off
+    light.couch:
+      state: off
+    light.office:
+      state: off
+    light.kitchen:
+      state: on
+      brightness: 155
+    light.countertop:
+      state: on
+      brightness: 255
+
+- name: WalkAroundAtNight
+  entities:
+    light.living_moon:
+      state: off
+    light.office_yee:
+      state: off
+    light.office:
+      state: on
+      brightness: 1
+    light.countertop:
+      state: on
+      brightness: 1
+    light.kitchen:
+      state: off
+    light.bathroom:
+      state: off
+    light.couch:
+      state: on
+      brightness: 1

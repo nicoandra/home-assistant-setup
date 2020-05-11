@@ -1,13 +1,13 @@
-alias: Notify presence changes
-trigger:
-  - platform: state
-    entity_id: group.all_devices
-  - platform: homeassistant
-    event: start
-action:
-  - service: rest_command.let_nico_know
-    data_template:
-      text: "Presence change. Presence set to: {{ states('group.all_devices') }}"
-  # - service: frontend.set_theme
-  #   data_template:
-  #     name: "{{ states('group.all_devices') }}"
+- alias: Notify presence changes
+  trigger:
+    - platform: state
+      entity_id: group.all_devices
+    - platform: homeassistant
+      event: start
+  action:
+    - service: rest_command.let_nico_know
+      data_template:
+        text: ":house: presence set to: {{ states('group.all_devices') }}"
+    # - service: frontend.set_theme
+    #   data_template:
+    #     name: "{{ states('group.all_devices') }}"

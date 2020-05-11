@@ -1,0 +1,18 @@
+- alias: Ir Receiver on-off
+  trigger:
+    - platform: mqtt
+      topic: ir-receiver/received
+  condition:
+    - condition: template
+      value_template: '{% if "command" in trigger.payload_json%}true{% else %}false{% endif %}'
+  action:
+    - service_template: >
+        {% if (trigger.payload_json["command"] | float == 15045) %}
+        script.ir_decrement_light
+        {% elif (trigger.payload_json["command"] | float == 47685) %}
+        script.ir_increment_light
+        {% elif (trigger.payload_json["command"] | float == 33405) %}
+        script.ir_max_light
+        {% elif (trigger.payload_json["command"] | float == 765) %}
+        script.ir_no_light        
+        {% endif %}

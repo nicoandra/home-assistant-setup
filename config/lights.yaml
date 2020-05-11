@@ -10,7 +10,7 @@
         fade: on
       - number: 2
         type: rgbw
-        name: Kitchen
+        name: Front door
         fade: on
       - number: 3
         type: rgbw
@@ -20,60 +20,57 @@
         type: rgbw
         name: Couch
         fade: on
-- platform: yeelight
-  devices:
-    192.168.1.232:
-      name: Office Yee
-      transition: 1000
-      use_music_mode: False #(defaults to False)
-      save_on_change: True #(defaults to True)
-    192.168.1.147:
-      name: Living Moon
-      transition: 1000
-      use_music_mode: False #(defaults to False)
-      save_on_change: True #(defaults to True)
-    192.168.1.234:
-      name: Bedroom lamp
-      transition: 1000
-      use_music_mode: False #(defaults to False)
-      save_on_change: True #(defaults to True)
-# See https://www.home-assistant.io/components/light.mqtt/#brightness_command_topic
 
-- platform: mqtt
-  name: "MoesDimmer01"
-  alias: "Living Dimmer"
-  command_topic: "/sonoff/switch/living/cmnd/POWER"
-  state_topic: "/sonoff/switch/living/RESULT"
-  state_value_template: "{{value_json.POWER}}"
-  brightness_command_topic: "/sonoff/switch/living/cmnd/DIMMER"
-  brightness_state_topic: "/sonoff/switch/living/RESULT"
-  brightness_scale: 100
-  on_command_type: "brightness"
-  brightness_value_template: "{{value_json.Dimmer}}"
-  payload_on: "ON"
-  payload_off: "OFF"
-  availability_topic: "/sonoff/switch/living/LWT"
-  payload_available: "Online"
-  payload_not_available: "Offline"
-  qos: 1
-  retain: false
+# - platform: mqtt
+#   name: "MoesDimmerLiving"
+#   command_topic: "cmnd/sonoff/switch/living/POWER"
+#   state_topic: stat/sonoff/switch/living/RESULT/filtered
+#   state_value_template: "{{value_json.POWER}}"
+#   brightness_command_topic: "cmnd/sonoff/switch/living/DIMMER"
+#   brightness_state_topic: stat/sonoff/switch/living/RESULT/filtered
+#   brightness_scale: 99
+#   on_command_type: "brightness"
+#   brightness_value_template: "{{value_json.Dimmer}}"
+#   payload_on: "ON"
+#   payload_off: "OFF"
+#   availability_topic: "tele/sonoff/switch/living/LWT"
+#   payload_available: "Online"
+#   payload_not_available: "Offline"
+#   qos: 1
+#   retain: false
 
+# - platform: mqtt
+#   name: "MoesDimmerOffice"
+#   command_topic: "cmnd/sonoff/switch/office/POWER/filtered"
+#   state_topic: "stat/sonoff/switch/office/RESULT/filtered"
+#   state_value_template: "{{value_json.POWER}}"
+#   brightness_command_topic: "cmnd/sonoff/switch/office/DIMMER"
+#   brightness_state_topic: "stat/sonoff/switch/office/RESULT/filtered"
+#   brightness_scale: 99
+#   on_command_type: "brightness"
+#   brightness_value_template: "{{value_json.Dimmer}}"
+#   payload_on: "ON"
+#   payload_off: "OFF"
+#   availability_topic: "tele/sonoff/switch/office/LWT"
+#   payload_available: "Online"
+#   payload_not_available: "Offline"
+#   qos: 1
+#   retain: false
 
-- platform: mqtt
-  name: "MoesDimmer02"
-  alias: "Office Dimmer"
-  command_topic: "cmnd/sonoff/switch/office/POWER"
-  state_topic: "stat/sonoff/switch/office/RESULT"
-  state_value_template: "{{value_json.POWER}}"
-  brightness_command_topic: "cmnd/sonoff/switch/office/DIMMER"
-  brightness_state_topic: "stat/sonoff/switch/office/RESULT"
-  brightness_scale: 100
-  on_command_type: "brightness"
-  brightness_value_template: "{{value_json.Dimmer}}"
-  payload_on: "ON"
-  payload_off: "OFF"
-  availability_topic: "tele/sonoff/switch/office/LWT"
-  payload_available: "Online"
-  payload_not_available: "Offline"
-  qos: 1
-  retain: false
+# - platform: mqtt
+#   name: "MoesDimmer Dev"
+#   command_topic: "cmnd/sonoff/switch/dev/POWER"
+#   state_topic: "stat/sonoff/switch/dev/RESULT/filtered"
+#   state_value_template: "{{value_json.POWER}}"
+#   brightness_command_topic: "cmnd/sonoff/switch/dev/DIMMER"
+#   brightness_state_topic: "stat/sonoff/switch/dev/RESULT/filtered"
+#   brightness_scale: 100
+#   on_command_type: "brightness"
+#   brightness_value_template: "{{value_json.Dimmer}}"
+#   payload_on: "ON"
+#   payload_off: "OFF"
+#   availability_topic: "tele/sonoff/switch/dev/LWT"
+#   payload_available: "Online"
+#   payload_not_available: "Offline"
+#   qos: 1
+#   retain: false

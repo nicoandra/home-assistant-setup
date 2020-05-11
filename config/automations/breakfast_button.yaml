@@ -1,0 +1,135 @@
+- alias: Handle Breakfast Single Click 33
+  trigger:
+  - platform: mqtt
+    topic: kitchen_breakfast_button/clicks
+    payload: "single"
+  condition:
+  - condition: state
+    entity_id: light.countertop
+    state: 'off'
+  action:
+  - service: light.turn_on
+    entity_id: light.countertop
+    data:
+      brightness: 90
+
+- alias: Handle Breakfast Single Click 33
+  trigger:
+  - platform: mqtt
+    topic: kitchen_breakfast_button/clicks
+    payload: "single"
+  condition:
+  - condition: state
+    entity_id: light.countertop
+    state: 'on'
+  - condition: template
+    value_template: >
+      {% if state_attr('light.countertop', 'brightness') < 90 %}
+        true
+      {% else %}
+        false
+      {% endif %}
+  action:
+  - service: light.turn_on
+    entity_id: light.countertop
+    data:
+      brightness: 90
+
+
+- alias: Handle Breakfast Single Click 66
+  trigger:
+  - platform: mqtt
+    topic: kitchen_breakfast_button/clicks
+    payload: "single"
+  condition:
+  - condition: state
+    entity_id: light.countertop
+    state: 'on'
+  - condition: template
+    value_template: >
+      {% if state_attr('light.countertop', 'brightness') > 89  %}
+        {% if state_attr('light.countertop', 'brightness') < 180  %}
+            true
+        {% else %}
+          false
+        {% endif %}
+      {% else %}
+        false        
+      {% endif %}        
+  action:
+  - service: light.turn_on
+    entity_id: light.countertop
+    data:
+      brightness: 180
+
+- alias: Handle Breakfast Single Click 66
+  trigger:
+  - platform: mqtt
+    topic: kitchen_breakfast_button/clicks
+    payload: "single"
+  condition:
+  - condition: state
+    entity_id: light.countertop
+    state: 'on'
+  - condition: template
+    value_template: >
+      {% if state_attr('light.countertop', 'brightness') > 179  %}
+        {% if state_attr('light.countertop', 'brightness') < 255  %}
+            true
+        {% else %}
+          false
+        {% endif %}
+      {% else %}
+        false        
+      {% endif %}        
+  action:
+  - service: light.turn_on
+    entity_id: light.countertop
+    data:
+      brightness: 255
+
+- alias: Handle Breakfast Single Click 33
+  trigger:
+  - platform: mqtt
+    topic: kitchen_breakfast_button/clicks
+    payload: "single"
+  condition:
+  - condition: state
+    entity_id: light.countertop
+    state: 'on'
+  - condition: template
+    value_template: "{{ (state_attr('light.countertop', 'brightness') | float == 255) }}"
+  action:
+  - service: light.turn_on
+    entity_id: light.countertop
+    data: 
+      brightness: 90
+
+- alias: Handle Breakfast Double Click
+  trigger:
+  - platform: mqtt
+    topic: kitchen_breakfast_button/clicks
+    payload: "double"
+  condition:
+  - condition: state
+    entity_id: light.countertop
+    state: 'on'
+  action:
+  - service: light.turn_off
+    entity_id: light.countertop
+
+
+- alias: Handle Breakfast Double Click
+  trigger:
+  - platform: mqtt
+    topic: kitchen_breakfast_button/clicks
+    payload: "double"
+  condition:
+  - condition: state
+    entity_id: light.countertop
+    state: 'off'
+  action:
+  - service: light.turn_on
+    entity_id: light.countertop
+    data:
+      brightness: 255

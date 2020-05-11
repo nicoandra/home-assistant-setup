@@ -1,0 +1,115 @@
+- alias: Handle DimmerOffice Clicks and Messages
+  trigger:
+  - platform: mqtt
+    topic: stat/sonoff/switch/office/RESULT/filtered
+  condition:
+  - condition: template
+    value_template: >
+      {% if "clickCounter" in trigger.payload_json %}
+        {% if (trigger.payload_json["clickCounter"] | float > 0) %}
+          true
+        {% endif %}
+      {% else %}
+        false
+      {% endif %}
+  action:
+  - service: input_number.set_value
+    # Useful for debugging click count
+    data_template:
+      entity_id: input_number.moes_dimmer_clickcounter
+      value: '{{ trigger.payload_json["clickCounter"] | float }}'
+
+
+- alias: Handle DimmerOffice 1-Click
+  trigger:
+  - platform: mqtt
+    topic: stat/sonoff/switch/office/RESULT/filtered
+  condition:
+  - condition: template
+    value_template: >
+      {% if "clickCounter" in trigger.payload_json %}
+        {% if (trigger.payload_json["clickCounter"] | float == 1) %}
+          true
+        {% endif %}
+      {% else %}
+        false
+      {% endif %}
+  action:
+  - service: light.turn_on
+    entity_id: light.office_ambient_lamp
+  - service: mqtt.publish
+    data_template:
+      topic: cmnd/sonoff/switch/office/POWER/filtered
+      retain: true
+      payload: "ON"
+
+- alias: Handle DimmerOffice 2-Clicks
+  trigger:
+  - platform: mqtt
+    topic: stat/sonoff/switch/office/RESULT/filtered
+  condition:
+  - condition: template
+    value_template: >
+      {% if "clickCounter" in trigger.payload_json %}
+        {% if (trigger.payload_json["clickCounter"] | float == 2) %}
+          true
+        {% endif %}
+      {% else %}
+        false
+      {% endif %}
+  action:
+  - service: light.turn_off
+    entity_id: light.office_ambient_lamp
+  - service: mqtt.publish
+    data_template:
+      topic: cmnd/sonoff/switch/office/POWER/filtered
+      retain: true
+      payload: "OFF"
+
+
+- alias: Handle DimmerOffice 3-Clicks
+  trigger:
+  - platform: mqtt
+    topic: stat/sonoff/switch/office/RESULT/filtered
+  condition:
+  - condition: template
+    value_template: >
+      {% if "clickCounter" in trigger.payload_json %}
+        {% if (trigger.payload_json["clickCounter"] | float == 3) %}
+          true
+        {% endif %}
+      {% else %}
+        false
+      {% endif %}
+  action:
+  - service: light.turn_on
+    entity_id: group.lights_interior
+  - service: mqtt.publish
+    data_template:
+      topic: cmnd/sonoff/switch/office/POWER/filtered
+      retain: true
+      payload: "ON"
+
+
+- alias: Handle DimmerOffice 4-Clicks
+  trigger:
+  - platform: mqtt
+    topic: stat/sonoff/switch/office/RESULT/filtered
+  condition:
+  - condition: template
+    value_template: >
+      {% if "clickCounter" in trigger.payload_json %}
+        {% if (trigger.payload_json["clickCounter"] | float == 4) %}
+          true
+        {% endif %}
+      {% else %}
+        false
+      {% endif %}
+  action:
+  - service: light.turn_off
+    entity_id: group.lights_interior
+  - service: mqtt.publish
+    data_template:
+      topic: cmnd/sonoff/switch/office/POWER/filtered
+      retain: true
+      payload: "OFF"

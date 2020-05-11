@@ -1,0 +1,72 @@
+- alias: Off when Empty at Daytime / Late night
+  trigger:
+  - platform: homeassistant
+    event: start
+  - platform: state
+    entity_id: group.all_devices
+  condition:
+  - condition: state  # when home is alone
+    entity_id: group.all_devices
+    state: not_home
+  - condition: time
+    after: '1:00:00'
+  - condition: time
+    before: '16:00:00'
+  action:
+  - service: homeassistant.turn_off
+    entity_id: group.lights_interior
+  - service: rest_command.let_nico_know
+    data_template:
+      text: "*Automation* Off when Empty at Daytime / Late night :moon:"
+
+- alias: On when someone arrives
+  trigger:
+  - platform: homeassistant
+    event: start
+  - platform: state
+    entity_id: group.all_devices
+    to: "home"
+  condition:
+  - condition: or  # 'when dark' condition: either after sunset or before sunrise
+    conditions:
+    - condition: time
+      after: '1:00:00'
+    - condition: time
+      before: '8:00:00'
+  action:
+  - service: light.turn_on
+    entity_id: group.lights_interior
+    data:
+      brightness: 255
+  - service: rest_command.let_nico_know
+    data_template:
+      text: "*Automation* Lights on when someone arrives - Kicked in: {{ states('group.all_devices') }}"
+
+- alias: Lights on when the home is alone
+  trigger:
+  - platform: homeassistant
+    event: start
+  - platform: state
+    entity_id: group.all_devices
+  - platform: time
+    at: "16:00:01"
+  condition:
+  - condition: state
+    entity_id: group.all_devices
+    state: not_home
+  - condition: or  # 'when dark' condition: either after sunset or before sunrise
+    conditions:
+    - condition: time
+      before: "01:00:00"
+    - condition: time
+      after: "16:00:00"
+  action:
+  - service: light.turn_on
+    entity_id: group.lights_interior
+    data:
+      brightness: 50  
+  - service: rest_command.let_nico_know
+    data_template:
+      text: "*Automation* Lights on when the home is alone :moon: - Kicked in: {{ states('group.all_devices') }}"
+
+

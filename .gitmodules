@@ -1,6 +1,6 @@
-[submodule "devices/espurna-based/espurna"]
-	path = devices/espurna-based/espurna
-	url = git@github.com:xoseperez/espurna.git
 [submodule "scenegen"]
 	path = scenegen
 	url = git@github.com:home-assistant/scenegen.git
+[submodule "config/themes/lovelace-ios-dark-mode-theme"]
+	path = config/themes/lovelace-ios-dark-mode-theme
+	url = https://github.com/basnijholt/lovelace-ios-dark-mode-theme.git

@@ -13,69 +13,50 @@ homeassistant:
   # Customization file
   customize: !include customize.yaml
   auth_providers:
-   - type: homeassistant
-   - type: trusted_networks
-
+    - type: homeassistant
+    - type: trusted_networks
+      trusted_networks:
+        - 192.168.0.0/24
+        - fd00::/8
+    - type: legacy_api_password
+      api_password: !secret http_password
 
 # Show links to resources in log and frontend
 # introduction: false
+
+frontend:
+  themes: !include_dir_merge_named themes
 
 logger:
   default: warning
   logs:
     homeassistant.components.device_tracker: warning
-    homeassistant.components.mqtt: warning
-
-# Enables the frontend
-frontend:
-  themes:
-    home:
-      primary-color: "#03a9f4"
-      primary-text-color: "#212121"
-      accent-color: "#ff9800"
-      text-primary-color: "#ffffff"
-      secondary-background-color: "#e5e5e5"
-      light-primary-color: "#b3e5fC"
-      paper-item-icon-color: "#03a9f4"
-    not_home:
-      primary-color: "#8e1d1d"
-      primary-text-color: "#000000"
-      accent-color: "#FF0000"
-      light-primary-color: "#8e1c1d91"
-      text-primary-color: "#000000"
-      secondary-background-color: "#5d4747"
-      paper-item-icon-color: "#8e1c1d"
+    homeassistant.components.mqtt: info
+    homeassistant.components.automations: info
+    homeassistant.components.automation: info
 
 # Enables configuration UI
 config:
+system_health:
+api:
+
+lovelace:
+  mode: yaml
 
 recorder:
-  purge_interval: 4
-
-history_graph:
-  temperature_96:
-    name: Temperatures
+  purge_interval: 1
+  purge_keep_days: 5
+  exclude:
     entities:
-     - sensor.living_temperature
-     - sensor.office_temperature
-     - binary_sensor.living_heater_state
-     - binary_sensor.office_heater_state
-     - group.presence
-    hours_to_show: 96
-  temperature_6:
-    name: Temperatures 6 hours
-    entities:
-     - sensor.living_temperature
-     - sensor.office_temperature
-     - binary_sensor.living_heater_state
-     - binary_sensor.office_heater_state
-     - group.presence
-    hours_to_show: 6
-
+      - automation.thermodev_01
+      - automation.thermodev_01_climate
+      - automation.thermodev_02
+      - automation.thermodev_heartbeat
+    domains:
+      - automation
 
 http:
   # Secrets are defined in the file secrets.yaml
-  api_password: !secret http_password
   # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
   # base_url: example.duckdns.org:8123
 
@@ -99,8 +80,17 @@ binary_sensor:
     state_topic: "/ThermoDev/Sensor02/CurrentState"
     payload_on: "ON"
     payload_off: "OFF"
+  - platform: template
+    sensors:
+      high:
+        value_template: "{{(states('sensor.raw_basement_humidity') | float > 55) or (states('sensor.raw_basement_temperature') | float > 25) }}"
+      low:
+        value_template: "{{(states('sensor.raw_basement_humidity') | float < 10) or (states('sensor.raw_basement_temperature') | float < 10)}}"
 
-discovery: # Discover some devices automatically
+discovery:
+  ignore:
+    - yeelight # Discover some devices automatically
+
 conversation: # Allows you to issue voice commands from the frontend in enabled browsers
 history: # Enables support for tracking state changes over time
 logbook: # View all events in a logbook
@@ -108,16 +98,21 @@ map: # Enables a map showing the location of tracked devices
 sun: # Track the sun
 cloud:
 tts: # Text to speech
- - platform: google
+  - platform: google_translate
 
 mqtt:
-  broker: mosquitto
+  # broker: mosquitto
+  # discovery: true
+  # discovery_prefix: homeassistant
+  # broker: 192.168.1.106
 
+weather: !include weather.yaml
 camera: !include camera.yaml
 scene: !include scenes.yaml
+script: !include scripts.yaml
 sensor: !include sensors.yaml
 group: !include groups.yaml
-automation: !include_dir_list automations
+automation: !include_dir_merge_list automations
 device_tracker: !include device_trackers.yaml
 climate: !include climate.yaml
 rest_command: !include rest_commands.yaml
@@ -147,7 +142,7 @@ input_number:
   home_alone_temperature_slider:
     name: Home Alone Temp
     initial: 17
-    min: 17
+    min: 16
     max: 23
     step: .5
   at_home_temperature_slider:
@@ -162,3 +157,17 @@ input_number:
     min: 17
     max: 23
     step: .5
+  moes_dimmer_clickcounter:
+    name: moes dimmer dev click counter
+    initial: 0
+    max: 20
+    min: 0
+    step: 1
+  ir_light_level:
+    name: IR Light Level
+    initial: 5
+    max: 7
+    min: 0
+    step: 1
+
+yeelight: !include yeelight.yaml

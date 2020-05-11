@@ -1,0 +1,21 @@
+[Unit]
+Description=Camera Raspi streaming
+After=multi-user.target
+ 
+[Service]
+Type=simple
+ExecStart=/bin/sh -c 'cvlc --v4l2-width 640 --v4l2-height 480 --v4l2-chroma MJPG --http-host=192.168.1.19 --http-port=8080 v4l2:///dev/video0 --sout "#transcode{vcodec=MJPG,vb=5000,scale=1,acodec=none}:standard{access=http{mime=multipart/x-mixed-replace;boundary=--7b3cc56e5f51db803f790dad720ed50a},dst=192.168.1.19:8080/stream.mpjpeg,mux=mpjpeg}"' >  /home/pi/logs/camera-stream.log 2>&1
+Restart=always
+User=pi
+Group=video
+ 
+[Install]
+WantedBy=multi-user.target
+
+
+
+vlc :v4l2-standard= :v4l2-dev=/dev/video0 :v4l2-width=640 :v4l2-height=480 :v4l2-aspect-ratio=4\:3 :v4l2-fps=30  :no-v4l2-controls-reset :v4l2-brightness=99999 :v4l2-contrast=9999 :v4l2-set-ctrls= :live-caching=100
+
+
+
+# :v4l2-saturation=-1 :v4l2-hue=-1 :v4l2-hue-auto=-1 :v4l2-white-balance-temperature=-1 :v4l2-auto-white-balance=-1 :v4l2-red-balance=-1 :v4l2-blue-balance=-1 :v4l2-gamma=-1 :v4l2-autogain=-1 :v4l2-gain=-1 :v4l2-sharpness=-1 :v4l2-chroma-gain=-1 :v4l2-chroma-gain-auto=-1 :v4l2-power-line-frequency=-1 :v4l2-backlight-compensation=-1 :v4l2-band-stop-filter=-1 :no-v4l2-hflip :no-v4l2-vflip :v4l2-rotate=-1 :v4l2-color-killer=-1 :v4l2-color-effect=-1 :v4l2-audio-volume=-1 :v4l2-audio-balance=-1 :no-v4l2-audio-mute :v4l2-audio-bass=-1 :v4l2-audio-treble=-1 :no-v4l2-audio-loudness 

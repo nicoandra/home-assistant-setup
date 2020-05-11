@@ -1,0 +1,20 @@
+{
+  "name": "mqtt-queue",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "start:dev": "npm i nodemon; nodemon index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "js-yaml": "^3.13.1",
+    "mqtt": "^2.18.8",
+    "node-fetch": "^2.6.0",
+    "nodemon": "^1.19.4",
+    "request": "^2.88.0"
+  }
+}

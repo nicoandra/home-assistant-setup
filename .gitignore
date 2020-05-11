@@ -1,7 +1,9 @@
 *.log
 config/secrets.yaml
+config/.storage/
 config/.HA_VERSION
 config/.uuid
 config/home-assistant_v2.db
 config/known_devices.yaml
+node_modules
 

@@ -1,230 +1,685 @@
-- name: Alone - late
+- id: '1577673229045'
+  name: Saul Goodman
   entities:
-    light.living_moon:
-      state: off
-    light.office_yee:
-      state: on
-      brightness: 20
-      color_temp: 324
-    light.bedroom_lamp:
-      state: off
-    light.office:
-      state: off
     light.couch:
-      state: on
-      brightness: 50
+      assumed_state: true
+      brightness: 133
+      effect_list:
+      - colorloop
+      - night
+      - white
+      friendly_name: Couch
+      state: 'on'
+      supported_features: 61
     light.countertop:
-      state: on
-      brightness: 50
+      assumed_state: true
+      brightness: 224
+      effect_list:
+      - colorloop
+      - night
+      - white
+      friendly_name: Countertop
+      state: 'on'
+      supported_features: 61
     light.kitchen:
-      state: off
-
-- name: Alone - evening
-  entities:
-    light.kitchen:
-      state: on
-      brightness: 132
-    light.office:
-      state: on
-      brightness: 61
-    light.couch:
-      state: on
-      brightness: 102
-    light.countertop:
-      state: on
-      brightness: 102
-    light.office_yee:
-      state: on
-      brightness: 59
-      color_temp: 358
-    light.living_moon:
-      state: off
-    light.bedroom_lamp:
-      state: off
-
-- name: Sleeping - not alone
-  entities:
-    light.office:
-      state: off
-    light.countertop:
-      state: off
-    light.kitchen:
-      state: off
-    light.couch:
-      state: on
-      brightness: 1
-    light.living_moon:
-      state: off
-    light.bedroom_lamp:
-      state: off
-    light.office_yee:
-      state: off
-
-- name: Someone got home
-  entities:
-    light.office:
-      state: on
-      brightness: 117
-    light.countertop:
-      state: on
-      brightness: 255
-    light.kitchen:
-      state: on
-      brightness: 255
-    light.couch:
-      state: on
-      brightness: 255
-    light.living_moon:
-      state: on
-      brightness: 130
-      color_temp: 588
-    light.bedroom_lamp:
-      state: off
-    light.office_yee:
-      state: on
-      brightness: 97
-      color_temp: 358
-
-- name: All full
-  entities:
-    light.office_yee:
-      state: on
-      brightness: 186
-      color_temp: 335
-    light.bedroom_lamp:
-      state: on
+      effect_list:
+      - Strobe color
+      - Police
+      - Christmas
+      - RGB
+      - Random Loop
+      - Fast Random Loop
+      - LSD
+      - Slowdown
+      - Disco
+      - Strobe epilepsy!
+      - Alarm
+      - Police2
+      - WhatsApp
+      - Facebook
+      - Twitter
+      - Slow Temp
+      - Stop
+      friendly_name: Kitchen
+      max_mireds: 370
+      min_mireds: 153
+      state: unavailable
+      supported_features: 63
+    light.kitchen_wall:
       brightness: 255
       color_temp: 370
-    light.countertop:
-      state: on
-      brightness: 255
-    light.kitchen:
-      state: on
-      brightness: 255
-    light.couch:
-      state: on
-      brightness: 255
+      effect_list:
+      - Strobe color
+      - Police
+      - Christmas
+      - RGB
+      - Random Loop
+      - Fast Random Loop
+      - LSD
+      - Slowdown
+      - Disco
+      - Strobe epilepsy!
+      - Alarm
+      - Police2
+      - WhatsApp
+      - Facebook
+      - Twitter
+      - Slow Temp
+      - Stop
+      friendly_name: Kitchen Wall
+      hs_color:
+      - 75.273
+      - 43.137
+      max_mireds: 370
+      min_mireds: 153
+      rgb_color:
+      - 226
+      - 255
+      - 145
+      state: 'on'
+      supported_features: 63
+      xy_color:
+      - 0.361
+      - 0.459
+    light.living_tortue:
+      brightness: 3
+      color_temp: 370
+      effect_list:
+      - Strobe color
+      - Police
+      - Christmas
+      - RGB
+      - Random Loop
+      - Fast Random Loop
+      - LSD
+      - Slowdown
+      - Disco
+      - Strobe epilepsy!
+      - Alarm
+      - Police2
+      - WhatsApp
+      - Facebook
+      - Twitter
+      - Slow Temp
+      - Stop
+      friendly_name: Living Tortue
+      hs_color:
+      - 28.391
+      - 65.659
+      max_mireds: 370
+      min_mireds: 153
+      rgb_color:
+      - 255
+      - 166
+      - 87
+      state: 'on'
+      supported_features: 63
+      xy_color:
+      - 0.526
+      - 0.387
     light.office:
-      state: on
-      brightness: 255
-    light.living_moon:
-      state: on
-      brightness: 255
-      color_temp: 588
-
+      assumed_state: true
+      brightness: 136
+      effect_list:
+      - colorloop
+      - night
+      - white
+      friendly_name: Office
+      state: 'on'
+      supported_features: 61
+    light.office_ambient_lamp:
+      brightness: 135
+      color_temp: 356
+      effect_list:
+      - Strobe color
+      - Police
+      - Christmas
+      - RGB
+      - Random Loop
+      - Fast Random Loop
+      - LSD
+      - Slowdown
+      - Disco
+      - Strobe epilepsy!
+      - Alarm
+      - Police2
+      - WhatsApp
+      - Facebook
+      - Twitter
+      - Slow Temp
+      - Stop
+      friendly_name: Office ambient lamp
+      hs_color:
+      - 28.172
+      - 62.378
+      max_mireds: 370
+      min_mireds: 153
+      rgb_color:
+      - 255
+      - 170
+      - 95
+      state: 'on'
+      supported_features: 63
+      xy_color:
+      - 0.516
+      - 0.386
 - name: Chillin
   entities:
     light.couch:
-      state: on
+      state: true
       brightness: 124
+    light.bedroom_wardrobe:
+      state: true
+      brightness: 27
+      color_temp: 370
     light.countertop:
-      state: on
+      state: true
       brightness: 255
     light.kitchen:
-      state: on
+      state: true
       brightness: 27
-    light.office:
-      state: on
-      brightness: 109
-    light.bedroom_lamp:
-      state: on
-      brightness: 3
       color_temp: 370
+    light.office:
+      state: true
+      brightness: 109
+    light.office_ambient_lamp:
+      state: true
+      brightness: 109
     light.living_moon:
-      state: on
+      state: true
       brightness: 161
-      color_temp: 528
+      color_temp: 370
     light.office_yee:
-      state: on
+      state: true
       brightness: 125
       color_temp: 370
-
+    light.living_tortue:
+      state: true
+      brightness: 125
+      color_temp: 370
+  id: b0056a16eea4493a80a9408d4370b5be
 - name: Movies
   entities:
     light.couch:
-      state: on
+      state: true
       brightness: 1
     light.countertop:
-      state: on
+      state: true
       brightness: 1
     light.kitchen:
-      state: off
+      state: false
     light.office:
-      state: on
+      state: true
       brightness: 1
-    light.bedroom_lamp:
-      state: on
-      brightness: 1
-      color_temp: 370
     light.living_moon:
-      state: off
+      state: false
     light.office_yee:
-      state: on
+      state: true
       brightness: 1
       color_temp: 370
-
-- name: Morning
+    light.living_tortue:
+      state: true
+      brightness: 10
+      color_temp: 370
+  id: f909b843139d4da49e647779bbed5645
+- name: All full
   entities:
     light.office_yee:
-      state: off
-    light.bedroom_lamp:
-      state: off
-    light.living_moon:
-      state: off
-    light.couch:
-      state: off
-    light.office:
-      state: off
-    light.kitchen:
-      state: on
-      brightness: 155
-    light.countertop:
-      state: on
+      state: true
       brightness: 255
-
+      color_temp: 335
+    light.kitchen:
+      state: true
+      brightness: 255
+      color_temp: 335
+    light.living_moon:
+      state: true
+      brightness: 255
+      color_temp: 588
+    light.moesdimmer01:
+      state: true
+      brightness: 255
+    light.moesdimmer02:
+      state: true
+      brightness: 255
+    light.living_tortue:
+      state: true
+      brightness: 255
+      color_temp: 370
+  id: 3e67ccf6b7ef4bc19368a8a15d26e6f2
+- name: Red ambient
+  entities:
+    light.office:
+      state: true
+      brightness: 1
+    light.countertop:
+      state: true
+      brightness: 165
+    light.couch:
+      state: true
+      brightness: 191
+    light.kitchen:
+      state: true
+      brightness: 61
+      color_temp: 272
+    light.office_yee:
+      state: true
+      brightness: 3
+      color_temp: 370
+    light.living_moon:
+      state: true
+      brightness: 97
+      color_temp: 393
+  id: 38c6c0881ee34eaa806613ad1f765c56
+- name: Nico Compu
+  entities:
+    light.front_door:
+      state: 'on'
+      brightness: 190
+    light.countertop:
+      state: 'on'
+      brightness: 255
+    light.couch:
+      state: 'on'
+      brightness: 255
+    light.office: 'off'
+    light.office_yee:
+      state: 'on'
+      brightness: 255
+      color_temp: 370
+    light.bedroom_wardrobe:
+      state: true
+      brightness: 10
+      color_temp: 370
+    light.kitchen: 'off'
+    light.living_moon: 'off'
+    light.office_ambient_lamp:
+      state: 'on'
+      brightness: 56
+      color_temp: 370
+    light.living_tortue:
+      state: true
+      brightness: 125
+      color_temp: 370
+  id: f0fa3e89a549460ea78892d81d481225
+- name: Medium
+  entities:
+    light.office:
+      state: true
+      brightness: 255
+    light.couch:
+      state: true
+      brightness: 109
+    light.front_door:
+      state: true
+      brightness: 190
+    light.countertop:
+      state: true
+      brightness: 142
+    light.office_yee:
+      state: true
+      brightness: 54
+      color_temp: 332
+    light.living_moon:
+      state: true
+      brightness: 74
+      color_temp: 349
+    light.office_ambient_lamp:
+      state: true
+      brightness: 125
+      color_temp: 325
+    light.kitchen:
+      state: true
+      brightness: 171
+      color_temp: 319
+    light.bedroom_wardrobe:
+      state: true
+      brightness: 171
+      color_temp: 319
+    light.living_tortue:
+      state: true
+      brightness: 23
+      color_temp: 360
+  id: 05e64f5fd14f4ce8b81d0eb3d7dc2f13
+- name: Alone - late
+  entities:
+    light.office_yee: false
+    light.bedroom_wardrobe:
+      state: true
+      brightness: 84
+      color_temp: 370
+    light.living_tortue: false
+    light.living_moon:
+      state: false
+    light.office_ambient_light:
+      state: true
+      brightness: 20
+      color_temp: 324
+    light.office:
+      state: true
+      brightness: 60
+    light.couch:
+      state: true
+      brightness: 50
+    light.countertop:
+      state: true
+      brightness: 50
+    light.kitchen:
+      state: false
+  id: 3561b572438f401da811536cc1970a4d
+- name: Alone - evening
+  entities:
+    light.kitchen:
+      state: true
+      brightness: 132
+    light.office:
+      state: true
+      brightness: 255
+    light.couch:
+      state: true
+      brightness: 102
+    light.countertop:
+      state: true
+      brightness: 102
+    light.office_yee: false
+    light.bedroom_wardrobe: false
+    light.office_ambient_light:
+      state: true
+      brightness: 59
+      color_temp: 358
+    light.living_moon:
+      state: false
+    light.living_tortue:
+      state: false
+  id: b2894b7fb8c4406ca9aaafad943182e8
 - name: Alarm
   entities:
     light.office_yee:
-      state: on
-      effect: "Police"
+      state: true
+      effect: Police
+      brightness: 255
     light.countertop:
-      state: on
+      state: true
       brightness: 255
     light.kitchen:
-      state: on
+      state: true
       brightness: 255
     light.couch:
-      state: on
+      state: true
       brightness: 255
     light.office:
-      state: on
+      state: true
       brightness: 255
-    light.bedroom_lamp:
-      state: on
-      effect: "Police"
     light.living_moon:
-      state: on
-      effect: "Police"
-
-- name: WalkAroundAtNight
+      state: true
+      effect: Police
+      brightness: 255
+    light.living_tortue:
+      state: true
+      effect: Police
+      brightness: 255
+    light.bedroom_wardrobe:
+      state: true
+      brightness: 255
+      effect: Police
+  id: 7d1241c28a1a4ee1b6cea21c548fac41
+- name: Someone got home
   entities:
-    light.bedroom_lamp:
-      state: off
-    light.living_moon:
-      state: off
-    light.office_yee:
-      state: off
-    light.office:
-      state: on
-      brightness: 1
-    light.countertop:
-      state: on
-      brightness: 1
-    light.kitchen:
-      state: off
-    light.bathroom:
-      state: off
+    light.bedroom_wardrobe:
+      state: true
+      brightness: 128
+      color: 370
+    light.living_tortue:
+      state: true
+      brightness: 23
+      color_temp: 360
+  id: 9e90dfea8bef40e3b1a01d9a6b6b9206
+- id: '1577825052881'
+  name: WFH - Evening
+  entities:
     light.couch:
-      state: on
-      brightness: 1
-
+      assumed_state: true
+      brightness: 191
+      effect_list:
+      - colorloop
+      - night
+      - white
+      friendly_name: Couch
+      state: 'on'
+      supported_features: 61
+    light.countertop:
+      assumed_state: true
+      brightness: 165
+      effect_list:
+      - colorloop
+      - night
+      - white
+      friendly_name: Countertop
+      state: 'on'
+      supported_features: 61
+    light.kitchen:
+      brightness: 59
+      color_temp: 272
+      effect_list:
+      - Strobe color
+      - Police
+      - Christmas
+      - RGB
+      - Random Loop
+      - Fast Random Loop
+      - LSD
+      - Slowdown
+      - Disco
+      - Strobe epilepsy!
+      - Alarm
+      - Police2
+      - WhatsApp
+      - Facebook
+      - Twitter
+      - Slow Temp
+      - Stop
+      friendly_name: Kitchen
+      hs_color:
+      - 27.015
+      - 41.078
+      max_mireds: 370
+      min_mireds: 153
+      rgb_color:
+      - 255
+      - 197
+      - 150
+      state: 'on'
+      supported_features: 63
+      xy_color:
+      - 0.441
+      - 0.37
+    light.kitchen_wall:
+      brightness: 120
+      color_temp: 370
+      effect_list:
+      - Strobe color
+      - Police
+      - Christmas
+      - RGB
+      - Random Loop
+      - Fast Random Loop
+      - LSD
+      - Slowdown
+      - Disco
+      - Strobe epilepsy!
+      - Alarm
+      - Police2
+      - WhatsApp
+      - Facebook
+      - Twitter
+      - Slow Temp
+      - Stop
+      friendly_name: Kitchen Wall
+      hs_color:
+      - 28.391
+      - 65.659
+      max_mireds: 370
+      min_mireds: 153
+      rgb_color:
+      - 255
+      - 166
+      - 87
+      state: 'on'
+      supported_features: 63
+      xy_color:
+      - 0.526
+      - 0.387
+    light.living_moon:
+      brightness: 97
+      color_temp: 370
+      effect_list:
+      - Strobe color
+      - Police
+      - Christmas
+      - RGB
+      - Random Loop
+      - Fast Random Loop
+      - LSD
+      - Slowdown
+      - Disco
+      - Strobe epilepsy!
+      - Alarm
+      - Police2
+      - WhatsApp
+      - Facebook
+      - Twitter
+      - Slow Temp
+      - Stop
+      friendly_name: Living Moon
+      hs_color:
+      - 28.391
+      - 65.659
+      max_mireds: 370
+      min_mireds: 153
+      rgb_color:
+      - 255
+      - 166
+      - 87
+      state: 'on'
+      supported_features: 63
+      xy_color:
+      - 0.526
+      - 0.387
+    light.living_tortue:
+      brightness: 59
+      color_temp: 370
+      effect_list:
+      - Strobe color
+      - Police
+      - Christmas
+      - RGB
+      - Random Loop
+      - Fast Random Loop
+      - LSD
+      - Slowdown
+      - Disco
+      - Strobe epilepsy!
+      - Alarm
+      - Police2
+      - WhatsApp
+      - Facebook
+      - Twitter
+      - Slow Temp
+      - Stop
+      friendly_name: Living Tortue
+      hs_color:
+      - 28.391
+      - 65.659
+      max_mireds: 370
+      min_mireds: 153
+      rgb_color:
+      - 255
+      - 166
+      - 87
+      state: 'on'
+      supported_features: 63
+      xy_color:
+      - 0.526
+      - 0.387
+    light.office:
+      assumed_state: true
+      brightness: 255
+      effect_list:
+      - colorloop
+      - night
+      - white
+      friendly_name: Office
+      state: 'on'
+      supported_features: 61
+    light.office_ambient_lamp:
+      brightness: 89
+      color_temp: 370
+      effect_list:
+      - Strobe color
+      - Police
+      - Christmas
+      - RGB
+      - Random Loop
+      - Fast Random Loop
+      - LSD
+      - Slowdown
+      - Disco
+      - Strobe epilepsy!
+      - Alarm
+      - Police2
+      - WhatsApp
+      - Facebook
+      - Twitter
+      - Slow Temp
+      - Stop
+      friendly_name: Office ambient lamp
+      hs_color:
+      - 28.391
+      - 65.659
+      max_mireds: 370
+      min_mireds: 153
+      rgb_color:
+      - 255
+      - 166
+      - 87
+      state: 'on'
+      supported_features: 63
+      xy_color:
+      - 0.526
+      - 0.387
+    light.office_yee:
+      brightness: 3
+      color_temp: 370
+      effect_list:
+      - Strobe color
+      - Police
+      - Christmas
+      - RGB
+      - Random Loop
+      - Fast Random Loop
+      - LSD
+      - Slowdown
+      - Disco
+      - Strobe epilepsy!
+      - Alarm
+      - Police2
+      - WhatsApp
+      - Facebook
+      - Twitter
+      - Slow Temp
+      - Stop
+      friendly_name: Office Yee
+      hs_color:
+      - 28.391
+      - 65.659
+      max_mireds: 370
+      min_mireds: 153
+      rgb_color:
+      - 255
+      - 166
+      - 87
+      state: 'on'
+      supported_features: 63
+      xy_color:
+      - 0.526
+      - 0.387
