@@ -21,14 +21,14 @@
     - service: persistent_notification.create
       data_template:
         message: >
-          Ended up with state {{ states('light.livingdimmer') }} Brightness {{ state_attr('light.livingdimmer', 'brightness')|int }}
+          Ended up with state {{ states('light.livingdimmer') }} Brightness {{  state_attr('light.officedimmer','brightness') | int }}
         title: Timer ended.
     - service: light.turn_on
       entity_id:
         - light.living_tortue
         - light.living_moon
       data_template:
-        brightness: "{{ state_attr('light.livingdimmer', 'brightness')|int }}"
+        brightness: "{{ state_attr('light.officedimmer','brightness') | int }}"
 
 - alias: Moes Dimmer Living Timer End Off
   trigger:
@@ -44,7 +44,7 @@
     - service: persistent_notification.create
       data_template:
         message: >
-          Ended up with state {{ states('light.livingdimmer') }} Brightness {{ state_attr('light.livingdimmer', 'brightness')|int }}
+          Ended up with state {{ states('light.livingdimmer') }} Brightness {{ state_attr('light.livingdimmer', 'brightness') | int }}
         title: Timer ended.
     - service: light.turn_off
       entity_id:
