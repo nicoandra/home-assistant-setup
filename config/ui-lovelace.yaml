@@ -1,11 +1,11 @@
 title: My Awesome Home
 views:
-    # View tab title.
-  - id: 0  # Automatically created id
+  # View tab title.
+  - id: 0 # Automatically created id
     title: Main
     cards:
-        # The markdown card will render markdown text.
-        # The picture entity card will represent an entity with a picture
+      # The markdown card will render markdown text.
+      # The picture entity card will represent an entity with a picture
       - type: entities
         entities:
           - group.lights_interior
@@ -29,34 +29,33 @@ views:
             name: Living Moon :)
       - type: glance
         entities:
-        - entity: scene.all_full
-          name: All full
-          icon: mdi:lightbulb-on-outline
-          tap_action:
-          - action: more-info
-        - scene.chillin
-        - scene.morning
-        - scene.movies
+          - entity: scene.all_full
+            name: All full
+            icon: mdi:lightbulb-on-outline
+            tap_action:
+              - action: more-info
+          - scene.chillin
+          - scene.morning
+          - scene.movies
 
       - type: horizontal-stack
         cards:
-        - type: sensor
-          entity: sensor.living_temperature
-          name: Living Temperature
-        - type: sensor
-          entity: sensor.office_temperature
-          name: Office Temperature
-
+          - type: sensor
+            entity: sensor.living_temperature
+            name: Living Temperature
+          - type: sensor
+            entity: sensor.office_temperature
+            name: Office Temperature
 
       - type: glance
         entities:
-        - entity: sensor.average_temperature
-          name: Home
-          icon: mdi:home
-        - entity: sensor.living_temperature
-          name: Living
-        - entity: sensor.office_temperature
-          name: Office
+          - entity: sensor.average_temperature
+            name: Home
+            icon: mdi:home
+          - entity: sensor.living_temperature
+            name: Living
+          - entity: sensor.office_temperature
+            name: Office
       - type: gauge
         entity: sensor.average_temperature
         name: Home Temp
@@ -86,7 +85,43 @@ views:
           - device_tracker.vsmbr_phone
           - device_tracker.nico_moto5_ping
         state_filter:
-          - 'home'
+          - "home"
         card:
           type: glance
-          title: People that are home
+          title: People absent
+  - id: 5
+    title: Cameras
+    icon: mdi:camcorder
+    cards:
+      - type: picture-glance
+        entities:
+          - camera.door
+        title: Door
+        camera_image: camera.door
+      - type: picture-glance
+        entities:
+          - light.countertop
+          - light.kitchen
+          - light.kitchen_wall
+        title: Kitchen
+        camera_image: camera.kitchen
+  - id: 6
+    title: Basement
+    cards:
+      - type: history-graph
+        title: 12 Hours
+        hours_to_show: 12
+        refresh_interval: 60
+        entities:
+          - entity: sensor.basement_temperature
+            name: Basement ºC
+            icon: mdi:thermometer
+          - entity: sensor.basement_humidity
+            name: Basement H.
+            icon: mdi:thermometer
+      - type: entities
+        entities:
+          - sensor.basement_humidity_2
+          - binary_sensor.basement_motion
+          - binary_sensor.basement_noise
+          - sensor.basement_temperature_2
