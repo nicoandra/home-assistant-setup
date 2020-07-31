@@ -220,12 +220,6 @@ views:
           - light.couch
           - light.living_moon
           - light.living_tortue
-
-      - type: entities
-        title: "Bedroom"
-        icon: mdi:desktop-classic
-        entities:
-          - light.bedroom_wardrobe
       - type: horizontal-stack
         cards:
           - type: light
