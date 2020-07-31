@@ -102,11 +102,11 @@ cloud:
 tts: # Text to speech
   - platform: google_translate
 
-mqtt:
-  # broker: mosquitto
-  # discovery: true
-  # discovery_prefix: homeassistant
-  # broker: 192.168.1.106
+# mqtt:
+# broker: mosquitto
+# discovery: true
+# discovery_prefix: homeassistant
+# broker: 192.168.1.106
 
 weather: !include weather.yaml
 camera: !include camera.yaml
