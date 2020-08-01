@@ -114,7 +114,7 @@ scene: !include scenes.yaml
 script: !include scripts.yaml
 sensor: !include sensors.yaml
 group: !include groups.yaml
-automation: !include_dir_merge_list automations
+automation: !include automations.yaml
 timer: !include timers.yaml
 device_tracker: !include device_trackers.yaml
 climate: !include climate.yaml

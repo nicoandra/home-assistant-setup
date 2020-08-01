@@ -1,0 +1,50 @@
+- id: '1596239747422'
+  alias: Turn ON Front Door
+  description: ''
+  trigger:
+  - event: sunset
+    platform: sun
+  condition: []
+  action:
+  - data: {}
+    entity_id: light.front_door
+    service: light.turn_on
+  mode: single
+- id: '1596240356692'
+  alias: Turn OFF Front Door
+  description: Turn OFF Front Door
+  trigger:
+  - event: sunrise
+    offset: '+2'
+    platform: sun
+  condition: []
+  action:
+  - data: {}
+    entity_id: light.front_door
+    service: light.turn_off
+  mode: single
+- id: '1596240582832'
+  alias: Sleep
+  description: Sleep
+  trigger:
+  - device_id: b13d461c3f2b47feba54e6ee3f6157e7
+    domain: hue
+    platform: device
+    subtype: turn_off
+    type: remote_button_long_release
+  - device_id: dad66e279b9244d3abaed6129a4b0161
+    domain: hue
+    platform: device
+    subtype: turn_off
+    type: remote_button_long_release
+  - device_id: c0c4aa0522644d4e82aafd9794d4f957
+    domain: hue
+    platform: device
+    subtype: button_4
+    type: remote_button_short_press
+  condition: []
+  action:
+  - data: {}
+    entity_id: group.lights_interior
+    service: light.turn_off
+  mode: single
