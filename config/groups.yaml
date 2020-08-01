@@ -78,17 +78,6 @@ office:
     - light.office_yee
     - group.office_climate
 
-tab_climate:
-  name: Climate
-  entities:
-    - sun.sun
-    - group.office_climate
-    - group.living_climate
-    - group.home_climate
-    - group.presence
-    - input_text.device_heartbeat_thermodev
-    - group.home_climate_sensors
-
 debugpanel:
   name: Debug
   entities:
@@ -107,41 +96,16 @@ presence:
 lights_interior:
   name: Interior lights
   entities:
-    - light.office
     - light.office_yee
-    - light.bedroom_wardrobe
-    - light.office_ambient_lamp
     - light.kitchen
+    - light.kitchen_2
+    - light.kitchen_hallway
+    - light.kitchen_oven
+    - light.office_2
     - light.couch
     - light.countertop
     - light.living_moon
     - light.living_tortue
-    - light.kitchen_wall
-
-lights_moesdimmer_strips:
-  name: "Dim Strips"
-  entities:
-    - light.countertop
-    - light.couch
-
-lights_moesdimmer_lamps:
-  name: "Dim Lamps"
-  entities:
-    - light.office_ambient_lamp
-    - light.living_moon
-    - light.kitchen
-
-lights_moesdimmer_dev:
-  name: "Dimmable Dev"
-  entities:
-    - light.countertop
-    - light.couch
-
-dimmers_all:
-  name: All dimmers
-  entities:
-    - light.moesdimmer01
-    - light.moesdimmer02
 
 lights_exterior:
   name: Exterior Lights

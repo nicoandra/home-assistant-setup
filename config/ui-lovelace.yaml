@@ -11,7 +11,7 @@ views:
               - type: entity-button
                 name: Sleep
                 entity: group.lights_interior
-                icon: mdi:hotel
+                icon: mdi:bed
                 tap_action:
                   action: call-service
                   service: light.turn_off
@@ -181,7 +181,7 @@ views:
           - type: entity-button
             name: Sleep
             entity: group.lights_interior
-            icon: mdi:hotel
+            icon: mdi:bed
             tap_action:
               action: call-service
               service: light.turn_off
