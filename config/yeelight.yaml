@@ -28,7 +28,6 @@ devices:
     transition: 100
     model: color2
   192.168.1.135:
-    id: office_ambient_lamp
     name: Office ambient lamp
     transition: 100
     model: color2
