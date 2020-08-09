@@ -23,7 +23,6 @@
 
 - platform: group
   name: Main
-  view: yes
   entities:
     - light.kitchen
     - light.kitchen_hallway
