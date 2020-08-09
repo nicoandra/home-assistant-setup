@@ -93,3 +93,45 @@
     entity_id: light.kitchen_oven
     service: light.turn_on
   mode: single
+- id: '1597004549461'
+  alias: Hue - Office dimmer - long-on when lamp on
+  description: Turns on the lamps
+  trigger:
+  - device_id: b13d461c3f2b47feba54e6ee3f6157e7
+    domain: hue
+    platform: device
+    subtype: turn_on
+    type: remote_button_long_release
+  condition:
+  - condition: state
+    entity_id: light.office_ambient_lamp
+    state: 'on'
+  action:
+  - data: {}
+    entity_id: light.office_ambient_lamp
+    service: light.turn_off
+  mode: single
+- id: '1597004732813'
+  alias: Office hue dimmer - long on when lamp off (turn it on)
+  description: ''
+  trigger:
+  - device_id: b13d461c3f2b47feba54e6ee3f6157e7
+    domain: hue
+    platform: device
+    subtype: turn_on
+    type: remote_button_long_release
+  condition:
+  - condition: state
+    entity_id: light.office_ambient_lamp
+    state: 'off'
+  action:
+  - data:
+      brightness: 255
+      rgb_color:
+      - 255
+      - 0
+      - 255
+      transition: 2
+    entity_id: light.office_ambient_lamp
+    service: light.turn_on
+  mode: single
