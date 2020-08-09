@@ -20,3 +20,11 @@
           type: rgbw
           name: Couch
           fade: on
+
+- platform: group
+  name: Main
+  view: yes
+  entities:
+    - light.kitchen
+    - light.kitchen_hallway
+    - light.kitchen_oven

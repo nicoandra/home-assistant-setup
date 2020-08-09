@@ -1,45 +1,45 @@
-- id: '1577673229045'
+- id: "1577673229045"
   name: Saul Goodman
   entities:
     light.couch:
       assumed_state: true
       brightness: 133
       effect_list:
-      - colorloop
-      - night
-      - white
+        - colorloop
+        - night
+        - white
       friendly_name: Couch
-      state: 'on'
+      state: "on"
       supported_features: 61
     light.countertop:
       assumed_state: true
       brightness: 224
       effect_list:
-      - colorloop
-      - night
-      - white
+        - colorloop
+        - night
+        - white
       friendly_name: Countertop
-      state: 'on'
+      state: "on"
       supported_features: 61
     light.kitchen:
       effect_list:
-      - Strobe color
-      - Police
-      - Christmas
-      - RGB
-      - Random Loop
-      - Fast Random Loop
-      - LSD
-      - Slowdown
-      - Disco
-      - Strobe epilepsy!
-      - Alarm
-      - Police2
-      - WhatsApp
-      - Facebook
-      - Twitter
-      - Slow Temp
-      - Stop
+        - Strobe color
+        - Police
+        - Christmas
+        - RGB
+        - Random Loop
+        - Fast Random Loop
+        - LSD
+        - Slowdown
+        - Disco
+        - Strobe epilepsy!
+        - Alarm
+        - Police2
+        - WhatsApp
+        - Facebook
+        - Twitter
+        - Slow Temp
+        - Stop
       friendly_name: Kitchen
       max_mireds: 370
       min_mireds: 153
@@ -49,120 +49,120 @@
       brightness: 255
       color_temp: 370
       effect_list:
-      - Strobe color
-      - Police
-      - Christmas
-      - RGB
-      - Random Loop
-      - Fast Random Loop
-      - LSD
-      - Slowdown
-      - Disco
-      - Strobe epilepsy!
-      - Alarm
-      - Police2
-      - WhatsApp
-      - Facebook
-      - Twitter
-      - Slow Temp
-      - Stop
+        - Strobe color
+        - Police
+        - Christmas
+        - RGB
+        - Random Loop
+        - Fast Random Loop
+        - LSD
+        - Slowdown
+        - Disco
+        - Strobe epilepsy!
+        - Alarm
+        - Police2
+        - WhatsApp
+        - Facebook
+        - Twitter
+        - Slow Temp
+        - Stop
       friendly_name: Kitchen Wall
       hs_color:
-      - 75.273
-      - 43.137
+        - 75.273
+        - 43.137
       max_mireds: 370
       min_mireds: 153
       rgb_color:
-      - 226
-      - 255
-      - 145
-      state: 'on'
+        - 226
+        - 255
+        - 145
+      state: "on"
       supported_features: 63
       xy_color:
-      - 0.361
-      - 0.459
+        - 0.361
+        - 0.459
     light.living_tortue:
       brightness: 3
       color_temp: 370
       effect_list:
-      - Strobe color
-      - Police
-      - Christmas
-      - RGB
-      - Random Loop
-      - Fast Random Loop
-      - LSD
-      - Slowdown
-      - Disco
-      - Strobe epilepsy!
-      - Alarm
-      - Police2
-      - WhatsApp
-      - Facebook
-      - Twitter
-      - Slow Temp
-      - Stop
+        - Strobe color
+        - Police
+        - Christmas
+        - RGB
+        - Random Loop
+        - Fast Random Loop
+        - LSD
+        - Slowdown
+        - Disco
+        - Strobe epilepsy!
+        - Alarm
+        - Police2
+        - WhatsApp
+        - Facebook
+        - Twitter
+        - Slow Temp
+        - Stop
       friendly_name: Living Tortue
       hs_color:
-      - 28.391
-      - 65.659
+        - 28.391
+        - 65.659
       max_mireds: 370
       min_mireds: 153
       rgb_color:
-      - 255
-      - 166
-      - 87
-      state: 'on'
+        - 255
+        - 166
+        - 87
+      state: "on"
       supported_features: 63
       xy_color:
-      - 0.526
-      - 0.387
+        - 0.526
+        - 0.387
     light.office:
       assumed_state: true
       brightness: 136
       effect_list:
-      - colorloop
-      - night
-      - white
+        - colorloop
+        - night
+        - white
       friendly_name: Office
-      state: 'on'
+      state: "on"
       supported_features: 61
     light.office_ambient_lamp:
       brightness: 135
       color_temp: 356
       effect_list:
-      - Strobe color
-      - Police
-      - Christmas
-      - RGB
-      - Random Loop
-      - Fast Random Loop
-      - LSD
-      - Slowdown
-      - Disco
-      - Strobe epilepsy!
-      - Alarm
-      - Police2
-      - WhatsApp
-      - Facebook
-      - Twitter
-      - Slow Temp
-      - Stop
+        - Strobe color
+        - Police
+        - Christmas
+        - RGB
+        - Random Loop
+        - Fast Random Loop
+        - LSD
+        - Slowdown
+        - Disco
+        - Strobe epilepsy!
+        - Alarm
+        - Police2
+        - WhatsApp
+        - Facebook
+        - Twitter
+        - Slow Temp
+        - Stop
       friendly_name: Office ambient lamp
       hs_color:
-      - 28.172
-      - 62.378
+        - 28.172
+        - 62.378
       max_mireds: 370
       min_mireds: 153
       rgb_color:
-      - 255
-      - 170
-      - 95
-      state: 'on'
+        - 255
+        - 170
+        - 95
+      state: "on"
       supported_features: 63
       xy_color:
-      - 0.516
-      - 0.386
+        - 0.516
+        - 0.386
 - name: Chillin
   entities:
     light.couch:
@@ -236,12 +236,6 @@
       state: true
       brightness: 255
       color_temp: 588
-    light.moesdimmer01:
-      state: true
-      brightness: 255
-    light.moesdimmer02:
-      state: true
-      brightness: 255
     light.living_tortue:
       state: true
       brightness: 255
@@ -274,27 +268,27 @@
 - name: Nico Compu
   entities:
     light.front_door:
-      state: 'on'
+      state: "on"
       brightness: 190
     light.countertop:
-      state: 'on'
+      state: "on"
       brightness: 255
     light.couch:
-      state: 'on'
+      state: "on"
       brightness: 255
-    light.office: 'off'
+    light.office: "off"
     light.office_yee:
-      state: 'on'
+      state: "on"
       brightness: 255
       color_temp: 370
     light.bedroom_wardrobe:
       state: true
       brightness: 10
       color_temp: 370
-    light.kitchen: 'off'
-    light.living_moon: 'off'
+    light.kitchen: "off"
+    light.living_moon: "off"
     light.office_ambient_lamp:
-      state: 'on'
+      state: "on"
       brightness: 56
       color_temp: 370
     light.living_tortue:
@@ -434,252 +428,252 @@
       brightness: 23
       color_temp: 360
   id: 9e90dfea8bef40e3b1a01d9a6b6b9206
-- id: '1577825052881'
+- id: "1577825052881"
   name: WFH - Evening
   entities:
     light.couch:
       assumed_state: true
       brightness: 191
       effect_list:
-      - colorloop
-      - night
-      - white
+        - colorloop
+        - night
+        - white
       friendly_name: Couch
-      state: 'on'
+      state: "on"
       supported_features: 61
     light.countertop:
       assumed_state: true
       brightness: 165
       effect_list:
-      - colorloop
-      - night
-      - white
+        - colorloop
+        - night
+        - white
       friendly_name: Countertop
-      state: 'on'
+      state: "on"
       supported_features: 61
     light.kitchen:
       brightness: 59
       color_temp: 272
       effect_list:
-      - Strobe color
-      - Police
-      - Christmas
-      - RGB
-      - Random Loop
-      - Fast Random Loop
-      - LSD
-      - Slowdown
-      - Disco
-      - Strobe epilepsy!
-      - Alarm
-      - Police2
-      - WhatsApp
-      - Facebook
-      - Twitter
-      - Slow Temp
-      - Stop
+        - Strobe color
+        - Police
+        - Christmas
+        - RGB
+        - Random Loop
+        - Fast Random Loop
+        - LSD
+        - Slowdown
+        - Disco
+        - Strobe epilepsy!
+        - Alarm
+        - Police2
+        - WhatsApp
+        - Facebook
+        - Twitter
+        - Slow Temp
+        - Stop
       friendly_name: Kitchen
       hs_color:
-      - 27.015
-      - 41.078
+        - 27.015
+        - 41.078
       max_mireds: 370
       min_mireds: 153
       rgb_color:
-      - 255
-      - 197
-      - 150
-      state: 'on'
+        - 255
+        - 197
+        - 150
+      state: "on"
       supported_features: 63
       xy_color:
-      - 0.441
-      - 0.37
+        - 0.441
+        - 0.37
     light.kitchen_wall:
       brightness: 120
       color_temp: 370
       effect_list:
-      - Strobe color
-      - Police
-      - Christmas
-      - RGB
-      - Random Loop
-      - Fast Random Loop
-      - LSD
-      - Slowdown
-      - Disco
-      - Strobe epilepsy!
-      - Alarm
-      - Police2
-      - WhatsApp
-      - Facebook
-      - Twitter
-      - Slow Temp
-      - Stop
+        - Strobe color
+        - Police
+        - Christmas
+        - RGB
+        - Random Loop
+        - Fast Random Loop
+        - LSD
+        - Slowdown
+        - Disco
+        - Strobe epilepsy!
+        - Alarm
+        - Police2
+        - WhatsApp
+        - Facebook
+        - Twitter
+        - Slow Temp
+        - Stop
       friendly_name: Kitchen Wall
       hs_color:
-      - 28.391
-      - 65.659
+        - 28.391
+        - 65.659
       max_mireds: 370
       min_mireds: 153
       rgb_color:
-      - 255
-      - 166
-      - 87
-      state: 'on'
+        - 255
+        - 166
+        - 87
+      state: "on"
       supported_features: 63
       xy_color:
-      - 0.526
-      - 0.387
+        - 0.526
+        - 0.387
     light.living_moon:
       brightness: 97
       color_temp: 370
       effect_list:
-      - Strobe color
-      - Police
-      - Christmas
-      - RGB
-      - Random Loop
-      - Fast Random Loop
-      - LSD
-      - Slowdown
-      - Disco
-      - Strobe epilepsy!
-      - Alarm
-      - Police2
-      - WhatsApp
-      - Facebook
-      - Twitter
-      - Slow Temp
-      - Stop
+        - Strobe color
+        - Police
+        - Christmas
+        - RGB
+        - Random Loop
+        - Fast Random Loop
+        - LSD
+        - Slowdown
+        - Disco
+        - Strobe epilepsy!
+        - Alarm
+        - Police2
+        - WhatsApp
+        - Facebook
+        - Twitter
+        - Slow Temp
+        - Stop
       friendly_name: Living Moon
       hs_color:
-      - 28.391
-      - 65.659
+        - 28.391
+        - 65.659
       max_mireds: 370
       min_mireds: 153
       rgb_color:
-      - 255
-      - 166
-      - 87
-      state: 'on'
+        - 255
+        - 166
+        - 87
+      state: "on"
       supported_features: 63
       xy_color:
-      - 0.526
-      - 0.387
+        - 0.526
+        - 0.387
     light.living_tortue:
       brightness: 59
       color_temp: 370
       effect_list:
-      - Strobe color
-      - Police
-      - Christmas
-      - RGB
-      - Random Loop
-      - Fast Random Loop
-      - LSD
-      - Slowdown
-      - Disco
-      - Strobe epilepsy!
-      - Alarm
-      - Police2
-      - WhatsApp
-      - Facebook
-      - Twitter
-      - Slow Temp
-      - Stop
+        - Strobe color
+        - Police
+        - Christmas
+        - RGB
+        - Random Loop
+        - Fast Random Loop
+        - LSD
+        - Slowdown
+        - Disco
+        - Strobe epilepsy!
+        - Alarm
+        - Police2
+        - WhatsApp
+        - Facebook
+        - Twitter
+        - Slow Temp
+        - Stop
       friendly_name: Living Tortue
       hs_color:
-      - 28.391
-      - 65.659
+        - 28.391
+        - 65.659
       max_mireds: 370
       min_mireds: 153
       rgb_color:
-      - 255
-      - 166
-      - 87
-      state: 'on'
+        - 255
+        - 166
+        - 87
+      state: "on"
       supported_features: 63
       xy_color:
-      - 0.526
-      - 0.387
+        - 0.526
+        - 0.387
     light.office:
       assumed_state: true
       brightness: 255
       effect_list:
-      - colorloop
-      - night
-      - white
+        - colorloop
+        - night
+        - white
       friendly_name: Office
-      state: 'on'
+      state: "on"
       supported_features: 61
     light.office_ambient_lamp:
       brightness: 89
       color_temp: 370
       effect_list:
-      - Strobe color
-      - Police
-      - Christmas
-      - RGB
-      - Random Loop
-      - Fast Random Loop
-      - LSD
-      - Slowdown
-      - Disco
-      - Strobe epilepsy!
-      - Alarm
-      - Police2
-      - WhatsApp
-      - Facebook
-      - Twitter
-      - Slow Temp
-      - Stop
+        - Strobe color
+        - Police
+        - Christmas
+        - RGB
+        - Random Loop
+        - Fast Random Loop
+        - LSD
+        - Slowdown
+        - Disco
+        - Strobe epilepsy!
+        - Alarm
+        - Police2
+        - WhatsApp
+        - Facebook
+        - Twitter
+        - Slow Temp
+        - Stop
       friendly_name: Office ambient lamp
       hs_color:
-      - 28.391
-      - 65.659
+        - 28.391
+        - 65.659
       max_mireds: 370
       min_mireds: 153
       rgb_color:
-      - 255
-      - 166
-      - 87
-      state: 'on'
+        - 255
+        - 166
+        - 87
+      state: "on"
       supported_features: 63
       xy_color:
-      - 0.526
-      - 0.387
+        - 0.526
+        - 0.387
     light.office_yee:
       brightness: 3
       color_temp: 370
       effect_list:
-      - Strobe color
-      - Police
-      - Christmas
-      - RGB
-      - Random Loop
-      - Fast Random Loop
-      - LSD
-      - Slowdown
-      - Disco
-      - Strobe epilepsy!
-      - Alarm
-      - Police2
-      - WhatsApp
-      - Facebook
-      - Twitter
-      - Slow Temp
-      - Stop
+        - Strobe color
+        - Police
+        - Christmas
+        - RGB
+        - Random Loop
+        - Fast Random Loop
+        - LSD
+        - Slowdown
+        - Disco
+        - Strobe epilepsy!
+        - Alarm
+        - Police2
+        - WhatsApp
+        - Facebook
+        - Twitter
+        - Slow Temp
+        - Stop
       friendly_name: Office Yee
       hs_color:
-      - 28.391
-      - 65.659
+        - 28.391
+        - 65.659
       max_mireds: 370
       min_mireds: 153
       rgb_color:
-      - 255
-      - 166
-      - 87
-      state: 'on'
+        - 255
+        - 166
+        - 87
+      state: "on"
       supported_features: 63
       xy_color:
-      - 0.526
-      - 0.387
+        - 0.526
+        - 0.387

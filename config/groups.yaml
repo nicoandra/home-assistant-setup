@@ -106,6 +106,7 @@ lights_interior:
     - light.countertop
     - light.living_moon
     - light.living_tortue
+    - light.office_ambient_lamp
 
 lights_exterior:
   name: Exterior Lights

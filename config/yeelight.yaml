@@ -23,17 +23,12 @@ devices:
     use_music_mode: False #(defaults to False)
     save_on_change: false #(defaults to false)
     model: color2
-  192.168.1.205:
-    name: Office ambient lamp
-    transition: 100
-    use_music_mode: False #(defaults to False)
-    save_on_change: false #(defaults to false)
-    model: color2
   192.168.1.221:
     name: Living Tortue
     transition: 100
     model: color2
   192.168.1.135:
-    name: Kitchen Wall
+    id: office_ambient_lamp
+    name: Office ambient lamp
     transition: 100
     model: color2
