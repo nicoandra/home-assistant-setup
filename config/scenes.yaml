@@ -168,10 +168,6 @@
     light.couch:
       state: true
       brightness: 124
-    light.bedroom_wardrobe:
-      state: true
-      brightness: 27
-      color_temp: 370
     light.countertop:
       state: true
       brightness: 255
@@ -281,10 +277,6 @@
       state: "on"
       brightness: 255
       color_temp: 370
-    light.bedroom_wardrobe:
-      state: true
-      brightness: 10
-      color_temp: 370
     light.kitchen: "off"
     light.living_moon: "off"
     light.office_ambient_lamp:
@@ -326,10 +318,6 @@
       state: true
       brightness: 171
       color_temp: 319
-    light.bedroom_wardrobe:
-      state: true
-      brightness: 171
-      color_temp: 319
     light.living_tortue:
       state: true
       brightness: 23
@@ -338,10 +326,6 @@
 - name: Alone - late
   entities:
     light.office_yee: false
-    light.bedroom_wardrobe:
-      state: true
-      brightness: 84
-      color_temp: 370
     light.living_tortue: false
     light.living_moon:
       state: false
@@ -376,7 +360,6 @@
       state: true
       brightness: 102
     light.office_yee: false
-    light.bedroom_wardrobe: false
     light.office_ambient_light:
       state: true
       brightness: 59
@@ -412,17 +395,9 @@
       state: true
       effect: Police
       brightness: 255
-    light.bedroom_wardrobe:
-      state: true
-      brightness: 255
-      effect: Police
   id: 7d1241c28a1a4ee1b6cea21c548fac41
 - name: Someone got home
   entities:
-    light.bedroom_wardrobe:
-      state: true
-      brightness: 128
-      color: 370
     light.living_tortue:
       state: true
       brightness: 23
