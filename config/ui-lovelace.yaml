@@ -66,6 +66,12 @@ views:
               - light.office_yee
               - light.office_ambient_lamp
           - type: entities
+            title: "Bedroom"
+            icon: mdi:desktop-classic
+            entities:
+              - light.hue_ambiance_lamp_1
+              - light.hue_ambiance_candle_1
+          - type: entities
             icon: mdi:fridge-outline
             title: "Kitchen"
             entities:
