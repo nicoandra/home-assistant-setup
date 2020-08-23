@@ -108,6 +108,7 @@ lights_interior:
     - light.living_moon
     - light.living_tortue
     - light.office_ambient_lamp
+    - light.dimmer05_dimmer05
 
 lights_exterior:
   name: Exterior Lights

@@ -62,7 +62,7 @@ views:
             title: "Office"
             icon: mdi:desktop-classic
             entities:
-              - light.office
+              - light.office_2
               - light.office_yee
               - light.office_ambient_lamp
           - type: entities
@@ -71,6 +71,7 @@ views:
             entities:
               - light.hue_ambiance_lamp_1
               - light.hue_ambiance_candle_1
+              - light.dimmer05_dimmer05
           - type: entities
             icon: mdi:fridge-outline
             title: "Kitchen"
@@ -208,6 +209,7 @@ views:
         icon: mdi:desktop-classic
         entities:
           - light.office
+          - light.office_2
           - light.office_yee
           - light.office_ambient_lamp
       - type: entities
