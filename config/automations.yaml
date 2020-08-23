@@ -6,7 +6,8 @@
     platform: sun
   condition: []
   action:
-  - data: {}
+  - data:
+      brightness: 255
     entity_id: light.front_door
     service: light.turn_on
   mode: single
@@ -48,49 +49,20 @@
     entity_id: group.lights_interior
     service: light.turn_off
   mode: single
-- id: '1596485048488'
-  alias: Kitchen hallway to Corridor - Catch-all
+- id: '1596487473709'
+  alias: Dimmer 05
   description: ''
   trigger:
-  - entity_id: light.kitchen_hallway
+  - entity_id: light.dimmer05_dimmer05
     platform: state
-  condition:
-  - condition: template
-    value_template: '{{ (as_timestamp(now()) - as_timestamp(state_attr('' automation.corridor_to_kitchen_hallway_catch_all'',
-      ''last_triggered'') | default(0)) | int > 1)}}'
+  condition: []
   action:
   - data_template:
-      brightness: '{{ state_attr(''light.kitchen_hallway'', ''brightness'') | default(0,
+      brightness: '{{ state_attr(''light.dimmer05_dimmer05'', ''brightness'') | default(0,
         true) }}
 
         '
-    entity_id: light.entrance_dimmer_entrance_dimmer
-    service: light.turn_on
-  mode: single
-- id: '1596487473709'
-  alias: Corridor to Kitchen hallway - Catch-all
-  description: ''
-  trigger:
-  - entity_id: light.entrance_dimmer_entrance_dimmer
-    platform: state
-  condition:
-  - condition: template
-    value_template: '{{ (as_timestamp(now()) - as_timestamp(state_attr(''automation.kitchen_hallway_to_corridor_on'',
-      ''last_triggered'') | default(0)) | int > 1)}}'
-  action:
-  - data_template:
-      brightness: '{{ state_attr(''light.entrance_dimmer_entrance_dimmer'', ''brightness'')
-        | default(0, true) }}
-
-        '
-    entity_id: light.kitchen_hallway
-    service: light.turn_on
-  - data_template:
-      brightness: '{{ state_attr(''light.entrance_dimmer_entrance_dimmer'', ''brightness'')
-        | default(0, true) }}
-
-        '
-    entity_id: light.kitchen_oven
+    entity_id: light.hue_ambiance_lamp_1
     service: light.turn_on
   mode: single
 - id: '1597004549461'
