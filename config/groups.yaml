@@ -100,6 +100,7 @@ lights_interior:
     - light.office_yee
     - light.kitchen
     - light.kitchen_2
+    - light.kitchen_lamp
     - light.kitchen_hallway
     - light.kitchen_oven
     - light.office_2

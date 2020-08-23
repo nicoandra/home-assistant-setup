@@ -1,4 +1,10 @@
 devices:
+  192.168.2.243:
+    name: Kitchen Lamp
+    transition: 100
+    use_music_mode: False #(defaults to False)
+    save_on_change: false #(defaults to false)
+    model: color2
   192.168.1.202:
     name: Office Yee
     transition: 100
@@ -11,23 +17,7 @@ devices:
     use_music_mode: False #(defaults to False)
     save_on_change: false #(defaults to false)
     model: color2
-  192.168.1.201:
-    name: Kitchen
-    transition: 100
-    use_music_mode: False #(defaults to False)
-    save_on_change: false #(defaults to false)
-    model: color2
-  192.168.1.204:
-    name: Bedroom wardrobe
-    transition: 100
-    use_music_mode: False #(defaults to False)
-    save_on_change: false #(defaults to false)
-    model: color2
   192.168.1.221:
     name: Living Tortue
-    transition: 100
-    model: color2
-  192.168.1.135:
-    name: Office ambient lamp
     transition: 100
     model: color2

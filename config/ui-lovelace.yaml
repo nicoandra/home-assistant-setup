@@ -78,7 +78,7 @@ views:
             entities:
               - light.countertop
               - light.kitchen
-              - light.kitchen_wall
+	      - light.kitchen_lamp
       - type: vertical-stack
         cards:
           - type: entity-filter
@@ -105,7 +105,7 @@ views:
                 entities:
                   - light.countertop
                   - light.kitchen
-                  - light.kitchen_wall
+                  - light.kitchen_lamp
                 title: Kitchen
                 camera_image: camera.kitchen
           - type: weather-forecast
@@ -218,7 +218,7 @@ views:
         entities:
           - light.countertop
           - light.kitchen
-          - light.kitchen_wall
+          - light.kitchen_lamp
       - type: entities
         title: "Living"
         entities:
@@ -387,7 +387,7 @@ views:
         entities:
           - light.countertop
           - light.kitchen
-          - light.kitchen_wall
+          - light.kitchen_lamp
         title: Kitchen
         camera_image: camera.kitchen
   - id: 6
