@@ -53,16 +53,16 @@
   alias: Dimmer 05
   description: ''
   trigger:
-  - entity_id: light.dimmer05_dimmer05
+  - entity_id: light.dimmer05
     platform: state
   condition: []
   action:
   - data_template:
-      brightness: '{{ state_attr(''light.dimmer05_dimmer05'', ''brightness'') | default(0,
+      brightness: '{{ state_attr(''light.dimmer05'', ''brightness'') | default(0,
         true) }}
 
         '
-    entity_id: light.hue_ambiance_lamp_1
+    entity_id: light.downlight_01_downlight_01
     service: light.turn_on
   mode: single
 - id: '1597004549461'

@@ -69,16 +69,16 @@ views:
             title: "Bedroom"
             icon: mdi:desktop-classic
             entities:
-              - light.hue_ambiance_lamp_1
+              - light.downlight_01_downlight_01
               - light.hue_ambiance_candle_1
-              - light.dimmer05_dimmer05
+              - light.dimmer05
           - type: entities
             icon: mdi:fridge-outline
             title: "Kitchen"
             entities:
               - light.countertop
               - light.kitchen
-	      - light.kitchen_lamp
+              - light.kitchen_lamp
       - type: vertical-stack
         cards:
           - type: entity-filter
