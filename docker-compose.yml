@@ -52,12 +52,14 @@ services:
     image: nginx
     ports:
       - 8123:8123 # To serve HomeAssistant plain text
-      - 3999:3999 # To serve locative endpoint plain text
+      - 4001:4001
+#      - 3999:3999 # To serve locative endpoint plain text
     #      - 4443:4443 # To serve HomeAssistant and the cert, SSL (work in progress)
     #      - 3997:3997 # To serve locative endpoint SSL
     volumes:
-      - ./etc/nginx/locative.conf:/etc/nginx/conf.d/locative.conf
-      - ./etc/nginx/homeassistant.conf:/etc/nginx/conf.d/homeassistant.conf
+ #     - ./etc/nginx/locative.conf:/etc/nginx/conf.d/locative.conf
+#      - ./etc/nginx/homeassistant.conf:/etc/nginx/conf.d/homeassistant.conf
+      - ./etc/nginx/wled.conf:/etc/nginx/conf.d/wled.conf
       - ./etc/certificates:/etc/certificates
     depends_on:
       - locative-endpoint
