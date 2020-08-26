@@ -46,7 +46,7 @@ services:
       - 3998:3998
     volumes:
       - ../locative-endpoint:/app
-    command: /app/node_modules/nodemon/bin/nodemon.js /app/index.js
+#    command: /app/node_modules/nodemon/bin/nodemon.js /app/index.js
 
   ssl-nginx:
     image: nginx
