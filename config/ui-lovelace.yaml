@@ -65,6 +65,7 @@ views:
               - light.office_2
               - light.office_yee
               - light.officedimmer
+              - light.office_back_lamp
           - type: entities
             title: "Bedroom"
             icon: mdi:desktop-classic
@@ -212,6 +213,7 @@ views:
           - light.office_2
           - light.office_yee
           - light.officedimmer
+          - light.office_back_lamp
       - type: entities
         icon: mdi:fridge-outline
         title: "Kitchen"

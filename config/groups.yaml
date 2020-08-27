@@ -96,6 +96,7 @@ presence:
 lights_interior:
   name: Interior lights
   entities:
+    - light.office_back_lamp
     - light.downlight_01_downlight_01
     - light.office_yee
     - light.kitchen
