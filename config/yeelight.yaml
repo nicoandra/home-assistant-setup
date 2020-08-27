@@ -21,3 +21,7 @@ devices:
     name: Living Tortue
     transition: 100
     model: color2
+  192.168.1.135:
+    name: Office Back Lamp
+    transition: 100
+    model: color2
