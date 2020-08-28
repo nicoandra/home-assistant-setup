@@ -160,7 +160,18 @@ input_number:
     min: 17
     max: 23
     step: .5
-
+  wled01_speed:
+    name: WLED 01 Speed
+    initial: 127
+    min: 0
+    max: 255
+    step: 1
+  wled01_intensity:
+    name: WLED 01 Intensity
+    initial: 127
+    min: 0
+    max: 255
+    step: 1
   ir_light_level:
     name: IR Light Level
     initial: 5

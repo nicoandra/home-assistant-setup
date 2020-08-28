@@ -107,3 +107,24 @@
     entity_id: light.office_back_lamp
     service: light.turn_on
   mode: single
+- id: '1598587050856'
+  alias: WLED 01 Adjustments
+  description: ''
+  trigger:
+  - entity_id: input_number.wled01_speed
+    platform: state
+  - entity_id: input_number.wled01_intensity
+    platform: state
+  condition: []
+  action:
+  - data_template:
+      intensity: '{{ states(''input_number.wled01_intensity'') | default(0, true)
+        | int }}
+
+        '
+      speed: '{{ states(''input_number.wled01_speed'') | default(0, true) | int }}
+
+        '
+    entity_id: light.wled
+    service: wled.effect
+  mode: single
