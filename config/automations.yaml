@@ -76,11 +76,11 @@
     type: remote_button_long_release
   condition:
   - condition: state
-    entity_id: light.office_ambient_lamp
+    entity_id: light.office_back_lamp
     state: 'on'
   action:
   - data: {}
-    entity_id: light.office_ambient_lamp
+    entity_id: light.office_back_lamp
     service: light.turn_off
   mode: single
 - id: '1597004732813'
@@ -94,7 +94,7 @@
     type: remote_button_long_release
   condition:
   - condition: state
-    entity_id: light.office_ambient_lamp
+    entity_id: light.office_back_lamp
     state: 'off'
   action:
   - data:
@@ -104,6 +104,6 @@
       - 0
       - 255
       transition: 2
-    entity_id: light.office_ambient_lamp
+    entity_id: light.office_back_lamp
     service: light.turn_on
   mode: single
