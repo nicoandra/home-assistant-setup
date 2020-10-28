@@ -186,11 +186,11 @@
     radius: 20
     precision: 2
 
-- platform: mqtt
-  name: "Raw Basement movement"
-  state_topic: "basement/binary_sensor/basement_motion/state"
+# - platform: mqtt
+#   name: "Raw Basement movement"
+#   state_topic: "basement/binary_sensor/basement_motion/state"
 
-- platform: mqtt
-  name: "Raw Basement noise"
-  state_topic: "basement/binary_sensor/basement_noise/state"
+# - platform: mqtt
+#   name: "Raw Basement noise"
+#   state_topic: "basement/binary_sensor/basement_noise/state"
 
