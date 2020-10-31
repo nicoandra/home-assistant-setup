@@ -10,7 +10,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock # So that Traefik can listen to the Docker events
 
   homeassistant:
-    image: homeassistant/home-assistant:0.113.2
+    image: homeassistant/home-assistant:0.117.1
     volumes:
       - ./config:/config
     restart: always
