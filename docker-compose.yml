@@ -9,7 +9,6 @@ services:
     depends_on:
       - mosquitto
       - locative-endpoint
-      - nginx
     environment:
       - TZ=America/Montreal
 
@@ -66,7 +65,6 @@ services:
     - "8000:8000"
     labels:
     - "com.centurylinklabs.watchtower.enable=true"
-
 
   logs:
     image: gerchardon/docker-logio
