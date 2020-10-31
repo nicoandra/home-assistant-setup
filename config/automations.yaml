@@ -62,7 +62,7 @@
         true) }}
 
         '
-    entity_id: light.downlight_01_downlight_01
+    entity_id: ' light.bedroomlight'
     service: light.turn_on
   mode: single
 - id: '1597004549461'
@@ -127,4 +127,50 @@
         '
     entity_id: light.wled
     service: wled.effect
+  mode: single
+- id: '1598751390007'
+  alias: Living Dimmer - Living Moon
+  description: ''
+  trigger:
+  - entity_id: light.livingdimmer
+    platform: state
+  condition: []
+  action:
+  - data_template:
+      brightness: '{{ state_attr(''light.livingdimmer'', ''brightness'') | default(0,
+        true) }}
+
+        '
+    entity_id: light.living_moon
+    service: light.turn_on
+  mode: single
+- id: '1602286184225'
+  alias: ThermoDev Heater Living .220
+  description: ''
+  trigger:
+  - entity_id: input_number.living_temperature_slider
+    platform: state
+  condition: []
+  action:
+  - data:
+      payload_template: '{{ states(''input_number.living_temperature_slider'') }}
+
+        '
+      topic: /ThermoDev/Desired01
+    service: mqtt.publish
+  mode: single
+- id: '1602286338110'
+  alias: ThermoDev Heater Office .220
+  description: ''
+  trigger:
+  - entity_id: input_number.office_temperature_slider
+    platform: state
+  condition: []
+  action:
+  - data:
+      payload_template: '{{ states(''input_number.office_temperature_slider'') }}
+
+        '
+      topic: /ThermoDev/Desired02
+    service: mqtt.publish
   mode: single
