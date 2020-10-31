@@ -53,12 +53,12 @@
   alias: Dimmer 05
   description: ''
   trigger:
-  - entity_id: light.dimmer05
+  - entity_id: switch.tasmota
     platform: state
   condition: []
   action:
   - data_template:
-      brightness: '{{ state_attr(''light.dimmer05'', ''brightness'') | default(0,
+      brightness: '{{ state_attr(''switch.tasmota'', ''brightness'') | default(0,
         true) }}
 
         '
