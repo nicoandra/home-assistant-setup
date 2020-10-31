@@ -1,14 +1,5 @@
 version: "3.4"
 services:
-  reverse-proxy:
-    image: traefik:v1.7 # The official Traefik docker image
-    command: --api --docker # Enables the web UI and tells Traefik to listen to docker
-    restart: unless-stopped
-    ports:
-      - "8050:80" # The HTTP port
-      - "8051:8080" # The Web UI (enabled by --api)
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock # So that Traefik can listen to the Docker events
 
   homeassistant:
     image: homeassistant/home-assistant:0.117.1
@@ -29,7 +20,7 @@ services:
     restart: unless-stopped
     ports:
       - 1883:1883
-    entrypoint: /usr/local/sbin/mosquitto -c /etc/mosquitto/mosquitto.conf -v
+    entrypoint: /usr/local/sbin/mosquitto -c /etc/mosquitto/mosquitto.conf
     volumes:
       - ./etc/mosquitto:/etc/mosquitto:ro
       - ./var/log/mosquitto:/var/log/mosquitto:rw
