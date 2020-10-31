@@ -97,3 +97,17 @@ services:
     image: temal/logio-server
     ports:
       - 9002:28778
+
+  duckdns:
+    image: linuxserver/duckdns
+    container_name: duckdns
+    volumes:
+    - ./volumes/duckdns/token/token:/config/token/token
+    environment:
+    - PUID=1000 #optional
+    - PGID=1000 #optional
+    - TZ=America/Montreal
+    - SUBDOMAINS=micasanmaca
+    - LOG_FILE=false
+    - FILE__TOKEN=/config/token/token
+    
