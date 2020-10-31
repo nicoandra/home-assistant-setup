@@ -3,6 +3,7 @@ services:
   reverse-proxy:
     image: traefik:v1.7 # The official Traefik docker image
     command: --api --docker # Enables the web UI and tells Traefik to listen to docker
+    restart: unless-stopped
     ports:
       - "8050:80" # The HTTP port
       - "8051:8080" # The Web UI (enabled by --api)
@@ -11,13 +12,13 @@ services:
 
   homeassistant:
     image: homeassistant/home-assistant:0.117.1
+    restart: unless-stopped
     volumes:
       - ./config:/config
     restart: always
     ports:
       - 8124:8123
     depends_on:
-      - tools-mqtt
       - mosquitto
       - locative-endpoint
     environment:
@@ -27,6 +28,7 @@ services:
 
   mosquitto:
     image: ansi/mosquitto
+    restart: unless-stopped
     ports:
       - 1883:1883
     entrypoint: /usr/local/sbin/mosquitto -c /etc/mosquitto/mosquitto.conf
@@ -40,6 +42,7 @@ services:
   locative-endpoint:
     build: ../locative-endpoint
     container_name: locative-endpoint
+    restart: unless-stopped
     environment:
       - LOCATIVE_PORT=3998
     ports:
@@ -65,14 +68,20 @@ services:
       - locative-endpoint
       - homeassistant
 
-  tools-mqtt:
-    image: node:8.15.0-alpine
-    working_dir: /code
+  cloud9: # https://hub.docker.com/r/sapk/cloud9/
+    container_name: cloud9
+    image: linuxserver/cloud9
+    restart: unless-stopped
+    privileged: true
     volumes:
-      - ./tools:/code
-    # command: node /code/index.js
-    command: npm run start:dev
+    - ./:/code
+    - /var/run/docker.sock:/var/run/docker.sock
     environment:
-      - ENABLED_DIMMERS=dev,office,living,dimmer04
-    depends_on:
-      - mosquitto
+    - PGID=100
+    - PUID=99
+    - TZ=America/Montreal
+    - GITURL=https://github.com/linuxserver/docker-cloud9.git
+    ports:
+    - "8000:8000"
+    labels:
+    - "com.centurylinklabs.watchtower.enable=true"
