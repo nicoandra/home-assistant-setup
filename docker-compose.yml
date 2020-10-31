@@ -1,4 +1,4 @@
-version: "3"
+version: "3.4"
 services:
   reverse-proxy:
     image: traefik:v1.7 # The official Traefik docker image
@@ -13,11 +13,9 @@ services:
   homeassistant:
     image: homeassistant/home-assistant:0.117.1
     restart: unless-stopped
+    network_mode: host
     volumes:
       - ./config:/config
-    restart: always
-    ports:
-      - 8124:8123
     depends_on:
       - mosquitto
       - locative-endpoint
@@ -54,7 +52,6 @@ services:
   ssl-nginx:
     image: nginx
     ports:
-      - 8123:8123 # To serve HomeAssistant plain text
       - 4001:4001
 #      - 3999:3999 # To serve locative endpoint plain text
     #      - 4443:4443 # To serve HomeAssistant and the cert, SSL (work in progress)
@@ -77,8 +74,8 @@ services:
     - ./:/code
     - /var/run/docker.sock:/var/run/docker.sock
     environment:
-    - PGID=100
-    - PUID=99
+    - PGID=1000
+    # - PUID=99
     - TZ=America/Montreal
     - GITURL=https://github.com/linuxserver/docker-cloud9.git
     ports:
