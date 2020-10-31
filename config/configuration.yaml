@@ -46,16 +46,8 @@ api:
 lovelace:
   mode: yaml
 
-recorder: false
-#  purge_keep_days: 5
-#  exclude:
-#    entities:
-#      - automation.thermodev_01
-#      - automation.thermodev_01_climate
-#      - automation.thermodev_02
-#      - automation.thermodev_heartbeat
-#    domains:
-#      - automation
+recorder:
+   purge_keep_days: 5
 
 http:
   # Secrets are defined in the file secrets.yaml
@@ -89,10 +81,6 @@ binary_sensor:
       low:
         value_template: "{{(states('sensor.raw_basement_humidity') | float < 10) or (states('sensor.raw_basement_temperature') | float < 10)}}"
 
-# discovery: # Discover some devices automatically
-#  ignore:
-  #  - yeelight # But not this one
-
 conversation: # Allows you to issue voice commands from the frontend in enabled browsers
 history: # Enables support for tracking state changes over time
 logbook: # View all events in a logbook
@@ -102,12 +90,8 @@ cloud:
 tts: # Text to speech
   - platform: google_translate
 
-# mqtt:
-# broker: mosquitto
-# discovery: true
-# discovery_prefix: homeassistant
-# broker: 192.168.1.106
 
+discovery:
 weather: !include weather.yaml
 camera: !include camera.yaml
 scene: !include scenes.yaml
