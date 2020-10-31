@@ -25,7 +25,4 @@ devices:
     name: Office Back Lamp
     transition: 100
     model: color2
-  192.168.1.148:
-    name: Bedroomlight
-    transition: 100
-    model: color2
+

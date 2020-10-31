@@ -89,8 +89,8 @@ binary_sensor:
       low:
         value_template: "{{(states('sensor.raw_basement_humidity') | float < 10) or (states('sensor.raw_basement_temperature') | float < 10)}}"
 
-discovery: # Discover some devices automatically
-  ignore:
+# discovery: # Discover some devices automatically
+#  ignore:
   #  - yeelight # But not this one
 
 conversation: # Allows you to issue voice commands from the frontend in enabled browsers

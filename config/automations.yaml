@@ -62,7 +62,7 @@
         true) }}
 
         '
-    entity_id: ' light.bedroomlight'
+    entity_id: light.yeelight_color_0x0000000007e7228c
     service: light.turn_on
   mode: single
 - id: '1597004549461'
