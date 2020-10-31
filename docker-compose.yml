@@ -1,6 +1,5 @@
 version: "3.4"
 services:
-
   homeassistant:
     image: homeassistant/home-assistant:0.117.1
     restart: unless-stopped
@@ -13,8 +12,6 @@ services:
       - nginx
     environment:
       - TZ=America/Montreal
-    labels:
-      - "traefik.frontend.rule=Host:1961fullum.nmac.com.ar"
 
   mosquitto:
     image: ansi/mosquitto
@@ -50,7 +47,6 @@ services:
       - ./etc/nginx/wled.conf:/etc/nginx/conf.d/wled.conf
       - ./etc/certificates:/etc/certificates
     depends_on:
-      - locative-endpoint
       - homeassistant
 
   cloud9: # https://hub.docker.com/r/sapk/cloud9/
