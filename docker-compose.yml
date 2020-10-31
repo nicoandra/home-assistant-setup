@@ -40,23 +40,17 @@ services:
       - ../locative-endpoint:/app
 #    command: /app/node_modules/nodemon/bin/nodemon.js /app/index.js
 
-  ssl-nginx:
+  nginx:
     image: nginx
     ports:
-      - 4001:4001
-#      - 3999:3999 # To serve locative endpoint plain text
-    #      - 4443:4443 # To serve HomeAssistant and the cert, SSL (work in progress)
-    #      - 3997:3997 # To serve locative endpoint SSL
+      - 8124:8124
     volumes:
- #     - ./etc/nginx/locative.conf:/etc/nginx/conf.d/locative.conf
-#      - ./etc/nginx/homeassistant.conf:/etc/nginx/conf.d/homeassistant.conf
+      - ./etc/nginx/homeassistant.conf:/etc/nginx/conf.d/homeassistant.conf
       - ./etc/nginx/wled.conf:/etc/nginx/conf.d/wled.conf
       - ./etc/certificates:/etc/certificates
     depends_on:
       - locative-endpoint
       - homeassistant
-
-
 
   cloud9: # https://hub.docker.com/r/sapk/cloud9/
     container_name: cloud9
@@ -88,7 +82,6 @@ services:
     image: temal/logio-server
     ports:
       - 9002:28778
-<<<<<<< HEAD
 
   duckdns:
     image: linuxserver/duckdns
@@ -103,5 +96,3 @@ services:
     - LOG_FILE=false
     - FILE__TOKEN=/config/token/token
     
-=======
->>>>>>> c302279888bd268f7fb27e4e4df7d72ed876ad56
