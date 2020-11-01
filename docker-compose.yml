@@ -91,3 +91,9 @@ services:
     - LOG_FILE=false
     - FILE__TOKEN=/config/token/token
     
+  tasmoadmin:
+    image: raymondmm/tasmoadmin
+    volumes:
+    - ./volumes/tasmoadmin/data:/data
+    ports:
+    - 9003:80
