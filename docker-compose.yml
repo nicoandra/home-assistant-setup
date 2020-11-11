@@ -97,3 +97,16 @@ services:
     - ./volumes/tasmoadmin/data:/data
     ports:
     - 9003:80
+
+  zigbee2mqtt:
+    image: koenkk/zigbee2mqtt
+    privileged: true
+    volumes:
+      - ./volumes/zigbee2mqtt/data:/app/data
+      - /dev/ttyUSB0:/dev/ttyUSB0
+      - /run/udev:/run/udev:ro
+    environment:
+    - TZ=America/Montreal
+
+    
+ 
