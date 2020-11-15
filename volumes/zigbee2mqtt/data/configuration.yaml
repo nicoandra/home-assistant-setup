@@ -5,3 +5,13 @@ mqtt:
   server: 'mqtt://mosquitto'
 serial:
   port: /dev/ttyUSB0
+advanced:
+  channel: 20
+  network_key: '!secrets network_key'
+devices:
+  '0xf8f005fffff781ab':
+    friendly_name: thermostat-kitchen
+  '0xf8f005fffff7840d':
+    friendly_name: thermostat-rear-bedroom
+  '0xf8f005fffff483ab':
+    friendly_name: thermostat-front-bedroom
