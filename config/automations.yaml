@@ -156,7 +156,7 @@
       payload_template: '{{ states(''input_number.living_temperature_slider'') }}
 
         '
-      topic: /ThermoDev/Desired01
+      topic: /ThermoDev/Desired02
     service: mqtt.publish
   mode: single
 - id: '1602286338110'
@@ -171,6 +171,62 @@
       payload_template: '{{ states(''input_number.office_temperature_slider'') }}
 
         '
-      topic: /ThermoDev/Desired02
+      topic: /ThermoDev/Desired01
     service: mqtt.publish
+  mode: single
+- id: '1607490599558'
+  alias: Temperature - Sleeping
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: group.lights_interior
+    to: 'Off'
+  - platform: time
+    at: '23:10'
+  condition:
+  - condition: or
+    conditions:
+    - condition: time
+      after: '23:00'
+    - condition: time
+      before: '4:00'
+  - condition: state
+    entity_id: group.lights_interior
+    state: 'off'
+  action:
+  - service: climate.set_temperature
+    data:
+      temperature: 17.5
+      entity_id:
+      - climate.0xf8f005fffff781ab_climate
+      - climate.0xf8f005fffff483ab_climate
+  - service: input_number.set_value
+    data:
+      value: 17.5
+      entity_id:
+      - input_number.office_temperature_slider
+      - input_number.living_temperature_slider
+  mode: single
+- id: '1607609003902'
+  alias: Temperature - WakeUp
+  description: ''
+  trigger:
+  - platform: time
+    at: '7:00'
+  condition:
+  - condition: or
+    conditions: []
+  action:
+  - service: climate.set_temperature
+    data:
+      temperature: 20.5
+      entity_id:
+      - climate.0xf8f005fffff781ab_climate
+      - climate.0xf8f005fffff483ab_climate
+  - service: input_number.set_value
+    data:
+      value: 20.5
+      entity_id:
+      - input_number.office_temperature_slider
+      - input_number.living_temperature_slider
   mode: single

@@ -9,6 +9,7 @@ services:
     depends_on:
       - mosquitto
       - locative-endpoint
+      - zigbee2mqtt
     environment:
       - TZ=America/Montreal
 
@@ -39,6 +40,7 @@ services:
 
   nginx:
     image: nginx
+    restart: unless-stopped
     ports:
       - 8124:8124
     volumes:
@@ -101,14 +103,13 @@ services:
   zigbee2mqtt:
     image: koenkk/zigbee2mqtt
     privileged: true
+    restart: unless-stopped
     volumes:
       - ./volumes/zigbee2mqtt/data:/app/data
       - /dev/ttyUSB0:/dev/ttyUSB0
       - /run/udev:/run/udev:ro
     environment:
-    - TZ=America/Montreal
-
-    
+    - TZ=America/Montreal    
  
   pihole:
     container_name: pihole
