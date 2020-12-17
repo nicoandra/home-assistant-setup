@@ -180,7 +180,7 @@
   trigger:
   - platform: state
     entity_id: group.lights_interior
-    to: 'Off'
+    to: 'off'
   - platform: time
     at: '23:10'
   condition:
@@ -213,9 +213,7 @@
   trigger:
   - platform: time
     at: '7:00'
-  condition:
-  - condition: or
-    conditions: []
+  condition: []
   action:
   - service: climate.set_temperature
     data:
@@ -229,4 +227,27 @@
       entity_id:
       - input_number.office_temperature_slider
       - input_number.living_temperature_slider
+  mode: single
+- id: '1608174278630'
+  alias: Main Room Temp
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: input_number.main_room_temperature
+  condition: []
+  action:
+  - service: input_number.set_value
+    data:
+      value: '{{ states.input_number.main_room_temperature.state | float }}
+
+        '
+      entity_id:
+      - input_number.office_temperature_slider
+      - input_number.living_temperature_slider
+  - service: climate.set_temperature
+    data:
+      entity_id: climate.0xf8f005fffff781ab_climate
+      temperature: '{{ states.input_number.main_room_temperature.state | float }}
+
+        '
   mode: single
