@@ -36,7 +36,7 @@ logger:
     # homeassistant.components.timer: info
     # homeassistant.components.events: info
     # homeassistant.components.event: info
-    homeassistant.components.automation: info
+    homeassistant.components.automation: debug
 
 # Enables configuration UI
 config:
@@ -84,6 +84,12 @@ binary_sensor:
 conversation: # Allows you to issue voice commands from the frontend in enabled browsers
 history: # Enables support for tracking state changes over time
 logbook: # View all events in a logbook
+  include:
+    domains:
+    - automation
+    - climate
+    - input_number
+
 map: # Enables a map showing the location of tracked devices
 sun: # Track the sun
 cloud:
@@ -118,31 +124,37 @@ input_number:
     name: Living Slider °C
     initial: 18
     min: 17
-    max: 23
+    max: 25
     step: .5
   office_temperature_slider:
     name: Office Slider °C
     initial: 18
     min: 17
-    max: 23
+    max: 25
     step: .5
   home_alone_temperature_slider:
     name: Home Alone Temp
     initial: 17
     min: 16
-    max: 23
+    max: 25
     step: .5
   at_home_temperature_slider:
     name: Welcoming Temp
     initial: 20
     min: 17
-    max: 23
+    max: 25
     step: .5
   at_home_sleeping:
     name: During the night
     initial: 18
     min: 17
-    max: 23
+    max: 25
+    step: .5
+  main_room_temperature:
+    name: Main Room Temperature
+    initial: 21
+    min: 17
+    max: 25
     step: .5
   wled01_speed:
     name: WLED 01 Speed

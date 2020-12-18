@@ -112,6 +112,8 @@ lights_interior:
     - light.office_ambient_lamp
     - light.dimmer05
     - light.wled
+    - light.vicks_spot_main_light_light
+    - light.main_bedroom_nightstand
 
 lights_exterior:
   name: Exterior Lights

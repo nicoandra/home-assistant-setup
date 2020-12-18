@@ -181,28 +181,30 @@
   - platform: state
     entity_id: group.lights_interior
     to: 'off'
-  - platform: time
-    at: '23:10'
+    from: 'on'
+    for: 00:00:05
   condition:
-  - condition: or
+  - condition: and
     conditions:
-    - condition: time
-      after: '23:00'
-    - condition: time
-      before: '4:00'
-  - condition: state
-    entity_id: group.lights_interior
-    state: 'off'
+    - condition: or
+      conditions:
+      - condition: time
+        before: 06:00
+      - condition: time
+        after: '22:00'
+    - condition: state
+      entity_id: group.lights_interior
+      state: 'off'
   action:
   - service: climate.set_temperature
     data:
-      temperature: 17.5
+      temperature: 18
       entity_id:
-      - climate.0xf8f005fffff781ab_climate
-      - climate.0xf8f005fffff483ab_climate
+      - climate.front_bedroom_climate
+      - climate.kitchen_climate
   - service: input_number.set_value
     data:
-      value: 17.5
+      value: 18
       entity_id:
       - input_number.office_temperature_slider
       - input_number.living_temperature_slider
@@ -219,8 +221,8 @@
     data:
       temperature: 20.5
       entity_id:
-      - climate.0xf8f005fffff781ab_climate
-      - climate.0xf8f005fffff483ab_climate
+      - climate.kitchen_climate
+      - climate.front_bedroom_climate
   - service: input_number.set_value
     data:
       value: 20.5
@@ -246,7 +248,7 @@
       - input_number.living_temperature_slider
   - service: climate.set_temperature
     data:
-      entity_id: climate.0xf8f005fffff781ab_climate
+      entity_id: climate.kitchen_climate
       temperature: '{{ states.input_number.main_room_temperature.state | float }}
 
         '

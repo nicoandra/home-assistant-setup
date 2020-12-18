@@ -15,3 +15,7 @@ devices:
     friendly_name: thermostat-rear-bedroom
   '0xf8f005fffff483ab':
     friendly_name: thermostat-front-bedroom
+  '0x0017880102db5ae1':
+    friendly_name: '0x0017880102db5ae1'
+  '0x00178801035a6835':
+    friendly_name: '0x00178801035a6835'
