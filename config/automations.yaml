@@ -202,11 +202,11 @@
       entity_id:
       - climate.front_bedroom_climate
       - climate.kitchen_climate
+      - climate.office_climate
   - service: input_number.set_value
     data:
       value: 18
       entity_id:
-      - input_number.office_temperature_slider
       - input_number.living_temperature_slider
   mode: single
 - id: '1607609003902'
@@ -223,11 +223,11 @@
       entity_id:
       - climate.kitchen_climate
       - climate.front_bedroom_climate
+      - climate.office_climate
   - service: input_number.set_value
     data:
       value: 20.5
       entity_id:
-      - input_number.office_temperature_slider
       - input_number.living_temperature_slider
   mode: single
 - id: '1608174278630'
@@ -244,12 +244,51 @@
 
         '
       entity_id:
-      - input_number.office_temperature_slider
       - input_number.living_temperature_slider
   - service: climate.set_temperature
     data:
-      entity_id: climate.kitchen_climate
+      entity_id:
+      - climate.kitchen_climate
+      - climate.office_climate
       temperature: '{{ states.input_number.main_room_temperature.state | float }}
 
         '
+  mode: single
+- id: '1608332036920'
+  alias: Hue Tap Main Button
+  description: ''
+  trigger:
+  - device_id: c0c4aa0522644d4e82aafd9794d4f957
+    domain: hue
+    platform: device
+    type: remote_button_short_press
+    subtype: button_1
+  condition: []
+  action:
+  - service: light.turn_on
+    data:
+      entity_id: light.main_bedroom_nightstand
+      brightness: "{% if states.light.main_bedroom_nightstand.state == \"off\" %}\n\
+        2\n{% else %}\n  {% if (states.light.main_bedroom_nightstand.attributes.brightness\
+        \ | int) < 80 %}\n84\n  {% elif (states.light.main_bedroom_nightstand.attributes.brightness\
+        \ | int) < 165 %}\n168\n  {% elif (states.light.main_bedroom_nightstand.attributes.brightness\
+        \ | int) < 250 %}\n254\n  {% elif (states.light.main_bedroom_nightstand.attributes.brightness\
+        \ | int) > 240 %}\n  0\n  {% endif %}\n{% endif %}\n"
+  mode: single
+- id: '1608333036345'
+  alias: Hue Tap 2nd Button
+  description: ''
+  trigger:
+  - device_id: c0c4aa0522644d4e82aafd9794d4f957
+    domain: hue
+    platform: device
+    type: remote_button_short_press
+    subtype: button_2
+  condition: []
+  action:
+  - service: light.turn_on
+    data:
+      entity_id: light.main_bedroom_nightstand
+      brightness: "{% if states.light.main_bedroom_nightstand.state == \"off\" %}\n\
+        255\n{% else %}\n 0\n{% endif %}\n"
   mode: single

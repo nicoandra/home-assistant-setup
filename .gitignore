@@ -6,4 +6,11 @@ config/.uuid
 config/home-assistant_v2.db
 config/known_devices.yaml
 node_modules
+
+# Ephemeral files
 volumes/zigbee2mqtt/data/secrets.yaml
+volumes/zigbee2mqtt/data/coordinator_backup.json
+volumes/zigbee2mqtt/data/database.db
+volumes/zigbee2mqtt/data/database.db.backup
+volumes/zigbee2mqtt/data/log/
+volumes/zigbee2mqtt/data/state.json
