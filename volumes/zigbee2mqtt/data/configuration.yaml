@@ -1,5 +1,5 @@
 homeassistant: true
-permit_join: true
+permit_join: false
 mqtt:
   base_topic: zigbee2mqtt
   server: 'mqtt://mosquitto'
@@ -16,8 +16,10 @@ devices:
   '0xf8f005fffff483ab':
     friendly_name: thermostat-front-bedroom
   '0x0017880102db5ae1':
-    friendly_name: 'light-bedroom-nightstand'
+    friendly_name: light-bedroom-nightstand
   '0x00178801035a6835':
-    friendly_name: 'light-vick-spot-main'
+    friendly_name: light-vick-spot-main
   '0xf8f005fffff78aa7':
-    friendly_name: 'thermostat-office'
+    friendly_name: thermostat-office
+  '0xf8f005fffff483c4':
+    friendly_name: 'thermostat-living'
