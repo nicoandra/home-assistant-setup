@@ -201,13 +201,10 @@
       temperature: 18
       entity_id:
       - climate.front_bedroom_climate
-      - climate.kitchen_climate
-      - climate.office_climate
   - service: input_number.set_value
     data:
       value: 18
-      entity_id:
-      - input_number.living_temperature_slider
+    entity_id: input_number.main_room_temperature
   mode: single
 - id: '1607609003902'
   alias: Temperature - WakeUp
@@ -219,16 +216,13 @@
   action:
   - service: climate.set_temperature
     data:
-      temperature: 20.5
+      temperature: 21.5
       entity_id:
-      - climate.kitchen_climate
       - climate.front_bedroom_climate
-      - climate.office_climate
   - service: input_number.set_value
     data:
-      value: 20.5
-      entity_id:
-      - input_number.living_temperature_slider
+      value: 21.5
+    entity_id: input_number.main_room_temperature
   mode: single
 - id: '1608174278630'
   alias: Main Room Temp
@@ -238,18 +232,12 @@
     entity_id: input_number.main_room_temperature
   condition: []
   action:
-  - service: input_number.set_value
-    data:
-      value: '{{ states.input_number.main_room_temperature.state | float }}
-
-        '
-      entity_id:
-      - input_number.living_temperature_slider
   - service: climate.set_temperature
     data:
       entity_id:
-      - climate.kitchen_climate
-      - climate.office_climate
+      - climate.climate_kitchen_climate
+      - climate.climate_office_climate
+      - climate.climate_living_climate
       temperature: '{{ states.input_number.main_room_temperature.state | float }}
 
         '

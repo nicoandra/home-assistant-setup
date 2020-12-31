@@ -132,3 +132,16 @@ services:
     # cap_add:
     #  - NET_ADMIN
     restart: unless-stopped
+
+
+  zigbee2mqttAssistant:
+    image: carldebilly/zigbee2mqttassistant
+    container_name: zigbee2mqttAssistant
+    environment:
+      - Z2MA_SETTINGS__MQTTSERVER=mosquitto
+      # Set to your TimeZone when using on Linux https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+      # Won't work if you're using the Windows version of the container
+      - TZ=America/Montreal
+    ports:
+      - 8880:80
+    restart: unless-stopped

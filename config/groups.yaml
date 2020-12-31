@@ -1,89 +1,3 @@
-default_view:
-  entities:
-    - group.main
-
-main:
-  name: Main
-  entities:
-    - scene.someone_got_home
-    - scene.all_full
-    - scene.chillin
-    - scene.morning
-    - scene.movies
-    - group.all_lights
-    - group.presence
-    - input_number.at_home_temperature_slider
-    - sensor.average_temperature
-
-tab_cameras:
-  name: Cameras
-  entities:
-    - camera.door
-    - camera.kitchen
-
-lights:
-  name: Lights
-  entities:
-    - group.lights_interior
-    - group.scenes
-
-kitchen:
-  name: Kitchen
-  entities:
-    - light.kitchen
-    - light.countertop
-    - group.kitchen_climate
-living:
-  name: Living
-  entities:
-    - light.living_moon
-    - light.couch
-    - group.living_climate
-
-living_climate:
-  name: Living ºC
-  entities:
-    - sensor.living_temperature
-    - sensor.living_humidity
-    - binary_sensor.living_heater_state
-    - input_number.living_temperature_slider
-    - group.presence
-
-office_climate:
-  name: Office ºC
-  entities:
-    - sensor.office_temperature
-    - sensor.office_humidity
-    - binary_sensor.office_heater_state
-    - input_number.office_temperature_slider
-    - group.presence
-
-home_climate:
-  name: Automation
-  entities:
-    - input_number.at_home_temperature_slider
-    - input_number.home_alone_temperature_slider
-    - input_number.at_home_sleeping
-
-home_climate_sensors:
-  name: Sensors
-  entities:
-    - sensor.office_temperature
-    - sensor.living_temperature
-
-office:
-  name: Office
-  entities:
-    - light.office
-    - light.office_yee
-    - group.office_climate
-
-debugpanel:
-  name: Debug
-  entities:
-    - sensor.living_temperature
-    - input_text.current_scene
-
 presence:
   name: Presence
   entities:
@@ -97,7 +11,7 @@ lights_interior:
   name: Interior lights
   entities:
     - light.office_back_lamp
-    - light.downlight_01_downlight_01
+    - light.light_bedroom_candle_light
     - light.office_yee
     - light.kitchen
     - light.kitchen_2
@@ -105,15 +19,14 @@ lights_interior:
     - light.kitchen_hallway
     - light.kitchen_oven
     - light.office_2
-    - light.couch
-    - light.countertop
     - light.living_moon
     - light.living_tortue
     - light.office_ambient_lamp
     - light.dimmer05
     - light.wled
     - light.vicks_spot_main_light_light
-    - light.main_bedroom_nightstand
+    - light.light_bedroom_candle_light
+    - light.space_lamp_light
 
 lights_exterior:
   name: Exterior Lights

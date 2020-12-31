@@ -22,36 +22,6 @@
   - snow  
 
 - platform: mqtt
-  name: "Raw Living Temperature"
-  state_topic: "/ThermoDev/Sensor02/CurrentTemperature"
-  unit_of_measurement: '°C'
-  # value_template: "{{ value_json.temperature }}"
-
-- platform: mqtt
-  name: "Raw Living Humidity"
-  state_topic: "/ThermoDev/Sensor02/CurrentHumidity"
-  unit_of_measurement: '%'
-
-- platform: mqtt
-  name: "Living On/Off"
-  state_topic: "/ThermoDev/Sensor02/CurrentState"
-
-- platform: mqtt
-  name: "Raw Office Temperature"
-  state_topic: "/ThermoDev/Sensor01/CurrentTemperature"
-  unit_of_measurement: '°C'
-  # value_template: "{{ value_json.temperature }}"
-
-- platform: mqtt
-  name: "Raw Office Humidity"
-  state_topic: "/ThermoDev/Sensor01/CurrentHumidity"
-  unit_of_measurement: '%'
-
-- platform: mqtt
-  name: "Office On/Off"
-  state_topic: "/ThermoDev/Sensor01/CurrentState"
-
-- platform: mqtt
   name: "Raw AC vibration sensor"
   state_topic: "door_and_ac/binary_sensor/vibration/state"
 
@@ -63,17 +33,14 @@
     time_constant: 5
     precision: 2  
 
-- platform: mqtt
-  name: "Office movement"
-  state_topic: "door_and_ac/binary_sensor/office_motion/state"
-
 - platform: template
   sensors:
     average_temperature:
-      value_template: "{{ ( ( (states('sensor.living_temperature') | float ) + (states('sensor.office_temperature') | float) ) / 2 ) | round(2) }}"
+      value_template: "{{ ( ( (states('sensor.kitchen_climate_local_temperature') | float ) + (states('sensor.living_thermostat_local_temperature') | float) + (states('sensor.office_thermostat_local_temperature') | float) ) / 3 ) | round(2) }}"
       entity_id:
-        - sensor.living_temperature
-        - sensor.office_temperature
+        - sensor.kitchen_climate_local_temperature
+        - sensor.living_thermostat_local_temperature
+        - sensor.office_thermostat_local_temperature
       friendly_name: 'Average temperature'
       unit_of_measurement: "C"
     template_montreal_temperature:
@@ -118,43 +85,6 @@
       friendly_name: "Montreal Humidity"
       unit_of_measurement: "%"
 
-- platform: filter
-  name: "Living Temperature"
-  entity_id: sensor.raw_living_temperature
-  filters:
-  - filter: lowpass
-    time_constant: 5
-    precision: 2
-
-- platform: filter
-  name: "Living Humidity"
-  entity_id: sensor.raw_living_humidity
-  filters:
-  - filter: lowpass
-    time_constant: 5
-    precision: 2
-
-- platform: filter
-  name: "Office Temperature"
-  entity_id: sensor.raw_office_temperature
-  filters:
-  - filter: lowpass
-    time_constant: 5
-    precision: 2
-
-- platform: filter
-  name: "Office Humidity"
-  entity_id: sensor.raw_office_humidity
-  filters:
-  - filter: lowpass
-    time_constant: 5
-    precision: 2
-
-- platform: mqtt
-  name: "Movement detected near bathroom"
-  state_topic: /bathroom/distance/state
-  value_template: '{% if ( (value|float) < 1) %}on{% else %}off{% endif %}'
-
 - platform: mqtt
   name: "Raw Basement Temperature"
   state_topic: "basement/sensor/basement_temperature/state"
@@ -184,12 +114,3 @@
     window_size: 10
     radius: 20
     precision: 2
-
-# - platform: mqtt
-#   name: "Raw Basement movement"
-#   state_topic: "basement/binary_sensor/basement_motion/state"
-
-# - platform: mqtt
-#   name: "Raw Basement noise"
-#   state_topic: "basement/binary_sensor/basement_noise/state"
-

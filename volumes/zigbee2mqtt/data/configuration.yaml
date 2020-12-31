@@ -1,5 +1,5 @@
 homeassistant: true
-permit_join: false
+permit_join: true
 mqtt:
   base_topic: zigbee2mqtt
   server: 'mqtt://mosquitto'
@@ -9,17 +9,17 @@ advanced:
   channel: 20
   network_key: '!secrets network_key'
 devices:
-  '0xf8f005fffff781ab':
-    friendly_name: thermostat-kitchen
-  '0xf8f005fffff7840d':
-    friendly_name: thermostat-rear-bedroom
-  '0xf8f005fffff483ab':
-    friendly_name: thermostat-front-bedroom
-  '0x0017880102db5ae1':
-    friendly_name: light-bedroom-nightstand
-  '0x00178801035a6835':
-    friendly_name: light-vick-spot-main
   '0xf8f005fffff78aa7':
-    friendly_name: thermostat-office
+    friendly_name: climate_office
   '0xf8f005fffff483c4':
-    friendly_name: 'thermostat-living'
+    friendly_name: climate_living
+  '0xf8f005fffff781ab':
+    friendly_name: climate_kitchen
+  '0xf8f005fffff7840d':
+    friendly_name: climate_bedroom
+  '0x0017880102db5ae1':
+    friendly_name: light_bedroom_candle
+  '0x001788010385b70f':
+    friendly_name: '0x001788010385b70f'
+  '0x00178801035a6835':
+    friendly_name: '0x00178801035a6835'
