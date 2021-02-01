@@ -255,12 +255,12 @@
   action:
   - service: light.turn_on
     data:
-      entity_id: light.main_bedroom_nightstand
-      brightness: "{% if states.light.main_bedroom_nightstand.state == \"off\" %}\n\
-        2\n{% else %}\n  {% if (states.light.main_bedroom_nightstand.attributes.brightness\
-        \ | int) < 80 %}\n84\n  {% elif (states.light.main_bedroom_nightstand.attributes.brightness\
-        \ | int) < 165 %}\n168\n  {% elif (states.light.main_bedroom_nightstand.attributes.brightness\
-        \ | int) < 250 %}\n254\n  {% elif (states.light.main_bedroom_nightstand.attributes.brightness\
+      entity_id: light.light_bedroom_candle_light
+      brightness: "{% if states.light.light_bedroom_candle_light.state == \"off\"\
+        \ %}\n2\n{% else %}\n  {% if (states.light.light_bedroom_candle_light.attributes.brightness\
+        \ | int) < 80 %}\n84\n  {% elif (states.light.light_bedroom_candle_light.attributes.brightness\
+        \ | int) < 165 %}\n168\n  {% elif (states.light.light_bedroom_candle_light.attributes.brightness\
+        \ | int) < 250 %}\n254\n  {% elif (states.light.light_bedroom_candle_light.attributes.brightness\
         \ | int) > 240 %}\n  0\n  {% endif %}\n{% endif %}\n"
   mode: single
 - id: '1608333036345'
@@ -279,4 +279,21 @@
       entity_id: light.main_bedroom_nightstand
       brightness: "{% if states.light.main_bedroom_nightstand.state == \"off\" %}\n\
         255\n{% else %}\n 0\n{% endif %}\n"
+  mode: single
+- id: '1611288873479'
+  alias: Hue Tap 3rd Button
+  description: ''
+  trigger:
+  - device_id: c0c4aa0522644d4e82aafd9794d4f957
+    domain: hue
+    platform: device
+    type: remote_button_short_press
+    subtype: button_3
+  condition: []
+  action:
+  - service: light.turn_on
+    data:
+      entity_id: light.space_lamp_light
+      brightness: "{% if states.light.space_lamp_light.state == \"off\" %}\n255\n\
+        {% else %}\n 0\n{% endif %}\n"
   mode: single
