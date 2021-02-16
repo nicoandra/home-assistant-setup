@@ -267,7 +267,7 @@
   alias: Hue Tap 2nd Button
   description: ''
   trigger:
-  - device_id: c0c4aa0522644d4e82aafd9794d4f957
+  - device_id: 6c956e0be86aaba5d02340450928c65b
     domain: hue
     platform: device
     type: remote_button_short_press
@@ -285,6 +285,23 @@
   description: ''
   trigger:
   - device_id: c0c4aa0522644d4e82aafd9794d4f957
+    domain: hue
+    platform: device
+    type: remote_button_short_press
+    subtype: button_3
+  condition: []
+  action:
+  - service: light.turn_on
+    data:
+      entity_id: light.space_lamp_light
+      brightness: "{% if states.light.space_lamp_light.state == \"off\" %}\n255\n\
+        {% else %}\n 0\n{% endif %}\n"
+  mode: single
+- id: '1612398893094'
+  alias: Hue Tap 3rd Button
+  description: ''
+  trigger:
+  - device_id: 6c956e0be86aaba5d02340450928c65b
     domain: hue
     platform: device
     type: remote_button_short_press
