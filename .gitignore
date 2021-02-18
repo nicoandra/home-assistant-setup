@@ -14,3 +14,8 @@ volumes/zigbee2mqtt/data/database.db
 volumes/zigbee2mqtt/data/database.db.backup
 volumes/zigbee2mqtt/data/log/
 volumes/zigbee2mqtt/data/state.json
+
+
+volumes/pihole/etc/*
+!volumes/pihole/etc/resolv.conf
+!volumes/pihole/etc/pihole/setupVars.conf

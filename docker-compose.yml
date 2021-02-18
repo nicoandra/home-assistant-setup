@@ -127,6 +127,7 @@ services:
     volumes:
       - './volumes/pihole/etc/pihole/:/etc/pihole/'
       - './volumes/pihole/etc/dnsmasq.d/:/etc/dnsmasq.d/'
+      - './volumes/pihole/etc/resolv.conf:/etc/resolv.conf'
     # Recommended but not required (DHCP needs NET_ADMIN)
     #   https://github.com/pi-hole/docker-pi-hole#note-on-capabilities
     # cap_add:
