@@ -314,3 +314,35 @@
       brightness: "{% if states.light.space_lamp_light.state == \"off\" %}\n255\n\
         {% else %}\n 0\n{% endif %}\n"
   mode: single
+- id: '1615737828189'
+  alias: Bedroom dimmer Nico
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: light.0x500b91400001ee55
+  condition: []
+  action:
+  - data_template:
+      brightness: '{{ state_attr(''light.0x500b91400001ee55'', ''brightness'') | default(0,
+        true) }}
+
+        '
+    entity_id: light.space_lamp_light
+    service: light.turn_on
+  mode: single
+- id: '1615739257841'
+  alias: Dimmer Vick's spot
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: light.dimmer_vicks_spot
+  condition: []
+  action:
+  - data_template:
+      brightness: '{{ state_attr(''light.dimmer_vicks_spot'', ''brightness'') | default(0,
+        true) }}
+
+        '
+    entity_id: light.vicks_spot_hue_light
+    service: light.turn_on
+  mode: single

@@ -62,7 +62,6 @@ views:
             title: "Office"
             icon: mdi:desktop-classic
             entities:
-              - light.office_2
               - light.office_yee
               - light.officedimmer
               - light.office_back_lamp
@@ -72,13 +71,12 @@ views:
             entities:
               - light.downlight_01_downlight_01
               - light.hue_ambiance_candle_1
-              - light.dimmer05
           - type: entities
             icon: mdi:fridge-outline
             title: "Kitchen"
             entities:
               - light.countertop
-              - light.kitchen
+              - light.kitchen_main
               - light.kitchen_lamp
       - type: vertical-stack
         cards:
@@ -105,7 +103,7 @@ views:
               - type: picture-glance
                 entities:
                   - light.countertop
-                  - light.kitchen
+                  - light.kitchen_main
                   - light.kitchen_lamp
                 title: Kitchen
                 camera_image: camera.kitchen
@@ -210,7 +208,6 @@ views:
         icon: mdi:desktop-classic
         entities:
           - light.office
-          - light.office_2
           - light.office_yee
           - light.officedimmer
           - light.office_back_lamp
@@ -219,7 +216,7 @@ views:
         title: "Kitchen"
         entities:
           - light.countertop
-          - light.kitchen
+          - light.kitchen_main
           - light.kitchen_lamp
       - type: entities
         title: "Living"
@@ -270,3 +267,10 @@ views:
           - sensor.sonoff_status
       - type: light
         entity: light.sonoff
+
+
+resources:
+  # Note: the `community_plugin` root and `type` is `module`. Also, no `?v=` query string as HACS
+  #   will make sure that the most recent version is always loaded.
+  - url: /hacsfiles/zigbee2mqtt-networkmap/zigbee2mqtt-networkmap.js
+    type: module
