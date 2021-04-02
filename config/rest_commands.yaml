@@ -16,3 +16,8 @@ let_nico_know_debug:
     method: POST
     payload: '{"text":"{{ text }}" }'
     content_type:  'application/json; charset=utf-8'
+
+
+disable_camera_ir:
+    url: http://192.168.1.168/decoder_control.cgi?command=94&user=admin&pwd=admin
+    method: GET
