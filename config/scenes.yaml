@@ -127,42 +127,7 @@
       friendly_name: Office
       state: 'on'
       supported_features: 61
-    light.office_ambient_lamp:
-      brightness: 135
-      color_temp: 356
-      effect_list:
-      - Strobe color
-      - Police
-      - Christmas
-      - RGB
-      - Random Loop
-      - Fast Random Loop
-      - LSD
-      - Slowdown
-      - Disco
-      - Strobe epilepsy!
-      - Alarm
-      - Police2
-      - WhatsApp
-      - Facebook
-      - Twitter
-      - Slow Temp
-      - Stop
-      friendly_name: Office ambient lamp
-      hs_color:
-      - 28.172
-      - 62.378
-      max_mireds: 370
-      min_mireds: 153
-      rgb_color:
-      - 255
-      - 170
-      - 95
-      state: 'on'
-      supported_features: 63
-      xy_color:
-      - 0.516
-      - 0.386
+
 - name: Chillin
   entities:
     light.couch:
@@ -176,9 +141,6 @@
       brightness: 27
       color_temp: 370
     light.office:
-      state: true
-      brightness: 109
-    light.office_ambient_lamp:
       state: true
       brightness: 109
     light.living_moon:
@@ -279,10 +241,6 @@
       color_temp: 370
     light.kitchen: 'off'
     light.living_moon: 'off'
-    light.office_ambient_lamp:
-      state: 'on'
-      brightness: 56
-      color_temp: 370
     light.living_tortue:
       state: true
       brightness: 125
@@ -310,10 +268,7 @@
       state: true
       brightness: 74
       color_temp: 349
-    light.office_ambient_lamp:
-      state: true
-      brightness: 125
-      color_temp: 325
+
     light.kitchen:
       state: true
       brightness: 171
@@ -580,42 +535,6 @@
       friendly_name: Office
       state: 'on'
       supported_features: 61
-    light.office_ambient_lamp:
-      brightness: 89
-      color_temp: 370
-      effect_list:
-      - Strobe color
-      - Police
-      - Christmas
-      - RGB
-      - Random Loop
-      - Fast Random Loop
-      - LSD
-      - Slowdown
-      - Disco
-      - Strobe epilepsy!
-      - Alarm
-      - Police2
-      - WhatsApp
-      - Facebook
-      - Twitter
-      - Slow Temp
-      - Stop
-      friendly_name: Office ambient lamp
-      hs_color:
-      - 28.391
-      - 65.659
-      max_mireds: 370
-      min_mireds: 153
-      rgb_color:
-      - 255
-      - 166
-      - 87
-      state: 'on'
-      supported_features: 63
-      xy_color:
-      - 0.526
-      - 0.387
     light.office_yee:
       brightness: 3
       color_temp: 370

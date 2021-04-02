@@ -28,4 +28,7 @@ devices:
   '0x500b91400001f56a':
     friendly_name: '0x500b91400001f56a'
   '0x500b91400001ee7c':
-    friendly_name: '0x500b91400001ee7c'
+    friendly_name: 'kitchen-main'
+    transition: 0
+    debounce: 0.5
+    

@@ -8,8 +8,6 @@ lights_interior:
     - light.living_moon
     - light.living_tortue
     - light.wled
-    - light.vicks_spot_main_light_light
-    - light.light_bedroom_candle_light
     - light.space_lamp_light
     - light.countertop
     - light.kitchen_main

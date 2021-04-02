@@ -105,9 +105,6 @@ zone: !include zones.yaml
 input_text:
   current_scene:
     name: Current Scene
-  device_heartbeat_thermodev:
-    name: ThermoDev HeartBeat
-
 input_number:
   living_temperature_slider:
     name: Living Slider °C
