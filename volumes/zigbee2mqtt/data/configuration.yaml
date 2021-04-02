@@ -20,15 +20,18 @@ devices:
   '0x0017880102db5ae1':
     friendly_name: light_bedroom_candle
   '0x001788010385b70f':
-    friendly_name: '0x001788010385b70f'
+    friendly_name: 'bedroom-main-lamp'
   '0x00178801035a6835':
-    friendly_name: '0x00178801035a6835'
+    friendly_name: 'vicks-spot-main-lamp'
   '0x500b91400001ee55':
-    friendly_name: '0x500b91400001ee55'
+    friendly_name: 'bedroom-main-dimmer'
+    transition: 0
+    debounce: 0.2    
   '0x500b91400001f56a':
-    friendly_name: '0x500b91400001f56a'
+    friendly_name: 'vicks-spot-main-dimmer'
+    transition: 0
+    debounce: 0.2    
   '0x500b91400001ee7c':
     friendly_name: 'kitchen-main'
     transition: 0
-    debounce: 0.5
-    
+    debounce: 0.2
