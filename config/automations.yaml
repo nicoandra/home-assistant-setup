@@ -346,3 +346,16 @@
     entity_id: light.vicks_spot_hue_light
     service: light.turn_on
   mode: single
+- id: '1617365553303'
+  alias: Disable IR Leds from cameras
+  description: ''
+  trigger:
+  - platform: time_pattern
+    hours: '*'
+    minutes: /2
+    seconds: '*'
+  condition: []
+  action:
+  - service: rest_command.disable_camera_ir
+    data: {}
+  mode: single
