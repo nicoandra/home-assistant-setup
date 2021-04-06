@@ -353,9 +353,87 @@
   - platform: time_pattern
     hours: '*'
     minutes: /2
-    seconds: '*'
+    seconds: '15'
   condition: []
   action:
   - service: rest_command.disable_camera_ir
     data: {}
+  mode: single
+- id: '1617550784376'
+  alias: Remote Dimmer for Countertop - On and Dim
+  description: ''
+  trigger:
+  - platform: device
+    domain: mqtt
+    device_id: 2513d915a926f8c96dbc42ea12f0aefb
+    type: action
+    subtype: on-press
+    discovery_id: 0x0017880104f026ab action_on-press
+  - platform: device
+    domain: mqtt
+    device_id: 2513d915a926f8c96dbc42ea12f0aefb
+    type: action
+    subtype: up-press
+    discovery_id: 0x0017880104f026ab action_up-press
+  - platform: device
+    domain: mqtt
+    device_id: 2513d915a926f8c96dbc42ea12f0aefb
+    type: action
+    subtype: on-hold
+    discovery_id: 0x0017880104f026ab action_on-hold
+  - platform: device
+    domain: mqtt
+    device_id: 2513d915a926f8c96dbc42ea12f0aefb
+    type: action
+    subtype: up-hold
+    discovery_id: 0x0017880104f026ab action_up-hold
+  condition: []
+  action:
+  - service: system_log.write
+    data:
+      message: '{{ trigger }}'
+  - service: light.turn_on
+    data:
+      entity_id: "{%if trigger.payload == 'on-press' or trigger.payload == 'on-hold'%}\n\
+        \  light.countertop\n{%elif trigger.payload == 'up-press' or trigger.payload\
+        \ == 'up-hold' %}\n  light.kitchen_lamp\n{%endif%}\n"
+      brightness: "{%if trigger.payload == 'on-hold' or trigger.payload == 'up-hold'\
+        \ %}\n  255\n{%elif trigger.payload == 'on-press'%}\n  {% if states.light.countertop.state\
+        \ == \"off\" or ((states.light.countertop.attributes.brightness | int) * (100\
+        \ / 255)) < 20  or ((states.light.countertop.attributes.brightness | int)\
+        \ * (100 / 255)) > 95 %}\n  {{ 255 * 25 / 100 | int }}\n  {% elif ((states.light.countertop.attributes.brightness\
+        \ | int) * (100 / 255)) < 40 %}\n  {{ 255 * 50 / 100 | int }}\n  {% elif ((states.light.countertop.attributes.brightness\
+        \ | int) * (100 / 255)) < 65 %}\n  {{ 255 * 75 / 100 | int }}\n  {% elif ((states.light.countertop.attributes.brightness\
+        \ | int) * (100 / 255)) < 90 %}\n  {{ 255 * 100 / 100 | int }}\n  {% endif\
+        \ %}\n{%elif trigger.payload == 'up-press' %}\n  {% if states.light.kitchen_lamp.state\
+        \ == \"off\" or ((states.light.kitchen_lamp.attributes.brightness | int) *\
+        \ (100 / 255)) < 20  or ((states.light.kitchen_lamp.attributes.brightness\
+        \ | int) * (100 / 255)) > 95 %}\n  {{ 255 * 25 / 100 | int }}\n  {% elif ((states.light.kitchen_lamp.attributes.brightness\
+        \ | int) * (100 / 255)) < 40 %}\n  {{ 255 * 50 / 100 | int }}\n  {% elif ((states.light.kitchen_lamp.attributes.brightness\
+        \ | int) * (100 / 255)) < 65 %}\n  {{ 255 * 75 / 100 | int }}\n  {% elif ((states.light.kitchen_lamp.attributes.brightness\
+        \ | int) * (100 / 255)) < 90 %}\n  {{ 255 * 100 / 100 | int }}\n  {% endif\
+        \ %}\n{%endif%}\n"
+  mode: single
+- id: '1617553867970'
+  alias: Remote Dimmer for Countertop - Off
+  description: ''
+  trigger:
+  - platform: device
+    domain: mqtt
+    device_id: 2513d915a926f8c96dbc42ea12f0aefb
+    type: action
+    subtype: down-press
+    discovery_id: 0x0017880104f026ab action_down-press
+  - platform: device
+    domain: mqtt
+    device_id: 2513d915a926f8c96dbc42ea12f0aefb
+    type: action
+    subtype: off-press
+    discovery_id: 0x0017880104f026ab action_off-press
+  condition: []
+  action:
+  - service: light.turn_off
+    data:
+      entity_id: "{%if trigger.payload == 'off-press' %}\n  light.countertop\n{%elif\
+        \ trigger.payload == 'down-press'%}\n  light.kitchen_lamp\n{%endif%}\n"
   mode: single
