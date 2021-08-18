@@ -1,26 +1,5 @@
 - platform: environment_canada
-  
-- platform: openweathermap
-  name: Weather Current
-  api_key: !secret openweathermap_apikey
-  monitored_conditions:
-  - weather
-  - temperature
-  - humidity
-  - clouds
-  - rain
-  - snow  
-- platform: openweathermap
-  name: Weather Foreacast
-  api_key: !secret openweathermap_apikey
-  monitored_conditions:
-  - weather
-  - temperature
-  - humidity
-  - clouds
-  - rain
-  - snow  
-
+ 
 - platform: mqtt
   name: "Raw AC vibration sensor"
   state_topic: "door_and_ac/binary_sensor/vibration/state"
@@ -125,3 +104,129 @@
     {{ now().strftime('%Y-%m-%d %H:%M:%S') }}
   # again, if you change base_topic of Zigbee2mqtt, change json_attributes_topic accordingly
   json_attributes_topic: zigbee2mqtt/bridge/networkmap/raw
+  
+- platform: "mqtt"
+  name: "Kitchen Cube Battery"
+  unique_id: "kitchen_cube_battery"
+  state_topic: "zigbee2mqtt-aqara/aqara-cube-kitchen"
+  availability_topic: "zigbee2mqtt/bridge/state"
+  value_template: "{{ value_json.battery }}"
+  unit_of_measurement: "%"
+  device_class: "battery"
+
+- platform: "mqtt"
+  name: "Kitchen Cube Voltage"
+  unique_id: "kitchen_cube_voltage"
+  state_topic: "zigbee2mqtt-aqara/aqara-cube-kitchen"
+  availability_topic: "zigbee2mqtt/bridge/state"
+  value_template: "{{ value_json.voltage }}"
+  unit_of_measurement: "mV"
+  device_class: "voltage"
+
+- platform: "mqtt"
+  name: "Kitchen Cube Angle"
+  unique_id: "kitchen_cube_angle"
+  state_topic: "zigbee2mqtt-aqara/aqara-cube-kitchen"
+  availability_topic: "zigbee2mqtt/bridge/state"
+  value_template: "{{ value_json.action_angle }}"
+
+- platform: "mqtt"
+  name: "Kitchen Cube From-Side"
+  unique_id: "kitchen_cube_from_side"
+  state_topic: "zigbee2mqtt-aqara/aqara-cube-kitchen"
+  availability_topic: "zigbee2mqtt/bridge/state"
+  value_template: "{{ value_json.action_from_side }}"
+
+- platform: "mqtt"
+  name: "Kitchen Cube Side"
+  unique_id: "kitchen_cube_side"
+  state_topic: "zigbee2mqtt-aqara/aqara-cube-kitchen"
+  availability_topic: "zigbee2mqtt/bridge/state"
+  value_template: "{{ value_json.action_side }}"
+
+- platform: "mqtt"
+  name: "Kitchen Cube To-Side"
+  unique_id: "kitchen_cube_to_side"
+  state_topic: "zigbee2mqtt-aqara/aqara-cube-kitchen"
+  availability_topic: "zigbee2mqtt/bridge/state"
+  value_template: "{{ value_json.action_to_side }}"
+
+- platform: "mqtt"
+  name: "Kitchen Cube Action"
+  unique_id: "kitchen_cube_action"
+  state_topic: "zigbee2mqtt-aqara/aqara-cube-kitchen"
+  availability_topic: "zigbee2mqtt/bridge/state"
+  value_template: "{{ value_json.action }}"
+  icon: "mdi:gesture-double-tap"
+
+- platform: "mqtt"
+  name: "Kitchen Cube Link Quality"
+  unique_id: "kitchen_cube_linkquality"
+  state_topic: "zigbee2mqtt-aqara/aqara-cube-kitchen"
+  availability_topic: "zigbee2mqtt/bridge/state"
+  value_template: "{{ value_json.linkquality }}"
+  unit_of_measurement: "lqi"
+  icon: "mdi:signal"
+
+- platform: "mqtt"
+  name: "Living Cube Battery"
+  unique_id: "living_cube_battery"
+  state_topic: "zigbee2mqtt-aqara/aqara-cube-living"
+  availability_topic: "zigbee2mqtt/bridge/state"
+  value_template: "{{ value_json.battery }}"
+  unit_of_measurement: "%"
+  device_class: "battery"
+
+- platform: "mqtt"
+  name: "Living Cube Voltage"
+  unique_id: "living_cube_voltage"
+  state_topic: "zigbee2mqtt-aqara/aqara-cube-living"
+  availability_topic: "zigbee2mqtt/bridge/state"
+  value_template: "{{ value_json.voltage }}"
+  unit_of_measurement: "mV"
+  device_class: "voltage"
+
+- platform: "mqtt"
+  name: "Living Cube Angle"
+  unique_id: "living_cube_angle"
+  state_topic: "zigbee2mqtt-aqara/aqara-cube-living"
+  availability_topic: "zigbee2mqtt/bridge/state"
+  value_template: "{{ value_json.action_angle }}"
+
+- platform: "mqtt"
+  name: "Living Cube From-Side"
+  unique_id: "living_cube_from_side"
+  state_topic: "zigbee2mqtt-aqara/aqara-cube-living"
+  availability_topic: "zigbee2mqtt/bridge/state"
+  value_template: "{{ value_json.action_from_side }}"
+
+- platform: "mqtt"
+  name: "Living Cube Side"
+  unique_id: "living_cube_side"
+  state_topic: "zigbee2mqtt-aqara/aqara-cube-living"
+  availability_topic: "zigbee2mqtt/bridge/state"
+  value_template: "{{ value_json.action_side }}"
+
+- platform: "mqtt"
+  name: "Living Cube To-Side"
+  unique_id: "living_cube_to_side"
+  state_topic: "zigbee2mqtt-aqara/aqara-cube-living"
+  availability_topic: "zigbee2mqtt/bridge/state"
+  value_template: "{{ value_json.action_to_side }}"
+
+- platform: "mqtt"
+  name: "Living Cube Action"
+  unique_id: "living_cube_action"
+  state_topic: "zigbee2mqtt-aqara/aqara-cube-living"
+  availability_topic: "zigbee2mqtt/bridge/state"
+  value_template: "{{ value_json.action }}"
+  icon: "mdi:gesture-double-tap"
+
+- platform: "mqtt"
+  name: "Living Cube Link Quality"
+  unique_id: "living_cube_linkquality"
+  state_topic: "zigbee2mqtt-aqara/aqara-cube-living"
+  availability_topic: "zigbee2mqtt/bridge/state"
+  value_template: "{{ value_json.linkquality }}"
+  unit_of_measurement: "lqi"
+  icon: "mdi:signal"

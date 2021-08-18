@@ -49,22 +49,6 @@
     entity_id: group.lights_interior
     service: light.turn_off
   mode: single
-- id: '1596487473709'
-  alias: Dimmer 05
-  description: ''
-  trigger:
-  - entity_id: light.dimmer05
-    platform: state
-  condition: []
-  action:
-  - data_template:
-      brightness: '{{ state_attr(''light.dimmer05'', ''brightness'') | default(0,
-        true) }}
-
-        '
-    entity_id: light.yeelight_color_0x0000000007e7228c
-    service: light.turn_on
-  mode: single
 - id: '1597004549461'
   alias: Hue - Office dimmer - long-on when lamp on
   description: Turns on the lamps
@@ -125,7 +109,7 @@
       speed: '{{ states(''input_number.wled01_speed'') | default(0, true) | int }}
 
         '
-    entity_id: light.wled
+    entity_id: light.wledoffice
     service: wled.effect
   mode: single
 - id: '1598751390007'
@@ -319,15 +303,15 @@
   description: ''
   trigger:
   - platform: state
-    entity_id: light.0x500b91400001ee55
+    entity_id: light.bedroom_main_dimmer
   condition: []
   action:
   - data_template:
-      brightness: '{{ state_attr(''light.0x500b91400001ee55'', ''brightness'') | default(0,
-        true) }}
+      brightness: '{{ state_attr(''light.bedroom_main_dimmer'', ''brightness'') |
+        default(0, true) }}
 
         '
-    entity_id: light.space_lamp_light
+    entity_id: light.bedroom_main_lamp
     service: light.turn_on
   mode: single
 - id: '1615739257841'
@@ -335,15 +319,15 @@
   description: ''
   trigger:
   - platform: state
-    entity_id: light.dimmer_vicks_spot
+    entity_id: light.vicks_spot_main_dimmer
   condition: []
   action:
   - data_template:
-      brightness: '{{ state_attr(''light.dimmer_vicks_spot'', ''brightness'') | default(0,
-        true) }}
+      brightness: '{{ state_attr(''light.vicks_spot_main_dimmer'', ''brightness'')
+        | default(0, true) }}
 
         '
-    entity_id: light.vicks_spot_hue_light
+    entity_id: light.vicks_spot_main_lamp
     service: light.turn_on
   mode: single
 - id: '1617365553303'
@@ -436,4 +420,184 @@
     data:
       entity_id: "{%if trigger.payload == 'off-press' %}\n  light.countertop\n{%elif\
         \ trigger.payload == 'down-press'%}\n  light.kitchen_lamp\n{%endif%}\n"
+  mode: single
+- id: '1620001494155'
+  alias: Hue Tap 4th Button
+  description: ''
+  trigger:
+  - device_id: 6c956e0be86aaba5d02340450928c65b
+    domain: hue
+    platform: device
+    type: remote_button_short_press
+    subtype: button_4
+  condition: []
+  action:
+  - service: light.turn_off
+    data:
+      entity: group.lights_interior
+  mode: single
+- id: '1621626318511'
+  alias: Living Cube Right
+  description: ''
+  trigger:
+  - platform: device
+    domain: mqtt
+    device_id: 90de8d46bd048da338718a5d828f6fd1
+    type: action
+    subtype: rotate_right
+    discovery_id: 0x00158d000544a35a action_rotate_right
+  condition: []
+  action:
+  - service: light.toggle
+    data: {}
+    entity_id: light.living_tortue
+  mode: single
+- id: '1621693900634'
+  alias: Kitchen Magic Cube
+  description: ''
+  use_blueprint:
+    path: luckypoppy/z2m-xiaomi-cube-controller.yaml
+    input:
+      slide_face_0: []
+      flipped180_face_0:
+      - service: light.toggle
+        data: {}
+        entity_id: light.countertop
+      - service: light.toggle
+        data: {}
+        entity_id: light.kitchen_lamp
+      flipped180_face_1:
+      - service: light.toggle
+        data: {}
+        entity_id: light.countertop
+      - service: light.toggle
+        data: {}
+        entity_id: light.kitchen_lamp
+      flipped180_face_2:
+      - service: light.toggle
+        data: {}
+        entity_id: light.countertop
+      - service: light.toggle
+        data: {}
+        entity_id: light.kitchen_lamp
+      flipped180_face_3:
+      - service: light.toggle
+        data: {}
+        entity_id: light.countertop
+      - service: light.toggle
+        data: {}
+        entity_id: light.kitchen_lamp
+      flipped180_face_4:
+      - service: light.toggle
+        data: {}
+        entity_id: light.countertop
+      - service: light.toggle
+        data: {}
+        entity_id: light.kitchen_lamp
+      flipped180_face_5:
+      - service: light.toggle
+        data: {}
+        entity_id: light.countertop
+      - service: light.toggle
+        data: {}
+        entity_id: light.kitchen_lamp
+      remote: sensor.0x00158d000544a42e_action
+- id: '1621696669089'
+  alias: Kitchen Cube Lamp - Flip 180
+  description: ''
+  trigger:
+  - platform: mqtt
+    topic: zigbee2mqtt-aqara/aqara-cube-kitchen
+    payload: flip180
+    value_template: '{{ value_json.action }}'
+  condition: []
+  action:
+  - service: light.toggle
+    data: {}
+    target:
+      entity_id: light.kitchen_lamp
+  mode: single
+- id: '1621715079279'
+  alias: Office Cube - Slides
+  description: ''
+  trigger:
+  - platform: mqtt
+    topic: zigbee2mqtt-aqara/aqara-cube-office
+    payload: slide
+    value_template: '{{ value_json.action }}'
+  condition: []
+  action:
+  - service: light.toggle
+    data: {}
+    entity_id: light.office_yee
+  - service: light.toggle
+    data: {}
+    target:
+      entity_id: light.office_right
+  mode: single
+- id: '1621724262951'
+  alias: Cube Living
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: sensor.aqara_cube_living_action
+    to: shake
+  condition: []
+  action:
+  - service: light.toggle
+    data: {}
+    entity_id: light.living_moon
+  mode: single
+- id: '1621805678074'
+  alias: Kitchen Cube Shake
+  description: ''
+  trigger:
+  - platform: mqtt
+    topic: zigbee2mqtt-aqara/aqara-cube-kitchen
+    payload: shake
+    value_template: '{{ value_json.action }}'
+  condition: []
+  action:
+  - service: light.toggle
+    data: {}
+    target:
+      entity_id: light.countertop
+  mode: single
+- id: '1623463299404'
+  alias: Home Alone - Turn On lights
+  description: ''
+  trigger:
+  - platform: time
+    at: '18:00'
+  condition: []
+  action:
+  - service: light.turn_on
+    data:
+      brightness_pct: 100
+    target:
+      entity_id:
+      - light.countertop
+      - light.kitchen_lamp
+      - light.bedroom_main_lamp
+      - light.light_bedroom_candle
+      - light.office_yee
+      - light.office_right
+  mode: single
+- id: '1623463348926'
+  alias: Home Alone - Turn Off lights
+  description: ''
+  trigger:
+  - platform: time
+    at: 00:30
+  condition: []
+  action:
+  - service: light.turn_off
+    target:
+      entity_id:
+      - light.countertop
+      - light.kitchen_lamp
+      - light.bedroom_main_lamp
+      - light.light_bedroom_candle
+      - light.office_yee
+      - light.office_right
   mode: single
