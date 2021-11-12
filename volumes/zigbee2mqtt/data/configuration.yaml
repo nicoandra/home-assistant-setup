@@ -8,9 +8,8 @@ serial:
 advanced:
   channel: 20
   network_key: '!secrets network_key'
+  rtscts: false
 devices:
-  '0xf8f005fffff78aa7':
-    friendly_name: climate_office
   '0xf8f005fffff483c4':
     friendly_name: climate_living
   '0xf8f005fffff781ab':
@@ -36,6 +35,6 @@ devices:
     transition: 0
     debounce: 0.2
   '0x0017880104f026ab':
-    friendly_name: remote-hue-1
-  '0x00158d000544a35a':
-    friendly_name: 'aqara-cube-office'
+    friendly_name: '0x0017880104f026ab'
+  '0xf8f005fffff78aa7':
+    friendly_name: 'climate_office'

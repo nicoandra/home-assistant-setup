@@ -4,11 +4,10 @@ lights_interior:
     - light.light_bedroom_candle_light
     - light.office_yee
     - light.kitchen_lamp
-    - light.office_2
+    - light.office_right
     - light.living_moon
     - light.living_tortue
-    - light.wled
-    - light.space_lamp_light
+    - light.wledoffice
     - light.countertop
     - light.kitchen_main
     - light.dimmer_vicks_spot

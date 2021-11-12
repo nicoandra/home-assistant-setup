@@ -4,12 +4,14 @@
   trigger:
   - event: sunset
     platform: sun
+    offset: '-1:00:00'
   condition: []
   action:
   - data:
       brightness: 255
-    entity_id: light.front_door
     service: light.turn_on
+    target:
+      entity_id: light.front_door
   mode: single
 - id: '1596240356692'
   alias: Turn OFF Front Door
@@ -128,36 +130,6 @@
     entity_id: light.living_moon
     service: light.turn_on
   mode: single
-- id: '1602286184225'
-  alias: ThermoDev Heater Living .220
-  description: ''
-  trigger:
-  - entity_id: input_number.living_temperature_slider
-    platform: state
-  condition: []
-  action:
-  - data:
-      payload_template: '{{ states(''input_number.living_temperature_slider'') }}
-
-        '
-      topic: /ThermoDev/Desired02
-    service: mqtt.publish
-  mode: single
-- id: '1602286338110'
-  alias: ThermoDev Heater Office .220
-  description: ''
-  trigger:
-  - entity_id: input_number.office_temperature_slider
-    platform: state
-  condition: []
-  action:
-  - data:
-      payload_template: '{{ states(''input_number.office_temperature_slider'') }}
-
-        '
-      topic: /ThermoDev/Desired01
-    service: mqtt.publish
-  mode: single
 - id: '1607490599558'
   alias: Temperature - Sleeping
   description: ''
@@ -167,6 +139,8 @@
     to: 'off'
     from: 'on'
     for: 00:00:05
+  - platform: time
+    at: '22:00:30'
   condition:
   - condition: and
     conditions:
@@ -179,12 +153,8 @@
     - condition: state
       entity_id: group.lights_interior
       state: 'off'
+      for: 00:00:05
   action:
-  - service: climate.set_temperature
-    data:
-      temperature: 18
-      entity_id:
-      - climate.front_bedroom_climate
   - service: input_number.set_value
     data:
       value: 18
@@ -198,15 +168,11 @@
     at: '7:00'
   condition: []
   action:
-  - service: climate.set_temperature
-    data:
-      temperature: 21.5
-      entity_id:
-      - climate.front_bedroom_climate
   - service: input_number.set_value
     data:
-      value: 21.5
-    entity_id: input_number.main_room_temperature
+      value: 20
+    target:
+      entity_id: input_number.main_room_temperature
   mode: single
 - id: '1608174278630'
   alias: Main Room Temp
@@ -217,14 +183,15 @@
   condition: []
   action:
   - service: climate.set_temperature
-    data:
-      entity_id:
-      - climate.climate_kitchen_climate
-      - climate.climate_office_climate
-      - climate.climate_living_climate
-      temperature: '{{ states.input_number.main_room_temperature.state | float }}
+    data_template:
+      temperature: '{{ states(''input_number.main_room_temperature'') | float }}
 
         '
+    target:
+      entity_id:
+      - climate.climate_kitchen
+      - climate.climate_office
+      - climate.climate_living
   mode: single
 - id: '1608332036920'
   alias: Hue Tap Main Button
@@ -247,45 +214,11 @@
         \ | int) < 250 %}\n254\n  {% elif (states.light.light_bedroom_candle_light.attributes.brightness\
         \ | int) > 240 %}\n  0\n  {% endif %}\n{% endif %}\n"
   mode: single
-- id: '1608333036345'
-  alias: Hue Tap 2nd Button
-  description: ''
-  trigger:
-  - device_id: 6c956e0be86aaba5d02340450928c65b
-    domain: hue
-    platform: device
-    type: remote_button_short_press
-    subtype: button_2
-  condition: []
-  action:
-  - service: light.turn_on
-    data:
-      entity_id: light.main_bedroom_nightstand
-      brightness: "{% if states.light.main_bedroom_nightstand.state == \"off\" %}\n\
-        255\n{% else %}\n 0\n{% endif %}\n"
-  mode: single
 - id: '1611288873479'
   alias: Hue Tap 3rd Button
   description: ''
   trigger:
   - device_id: c0c4aa0522644d4e82aafd9794d4f957
-    domain: hue
-    platform: device
-    type: remote_button_short_press
-    subtype: button_3
-  condition: []
-  action:
-  - service: light.turn_on
-    data:
-      entity_id: light.space_lamp_light
-      brightness: "{% if states.light.space_lamp_light.state == \"off\" %}\n255\n\
-        {% else %}\n 0\n{% endif %}\n"
-  mode: single
-- id: '1612398893094'
-  alias: Hue Tap 3rd Button
-  description: ''
-  trigger:
-  - device_id: 6c956e0be86aaba5d02340450928c65b
     domain: hue
     platform: device
     type: remote_button_short_press
@@ -421,37 +354,6 @@
       entity_id: "{%if trigger.payload == 'off-press' %}\n  light.countertop\n{%elif\
         \ trigger.payload == 'down-press'%}\n  light.kitchen_lamp\n{%endif%}\n"
   mode: single
-- id: '1620001494155'
-  alias: Hue Tap 4th Button
-  description: ''
-  trigger:
-  - device_id: 6c956e0be86aaba5d02340450928c65b
-    domain: hue
-    platform: device
-    type: remote_button_short_press
-    subtype: button_4
-  condition: []
-  action:
-  - service: light.turn_off
-    data:
-      entity: group.lights_interior
-  mode: single
-- id: '1621626318511'
-  alias: Living Cube Right
-  description: ''
-  trigger:
-  - platform: device
-    domain: mqtt
-    device_id: 90de8d46bd048da338718a5d828f6fd1
-    type: action
-    subtype: rotate_right
-    discovery_id: 0x00158d000544a35a action_rotate_right
-  condition: []
-  action:
-  - service: light.toggle
-    data: {}
-    entity_id: light.living_tortue
-  mode: single
 - id: '1621693900634'
   alias: Kitchen Magic Cube
   description: ''
@@ -522,9 +424,9 @@
   description: ''
   trigger:
   - platform: mqtt
-    topic: zigbee2mqtt-aqara/aqara-cube-office
     payload: slide
     value_template: '{{ value_json.action }}'
+    topic: zigbee2mqtt-aqara/aqara-cube-office
   condition: []
   action:
   - service: light.toggle
@@ -534,19 +436,6 @@
     data: {}
     target:
       entity_id: light.office_right
-  mode: single
-- id: '1621724262951'
-  alias: Cube Living
-  description: ''
-  trigger:
-  - platform: state
-    entity_id: sensor.aqara_cube_living_action
-    to: shake
-  condition: []
-  action:
-  - service: light.toggle
-    data: {}
-    entity_id: light.living_moon
   mode: single
 - id: '1621805678074'
   alias: Kitchen Cube Shake
@@ -600,4 +489,52 @@
       - light.light_bedroom_candle
       - light.office_yee
       - light.office_right
+  mode: single
+- id: '1629250564408'
+  alias: WLedOffice White Set
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: input_number.wledoffice_kelvin
+  condition: []
+  action:
+  - service: light.turn_on
+    data_template:
+      kelvin: '{{ states(''input_number.wledoffice_kelvin'') | int(1) }}'
+    target:
+      device_id: 3aafe1d34f701960fe66d2c2da0b05b8
+  mode: single
+- id: '1629415038976'
+  alias: Cube - Living
+  description: ''
+  trigger:
+  - platform: mqtt
+    topic: zigbee2mqtt-aqara/aqara-cube-living
+  condition:
+  - condition: template
+    value_template: '{{ trigger.payload_json[''action_angle''] is defined and trigger.payload_json[''action'']
+      is defined and trigger.payload_json[''action''].startswith(''rotate_'') }}'
+  action:
+  - service: light.turn_on
+    target:
+      entity_id: light.living_tortue
+    data_template:
+      brightness: '{{ [[0, 0.2*(trigger.payload_json[''action_angle'']|int) + state_attr(''light.living_tortue'',
+        ''brightness'')|int ] | max, 255] | min}}'
+  mode: single
+- id: '1635615687363'
+  alias: Hue Tap Main button
+  description: ''
+  trigger:
+  - device_id: 6c956e0be86aaba5d02340450928c65b
+    domain: hue
+    platform: device
+    type: remote_button_short_press
+    subtype: button_1
+  condition: []
+  action:
+  - type: toggle
+    device_id: e936f07a56b52552a8646d57e13c2731
+    entity_id: light.light_bedroom_candle
+    domain: light
   mode: single

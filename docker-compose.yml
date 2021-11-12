@@ -1,7 +1,7 @@
 version: "3.4"
 services:
   homeassistant:
-    image: homeassistant/home-assistant:2021.3.0
+    image: homeassistant/home-assistant:2021.8.0
     restart: unless-stopped
     network_mode: host
     volumes:
@@ -113,7 +113,7 @@ services:
  
  
   zigbee2mqtt-aqara:
-    image: koenkk/zigbee2mqtt
+    image: koenkk/zigbee2mqtt:1.22.0
     privileged: true
     restart: unless-stopped
     volumes:
