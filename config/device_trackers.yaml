@@ -1,9 +1,24 @@
-- platform: ping
-  count: 5
-  new_device_defaults:
-    track_new_devices: true
-  hosts:
-    nico_moto5_ping: 192.168.1.238
-    vsmbr_phone: 192.168.1.214
-#    vsmbr_laptop: 192.168.1.127
-#    pepo_android: 192.168.1.105
+- platform: mqtt
+  devices:
+    nico_pixel_office: "ble-presence-office/binary_sensor/nics_pixel_ibeacon_backwards/state"
+    nico_pixel_living: "ble-presence-living/binary_sensor/nics_pixel_ibeacon_backwards/state"
+    nico_pixel_kitchen: "ble-presence-kitchen/binary_sensor/nics_pixel_ibeacon_backwards/state"
+    nico_pixel_bedroom: "ble-presence-bedroom/binary_sensor/nics_pixel_ibeacon_backwards/state"
+  payload_home: ON
+  payload_not_home: OFF
+  source_type: bluetooth_le
+- platform: mqtt
+  devices:
+    nico_pixel_office: "ble-presence-office/binary_sensor/vicks_velvet_ibeacon_backwards/state"
+    nico_pixel_living: "ble-presence-living/binary_sensor/vicks_velvet_ibeacon_backwards/state"
+    nico_pixel_kitchen: "ble-presence-kitchen/binary_sensor/vicks_velvet_ibeacon_backwards/state"
+    nico_pixel_bedroom: "ble-presence-bedroom/binary_sensor/vicks_velvet_ibeacon_backwards/state"
+  payload_home: ON
+  payload_not_home: OFF
+  source_type: bluetooth_le
+- platform: mqtt
+  devices:
+    nico_pixel_custom: "custom-presence/nico"
+  payload_home: home
+  payload_not_home: not_home
+  source_type: bluetooth_le

@@ -53,6 +53,13 @@ http:
   # Secrets are defined in the file secrets.yaml
   # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
   # base_url: example.duckdns.org:8123
+  use_x_forwarded_for: true
+  trusted_proxies:
+  - 172.18.0.0/16
+  - 172.19.0.0/16
+  - 172.20.0.0/16
+  - 172.21.0.0/16
+
 
 # Checks for available updates
 # Note: This component will send some information about your system to
@@ -60,16 +67,48 @@ http:
 # For more information, please see:
 # https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
 updater:
-  # Optional, allows Home Assistant developers to focus on popular components.
-  include_used_components: true
 
 binary_sensor:
   - platform: template
     sensors:
-      high:
-        value_template: "{{(states('sensor.raw_basement_humidity') | float > 55) or (states('sensor.raw_basement_temperature') | float > 25) }}"
-      low:
-        value_template: "{{(states('sensor.raw_basement_humidity') | float < 10) or (states('sensor.raw_basement_temperature') | float < 10)}}"
+      is_nico_at_home:
+        value_template: >-
+          {%- if 
+          states('binary_sensor.nic_s_pixel_kitchen_ibeacon_backwards') == 'on' or
+          states('binary_sensor.nic_s_pixel_vicks_ibeacon_backwards') == 'on' or
+          states('binary_sensor.nic_s_pixel_bedroom_ibeacon_backwards') == 'on' or
+          states('binary_sensor.nic_s_pixel_office_ibeacon_backwards') == 'on'
+          -%}
+          on
+          {%- else -%}
+          off
+          {%- endif  %}
+  - platform: template
+    sensors:
+      is_vick_at_home:
+        value_template: >-
+          {%- if 
+          states('binary_sensor.vick_s_velvet_kitchen_ibeacon_backwards') == 'on' or
+          states('binary_sensor.vick_s_velvet_vicks_ibeacon_backwards') == 'on' or
+          states('binary_sensor.vick_s_velvet_bedroom_ibeacon_backwards') == 'on' or
+          states('binary_sensor.vick_s_velvet_office_ibeacon_backwards') == 'on'
+          -%}
+          on
+          {%- else -%}
+          off
+          {%- endif  %}          
+  - platform: template
+    sensors:
+      is_someone_at_home:
+        value_template: >-
+          {%- if 
+          states('binary_sensor.is_vick_at_home') == 'on' or
+          states('binary_sensor.is_nico_at_home') == 'on'
+          -%}
+          on
+          {%- else -%}
+          off
+          {%- endif  %}
 
 conversation: # Allows you to issue voice commands from the frontend in enabled browsers
 history: # Enables support for tracking state changes over time

@@ -14,55 +14,10 @@
 
 - platform: template
   sensors:
-    average_temperature:
-      value_template: "{{ ( ( (states('sensor.kitchen_climate_local_temperature') | float ) + (states('sensor.living_thermostat_local_temperature') | float) + (states('sensor.office_thermostat_local_temperature') | float) ) / 3 ) | round(2) }}"
-      entity_id:
-        - sensor.kitchen_climate_local_temperature
-        - sensor.living_thermostat_local_temperature
-        - sensor.office_thermostat_local_temperature
-      friendly_name: 'Average temperature'
-      unit_of_measurement: "C"
-    template_montreal_temperature:
-      value_template: "{{ ( (states('sensor.weather_current_temperature') | float) ) | round(2) }}"
-      entity_id:
-        - sensor.weather_current_temperature
-      friendly_name: 'Montreal temperature'
-      unit_of_measurement: "C"
-    template_montreal_humidex:
-      value_template: "{{ states('sensor.humidex') | float | round(2) }}"
-      entity_id:
-        - sensor.humidex
-      friendly_name: 'Montreal humidex'
-      unit_of_measurement: "C"
-    template_montreal_feelslike:
-      value_template: >-
-        {% if states('sensor.template_montreal_humidex') | float == 0 %}
-          {{ states('sensor.template_montreal_temperature') | float }}
-        {% else %}
-          {{ states('sensor.template_montreal_humidex') | float }}
-        {% endif %}
-      entity_id:
-        - sensor.template_montreal_humidex
-        - sensor.template_montreal_temperature
-      friendly_name: 'Montreal humidex'
-      unit_of_measurement: "C"
     sun_elevation:
       friendly_name: "Sun Elevation"
       unit_of_measurement: '°'
       value_template: "{{ state_attr('sun.sun', 'elevation') }}"
-      entity_id:
-        - sun.sun
-
-    template_average_humidity:
-      value_template: "{{ ( states('sensor.office_humidity') | float + states('sensor.living_humidity') | float ) / 2 | round(2) }}"
-      friendly_name: "Average humidity"
-      unit_of_measurement: "%"
-    template_montreal_humidity:
-      value_template: "{{ states('sensor.weather_current_humidity') | float | round(2) }}"
-      entity_id:
-        - sensor.weather_current_humidity
-      friendly_name: "Montreal Humidity"
-      unit_of_measurement: "%"
 
 - platform: mqtt
   name: "Raw Basement Temperature"

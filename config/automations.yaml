@@ -11,7 +11,7 @@
       brightness: 255
     service: light.turn_on
     target:
-      entity_id: light.front_door
+      device_id: aaf4f8bd5c2ad491de2ea504671d8c2e
   mode: single
 - id: '1596240356692'
   alias: Turn OFF Front Door
@@ -23,8 +23,9 @@
   condition: []
   action:
   - data: {}
-    entity_id: light.front_door
     service: light.turn_off
+    target:
+      device_id: aaf4f8bd5c2ad491de2ea504671d8c2e
   mode: single
 - id: '1596240582832'
   alias: Sleep
@@ -114,22 +115,6 @@
     entity_id: light.wledoffice
     service: wled.effect
   mode: single
-- id: '1598751390007'
-  alias: Living Dimmer - Living Moon
-  description: ''
-  trigger:
-  - entity_id: light.livingdimmer
-    platform: state
-  condition: []
-  action:
-  - data_template:
-      brightness: '{{ state_attr(''light.livingdimmer'', ''brightness'') | default(0,
-        true) }}
-
-        '
-    entity_id: light.living_moon
-    service: light.turn_on
-  mode: single
 - id: '1607490599558'
   alias: Temperature - Sleeping
   description: ''
@@ -140,7 +125,7 @@
     from: 'on'
     for: 00:00:05
   - platform: time
-    at: '22:00:30'
+    at: '22:00'
   condition:
   - condition: and
     conditions:
@@ -149,7 +134,7 @@
       - condition: time
         before: 06:00
       - condition: time
-        after: '22:00'
+        after: '20:00'
     - condition: state
       entity_id: group.lights_interior
       state: 'off'
@@ -157,20 +142,33 @@
   action:
   - service: input_number.set_value
     data:
-      value: 18
-    entity_id: input_number.main_room_temperature
+      value: 17.5
+    target:
+      entity_id: input_number.main_room_temperature
   mode: single
 - id: '1607609003902'
   alias: Temperature - WakeUp
   description: ''
   trigger:
   - platform: time
-    at: '7:00'
-  condition: []
+    at: 06:30:00
+  - platform: state
+    entity_id: binary_sensor.is_someone_at_home
+    from: 'off'
+    to: 'on'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 30
+      milliseconds: 0
+  condition:
+  - condition: state
+    entity_id: binary_sensor.is_someone_at_home
+    state: 'on'
   action:
   - service: input_number.set_value
     data:
-      value: 20
+      value: 21
     target:
       entity_id: input_number.main_room_temperature
   mode: single
@@ -190,8 +188,15 @@
     target:
       entity_id:
       - climate.climate_kitchen
-      - climate.climate_office
       - climate.climate_living
+  - service: climate.set_temperature
+    data_template:
+      temperature: '{{ states(''input_number.main_room_temperature'') | float - 1}}
+
+        '
+    target:
+      entity_id:
+      - climate.climate_office
   mode: single
 - id: '1608332036920'
   alias: Hue Tap Main Button
@@ -262,97 +267,6 @@
         '
     entity_id: light.vicks_spot_main_lamp
     service: light.turn_on
-  mode: single
-- id: '1617365553303'
-  alias: Disable IR Leds from cameras
-  description: ''
-  trigger:
-  - platform: time_pattern
-    hours: '*'
-    minutes: /2
-    seconds: '15'
-  condition: []
-  action:
-  - service: rest_command.disable_camera_ir
-    data: {}
-  mode: single
-- id: '1617550784376'
-  alias: Remote Dimmer for Countertop - On and Dim
-  description: ''
-  trigger:
-  - platform: device
-    domain: mqtt
-    device_id: 2513d915a926f8c96dbc42ea12f0aefb
-    type: action
-    subtype: on-press
-    discovery_id: 0x0017880104f026ab action_on-press
-  - platform: device
-    domain: mqtt
-    device_id: 2513d915a926f8c96dbc42ea12f0aefb
-    type: action
-    subtype: up-press
-    discovery_id: 0x0017880104f026ab action_up-press
-  - platform: device
-    domain: mqtt
-    device_id: 2513d915a926f8c96dbc42ea12f0aefb
-    type: action
-    subtype: on-hold
-    discovery_id: 0x0017880104f026ab action_on-hold
-  - platform: device
-    domain: mqtt
-    device_id: 2513d915a926f8c96dbc42ea12f0aefb
-    type: action
-    subtype: up-hold
-    discovery_id: 0x0017880104f026ab action_up-hold
-  condition: []
-  action:
-  - service: system_log.write
-    data:
-      message: '{{ trigger }}'
-  - service: light.turn_on
-    data:
-      entity_id: "{%if trigger.payload == 'on-press' or trigger.payload == 'on-hold'%}\n\
-        \  light.countertop\n{%elif trigger.payload == 'up-press' or trigger.payload\
-        \ == 'up-hold' %}\n  light.kitchen_lamp\n{%endif%}\n"
-      brightness: "{%if trigger.payload == 'on-hold' or trigger.payload == 'up-hold'\
-        \ %}\n  255\n{%elif trigger.payload == 'on-press'%}\n  {% if states.light.countertop.state\
-        \ == \"off\" or ((states.light.countertop.attributes.brightness | int) * (100\
-        \ / 255)) < 20  or ((states.light.countertop.attributes.brightness | int)\
-        \ * (100 / 255)) > 95 %}\n  {{ 255 * 25 / 100 | int }}\n  {% elif ((states.light.countertop.attributes.brightness\
-        \ | int) * (100 / 255)) < 40 %}\n  {{ 255 * 50 / 100 | int }}\n  {% elif ((states.light.countertop.attributes.brightness\
-        \ | int) * (100 / 255)) < 65 %}\n  {{ 255 * 75 / 100 | int }}\n  {% elif ((states.light.countertop.attributes.brightness\
-        \ | int) * (100 / 255)) < 90 %}\n  {{ 255 * 100 / 100 | int }}\n  {% endif\
-        \ %}\n{%elif trigger.payload == 'up-press' %}\n  {% if states.light.kitchen_lamp.state\
-        \ == \"off\" or ((states.light.kitchen_lamp.attributes.brightness | int) *\
-        \ (100 / 255)) < 20  or ((states.light.kitchen_lamp.attributes.brightness\
-        \ | int) * (100 / 255)) > 95 %}\n  {{ 255 * 25 / 100 | int }}\n  {% elif ((states.light.kitchen_lamp.attributes.brightness\
-        \ | int) * (100 / 255)) < 40 %}\n  {{ 255 * 50 / 100 | int }}\n  {% elif ((states.light.kitchen_lamp.attributes.brightness\
-        \ | int) * (100 / 255)) < 65 %}\n  {{ 255 * 75 / 100 | int }}\n  {% elif ((states.light.kitchen_lamp.attributes.brightness\
-        \ | int) * (100 / 255)) < 90 %}\n  {{ 255 * 100 / 100 | int }}\n  {% endif\
-        \ %}\n{%endif%}\n"
-  mode: single
-- id: '1617553867970'
-  alias: Remote Dimmer for Countertop - Off
-  description: ''
-  trigger:
-  - platform: device
-    domain: mqtt
-    device_id: 2513d915a926f8c96dbc42ea12f0aefb
-    type: action
-    subtype: down-press
-    discovery_id: 0x0017880104f026ab action_down-press
-  - platform: device
-    domain: mqtt
-    device_id: 2513d915a926f8c96dbc42ea12f0aefb
-    type: action
-    subtype: off-press
-    discovery_id: 0x0017880104f026ab action_off-press
-  condition: []
-  action:
-  - service: light.turn_off
-    data:
-      entity_id: "{%if trigger.payload == 'off-press' %}\n  light.countertop\n{%elif\
-        \ trigger.payload == 'down-press'%}\n  light.kitchen_lamp\n{%endif%}\n"
   mode: single
 - id: '1621693900634'
   alias: Kitchen Magic Cube
@@ -457,12 +371,35 @@
   description: ''
   trigger:
   - platform: time
-    at: '18:00'
-  condition: []
+    at: '18:00:00'
+  - platform: state
+    entity_id: binary_sensor.is_someone_at_home
+    from: 'on'
+    to: 'off'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 5
+      milliseconds: 0
+  condition:
+  - condition: state
+    entity_id: binary_sensor.is_someone_at_home
+    state: 'off'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 30
+      milliseconds: 0
+  - condition: or
+    conditions:
+    - condition: time
+      after: '17:59:00'
+    - condition: time
+      before: 06:00:00
   action:
   - service: light.turn_on
     data:
-      brightness_pct: 100
+      brightness_pct: 75
     target:
       entity_id:
       - light.countertop
@@ -471,14 +408,23 @@
       - light.light_bedroom_candle
       - light.office_yee
       - light.office_right
+      - light.kitchen_main
   mode: single
 - id: '1623463348926'
   alias: Home Alone - Turn Off lights
   description: ''
   trigger:
   - platform: time
-    at: 00:30
-  condition: []
+    at: 00:30:00
+  condition:
+  - condition: state
+    entity_id: binary_sensor.is_someone_at_home
+    state: 'off'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 10
+      milliseconds: 0
   action:
   - service: light.turn_off
     target:
@@ -537,4 +483,107 @@
     device_id: e936f07a56b52552a8646d57e13c2731
     entity_id: light.light_bedroom_candle
     domain: light
+  mode: single
+- id: '1638765519594'
+  alias: Breakfast light
+  description: ''
+  trigger:
+  - platform: time
+    at: 07:15:00
+  condition: []
+  action:
+  - service: light.turn_on
+    target:
+      entity_id: light.countertop
+    data:
+      brightness_pct: 100
+  mode: single
+- id: '1639019639828'
+  alias: Vicks spot heater On
+  description: ''
+  trigger:
+  - platform: time
+    at: 06:00:00
+  - platform: state
+    entity_id: binary_sensor.is_vick_at_home
+    from: 'off'
+    to: 'on'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 30
+      milliseconds: 0
+  condition:
+  - condition: time
+    before: '21:00:00'
+    after: 05:59:00
+  - condition: state
+    entity_id: binary_sensor.is_vick_at_home
+    state: 'on'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 15
+      milliseconds: 0
+  action:
+  - service: climate.set_temperature
+    data:
+      temperature: 20.5
+    target:
+      entity_id: climate.0xf8f005fffff483ab
+  mode: single
+- id: '1639019928666'
+  alias: Vick spot heater off
+  description: ''
+  trigger:
+  - platform: time
+    at: '19:01:00'
+  - platform: state
+    entity_id: light.vicks_spot_main_dimmer
+    from: 'on'
+    to: 'off'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 30
+      milliseconds: 0
+  - platform: state
+    entity_id: binary_sensor.is_vick_at_home
+    from: 'on'
+    to: 'off'
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+      milliseconds: 0
+  condition:
+  - condition: time
+    after: '17:30:00'
+  action:
+  - service: climate.set_temperature
+    data:
+      temperature: 18
+    target:
+      entity_id: climate.0xf8f005fffff483ab
+  mode: single
+- id: '1639235579204'
+  alias: Heaters when home is alone
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.is_someone_at_home
+    from: 'on'
+    to: 'off'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 30
+      milliseconds: 0
+  condition: []
+  action:
+  - service: input_number.set_value
+    target:
+      entity_id: input_number.main_room_temperature
+    data:
+      value: 17.5
   mode: single

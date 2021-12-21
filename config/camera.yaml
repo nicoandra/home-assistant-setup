@@ -1,4 +1,5 @@
 - platform: mjpeg
-  name: "Front Window"
-  mjpeg_url: http://192.168.1.168/videostream.cgi?user=admin&pwd=admin
+  name: "Front Door"
+  mjpeg_url: http://192.168.1.242/mjpeg/1
+
 

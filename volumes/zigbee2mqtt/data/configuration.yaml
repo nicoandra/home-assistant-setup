@@ -37,4 +37,6 @@ devices:
   '0x0017880104f026ab':
     friendly_name: '0x0017880104f026ab'
   '0xf8f005fffff78aa7':
-    friendly_name: 'climate_office'
+    friendly_name: climate_office
+  '0xf8f005fffff483ab':
+    friendly_name: 'climate_vicks'
