@@ -16,6 +16,7 @@ homeassistant:
     - type: homeassistant
     - type: trusted_networks
       trusted_networks:
+        - 192.168.240.0/24
         - 192.168.0.0/24
         - fd00::/8
     - type: legacy_api_password
@@ -28,7 +29,7 @@ frontend:
   themes: !include_dir_merge_named themes
 
 logger:
-  default: warning
+  default: info
   logs:
     # homeassistant.components.device_tracker: warning
     # homeassistant.components.mqtt: warning
@@ -59,7 +60,7 @@ http:
   - 172.19.0.0/16
   - 172.20.0.0/16
   - 172.21.0.0/16
-
+  - 192.168.240.0/24
 
 # Checks for available updates
 # Note: This component will send some information about your system to
@@ -77,7 +78,8 @@ binary_sensor:
           states('binary_sensor.nic_s_pixel_kitchen_ibeacon_backwards') == 'on' or
           states('binary_sensor.nic_s_pixel_vicks_ibeacon_backwards') == 'on' or
           states('binary_sensor.nic_s_pixel_bedroom_ibeacon_backwards') == 'on' or
-          states('binary_sensor.nic_s_pixel_office_ibeacon_backwards') == 'on'
+          states('binary_sensor.nic_s_pixel_office_ibeacon_backwards') == 'on' or
+          states('binary_sensor.nic_s_pixel_printer_ibeacon_backwards') == 'on'
           -%}
           on
           {%- else -%}
@@ -91,7 +93,7 @@ binary_sensor:
           states('binary_sensor.vick_s_velvet_kitchen_ibeacon_backwards') == 'on' or
           states('binary_sensor.vick_s_velvet_vicks_ibeacon_backwards') == 'on' or
           states('binary_sensor.vick_s_velvet_bedroom_ibeacon_backwards') == 'on' or
-          states('binary_sensor.vick_s_velvet_office_ibeacon_backwards') == 'on'
+          states('binary_sensor.vick_s_velvet_printer_ibeacon_backwards') == 'on'
           -%}
           on
           {%- else -%}

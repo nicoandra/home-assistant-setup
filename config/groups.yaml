@@ -5,12 +5,13 @@ lights_interior:
     - light.office_yee
     - light.kitchen_lamp
     - light.office_right
-    - light.living_moon
     - light.living_tortue
     - light.wledoffice
     - light.countertop
     - light.kitchen_main
     - light.dimmer_vicks_spot
+    - light.wled
+    - light.printer_lights
 
 lights_exterior:
   name: Exterior Lights

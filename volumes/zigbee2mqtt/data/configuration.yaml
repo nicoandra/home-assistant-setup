@@ -2,13 +2,14 @@ homeassistant: true
 permit_join: true
 mqtt:
   base_topic: zigbee2mqtt
-  server: 'mqtt://mosquitto'
+  server: mqtt://mosquitto
 serial:
   port: /dev/ttyUSB0
 advanced:
   channel: 20
   network_key: '!secrets network_key'
   rtscts: false
+  log_level: debug
 devices:
   '0xf8f005fffff483c4':
     friendly_name: climate_living
@@ -39,4 +40,12 @@ devices:
   '0xf8f005fffff78aa7':
     friendly_name: climate_office
   '0xf8f005fffff483ab':
-    friendly_name: 'climate_vicks'
+    friendly_name: climate_vicks
+  '0x0000000000444584':
+    friendly_name: hue_tap_switch
+  '0xa4c1387abe378b75':
+    friendly_name: '0xa4c1387abe378b75'
+  '0xa4c13870342a549c':
+    friendly_name: '0xa4c13870342a549c'
+external_converters:
+  - ysrMini01.js

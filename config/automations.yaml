@@ -366,76 +366,6 @@
     target:
       entity_id: light.countertop
   mode: single
-- id: '1623463299404'
-  alias: Home Alone - Turn On lights
-  description: ''
-  trigger:
-  - platform: time
-    at: '18:00:00'
-  - platform: state
-    entity_id: binary_sensor.is_someone_at_home
-    from: 'on'
-    to: 'off'
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 5
-      milliseconds: 0
-  condition:
-  - condition: state
-    entity_id: binary_sensor.is_someone_at_home
-    state: 'off'
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 30
-      milliseconds: 0
-  - condition: or
-    conditions:
-    - condition: time
-      after: '17:59:00'
-    - condition: time
-      before: 06:00:00
-  action:
-  - service: light.turn_on
-    data:
-      brightness_pct: 75
-    target:
-      entity_id:
-      - light.countertop
-      - light.kitchen_lamp
-      - light.bedroom_main_lamp
-      - light.light_bedroom_candle
-      - light.office_yee
-      - light.office_right
-      - light.kitchen_main
-  mode: single
-- id: '1623463348926'
-  alias: Home Alone - Turn Off lights
-  description: ''
-  trigger:
-  - platform: time
-    at: 00:30:00
-  condition:
-  - condition: state
-    entity_id: binary_sensor.is_someone_at_home
-    state: 'off'
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 10
-      milliseconds: 0
-  action:
-  - service: light.turn_off
-    target:
-      entity_id:
-      - light.countertop
-      - light.kitchen_lamp
-      - light.bedroom_main_lamp
-      - light.light_bedroom_candle
-      - light.office_yee
-      - light.office_right
-  mode: single
 - id: '1629250564408'
   alias: WLedOffice White Set
   description: ''
@@ -468,22 +398,6 @@
       brightness: '{{ [[0, 0.2*(trigger.payload_json[''action_angle'']|int) + state_attr(''light.living_tortue'',
         ''brightness'')|int ] | max, 255] | min}}'
   mode: single
-- id: '1635615687363'
-  alias: Hue Tap Main button
-  description: ''
-  trigger:
-  - device_id: 6c956e0be86aaba5d02340450928c65b
-    domain: hue
-    platform: device
-    type: remote_button_short_press
-    subtype: button_1
-  condition: []
-  action:
-  - type: toggle
-    device_id: e936f07a56b52552a8646d57e13c2731
-    entity_id: light.light_bedroom_candle
-    domain: light
-  mode: single
 - id: '1638765519594'
   alias: Breakfast light
   description: ''
@@ -495,6 +409,7 @@
   - service: light.turn_on
     target:
       entity_id: light.countertop
+      device_id: 2af3fc204f6bf1df64dcc67b9d1f9527
     data:
       brightness_pct: 100
   mode: single
@@ -586,4 +501,59 @@
       entity_id: input_number.main_room_temperature
     data:
       value: 17.5
+  mode: single
+- id: '1640633309912'
+  alias: Hue Tap Buttons
+  description: ''
+  trigger:
+  - platform: mqtt
+    topic: zigbee2mqtt/hue_tap_switch/action
+    id: trigger
+  condition: []
+  action:
+  - service: '{% if trigger.payload == ''toggle'' %}
+
+      light.toggle
+
+      {% elif trigger.payload == ''recall_scene_0'' %}
+
+      light.turn_on
+
+      {% elif trigger.payload == ''recall_scene_1'' %}
+
+      light.turn_off
+
+      {% elif trigger.payload == ''recall_scene_2'' %}
+
+      light.turn_off
+
+      {% endif %}
+
+      '
+    data_template:
+      entity_id: '{% if trigger.payload == ''toggle'' %} light.light_bedroom_candle
+        {% elif trigger.payload == ''recall_scene_0'' %} light.light_bedroom_candle,
+        light.bedroom_main_dimmer {% elif trigger.payload == ''recall_scene_1'' %}
+        light.light_bedroom_candle, light.bedroom_main_dimmer {% elif trigger.payload
+        == ''recall_scene_2'' %} group.lights_interior {% endif %}
+
+        '
+  mode: single
+- id: '1641237229359'
+  alias: Office Cube - Flip
+  description: ''
+  trigger:
+  - platform: mqtt
+    payload: flip180
+    value_template: '{{ value_json.action }}'
+    topic: zigbee2mqtt-aqara/aqara-cube-office
+  condition: []
+  action:
+  - service: light.toggle
+    data: {}
+    target:
+      entity_id:
+      - light.wled_segment_1
+      - light.wled
+      - light.wled_master
   mode: single
