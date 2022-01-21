@@ -47,5 +47,7 @@ devices:
     friendly_name: '0xa4c1387abe378b75'
   '0xa4c13870342a549c':
     friendly_name: '0xa4c13870342a549c'
+  '0xb4e3f9fffec28918':
+    friendly_name: '0xb4e3f9fffec28918'
 external_converters:
   - ysrMini01.js

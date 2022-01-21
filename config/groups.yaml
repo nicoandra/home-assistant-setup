@@ -8,10 +8,14 @@ lights_interior:
     - light.living_tortue
     - light.wledoffice
     - light.countertop
+    - light.counter
     - light.kitchen_main
     - light.dimmer_vicks_spot
     - light.wled
+    - light.wled_master
     - light.printer_lights
+    - light.flash
+    - light.living_corner_lamp
 
 lights_exterior:
   name: Exterior Lights

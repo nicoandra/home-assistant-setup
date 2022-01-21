@@ -191,7 +191,7 @@
       - climate.climate_living
   - service: climate.set_temperature
     data_template:
-      temperature: '{{ states(''input_number.main_room_temperature'') | float - 1}}
+      temperature: '{{ states(''input_number.main_room_temperature'') | float + 0.5}}
 
         '
     target:
@@ -491,8 +491,8 @@
     to: 'off'
     for:
       hours: 0
-      minutes: 0
-      seconds: 30
+      minutes: 5
+      seconds: 0
       milliseconds: 0
   condition: []
   action:
@@ -556,4 +556,155 @@
       - light.wled_segment_1
       - light.wled
       - light.wled_master
+  mode: single
+- id: '1642108860891'
+  alias: Printer Lights when printing
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.printer_vibration
+    from: 'off'
+    to: 'on'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 1
+      milliseconds: 0
+  - platform: state
+    entity_id: binary_sensor.printer_vibration
+    from: 'on'
+    to: 'off'
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+      milliseconds: 0
+  condition: []
+  action:
+  - service: '{% if states(''binary_sensor.printer_vibration'') == ''on'' %}
+
+      light.turn_on
+
+      {% else %}
+
+      light.turn_off
+
+      {% endif %}
+
+      '
+    target:
+      entity_id: light.printer_lights
+  mode: single
+- id: '1642113839486'
+  alias: New Automation
+  description: ''
+  trigger:
+  - platform: device
+    domain: mqtt
+    device_id: 8c2c704a6654427fa5c0b593317cb49c
+    type: action
+    subtype: 'on'
+    discovery_id: 0xb4e3f9fffec28918 action_on
+    id: button_on
+  - platform: device
+    domain: mqtt
+    device_id: 8c2c704a6654427fa5c0b593317cb49c
+    type: action
+    subtype: 'off'
+    discovery_id: 0xb4e3f9fffec28918 action_off
+    id: button_off
+  - platform: device
+    domain: mqtt
+    device_id: 8c2c704a6654427fa5c0b593317cb49c
+    type: action
+    subtype: brightness_step_up
+    discovery_id: 0xb4e3f9fffec28918 action_brightness_step_up
+    id: brightness_up
+  - platform: device
+    domain: mqtt
+    device_id: 8c2c704a6654427fa5c0b593317cb49c
+    type: action
+    subtype: brightness_step_down
+    discovery_id: 0xb4e3f9fffec28918 action_brightness_step_down
+    id: brightness_down
+  - platform: device
+    domain: mqtt
+    device_id: 8c2c704a6654427fa5c0b593317cb49c
+    type: action
+    subtype: color_temperature_step_down
+    discovery_id: 0xb4e3f9fffec28918 action_color_temperature_step_down
+    id: brightness_big_down
+  - platform: device
+    domain: mqtt
+    device_id: 8c2c704a6654427fa5c0b593317cb49c
+    type: action
+    subtype: color_temperature_step_up
+    discovery_id: 0xb4e3f9fffec28918 action_color_temperature_step_up
+    id: brightness_big_up
+  condition: []
+  action:
+  - service: light.turn_on
+    data:
+      brightness: '{% if trigger.id == ''button_off'' %}
+
+        0
+
+        {% elif trigger.id == ''brightness_up'' %}
+
+        {{ min(255, (state_attr(''light.counter'',''brightness'') | int) + 32) }}
+
+        {% elif trigger.id == ''brightness_down'' %}
+
+        {{ max(0, (state_attr(''light.counter'',''brightness'') | int) - 32) }}
+
+        {% elif trigger.id == ''brightness_big_up'' %}
+
+        128
+
+        {% elif trigger.id == ''brightness_big_down'' %}
+
+        1
+
+        {% else %}255{% endif %}
+
+        '
+      entity_id: light.counter
+  mode: single
+- id: '1642440511035'
+  alias: Printer Cam Flash On-Off
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.printer_vibration
+    from: 'on'
+    to: 'off'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 10
+      milliseconds: 0
+  - platform: state
+    entity_id: binary_sensor.printer_vibration
+    from: 'off'
+    to: 'on'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 30
+      milliseconds: 0
+  condition: []
+  action:
+  - service: '{% if states(''binary_sensor.printer_vibration'') == ''on'' %}
+
+      light.turn_on
+
+      {% else %}
+
+      light.turn_off
+
+      {% endif %}
+
+      '
+    target:
+      entity_id: light.flash
   mode: single
