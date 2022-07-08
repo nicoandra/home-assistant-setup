@@ -7,7 +7,6 @@ lights_interior:
     - light.office_right
     - light.living_tortue
     - light.wledoffice
-    - light.countertop
     - light.counter
     - light.kitchen_main
     - light.dimmer_vicks_spot
@@ -16,8 +15,9 @@ lights_interior:
     - light.printer_lights
     - light.flash
     - light.living_corner_lamp
+    - light.office_lamp_left_side
 
 lights_exterior:
   name: Exterior Lights
   entities:
-    - light.front_door
+    - light.yeelight_color_0x7e7b341

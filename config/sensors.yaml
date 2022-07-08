@@ -1,17 +1,5 @@
 - platform: environment_canada
  
-- platform: mqtt
-  name: "Raw AC vibration sensor"
-  state_topic: "door_and_ac/binary_sensor/vibration/state"
-
-- platform: filter
-  name: "A/C Vibration"
-  entity_id: sensor.raw_ac_vibration_sensor
-  filters:
-  - filter: lowpass
-    time_constant: 5
-    precision: 2  
-
 - platform: template
   sensors:
     sun_elevation:

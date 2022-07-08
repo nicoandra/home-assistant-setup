@@ -1,23 +1,11 @@
 homeassistant:
-  # Name of the location where Home Assistant is running
-  name: Home
-  # Location required to calculate the time the sun rises and sets
-  latitude: 45.5303786
-  longitude: -73.5545572
-  # Impacts weather/sunrise data (altitude above sea level in meters)
-  elevation: 15
-  # metric for Metric, imperial for Imperial
-  unit_system: metric
-  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-  time_zone: America/Montreal
-  # Customization file
   customize: !include customize.yaml
   auth_providers:
     - type: homeassistant
     - type: trusted_networks
       trusted_networks:
         - 192.168.240.0/24
-        - 192.168.0.0/24
+        - 192.168.1.0/24
         - fd00::/8
     - type: legacy_api_password
       api_password: !secret http_password
@@ -28,16 +16,25 @@ homeassistant:
 frontend:
   themes: !include_dir_merge_named themes
 
+mobile_app:
+
 logger:
-  default: info
+  default: warning
   logs:
-    # homeassistant.components.device_tracker: warning
-    # homeassistant.components.mqtt: warning
-    # homeassistant.components.timers: info
-    # homeassistant.components.timer: info
-    # homeassistant.components.events: info
-    # homeassistant.components.event: info
-    homeassistant.components.automation: debug
+    homeassistant.components.recorder: warning
+    paho.mqtt.client: warning
+    homeassistant.components.mqtt: warning
+    homeassistant.core: warning
+    awesomeversion: warning
+    homeassistant.components.yeelight: warning
+    async_upnp_client.traffic.ssdp: warning
+    homeassistant.components.wled: warning
+    homeassistant.components.filter: warning
+    yeelight.aio: warning
+    aiohue.v2: warning
+    aiohue.v2.events: warning
+    zeroconf: warning
+    # homeassistant.components.websocket_api.http.connection: warning
 
 # Enables configuration UI
 config:
@@ -60,7 +57,7 @@ http:
   - 172.19.0.0/16
   - 172.20.0.0/16
   - 172.21.0.0/16
-  - 192.168.240.0/24
+  - 192.168.240.1
 
 # Checks for available updates
 # Note: This component will send some information about your system to

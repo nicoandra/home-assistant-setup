@@ -151,7 +151,7 @@
   description: ''
   trigger:
   - platform: time
-    at: 06:30:00
+    at: 06:45:00
   - platform: state
     entity_id: binary_sensor.is_someone_at_home
     from: 'off'
@@ -159,8 +159,7 @@
     for:
       hours: 0
       minutes: 0
-      seconds: 30
-      milliseconds: 0
+      seconds: 0
   condition:
   - condition: state
     entity_id: binary_sensor.is_someone_at_home
@@ -168,7 +167,7 @@
   action:
   - service: input_number.set_value
     data:
-      value: 21
+      value: 17
     target:
       entity_id: input_number.main_room_temperature
   mode: single
@@ -197,44 +196,6 @@
     target:
       entity_id:
       - climate.climate_office
-  mode: single
-- id: '1608332036920'
-  alias: Hue Tap Main Button
-  description: ''
-  trigger:
-  - device_id: c0c4aa0522644d4e82aafd9794d4f957
-    domain: hue
-    platform: device
-    type: remote_button_short_press
-    subtype: button_1
-  condition: []
-  action:
-  - service: light.turn_on
-    data:
-      entity_id: light.light_bedroom_candle_light
-      brightness: "{% if states.light.light_bedroom_candle_light.state == \"off\"\
-        \ %}\n2\n{% else %}\n  {% if (states.light.light_bedroom_candle_light.attributes.brightness\
-        \ | int) < 80 %}\n84\n  {% elif (states.light.light_bedroom_candle_light.attributes.brightness\
-        \ | int) < 165 %}\n168\n  {% elif (states.light.light_bedroom_candle_light.attributes.brightness\
-        \ | int) < 250 %}\n254\n  {% elif (states.light.light_bedroom_candle_light.attributes.brightness\
-        \ | int) > 240 %}\n  0\n  {% endif %}\n{% endif %}\n"
-  mode: single
-- id: '1611288873479'
-  alias: Hue Tap 3rd Button
-  description: ''
-  trigger:
-  - device_id: c0c4aa0522644d4e82aafd9794d4f957
-    domain: hue
-    platform: device
-    type: remote_button_short_press
-    subtype: button_3
-  condition: []
-  action:
-  - service: light.turn_on
-    data:
-      entity_id: light.space_lamp_light
-      brightness: "{% if states.light.space_lamp_light.state == \"off\" %}\n255\n\
-        {% else %}\n 0\n{% endif %}\n"
   mode: single
 - id: '1615737828189'
   alias: Bedroom dimmer Nico
@@ -267,6 +228,19 @@
         '
     entity_id: light.vicks_spot_main_lamp
     service: light.turn_on
+  - service: '{% if states(''light.vicks_spot_main_dimmer'') == ''on'' %}
+
+      light.turn_on
+
+      {% else %}
+
+      light.turn_off
+
+      {% endif %}
+
+      '
+    data:
+      entity_id: light.vicks_spot_main_lamp
   mode: single
 - id: '1621693900634'
   alias: Kitchen Magic Cube
@@ -343,13 +317,21 @@
     topic: zigbee2mqtt-aqara/aqara-cube-office
   condition: []
   action:
-  - service: light.toggle
-    data: {}
-    entity_id: light.office_yee
-  - service: light.toggle
-    data: {}
-    target:
-      entity_id: light.office_right
+  - service: '{% if states(''light.office_yee'') == ''on'' %}
+
+      light.turn_off
+
+      {% else %}
+
+      light.turn_on
+
+      {% endif %}
+
+      '
+    data:
+      entity_id:
+      - light.office_yee
+      - light.office_lamp_left_side
   mode: single
 - id: '1621805678074'
   alias: Kitchen Cube Shake
@@ -364,7 +346,7 @@
   - service: light.toggle
     data: {}
     target:
-      entity_id: light.countertop
+      entity_id: light.counter
   mode: single
 - id: '1629250564408'
   alias: WLedOffice White Set
@@ -407,11 +389,10 @@
   condition: []
   action:
   - service: light.turn_on
-    target:
-      entity_id: light.countertop
-      device_id: 2af3fc204f6bf1df64dcc67b9d1f9527
     data:
       brightness_pct: 100
+    target:
+      entity_id: light.kitchen_counter_led
   mode: single
 - id: '1639019639828'
   alias: Vicks spot heater On
@@ -511,31 +492,47 @@
     id: trigger
   condition: []
   action:
-  - service: '{% if trigger.payload == ''toggle'' %}
+  - service: '{% if trigger.payload == ''toggle'' or trigger.payload == ''press_1''
+      %}
 
       light.toggle
 
-      {% elif trigger.payload == ''recall_scene_0'' %}
+      {% elif trigger.payload == ''recall_scene_0'' or trigger.payload == ''press_2''
+      %}
 
       light.turn_on
 
-      {% elif trigger.payload == ''recall_scene_1'' %}
+      {% elif trigger.payload == ''recall_scene_1'' or trigger.payload == ''press_3''
+      %}
 
       light.turn_off
 
-      {% elif trigger.payload == ''recall_scene_2'' %}
+      {% elif trigger.payload == ''recall_scene_2'' or trigger.payload == ''press_4''
+      %}
 
       light.turn_off
+
+      {% else %}
+
+      {{ trigger.payload }}
 
       {% endif %}
 
       '
-    data_template:
-      entity_id: '{% if trigger.payload == ''toggle'' %} light.light_bedroom_candle
-        {% elif trigger.payload == ''recall_scene_0'' %} light.light_bedroom_candle,
-        light.bedroom_main_dimmer {% elif trigger.payload == ''recall_scene_1'' %}
-        light.light_bedroom_candle, light.bedroom_main_dimmer {% elif trigger.payload
-        == ''recall_scene_2'' %} group.lights_interior {% endif %}
+    data:
+      entity_id: '{% if trigger.payload == ''toggle'' or trigger.payload == ''press_1''
+        %} light.bedroom_candle {% elif
+
+        trigger.payload == ''recall_scene_0'' or trigger.payload == ''press_2'' %}
+        light.bedroom_candle,
+
+        light.bedroom_main_dimmer {% elif trigger.payload == ''recall_scene_1'' or
+        trigger.payload == ''press_3''%}
+
+        light.bedroom_candle, light.bedroom_main_dimmer {% elif
+
+        trigger.payload == ''recall_scene_2'' or trigger.payload == ''press_4'' %}
+        group.lights_interior {% endif %}
 
         '
   mode: single
@@ -596,7 +593,7 @@
       entity_id: light.printer_lights
   mode: single
 - id: '1642113839486'
-  alias: New Automation
+  alias: ZugbeeRemote
   description: ''
   trigger:
   - platform: device
@@ -707,4 +704,261 @@
       '
     target:
       entity_id: light.flash
+  mode: single
+- id: '1646522043297'
+  alias: Home alone - Lights on
+  description: ''
+  trigger:
+  - platform: time
+    at: '16:01:00'
+  - platform: state
+    entity_id: binary_sensor.is_someone_at_home
+    to: 'off'
+  condition:
+  - condition: state
+    entity_id: binary_sensor.is_someone_at_home
+    state: 'off'
+  - condition: time
+    after: '16:00:00'
+  action:
+  - service: light.turn_on
+    data:
+      brightness_pct: 61
+    target:
+      entity_id:
+      - light.living_corner_lamp
+      - light.office_yee
+      - light.living_tortue
+      - light.bedroom_main_dimmer
+  mode: single
+- id: '1646522163172'
+  alias: Home alone - Lights off
+  description: ''
+  trigger:
+  - platform: time
+    at: 00:35:00
+  - platform: state
+    entity_id: binary_sensor.is_someone_at_home
+    from: 'on'
+    to: 'off'
+  condition:
+  - condition: state
+    entity_id: binary_sensor.is_someone_at_home
+    state: 'off'
+  - condition: time
+    after: 00:30:00
+    before: '16:30:00'
+  action:
+  - service: light.turn_off
+    data: {}
+    target:
+      entity_id:
+      - light.office_yee
+      - light.counter
+      - light.living_corner_lamp
+      - light.living_tortue
+      - light.bedroom_main_dimmer
+  mode: single
+- id: '1654974013311'
+  alias: Bathroom Fan - Turn Off after X time
+  description: Turns of the Bathroom fan after it has been running for X time non-stop
+  trigger:
+  - platform: device
+    type: turned_on
+    device_id: 0af877f53914487da80840bc31401826
+    entity_id: switch.bathroom_fan
+    domain: switch
+    for:
+      hours: 0
+      minutes: 30
+      seconds: 0
+  condition: []
+  action:
+  - type: turn_off
+    device_id: 0af877f53914487da80840bc31401826
+    entity_id: switch.bathroom_fan
+    domain: switch
+  mode: single
+- id: '1655572973321'
+  alias: Hue Remote 01 - Office
+  description: ''
+  trigger:
+  - platform: device
+    domain: mqtt
+    device_id: 2513d915a926f8c96dbc42ea12f0aefb
+    type: action
+    subtype: on-press
+    discovery_id: 0x0017880104f026ab action_on-press
+  - platform: device
+    domain: mqtt
+    device_id: 2513d915a926f8c96dbc42ea12f0aefb
+    type: action
+    subtype: up-press
+    discovery_id: 0x0017880104f026ab action_up-press
+  - platform: device
+    domain: mqtt
+    device_id: 2513d915a926f8c96dbc42ea12f0aefb
+    type: action
+    subtype: down-press
+    discovery_id: 0x0017880104f026ab action_down-press
+  - platform: device
+    domain: mqtt
+    device_id: 2513d915a926f8c96dbc42ea12f0aefb
+    type: action
+    subtype: off-press
+    discovery_id: 0x0017880104f026ab action_off-press
+  - platform: device
+    domain: mqtt
+    device_id: 2513d915a926f8c96dbc42ea12f0aefb
+    type: action
+    subtype: off-hold
+    discovery_id: 0x0017880104f026ab action_off-hold
+  - platform: device
+    domain: mqtt
+    device_id: 2513d915a926f8c96dbc42ea12f0aefb
+    type: action
+    subtype: on-hold
+    discovery_id: 0x0017880104f026ab action_on-hold
+  condition: []
+  action:
+  - service: logbook.log
+    data_template:
+      name: some-log
+      message: '{{ trigger.payload }}
+
+        '
+  - service: '{% if trigger.payload == ''on-press'' %}
+
+      light.turn_on
+
+      {% elif trigger.payload == ''off-press'' %}
+
+      light.turn_on
+
+      {% elif trigger.payload == ''up-press'' or trigger.payload == ''down-press''
+      %}
+
+      light.turn_on
+
+      {% elif trigger.payload == ''on-hold'' %}
+
+      light.turn_on
+
+      {% elif trigger.payload == ''off-hold'' %}
+
+      light.turn_on
+
+      {% else %}
+
+      light.turn_on
+
+      {% endif %}
+
+      '
+    data:
+      entity_id: "{% if trigger.payload == 'on-hold' or trigger.payload == 'off-hold'\
+        \ %}\n  light.wled, light.wled_master, light.wled_segment_1\n{% else %}\n\
+        \  light.office_yee, light.office_side_left\n{% endif %}    \n"
+      brightness_step_pct: '{% if trigger.payload == ''on-press'' %}
+
+        100
+
+        {% elif trigger.payload == ''off-press'' %}
+
+        -100
+
+        {% elif trigger.payload == ''up-press'' %}
+
+        20
+
+        {% elif trigger.payload == ''down-press'' %}
+
+        -20
+
+        {% elif trigger.payload == ''on-hold'' %}
+
+        100
+
+        {% else %}
+
+        -100
+
+        {% endif %}
+
+        '
+  mode: single
+- id: '1655577270105'
+  alias: Hue Remote 02 - Kitchen
+  description: ''
+  trigger:
+  - platform: device
+    domain: mqtt
+    device_id: ac7905031052951fb92bac4bd0b6dd36
+    type: action
+    subtype: on-press
+    discovery_id: 0x0017880102d65154 action_on-press
+  - platform: device
+    domain: mqtt
+    device_id: ac7905031052951fb92bac4bd0b6dd36
+    type: action
+    subtype: off-press
+    discovery_id: 0x0017880102d65154 action_off-press
+  - platform: device
+    domain: mqtt
+    device_id: ac7905031052951fb92bac4bd0b6dd36
+    type: action
+    subtype: down-press
+    discovery_id: 0x0017880102d65154 action_down-press
+  - platform: device
+    domain: mqtt
+    device_id: ac7905031052951fb92bac4bd0b6dd36
+    type: action
+    subtype: up-press
+    discovery_id: 0x0017880102d65154 action_up-press
+  - platform: device
+    domain: mqtt
+    device_id: ac7905031052951fb92bac4bd0b6dd36
+    type: action
+    subtype: on-hold
+    discovery_id: 0x0017880102d65154 action_on-hold
+  - platform: device
+    domain: mqtt
+    device_id: ac7905031052951fb92bac4bd0b6dd36
+    type: action
+    subtype: off-hold
+    discovery_id: 0x0017880102d65154 action_off-hold
+  condition: []
+  action:
+  - service: light.turn_on
+    data:
+      entity_id: "{% if trigger.payload == 'on-hold' or trigger.payload == 'off-hold'\
+        \ %}\n  light.kitchen_counter_led\n{% else %}\n  light.kitchen_lamp\n{% endif\
+        \ %}    \n"
+      brightness_step_pct: '{% if trigger.payload == ''on-press'' %}
+
+        100
+
+        {% elif trigger.payload == ''off-press'' %}
+
+        -100
+
+        {% elif trigger.payload == ''up-press'' %}
+
+        20
+
+        {% elif trigger.payload == ''down-press'' %}
+
+        -20
+
+        {% elif trigger.payload == ''on-hold'' %}
+
+        100
+
+        {% else %}
+
+        -100
+
+        {% endif %}
+
+        '
   mode: single

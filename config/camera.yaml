@@ -1,5 +1,12 @@
 - platform: mjpeg
   name: "Front Door"
-  mjpeg_url: http://192.168.1.242/mjpeg/1
+  mjpeg_url: https://zm.f1961.nmac.com.ar/zm/cgi-bin/nph-zms?scale=100&width=640px&height=480px&mode=jpeg&maxfps=10&monitor=6
+- platform: mjpeg
+  name: "Parking 01"
+  mjpeg_url: https://zm.f1961.nmac.com.ar/zm/cgi-bin/nph-zms?scale=100&width=640px&height=480px&mode=jpeg&maxfps=10&monitor=8
+- platform: mjpeg
+  name: "Parking 02"
+  mjpeg_url: https://zm.f1961.nmac.com.ar/zm/cgi-bin/nph-zms?scale=100&width=640px&height=480px&mode=jpeg&maxfps=10&monitor=9
+
 
 

@@ -1,29 +1,4 @@
-- platform: limitlessled
-  bridges:
-    - host: 192.168.2.167
-      version: 4
-      port: 8899
-      groups:
-        - number: 1
-          type: rgbw
-          name: Office
-          fade: on
-        - number: 2
-          type: rgbw
-          name: Front door
-          fade: on
-        - number: 3
-          type: rgbw
-          name: Countertop
-          fade: on
-        - number: 4
-          type: rgbw
-          name: Couch
-          fade: on
-
 - platform: group
   name: Main
   entities:
     - light.kitchen
-    - light.kitchen_hallway
-    - light.kitchen_oven

@@ -1,7 +1,7 @@
 version: "3.4"
 services:
   homeassistant:
-    image: homeassistant/home-assistant:2021.11.0
+    image: homeassistant/home-assistant:2022.2.3
     restart: unless-stopped
     network_mode: host
     volumes:
@@ -98,7 +98,7 @@ services:
     - 9003:80
 
   zigbee2mqtt:
-    image: koenkk/zigbee2mqtt:1.22.2
+    image: koenkk/zigbee2mqtt:1.25.1
     privileged: true
     restart: unless-stopped
     volumes:
@@ -106,10 +106,11 @@ services:
       - /dev/ttyUSB0:/dev/ttyUSB0
       - /run/udev:/run/udev:ro
     environment:
-    - TZ=America/Montreal    
+    - TZ=America/Montreal
+    - DEBUG=xxzigbee-herdsman*
  
  
-  zigbee2mqtt-aqara:
+  zigbee2mqttAqara:
     image: koenkk/zigbee2mqtt:1.22.0
     privileged: true
     restart: unless-stopped
@@ -135,7 +136,7 @@ services:
     image: carldebilly/zigbee2mqttassistant
     environment:
       - Z2MA_SETTINGS__MQTTSERVER=mosquitto
-      - Z2MA_SETTINGS__BASETOPIC=zigbee2mqtt-aqara
+      - Z2MA_SETTINGS__BASETOPIC=zigbee2mqttAqara
       # Set to your TimeZone when using on Linux https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
       # Won't work if you're using the Windows version of the container
       - TZ=America/Montreal

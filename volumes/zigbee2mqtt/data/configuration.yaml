@@ -5,20 +5,17 @@ mqtt:
   server: mqtt://mosquitto
 serial:
   port: /dev/ttyUSB0
+  disable_led: true
 advanced:
   channel: 20
   network_key: '!secrets network_key'
   rtscts: false
   log_level: debug
 devices:
-  '0xf8f005fffff483c4':
-    friendly_name: climate_living
   '0xf8f005fffff781ab':
     friendly_name: climate_kitchen
   '0xf8f005fffff7840d':
     friendly_name: climate_bedroom
-  '0x0017880102db5ae1':
-    friendly_name: light_bedroom_candle
   '0x001788010385b70f':
     friendly_name: bedroom-main-lamp
   '0x00178801035a6835':
@@ -35,8 +32,6 @@ devices:
     friendly_name: kitchen-main
     transition: 0
     debounce: 0.2
-  '0x0017880104f026ab':
-    friendly_name: '0x0017880104f026ab'
   '0xf8f005fffff78aa7':
     friendly_name: climate_office
   '0xf8f005fffff483ab':
@@ -44,10 +39,20 @@ devices:
   '0x0000000000444584':
     friendly_name: hue_tap_switch
   '0xa4c1387abe378b75':
-    friendly_name: '0xa4c1387abe378b75'
-  '0xa4c13870342a549c':
-    friendly_name: '0xa4c13870342a549c'
+    friendly_name: kitchen-counter-led
   '0xb4e3f9fffec28918':
-    friendly_name: '0xb4e3f9fffec28918'
+    friendly_name: remote-tuya-01
+  '0x0017880103fb165c':
+    friendly_name: office_side_left
+  '0x0017880102d65154':
+    friendly_name: hue_remote-02
+  '0x0017880104f026ab':
+    friendly_name: hue-remote-01
+  '0xf8f005fffff483c4':
+    friendly_name: climate-unknown-location
+  '0x00124b0022419d05':
+    friendly_name: bathroom_fan
+  '0x0017880102db5ae1':
+    friendly_name: 'bedroom_candle'
 external_converters:
   - ysrMini01.js
