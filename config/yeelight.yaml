@@ -1,5 +1,5 @@
 devices:
-  192.168.2.243:
+  192.168.1.201:
     name: Kitchen Lamp
     transition: 100
     use_music_mode: False #(defaults to False)
@@ -25,7 +25,7 @@ devices:
     name: Office Back Lamp
     transition: 100
     model: color2
-  192.168.2.192:
+  192.168.1.204:
     name: Front Door Yee
     transition: 100
     use_music_mode: False #(defaults to False)

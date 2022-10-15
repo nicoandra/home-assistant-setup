@@ -44,15 +44,19 @@ devices:
     friendly_name: remote-tuya-01
   '0x0017880103fb165c':
     friendly_name: office_side_left
-  '0x0017880102d65154':
-    friendly_name: hue_remote-02
   '0x0017880104f026ab':
     friendly_name: hue-remote-01
   '0xf8f005fffff483c4':
-    friendly_name: climate-unknown-location
+    friendly_name: climate-living
   '0x00124b0022419d05':
     friendly_name: bathroom_fan
   '0x0017880102db5ae1':
-    friendly_name: 'bedroom_candle'
+    friendly_name: bedroom_candle
+  '0x0017880102d65154':
+    friendly_name: hue-remote-02
+  '0x00158d000544a749':
+    friendly_name: '0x00158d000544a749'
+  '0x00158d000544a42e':
+    friendly_name: '0x00158d000544a42e'
 external_converters:
   - ysrMini01.js

@@ -31,6 +31,19 @@ services:
     environment:
       - TZ=America/Montreal
 
+  mosquitto-external:
+    image: ansi/mosquitto
+    restart: unless-stopped
+    ports:
+      - 1884:1883
+    entrypoint: /usr/local/sbin/mosquitto -c /etc/mosquitto/mosquitto.conf
+    volumes:
+      - ./etc/mosquitto-external:/etc/mosquitto:ro
+      - ./var/log/mosquitto-external:/var/log/mosquitto:rw
+      - ./var/lib/mosquitto-external/mosquitto.db:/var/lib/mosquitto/mosquitto.db:rw
+    environment:
+      - TZ=America/Montreal
+
   nginx:
     image: nginx
     restart: unless-stopped

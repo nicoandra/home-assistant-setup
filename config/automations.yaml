@@ -566,7 +566,6 @@
       hours: 0
       minutes: 0
       seconds: 1
-      milliseconds: 0
   - platform: state
     entity_id: binary_sensor.printer_vibration
     from: 'on'
@@ -575,7 +574,6 @@
       hours: 0
       minutes: 1
       seconds: 0
-      milliseconds: 0
   condition: []
   action:
   - service: '{% if states(''binary_sensor.printer_vibration'') == ''on'' %}
@@ -590,7 +588,7 @@
 
       '
     target:
-      entity_id: light.printer_lights
+      entity_id: light.printer_light
   mode: single
 - id: '1642113839486'
   alias: ZugbeeRemote
@@ -959,6 +957,28 @@
         -100
 
         {% endif %}
+
+        '
+  mode: single
+- id: '1663085483166'
+  alias: New Automation
+  description: ''
+  trigger:
+  - platform: device
+    type: changed_states
+    device_id: d3494f7437b24e098b87cb24aae2423b
+    entity_id: light.livingdimmer
+    domain: light
+  condition: []
+  action:
+  - service: 'light.turn_on
+
+      '
+    data:
+      entity_id: 'light.living_tortue
+
+        '
+      brightness_pct: '0
 
         '
   mode: single
