@@ -52,48 +52,6 @@
     entity_id: group.lights_interior
     service: light.turn_off
   mode: single
-- id: '1597004549461'
-  alias: Hue - Office dimmer - long-on when lamp on
-  description: Turns on the lamps
-  trigger:
-  - device_id: b13d461c3f2b47feba54e6ee3f6157e7
-    domain: hue
-    platform: device
-    subtype: turn_on
-    type: remote_button_long_release
-  condition:
-  - condition: state
-    entity_id: light.office_back_lamp
-    state: 'on'
-  action:
-  - data: {}
-    entity_id: light.office_back_lamp
-    service: light.turn_off
-  mode: single
-- id: '1597004732813'
-  alias: Office hue dimmer - long on when lamp off (turn it on)
-  description: ''
-  trigger:
-  - device_id: b13d461c3f2b47feba54e6ee3f6157e7
-    domain: hue
-    platform: device
-    subtype: turn_on
-    type: remote_button_long_release
-  condition:
-  - condition: state
-    entity_id: light.office_back_lamp
-    state: 'off'
-  action:
-  - data:
-      brightness: 255
-      rgb_color:
-      - 255
-      - 0
-      - 255
-      transition: 2
-    entity_id: light.office_back_lamp
-    service: light.turn_on
-  mode: single
 - id: '1598587050856'
   alias: WLED 01 Adjustments
   description: ''
@@ -120,38 +78,48 @@
   description: ''
   trigger:
   - platform: state
-    entity_id: group.lights_interior
+    entity_id:
+    - group.lights_interior
     to: 'off'
     from: 'on'
-    for: 00:00:05
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 0
   - platform: time
-    at: '22:00'
+    at: '22:00:00'
   condition:
   - condition: and
     conditions:
     - condition: or
       conditions:
       - condition: time
-        before: 06:00
+        before: 06:00:00
       - condition: time
-        after: '20:00'
+        after: '20:00:00'
+        before: 00:00:00
     - condition: state
       entity_id: group.lights_interior
       state: 'off'
-      for: 00:00:05
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 0
   action:
   - service: input_number.set_value
-    data:
-      value: 17.5
+    data_template:
+      temperature: '{{ states(''input_number.temperature_night'') | float }}
+
+        '
     target:
-      entity_id: input_number.main_room_temperature
+      entity_id: input_number.temperature_main_room
   mode: single
 - id: '1607609003902'
   alias: Temperature - WakeUp
   description: ''
   trigger:
   - platform: time
-    at: 06:45:00
+    at: 06:15:00
   - platform: state
     entity_id: binary_sensor.is_someone_at_home
     from: 'off'
@@ -160,42 +128,50 @@
       hours: 0
       minutes: 0
       seconds: 0
+  - platform: state
+    entity_id:
+    - input_number.temperature_nic
+    - input_number.temperature_vick
   condition:
   - condition: state
     entity_id: binary_sensor.is_someone_at_home
     state: 'on'
   action:
   - service: input_number.set_value
-    data:
-      value: 17
+    data_template:
+      value: "{% if is_state(\"binary_sensor.is_vick_at_home\", \"on\") -%}\n  {{
+        states('input_number.temperature_vick') | float}}\n{%- else -%}\n  {% if is_state(\"binary_sensor.is_nico_at_home\",
+        \"on\") -%}\n    {{ states('input_number.temperature_nic') | float}}\n  {%-
+        endif %}\n{%- endif %}\n"
     target:
-      entity_id: input_number.main_room_temperature
+      entity_id: input_number.temperature_main_room
   mode: single
 - id: '1608174278630'
   alias: Main Room Temp
   description: ''
   trigger:
   - platform: state
-    entity_id: input_number.main_room_temperature
+    entity_id:
+    - input_number.temperature_main_room
   condition: []
   action:
   - service: climate.set_temperature
     data_template:
-      temperature: '{{ states(''input_number.main_room_temperature'') | float }}
+      temperature: '{{ states(''input_number.temperature_main_room'') | float }}
 
         '
     target:
       entity_id:
-      - climate.climate_kitchen
       - climate.climate_living
   - service: climate.set_temperature
     data_template:
-      temperature: '{{ states(''input_number.main_room_temperature'') | float + 0.5}}
+      temperature: '{{ states(''input_number.temperature_main_room'') | float + 0.5}}
 
         '
     target:
       entity_id:
       - climate.climate_office
+      - climate.climate_kitchen
   mode: single
 - id: '1615737828189'
   alias: Bedroom dimmer Nico
@@ -854,9 +830,9 @@
 
       '
     data:
-      entity_id: "{% if trigger.payload == 'on-hold' or trigger.payload == 'off-hold'\
-        \ %}\n  light.wled, light.wled_master, light.wled_segment_1\n{% else %}\n\
-        \  light.office_yee, light.office_side_left\n{% endif %}    \n"
+      entity_id: "{% if trigger.payload == 'on-hold' or trigger.payload == 'off-hold'
+        %}\n  light.wled, light.wled_master, light.wled_segment_1\n{% else %}\n  light.office_yee,
+        light.office_side_left\n{% endif %}    \n"
       brightness_step_pct: '{% if trigger.payload == ''on-press'' %}
 
         100
@@ -929,9 +905,9 @@
   action:
   - service: light.turn_on
     data:
-      entity_id: "{% if trigger.payload == 'on-hold' or trigger.payload == 'off-hold'\
-        \ %}\n  light.kitchen_counter_led\n{% else %}\n  light.kitchen_lamp\n{% endif\
-        \ %}    \n"
+      entity_id: "{% if trigger.payload == 'on-hold' or trigger.payload == 'off-hold'
+        %}\n  light.kitchen_counter_led\n{% else %}\n  light.kitchen_lamp\n{% endif
+        %}    \n"
       brightness_step_pct: '{% if trigger.payload == ''on-press'' %}
 
         100
@@ -957,28 +933,6 @@
         -100
 
         {% endif %}
-
-        '
-  mode: single
-- id: '1663085483166'
-  alias: New Automation
-  description: ''
-  trigger:
-  - platform: device
-    type: changed_states
-    device_id: d3494f7437b24e098b87cb24aae2423b
-    entity_id: light.livingdimmer
-    domain: light
-  condition: []
-  action:
-  - service: 'light.turn_on
-
-      '
-    data:
-      entity_id: 'light.living_tortue
-
-        '
-      brightness_pct: '0
 
         '
   mode: single

@@ -18,6 +18,17 @@ frontend:
 
 mobile_app:
 
+mqtt:
+  device_tracker:
+  - name: nico_pixel_office
+    state_topic: "ble-presence-office/binary_sensor/nics_pixel_ibeacon_backwards/state"
+  - name: nico_pixel_living
+    state_topic: "ble-presence-living/binary_sensor/nics_pixel_ibeacon_backwards/state"
+  - name: nico_pixel_kitchen
+    state_topic: "ble-presence-kitchen/binary_sensor/nics_pixel_ibeacon_backwards/state"
+  - name: nico_pixel_bedroom
+    state_topic: "ble-presence-bedroom/binary_sensor/nics_pixel_ibeacon_backwards/state"
+
 logger:
   default: warning
   logs:
@@ -59,13 +70,6 @@ http:
   - 172.21.0.0/16
   - 192.168.240.1
 
-# Checks for available updates
-# Note: This component will send some information about your system to
-# the developers to assist with development of Home Assistant.
-# For more information, please see:
-# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
-updater:
-
 binary_sensor:
   - platform: template
     sensors:
@@ -76,7 +80,8 @@ binary_sensor:
           states('binary_sensor.nic_s_pixel_vicks_ibeacon_backwards') == 'on' or
           states('binary_sensor.nic_s_pixel_bedroom_ibeacon_backwards') == 'on' or
           states('binary_sensor.nic_s_pixel_office_ibeacon_backwards') == 'on' or
-          states('binary_sensor.nic_s_pixel_printer_ibeacon_backwards') == 'on'
+          states('binary_sensor.nic_s_pixel_printer_ibeacon_backwards') == 'on' or
+          states('binary_sensor.nic_s_pixel_bedroom32_ibeacon_backwards') == 'on'
           -%}
           on
           {%- else -%}
@@ -87,10 +92,12 @@ binary_sensor:
       is_vick_at_home:
         value_template: >-
           {%- if 
-          states('binary_sensor.vick_s_velvet_kitchen_ibeacon_backwards') == 'on' or
-          states('binary_sensor.vick_s_velvet_vicks_ibeacon_backwards') == 'on' or
-          states('binary_sensor.vick_s_velvet_bedroom_ibeacon_backwards') == 'on' or
-          states('binary_sensor.vick_s_velvet_printer_ibeacon_backwards') == 'on'
+          states('binary_sensor.vick_s_pixel_kitchen_ibeacon_backwards') == 'on' or
+          states('binary_sensor.vick_s_pixel_vicks_ibeacon_backwards') == 'on' or
+          states('binary_sensor.vick_s_pixel_bedroom_ibeacon_backwards') == 'on' or
+          states('binary_sensor.vick_s_pixel_office_ibeacon_backwards') == 'on' or
+          states('binary_sensor.vick_s_pixel_printer_ibeacon_backwards') == 'on' or
+          states('binary_sensor.vick_s_pixel_bedroom32_ibeacon_backwards') == 'on'
           -%}
           on
           {%- else -%}
@@ -127,76 +134,21 @@ tts: # Text to speech
 
 discovery:
 weather: !include weather.yaml
-camera: !include camera.yaml
 scene: !include scenes.yaml
 script: !include scripts.yaml
 sensor: !include sensors.yaml
 group: !include groups.yaml
 automation: !include automations.yaml
 timer: !include timers.yaml
-device_tracker: !include device_trackers.yaml
 climate: !include climate.yaml
 rest_command: !include rest_commands.yaml
 light: !include lights.yaml
 zone: !include zones.yaml
 
-input_text:
-  current_scene:
-    name: Current Scene
 input_number:
-  living_temperature_slider:
-    name: Living Slider °C
-    initial: 18
-    min: 17
-    max: 25
-    step: .5
-  office_temperature_slider:
-    name: Office Slider °C
-    initial: 18
-    min: 17
-    max: 25
-    step: .5
-  home_alone_temperature_slider:
-    name: Home Alone Temp
-    initial: 17
-    min: 16
-    max: 25
-    step: .5
-  at_home_temperature_slider:
-    name: Welcoming Temp
-    initial: 20
-    min: 17
-    max: 25
-    step: .5
-  at_home_sleeping:
-    name: During the night
-    initial: 18
-    min: 17
-    max: 25
-    step: .5
-  main_room_temperature:
-    name: Main Room Temperature
-    initial: 21
-    min: 17
-    max: 25
-    step: .5
-  wled01_speed:
-    name: WLED 01 Speed
-    initial: 127
-    min: 0
-    max: 255
-    step: 1
-  wled01_intensity:
-    name: WLED 01 Intensity
-    initial: 127
-    min: 0
-    max: 255
-    step: 1
-  ir_light_level:
-    name: IR Light Level
-    initial: 5
-    max: 7
-    min: 0
-    step: 1
+input_select:
+schedule:
+input_boolean:
+
 
 yeelight: !include yeelight.yaml

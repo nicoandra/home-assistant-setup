@@ -16,6 +16,7 @@ lights_interior:
     - light.flash
     - light.living_corner_lamp
     - light.office_lamp_left_side
+    - light.kitchen_countertop
 
 lights_exterior:
   name: Exterior Lights
