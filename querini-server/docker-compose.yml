@@ -1,0 +1,55 @@
+version: "3.4"
+services:
+  homeassistant:
+    # image: homeassistant/home-assistant:2022.10
+    image: homeassistant/home-assistant:2023.3
+    restart: unless-stopped
+    network_mode: host
+    volumes:
+      - ./volumes/homeassistant/config:/config
+    depends_on:
+      - mosquitto
+    environment:
+      - TZ=America/Montreal
+
+  mosquitto:
+    image: ansi/mosquitto
+    restart: unless-stopped
+    ports:
+      - 1883:1883
+    entrypoint: /usr/local/sbin/mosquitto -c /etc/mosquitto/mosquitto.conf
+    volumes:
+      - ./volumes/etc/mosquitto:/etc/mosquitto:ro
+      - ./volumes/var/log/mosquitto:/var/log/mosquitto:rw
+      - ./volumes/var/lib/mosquitto/mosquitto.db:/var/lib/mosquitto/mosquitto.db:rw
+    environment:
+      - TZ=America/Montreal
+
+  cloud9: # https://hub.docker.com/r/sapk/cloud9/
+    container_name: cloud9
+    image: linuxserver/cloud9
+    restart: unless-stopped
+    privileged: true
+    volumes:
+    - ./:/code/homeassistant
+    - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+    - PGID=1000
+    # - PUID=99
+    - TZ=America/Montreal
+    - GITURL=https://github.com/linuxserver/docker-cloud9.git
+    ports:
+    - "8000:8000"
+
+  logs:
+    image: gerchardon/docker-logio
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: -h logio -n docker
+    depends_on:
+      - logio
+
+  logio:
+    image: temal/logio-server
+    ports:
+      - 9002:28778
