@@ -88,6 +88,9 @@
       seconds: 0
   - platform: time
     at: '22:00:00'
+  - platform: state
+    entity_id:
+    - input_number.temperature_night
   condition:
   - condition: and
     conditions:
@@ -105,10 +108,13 @@
         hours: 0
         minutes: 0
         seconds: 0
+  - condition: state
+    entity_id: binary_sensor.is_someone_at_home
+    state: 'on'
   action:
   - service: input_number.set_value
     data_template:
-      temperature: '{{ states(''input_number.temperature_night'') | float }}
+      value: '{{ states(''input_number.temperature_night'') | float }}
 
         '
     target:
@@ -935,4 +941,26 @@
         {% endif %}
 
         '
+  mode: single
+- id: '1680235631501'
+  alias: Temperature - Presence Changes
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.is_someone_at_home
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 0
+  condition: []
+  action:
+  - service: input_number.set_value
+    data_template:
+      value: "{% if is_state('binary_sensor.is_vick_at_home', 'on') -%}\n  {{ states('input_number.temperature_vick')
+        | float }}\n{% elif is_state('binary_sensor.is_nico_at_home_at_home', 'on')
+        -%}\n  {{ states('input_number.temperature_nic') | float }}\n{% else %}\n
+        \ {{ states('input_number.temperature_alone') | float }}\n{% endif %}\n"
+    target:
+      entity_id: input_number.temperature_main_room
   mode: single

@@ -49,9 +49,10 @@ services:
     image: nginx
     restart: unless-stopped
     ports:
-      - 8124:8124
+      - 8125:8125
     volumes:
       - ./etc/nginx/homeassistant.conf:/etc/nginx/conf.d/homeassistant.conf
+      - ./etc/nginx/querini.homeassistant.conf:/etc/nginx/conf.d/querini.homeassistant.conf
       - ./etc/nginx/wled.conf:/etc/nginx/conf.d/wled.conf
       - ./etc/certificates:/etc/certificates
     depends_on:
@@ -59,6 +60,9 @@ services:
     labels:
       - "traefik.http.routers.homeassistant.rule=Host(`hanginx.f1961.nmac.com.ar`)"
       - "traefik.http.services.homeassistant.loadbalancer.server.port=8124"
+      - "traefik.http.routers.querinihomeassistant.rule=Host(`querini.f1961.nmac.com.ar`)"
+      - "traefik.http.services.querinihomeassistant.loadbalancer.server.port=8125"
+
 
   cloud9: # https://hub.docker.com/r/sapk/cloud9/
     container_name: cloud9
@@ -92,8 +96,8 @@ services:
       - 9002:28778
 
   duckdns:
-    image: linuxserver/duckdns
-    container_name: duckdns
+    image: linuxserver/duckdns:amd64-version-d3a93533
+    restart: unless-stopped
     volumes:
     - ./volumes/duckdns/token/token:/config/token/token
     environment:
