@@ -106,7 +106,9 @@ services:
     - TZ=America/Montreal
     - SUBDOMAINS=micasanmaca
     - LOG_FILE=false
-    - FILE__TOKEN=/config/token/token
+    # - FILE__TOKEN=/config/token/token
+    env_file:
+    - ./volumes/duckdns/token/env_token
     
   tasmoadmin:
     image: raymondmm/tasmoadmin

@@ -79,7 +79,7 @@
   trigger:
   - platform: state
     entity_id:
-    - group.lights_interior
+    - light.main_room_lights
     to: 'off'
     from: 'on'
     for:
@@ -102,7 +102,7 @@
         after: '20:00:00'
         before: 00:00:00
     - condition: state
-      entity_id: group.lights_interior
+      entity_id: light.main_room_lights
       state: 'off'
       for:
         hours: 0
@@ -375,6 +375,11 @@
       brightness_pct: 100
     target:
       entity_id: light.kitchen_counter_led
+  - service: light.turn_on
+    data:
+      brightness_pct: 50
+    target:
+      entity_id: light.office01_light
   mode: single
 - id: '1639019639828'
   alias: Vicks spot heater On
@@ -963,4 +968,123 @@
         \ {{ states('input_number.temperature_alone') | float }}\n{% endif %}\n"
     target:
       entity_id: input_number.temperature_main_room
+  mode: single
+- id: '1680814092675'
+  alias: Living Dimmer
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - light.livingdimmer
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 1
+  condition: []
+  action:
+  - service: light.turn_on
+    data:
+      brightness: "{% if is_state('light.livingdimmer', 'on') %}\n  {{ state_attr('light.livingdimmer',
+        'brightness') }}\n{% else %}\n  0\n{% endif %}\n"
+    target:
+      entity_id:
+      - light.living_tortue
+      - light.living_corner_lamp
+  mode: single
+- id: '1683140032160'
+  alias: Office Table Light On when Close
+  description: Turns on office light when getting close to it
+  trigger:
+  - type: value
+    platform: device
+    device_id: ba48beeb01647ff95e15aeb40d1a0144
+    entity_id: sensor.office01_ultrasonic_sensor
+    domain: sensor
+    below: 1
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 0
+  condition:
+  - condition: or
+    conditions:
+    - condition: state
+      entity_id: light.office01_light
+      state: 'off'
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 1
+    - condition: numeric_state
+      entity_id: light.office01_light
+      attribute: brightness
+      below: 129
+  action:
+  - service: light.turn_on
+    data:
+      brightness_pct: 100
+    target:
+      entity_id: light.office01_light
+  mode: single
+- id: '1693329071321'
+  alias: Remote Tuya01 1Press
+  description: ''
+  trigger:
+  - platform: device
+    domain: mqtt
+    device_id: 15fd98553d2529e94d81f523d0ddad73
+    type: action
+    subtype: 1_single
+    discovery_id: 0xb4e3f9fffeeac910 action_1_single
+  condition: []
+  action:
+  - service: light.toggle
+    data:
+      transition: 1
+    target:
+      entity_id:
+      - light.office_yee
+      - light.office_side_left
+  mode: single
+- id: '1693329190679'
+  alias: Remote Tuya01 1Double
+  description: ''
+  trigger:
+  - platform: device
+    domain: mqtt
+    device_id: 15fd98553d2529e94d81f523d0ddad73
+    type: action
+    subtype: 1_double
+    discovery_id: 0xb4e3f9fffeeac910 action_1_double
+  condition: []
+  action:
+  - service: light.turn_on
+    data:
+      transition: 1
+      color_temp: 362
+      brightness_pct: 100
+    target:
+      entity_id:
+      - light.office_yee
+      - light.office_side_left
+  mode: single
+- id: '1693336150217'
+  alias: Remote Tuya01 Brightness+
+  description: ''
+  trigger:
+  - platform: device
+    domain: mqtt
+    device_id: 15fd98553d2529e94d81f523d0ddad73
+    type: action
+    subtype: 3_single
+    discovery_id: 0xb4e3f9fffeeac910 action_3_single
+  condition: []
+  action:
+  - service: light.turn_on
+    data:
+      brightness_step_pct: -10
+    target:
+      entity_id:
+      - light.office_yee
+      - light.office_side_left
   mode: single

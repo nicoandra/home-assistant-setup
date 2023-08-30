@@ -40,8 +40,6 @@ devices:
     friendly_name: hue_tap_switch
   '0xa4c1387abe378b75':
     friendly_name: kitchen-counter-led
-  '0xb4e3f9fffec28918':
-    friendly_name: remote-tuya-01
   '0x0017880103fb165c':
     friendly_name: office_side_left
   '0x0017880104f026ab':
@@ -62,5 +60,7 @@ devices:
     friendly_name: '0x385cfbfffed9e5ee'
   '0x385cfbfffedeaae5':
     friendly_name: '0x385cfbfffedeaae5'
+  '0xb4e3f9fffeeac910':
+    friendly_name: '0xb4e3f9fffeeac910'
 external_converters:
   - ysrMini01.js
