@@ -7,11 +7,8 @@ homeassistant:
         - 192.168.240.0/24
         - 192.168.1.0/24
         - fd00::/8
-    - type: legacy_api_password
-      api_password: !secret http_password
 
-# Show links to resources in log and frontend
-# introduction: false
+default_config:
 
 frontend:
   themes: !include_dir_merge_named themes
@@ -73,7 +70,7 @@ http:
 binary_sensor:
   - platform: template
     sensors:
-      is_nico_at_home:
+      is_nico_at_home_from_file:
         value_template: >-
           {%- if 
           states('binary_sensor.nic_s_pixel_kitchen_ibeacon_backwards') == 'on' or
@@ -89,7 +86,7 @@ binary_sensor:
           {%- endif  %}
   - platform: template
     sensors:
-      is_vick_at_home:
+      is_vick_at_home_from_file:
         value_template: >-
           {%- if 
           states('binary_sensor.vick_s_pixel_kitchen_ibeacon_backwards') == 'on' or
@@ -105,7 +102,7 @@ binary_sensor:
           {%- endif  %}          
   - platform: template
     sensors:
-      is_someone_at_home:
+      is_someone_at_home_from_file:
         value_template: >-
           {%- if 
           states('binary_sensor.is_vick_at_home') == 'on' or
@@ -132,7 +129,22 @@ tts: # Text to speech
   - platform: google_translate
 
 
-discovery:
+telegram_bot:
+  - platform: broadcast
+    api_key: !secret telegram_fullum_bot_token
+    allowed_chat_ids:
+      - !secret telegram_fullum_bot_chat_id
+      - !secret telegram_fullumbasement_bot_chat_id
+
+notify:
+  - platform: telegram
+    name: "fullumcoowners"
+    chat_id: !secret telegram_fullumbasement_bot_chat_id
+
+  - platform: telegram
+    name: "home"
+    chat_id: !secret telegram_fullum_bot_chat_id
+
 weather: !include weather.yaml
 scene: !include scenes.yaml
 script: !include scripts.yaml
@@ -149,6 +161,5 @@ input_number:
 input_select:
 schedule:
 input_boolean:
-
 
 yeelight: !include yeelight.yaml

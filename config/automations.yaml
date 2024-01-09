@@ -52,27 +52,6 @@
     entity_id: group.lights_interior
     service: light.turn_off
   mode: single
-- id: '1598587050856'
-  alias: WLED 01 Adjustments
-  description: ''
-  trigger:
-  - entity_id: input_number.wled01_speed
-    platform: state
-  - entity_id: input_number.wled01_intensity
-    platform: state
-  condition: []
-  action:
-  - data_template:
-      intensity: '{{ states(''input_number.wled01_intensity'') | default(0, true)
-        | int }}
-
-        '
-      speed: '{{ states(''input_number.wled01_speed'') | default(0, true) | int }}
-
-        '
-    entity_id: light.wledoffice
-    service: wled.effect
-  mode: single
 - id: '1607490599558'
   alias: Temperature - Sleeping
   description: ''
@@ -91,6 +70,11 @@
   - platform: state
     entity_id:
     - input_number.temperature_night
+  - platform: state
+    entity_id:
+    - binary_sensor.is_nico_at_home
+    - binary_sensor.is_vick_at_home
+    - binary_sensor.is_someone_at_home
   condition:
   - condition: and
     conditions:
@@ -138,6 +122,10 @@
     entity_id:
     - input_number.temperature_nic
     - input_number.temperature_vick
+  - platform: state
+    entity_id:
+    - light.main_room_lights
+    to: 'on'
   condition:
   - condition: state
     entity_id: binary_sensor.is_someone_at_home
@@ -329,20 +317,6 @@
     data: {}
     target:
       entity_id: light.counter
-  mode: single
-- id: '1629250564408'
-  alias: WLedOffice White Set
-  description: ''
-  trigger:
-  - platform: state
-    entity_id: input_number.wledoffice_kelvin
-  condition: []
-  action:
-  - service: light.turn_on
-    data_template:
-      kelvin: '{{ states(''input_number.wledoffice_kelvin'') | int(1) }}'
-    target:
-      device_id: 3aafe1d34f701960fe66d2c2da0b05b8
   mode: single
 - id: '1629415038976'
   alias: Cube - Living
@@ -576,81 +550,6 @@
       '
     target:
       entity_id: light.printer_light
-  mode: single
-- id: '1642113839486'
-  alias: ZugbeeRemote
-  description: ''
-  trigger:
-  - platform: device
-    domain: mqtt
-    device_id: 8c2c704a6654427fa5c0b593317cb49c
-    type: action
-    subtype: 'on'
-    discovery_id: 0xb4e3f9fffec28918 action_on
-    id: button_on
-  - platform: device
-    domain: mqtt
-    device_id: 8c2c704a6654427fa5c0b593317cb49c
-    type: action
-    subtype: 'off'
-    discovery_id: 0xb4e3f9fffec28918 action_off
-    id: button_off
-  - platform: device
-    domain: mqtt
-    device_id: 8c2c704a6654427fa5c0b593317cb49c
-    type: action
-    subtype: brightness_step_up
-    discovery_id: 0xb4e3f9fffec28918 action_brightness_step_up
-    id: brightness_up
-  - platform: device
-    domain: mqtt
-    device_id: 8c2c704a6654427fa5c0b593317cb49c
-    type: action
-    subtype: brightness_step_down
-    discovery_id: 0xb4e3f9fffec28918 action_brightness_step_down
-    id: brightness_down
-  - platform: device
-    domain: mqtt
-    device_id: 8c2c704a6654427fa5c0b593317cb49c
-    type: action
-    subtype: color_temperature_step_down
-    discovery_id: 0xb4e3f9fffec28918 action_color_temperature_step_down
-    id: brightness_big_down
-  - platform: device
-    domain: mqtt
-    device_id: 8c2c704a6654427fa5c0b593317cb49c
-    type: action
-    subtype: color_temperature_step_up
-    discovery_id: 0xb4e3f9fffec28918 action_color_temperature_step_up
-    id: brightness_big_up
-  condition: []
-  action:
-  - service: light.turn_on
-    data:
-      brightness: '{% if trigger.id == ''button_off'' %}
-
-        0
-
-        {% elif trigger.id == ''brightness_up'' %}
-
-        {{ min(255, (state_attr(''light.counter'',''brightness'') | int) + 32) }}
-
-        {% elif trigger.id == ''brightness_down'' %}
-
-        {{ max(0, (state_attr(''light.counter'',''brightness'') | int) - 32) }}
-
-        {% elif trigger.id == ''brightness_big_up'' %}
-
-        128
-
-        {% elif trigger.id == ''brightness_big_down'' %}
-
-        1
-
-        {% else %}255{% endif %}
-
-        '
-      entity_id: light.counter
   mode: single
 - id: '1642440511035'
   alias: Printer Cam Flash On-Off
@@ -1076,15 +975,117 @@
     domain: mqtt
     device_id: 15fd98553d2529e94d81f523d0ddad73
     type: action
+    subtype: 4_single
+    discovery_id: 0xb4e3f9fffeeac910 action_4_single
+  condition: []
+  action:
+  - service: light.turn_on
+    data:
+      brightness_step_pct: 20
+    target:
+      entity_id:
+      - light.office_yee
+      - light.office_side_left
+  mode: single
+- id: '1693415625468'
+  alias: Remote Tuya01 -20%
+  description: ''
+  trigger:
+  - platform: device
+    domain: mqtt
+    device_id: 15fd98553d2529e94d81f523d0ddad73
+    type: action
     subtype: 3_single
     discovery_id: 0xb4e3f9fffeeac910 action_3_single
   condition: []
   action:
   - service: light.turn_on
     data:
-      brightness_step_pct: -10
+      brightness_step_pct: -20
     target:
       entity_id:
       - light.office_yee
       - light.office_side_left
+  mode: single
+- id: '1695156403802'
+  alias: TuyaRemoteKitchenLampOn
+  description: ''
+  trigger:
+  - platform: device
+    domain: mqtt
+    device_id: 8c2c704a6654427fa5c0b593317cb49c
+    type: action
+    subtype: 1_single
+    discovery_id: 0xb4e3f9fffec28918 action_1_single
+  condition: []
+  action:
+  - service: light.turn_on
+    data: {}
+    target:
+      device_id: 1138f3ba163c3780c60bc0f2a7cff537
+  mode: single
+- id: '1695156453083'
+  alias: TuyaRemoteKitchenLampOff
+  description: ''
+  trigger:
+  - platform: device
+    domain: mqtt
+    device_id: 8c2c704a6654427fa5c0b593317cb49c
+    type: action
+    subtype: 2_single
+    discovery_id: 0xb4e3f9fffec28918 action_2_single
+  condition: []
+  action:
+  - service: light.turn_off
+    data: {}
+    target:
+      device_id: 1138f3ba163c3780c60bc0f2a7cff537
+  mode: single
+- id: '1703962070919'
+  alias: Balcon-On
+  description: ''
+  trigger:
+  - platform: sun
+    event: sunset
+    offset: -01:00:00
+  condition: []
+  action:
+  - type: turn_on
+    device_id: 6628640a26c8bcd192e4efd78ea07e18
+    entity_id: f2fffc841fe5568e6bec370ec1acd042
+    domain: light
+    brightness_pct: 100
+  mode: single
+- id: '1703962105228'
+  alias: Balcon - Off
+  description: ''
+  trigger:
+  - platform: sun
+    event: sunrise
+    offset: -01:00:00
+  condition: []
+  action:
+  - type: turn_off
+    device_id: 6628640a26c8bcd192e4efd78ea07e18
+    entity_id: f2fffc841fe5568e6bec370ec1acd042
+    domain: light
+  mode: single
+- id: '1703976766805'
+  alias: Fullum Basement Alerts
+  description: ''
+  trigger:
+  - platform: template
+    value_template: "{{ \n  (states('sensor.basement01_humidity') | float(0) > 50)
+      or \n  (states('sensor.basement01_temperature') | float(0) > 25) or\n  (states('sensor.basement01_temperature')
+      | float(0) < 10)\n}}"
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 10
+  condition: []
+  action:
+  - service: notify.fullumcoowners
+    data:
+      message: 'Basement Humidity: {{ states(''sensor.basement01_humidity'') }} %
+        Basement Temperature: {{ states(''sensor.basement01_temperature'') }} C'
   mode: single
