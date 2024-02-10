@@ -118,7 +118,8 @@ services:
     - 9003:80
 
   zigbee2mqtt:
-    image: koenkk/zigbee2mqtt:1.25.1
+    image: koenkk/zigbee2mqtt:1.35.2
+    # Was 1.25.1
     privileged: true
     restart: always
     volumes:

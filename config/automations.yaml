@@ -109,7 +109,7 @@
   description: ''
   trigger:
   - platform: time
-    at: 06:15:00
+    at: 07:30:00
   - platform: state
     entity_id: binary_sensor.is_someone_at_home
     from: 'off'
@@ -126,10 +126,17 @@
     entity_id:
     - light.main_room_lights
     to: 'on'
+    enabled: false
+  - platform: sun
+    event: sunrise
+    offset: 0
   condition:
   - condition: state
     entity_id: binary_sensor.is_someone_at_home
     state: 'on'
+  - condition: numeric_state
+    entity_id: sensor.longueuil_temperature
+    below: 15
   action:
   - service: input_number.set_value
     data_template:
@@ -151,20 +158,21 @@
   action:
   - service: climate.set_temperature
     data_template:
-      temperature: '{{ states(''input_number.temperature_main_room'') | float }}
+      temperature: '{{ states(''input_number.temperature_main_room'') | float + 1
+        }}
 
         '
     target:
       entity_id:
       - climate.climate_living
+      - climate.climate_office
   - service: climate.set_temperature
     data_template:
-      temperature: '{{ states(''input_number.temperature_main_room'') | float + 0.5}}
+      temperature: '{{ states(''input_number.temperature_main_room'') | float }}
 
         '
     target:
       entity_id:
-      - climate.climate_office
       - climate.climate_kitchen
   mode: single
 - id: '1615737828189'
@@ -1075,17 +1083,214 @@
   description: ''
   trigger:
   - platform: template
-    value_template: "{{ \n  (states('sensor.basement01_humidity') | float(0) > 50)
-      or \n  (states('sensor.basement01_temperature') | float(0) > 25) or\n  (states('sensor.basement01_temperature')
+    value_template: "{{ \n  (states('sensor.basement01_humidity') | float(0) > 60)
+      or \n  (states('sensor.basement01_temperature') | float(0) > 20) or\n  (states('sensor.basement01_temperature')
       | float(0) < 10)\n}}"
     for:
       hours: 0
-      minutes: 0
-      seconds: 10
+      minutes: 2
+      seconds: 0
   condition: []
   action:
   - service: notify.fullumcoowners
     data:
       message: 'Basement Humidity: {{ states(''sensor.basement01_humidity'') }} %
         Basement Temperature: {{ states(''sensor.basement01_temperature'') }} C'
+  mode: single
+- id: '1706897249249'
+  alias: Update Sinope Thermostat Outdoor Temperature
+  description: Updates the Outdoor Temp in Sinope Thermostats
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.longueuil_temperature
+  - platform: time_pattern
+    hours: '*'
+    minutes: '0'
+    seconds: '0'
+  condition: []
+  action:
+  - service: mqtt.publish
+    data:
+      payload_template: '{{ states(''sensor.longueuil_temperature'') | string }}'
+      topic: zigbee2mqtt/0x943469fffeb77d70/set/thermostat_outdoor_temperature
+      qos: 0
+      retain: false
+  - service: mqtt.publish
+    data:
+      payload_template: ''
+      topic: zigbee2mqtt/0x943469fffeb77d70/set/thermostat_time
+      qos: 0
+      retain: false
+    enabled: true
+  - service: mqtt.publish
+    data:
+      payload_template: '{{ states(''sensor.longueuil_temperature'') | string }}'
+      topic: zigbee2mqtt/0x943469fffeb779ec/set/thermostat_outdoor_temperature
+      qos: 0
+      retain: false
+  - service: mqtt.publish
+    data:
+      payload_template: ''
+      topic: zigbee2mqtt/0x943469fffeb779ec/set/thermostat_time
+      qos: 0
+      retain: false
+    enabled: true
+  mode: single
+- id: '1706909015439'
+  alias: Configure Stelpro Thermostats
+  description: Updates StelPro Thermostats Config
+  trigger:
+  - platform: time_pattern
+    hours: '*'
+    minutes: /30
+    seconds: '0'
+  condition: []
+  action:
+  - service: mqtt.publish
+    data:
+      payload_template: '{{ states(''sensor.longueuil_temperature'') | string }}'
+      topic: zigbee2mqtt/climate_office/set/thermostat_outdoor_temperature
+      qos: 0
+      retain: false
+    alias: Set outdoor temperature (office)
+  - alias: Set outdoor temperature (bedroom)
+    service: mqtt.publish
+    data:
+      payload_template: '{{ states(''sensor.longueuil_temperature'') | string }}'
+      topic: zigbee2mqtt/climate_bedroom/set/thermostat_outdoor_temperature
+      qos: 0
+      retain: false
+  - alias: Set outdoor temperature (vicks)
+    service: mqtt.publish
+    data:
+      payload_template: '{{ states(''sensor.longueuil_temperature'') | string }}'
+      topic: zigbee2mqtt/climate_vicks/set/thermostat_outdoor_temperature
+      qos: 0
+      retain: false
+    enabled: true
+  - alias: Set modes (climate_office)
+    service: mqtt.publish
+    data:
+      topic: zigbee2mqtt/climate_office/set
+      qos: 0
+      retain: false
+      payload: '{"system_mode":"heat"}'
+    enabled: true
+  - alias: Set modes (bedroom)
+    service: mqtt.publish
+    data:
+      topic: zigbee2mqtt/climate_bedroom/set
+      qos: 0
+      retain: false
+      payload: '{"system_mode":"heat"}'
+    enabled: true
+  - alias: Set modes (vicks)
+    service: mqtt.publish
+    data:
+      topic: zigbee2mqtt/climate_vicks/set
+      qos: 0
+      retain: false
+      payload: '{"system_mode":"heat"}'
+    enabled: true
+  mode: single
+- id: '1707018729762'
+  alias: Blue Lights when Printing
+  description: ''
+  trigger:
+  - type: turned_on
+    platform: device
+    device_id: 43cd2db33952e1977da0bd730a0ba974
+    entity_id: d3ee42e4426f466cd7940a457135ac16
+    domain: binary_sensor
+  condition: []
+  action:
+  - service: light.turn_on
+    target:
+      device_id: 275ac9affeb5776750e3709ffe21335f
+    data:
+      rgb_color:
+      - 30
+      - 255
+      - 0
+  mode: single
+- id: '1707319418412'
+  alias: Bedroom Temperature - wakeup
+  description: ''
+  trigger:
+  - platform: time
+    at: 08:30:00
+  - platform: state
+    entity_id:
+    - binary_sensor.is_someone_at_home
+    to: 'off'
+  condition:
+  - condition: time
+    after: 08:59:30
+    before: '19:59:59'
+  action:
+  - service: climate.set_temperature
+    target:
+      device_id: a4053c0eb9eb654a95568d6a220784fc
+    data:
+      temperature: 17
+  mode: single
+- id: '1707320056030'
+  alias: Bedroom Temperature - Going to bed
+  description: ''
+  trigger:
+  - platform: time
+    at: '20:00:00'
+  - platform: state
+    entity_id:
+    - binary_sensor.is_someone_at_home
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: binary_sensor.is_someone_at_home
+    state: 'on'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 0
+  - condition: numeric_state
+    entity_id: sensor.climate_bedroom_local_temperature
+    attribute: local_temperature
+    below: 18.5
+  - condition: time
+    after: '19:59:00'
+    before: 09:00:00
+  action:
+  - service: climate.set_temperature
+    target:
+      device_id: a4053c0eb9eb654a95568d6a220784fc
+    data:
+      temperature: 18.5
+  mode: single
+- id: '1707430189699'
+  alias: Vick's spot Temperature Adjustment
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_select.vick_s_spot_mode
+  - platform: time
+    at: 08:00:00
+  - platform: time
+    at: '20:00:00'
+  condition:
+  - condition: numeric_state
+    entity_id: sensor.longueuil_temperature
+    below: 15
+  action:
+  - service: climate.set_temperature
+    data:
+      temperature: "{% set timenow = states('sensor.time_of_day') %}\n{% set isDay
+        = ('08:00' < timenow < '19:00') %}  \n{% if states('input_select.vick_s_spot_mode')
+        == 'Empty' %}\n  {% if (isDay) %}\n  17\n  {% else %}\n  16\n  {% endif %}\n{%
+        elif states('input_select.vick_s_spot_mode') == 'Office' %}\n  {% if (isDay)
+        %}\n    19.5\n  {% else %}\n    16\n  {% endif %}\n{% else %}\n  {% if isDay
+        %}\n  18\n  {% else %}\n   19.5\n  {% endif %}\n{% endif %}\n"
+    target:
+      entity_id: climate.climate_vicks
   mode: single

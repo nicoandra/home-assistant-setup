@@ -48,8 +48,36 @@ services:
     command: -h logio -n docker
     depends_on:
       - logio
+    restart: no
 
   logio:
     image: temal/logio-server
+    restart: no
     ports:
       - 9002:28778
+
+  zigbee2mqtt:
+    container_name: zigbee2mqtt
+    image: koenkk/zigbee2mqtt
+    restart: unless-stopped
+    volumes:
+      - ./volumes/zigbee2mqtt:/app/data
+      - /run/udev:/run/udev:ro
+    ports:
+      # Frontend port
+      - 8080:8080
+    environment:
+      - TZ=America/Montreal
+    devices:
+      - /dev/serial/by-id/usb-Texas_Instruments_TI_CC2531_USB_CDC___0X00124B001CD49715-if00:/dev/ttyACM0
+
+  zigbee2mqttAssistant:
+    image: carldebilly/zigbee2mqttassistant
+    environment:
+      - Z2MA_SETTINGS__MQTTSERVER=mosquitto
+      # Set to your TimeZone when using on Linux https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+      # Won't work if you're using the Windows version of the container
+      - TZ=America/Montreal
+    ports:
+      - 8880:80
+    restart: unless-stopped
