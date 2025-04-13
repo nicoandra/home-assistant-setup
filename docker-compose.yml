@@ -1,8 +1,8 @@
 version: "3.4"
 services:
   homeassistant:
-    # image: homeassistant/home-assistant:2022.10
-    image: homeassistant/home-assistant:2023.12
+    image: homeassistant/home-assistant:2024.2
+    # image: homeassistant/home-assistant:2023.12
     restart: unless-stopped
     network_mode: host
     volumes:
@@ -12,12 +12,14 @@ services:
       - zigbee2mqtt
     environment:
       - TZ=America/Montreal
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.ha.rule=Host(`ha.f1961.nmac.com.ar`)"
-      - "traefik.http.services.ha.loadbalancer.server.port=8123"
-      - "traefik.http.routers.ha.tls.certresolver=lets-encr"
-      - "traefik.http.routers.ha.tls.domains[0].main=ha.f1961.nmac.com.ar"
+    # labels:
+    #   - "traefik.enable=true"
+    #   - "traefik.http.routers.ha.rule=Host(`ha.f1961.nmac.com.ar`)"
+    #   - "traefik.http.services.ha.loadbalancer.server.port=8123"
+    #   - "traefik.http.routers.ha.tls.certresolver=lets-encr"
+    #   - "traefik.http.routers.ha.tls.domains[0].main=ha.f1961.nmac.com.ar"
+    ports:
+      - "192.168.1.157:8123:8123"
 
   mosquitto:
     image: ansi/mosquitto
@@ -57,21 +59,22 @@ services:
       - ./etc/certificates:/etc/certificates
     depends_on:
       - homeassistant
-    labels:
-      - "traefik.http.routers.homeassistant.rule=Host(`hanginx.f1961.nmac.com.ar`)"
-      - "traefik.http.services.homeassistant.loadbalancer.server.port=8124"
-      - "traefik.http.routers.querinihomeassistant.rule=Host(`querini.f1961.nmac.com.ar`)"
-      - "traefik.http.services.querinihomeassistant.loadbalancer.server.port=8125"
+    # labels:
+    #   - "traefik.http.routers.homeassistant.rule=Host(`hanginx.f1961.nmac.com.ar`)"
+    #   - "traefik.http.services.homeassistant.loadbalancer.server.port=8124"
+    #   - "traefik.http.routers.querinihomeassistant.rule=Host(`querini.f1961.nmac.com.ar`)"
+    #   - "traefik.http.services.querinihomeassistant.loadbalancer.server.port=8125"
 
 
   cloud9: # https://hub.docker.com/r/sapk/cloud9/
-    container_name: cloud9
+    # container_name: cloud9
     image: linuxserver/cloud9
     restart: unless-stopped
     privileged: true
     volumes:
     - ./:/code/homeassistant
     - ./../zoneminder:/code/zoneminder
+    - ./../wireguard:/code/wireguard
     - /var/run/docker.sock:/var/run/docker.sock
     environment:
     - PGID=1000
@@ -128,7 +131,7 @@ services:
       - /run/udev:/run/udev:ro
     environment:
     - TZ=America/Montreal
-    - DEBUG=xxzigbee-herdsman*
+    # - DEBUG=xxzigbee-herdsman*
  
  
   zigbee2mqttAqara:
@@ -164,3 +167,18 @@ services:
     ports:
       - 8881:80
     restart: unless-stopped
+
+  influxdb:
+    image: influxdb:2.7.5
+    environment:
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=influxdb
+      - DOCKER_INFLUXDB_INIT_PASSWORD=influxdb
+      - DOCKER_INFLUXDB_INIT_ORG=homeOrg
+      - DOCKER_INFLUXDB_INIT_BUCKET=homeBucket
+    volumes:
+     - ./volumes/influxdb/data:/var/lib/influxdb2
+     - ./volumes/influxdb/config:/etc/influxdb2
+    ports:
+     - 8086:8086
+         

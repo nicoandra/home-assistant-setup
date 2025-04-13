@@ -10,6 +10,34 @@ homeassistant:
 
 default_config:
 
+discovery:
+  ignore:
+    - homekit
+
+homekit:
+  filter:
+    exclude_domains:
+      - automation
+      - script
+      - scene
+      - lock
+      - remote
+      - device_tracker
+      - binary_sensor
+      - sensor
+      - select
+      - light
+    exclude_entity_globs:
+      - automation.*
+      - script.*
+      - scene.*
+      - lock.*
+      - remote.*
+      - device_tracker.*
+      - binary_sensor.*
+      - sensor.*
+      - select.*
+
 frontend:
   themes: !include_dir_merge_named themes
 
@@ -26,23 +54,21 @@ mqtt:
   - name: nico_pixel_bedroom
     state_topic: "ble-presence-bedroom/binary_sensor/nics_pixel_ibeacon_backwards/state"
   sensor:
-  - name: "Office Heat PI"
-    unique_id: climate_office_heat_demand
+  - name: "Climate Bedroom Raw PIHeat"
+    unique_id: climate_bedroom_raw_piheat
     unit_of_measurement: '%'
-    state_topic: zigbee2mqtt/climate_office
-    value_template: "{{ value_json.pi_heating_demand }}"
-    # MQTT publish: topic 'zigbee2mqtt/climate_office', payload '{"humidity":null,"keypad_lockout":0,"linkquality":174,"local_temperature":22,"occupied_heating_setpoint":21.5,"operation":"heating","pi_heating_demand":7,"running_state":"heat","system_mode":"heat"}'
-  - name: "Bedroom Heat PI"
-    unique_id: climate_bedroom_heat_demand
-    unit_of_measurement: '%'
+    json_attributes_topic: zigbee2mqtt/climate_bedroom
     state_topic: zigbee2mqtt/climate_bedroom
-    value_template: "{{ value_json.pi_heating_demand }}"
+    json_attributes_template: '{{ value_json.pi_heating_demand }}'
+    value_template: '{{ value_json.pi_heating_demand }}'
     # MQTT publish: topic 'zigbee2mqtt/climate_office', payload '{"humidity":null,"keypad_lockout":0,"linkquality":174,"local_temperature":22,"occupied_heating_setpoint":21.5,"operation":"heating","pi_heating_demand":7,"running_state":"heat","system_mode":"heat"}'
-  - name: "Vicks Heat PI"
-    unique_id: climate_vicks_heat_demand
+  - name: "Climate Vicks Raw PIHeat"
+    unique_id: climate_vicks_raw_piheat
     unit_of_measurement: '%'
+    json_attributes_topic: zigbee2mqtt/climate_vicks
     state_topic: zigbee2mqtt/climate_vicks
-    value_template: "{{ value_json.pi_heating_demand }}"
+    json_attributes_template: '{{ value_json.pi_heating_demand }}'
+    value_template: '{{ value_json.pi_heating_demand }}'
     # MQTT publish: topic 'zigbee2mqtt/climate_office', payload '{"humidity":null,"keypad_lockout":0,"linkquality":174,"local_temperature":22,"occupied_heating_setpoint":21.5,"operation":"heating","pi_heating_demand":7,"running_state":"heat","system_mode":"heat"}'
 
 
@@ -185,3 +211,18 @@ schedule:
 input_boolean:
 
 yeelight: !include yeelight.yaml
+
+
+# influxdb:
+#  api_version: 2
+#  host: 192.168.1.157
+#  port: 8086
+#  ssl: false
+#  verify_ssl: false
+#  organization: homeOrg
+#  bucket: homeBucket
+#  token: !secret influxdb_token
+#  precision: s
+#  default_measurement: _default
+#  tags:
+#    source: HA
