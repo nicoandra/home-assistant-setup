@@ -13,7 +13,7 @@
   "dependencies": {
     "js-yaml": "^3.13.1",
     "mqtt": "^2.18.8",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.7",
     "nodemon": "^1.19.4",
     "request": "^2.88.0"
   }
