@@ -1,16 +1,16 @@
 version: "3.4"
 services:
   homeassistant:
-    # image: homeassistant/home-assistant:2022.10
     image: homeassistant/home-assistant:2023.3
     restart: unless-stopped
-    network_mode: host
     volumes:
       - ./volumes/homeassistant/config:/config
     depends_on:
       - mosquitto
     environment:
       - TZ=America/Montreal
+    ports:
+      - 8123:8123
 
   mosquitto:
     image: ansi/mosquitto
@@ -26,12 +26,12 @@ services:
       - TZ=America/Montreal
 
   cloud9: # https://hub.docker.com/r/sapk/cloud9/
-    container_name: cloud9
     image: linuxserver/cloud9
     restart: unless-stopped
     privileged: true
     volumes:
     - ./:/code/homeassistant
+    - ~/code/wireguard:/code/wireguard
     - /var/run/docker.sock:/var/run/docker.sock
     environment:
     - PGID=1000
@@ -53,3 +53,57 @@ services:
     image: temal/logio-server
     ports:
       - 9002:28778
+
+  zoneminder:
+    image: zoneminderhq/zoneminder:latest-ubuntu18.04
+    restart: unless-stopped
+    volumes:
+     - /mnt/sdb1/zoneminder/events:/var/cache/zoneminder/events
+     - /mnt/sdb1/zoneminder/images:/var/cache/zoneminder/images
+     - /mnt/sdb1/zoneminder/mysql:/var/lib/mysql
+     - /mnt/sdb1/zoneminder/logs:/var/log/zm
+    devices:
+     - /dev/video0:/dev/video0
+     - /dev/video1:/dev/video1
+    shm_size: 4gb
+    ports:
+      - 1080:80
+    environment:
+     - TZ=America/Montreal
+    labels:
+     - "traefik.http.routers.zoneminder.rule=Host(`zm3.f1961.nmac.com.ar`)"
+     - "traefik.enable=true"
+     - "traefik.http.routers.zoneminder.tls.certresolver=lets-encr"
+     - "traefik.http.routers.zoneminder.tls.domains[0].main=zm3.f1961.nmac.com.ar"
+
+  pihole:
+    # Runs a DNS server to blackhole advertising
+    # It has a management interface running on port 80,
+    # so we want to proxy it.
+    # We are NOT running DHCP so port 67 is not exposed.
+    image: pihole/pihole:latest
+    ports:
+      - "53:53/tcp"
+      - 8881:80
+      - "53:53/udp"
+      - "443:443/tcp"  # catches ads on port 443 or so they say
+    # Recommended but not required (DHCP needs NET_ADMIN)
+    #   https://github.com/pi-hole/docker-pi-hole#note-on-capabilities
+#    cap_add:
+#      - NET_ADMIN
+    environment:
+#      VIRTUAL_HOST: "pihole.wildsong.biz"
+      TZ: 'America/Montreal'
+      WEBPASSWORD: caca
+      ServerIP: "192.168.1.237"
+      # Cloudflare
+      DNS1: "1.1.1.1"
+      DNS2: "8.8.8.8"
+      NETWORK_ACCESS: internal
+    dns:
+      - "1.1.1.1"
+      - "8.8.8.8"
+    volumes:
+       - ./volumes/pihole/etc:/etc/pihole/
+       - ./volumes/pihole/dnsmasq.d:/etc/dnsmasq.d/
+    restart: unless-stopped
