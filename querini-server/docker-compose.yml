@@ -29,7 +29,7 @@ services:
       - mosquitto
     volumes:
       - ./volumes/zigbee2mqtt/data:/app/data
-      - /dev/ttyUSB0:/dev/ttyUSB0
+      - /dev/ttyACM0:/dev/ttyACM0
       - /run/udev:/run/udev:ro
     environment:
     - TZ=America/Montreal
