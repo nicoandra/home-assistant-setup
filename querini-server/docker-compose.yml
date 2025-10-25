@@ -1,16 +1,38 @@
 version: "3.4"
 services:
   homeassistant:
-    image: homeassistant/home-assistant:2023.3
+    image: homeassistant/home-assistant:2025.10
     restart: unless-stopped
     volumes:
       - ./volumes/homeassistant/config:/config
     depends_on:
       - mosquitto
+      - zigbee2mqtt
     environment:
       - TZ=America/Montreal
     ports:
       - 8123:8123
+
+  tasmoadmin:
+    image: raymondmm/tasmoadmin
+    volumes:
+    - ./volumes/tasmoadmin/data:/data
+    ports:
+    - 9003:80
+
+  zigbee2mqtt:
+    image: koenkk/zigbee2mqtt:1.35.2
+    # Was 1.25.1
+    privileged: true
+    restart: always
+    depends_on:
+      - mosquitto
+    volumes:
+      - ./volumes/zigbee2mqtt/data:/app/data
+      - /dev/ttyUSB0:/dev/ttyUSB0
+      - /run/udev:/run/udev:ro
+    environment:
+    - TZ=America/Montreal
 
   mosquitto:
     image: ansi/mosquitto
@@ -77,35 +99,3 @@ services:
      - "traefik.enable=true"
      - "traefik.http.routers.zoneminder.tls.certresolver=lets-encr"
      - "traefik.http.routers.zoneminder.tls.domains[0].main=zm3.f1961.nmac.com.ar"
-
-  pihole:
-    # Runs a DNS server to blackhole advertising
-    # It has a management interface running on port 80,
-    # so we want to proxy it.
-    # We are NOT running DHCP so port 67 is not exposed.
-    image: pihole/pihole:latest
-    ports:
-      - "53:53/tcp"
-      - 8881:80
-      - "53:53/udp"
-      - "443:443/tcp"  # catches ads on port 443 or so they say
-    # Recommended but not required (DHCP needs NET_ADMIN)
-    #   https://github.com/pi-hole/docker-pi-hole#note-on-capabilities
-#    cap_add:
-#      - NET_ADMIN
-    environment:
-#      VIRTUAL_HOST: "pihole.wildsong.biz"
-      TZ: 'America/Montreal'
-      WEBPASSWORD: caca
-      ServerIP: "192.168.1.237"
-      # Cloudflare
-      DNS1: "1.1.1.1"
-      DNS2: "8.8.8.8"
-      NETWORK_ACCESS: internal
-    dns:
-      - "1.1.1.1"
-      - "8.8.8.8"
-    volumes:
-       - ./volumes/pihole/etc:/etc/pihole/
-       - ./volumes/pihole/dnsmasq.d:/etc/dnsmasq.d/
-    restart: unless-stopped
