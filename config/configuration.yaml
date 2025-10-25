@@ -7,11 +7,36 @@ homeassistant:
         - 192.168.240.0/24
         - 192.168.1.0/24
         - fd00::/8
-    - type: legacy_api_password
-      api_password: !secret http_password
 
-# Show links to resources in log and frontend
-# introduction: false
+default_config:
+
+discovery:
+  ignore:
+    - homekit
+
+homekit:
+  filter:
+    exclude_domains:
+      - automation
+      - script
+      - scene
+      - lock
+      - remote
+      - device_tracker
+      - binary_sensor
+      - sensor
+      - select
+      - light
+    exclude_entity_globs:
+      - automation.*
+      - script.*
+      - scene.*
+      - lock.*
+      - remote.*
+      - device_tracker.*
+      - binary_sensor.*
+      - sensor.*
+      - select.*
 
 frontend:
   themes: !include_dir_merge_named themes
@@ -28,6 +53,26 @@ mqtt:
     state_topic: "ble-presence-kitchen/binary_sensor/nics_pixel_ibeacon_backwards/state"
   - name: nico_pixel_bedroom
     state_topic: "ble-presence-bedroom/binary_sensor/nics_pixel_ibeacon_backwards/state"
+  sensor:
+  - name: "Climate Bedroom Raw PIHeat"
+    unique_id: climate_bedroom_raw_piheat
+    unit_of_measurement: '%'
+    json_attributes_topic: zigbee2mqtt/climate_bedroom
+    state_topic: zigbee2mqtt/climate_bedroom
+    json_attributes_template: '{{ value_json.pi_heating_demand }}'
+    value_template: '{{ value_json.pi_heating_demand }}'
+    # MQTT publish: topic 'zigbee2mqtt/climate_office', payload '{"humidity":null,"keypad_lockout":0,"linkquality":174,"local_temperature":22,"occupied_heating_setpoint":21.5,"operation":"heating","pi_heating_demand":7,"running_state":"heat","system_mode":"heat"}'
+  - name: "Climate Vicks Raw PIHeat"
+    unique_id: climate_vicks_raw_piheat
+    unit_of_measurement: '%'
+    json_attributes_topic: zigbee2mqtt/climate_vicks
+    state_topic: zigbee2mqtt/climate_vicks
+    json_attributes_template: '{{ value_json.pi_heating_demand }}'
+    value_template: '{{ value_json.pi_heating_demand }}'
+    # MQTT publish: topic 'zigbee2mqtt/climate_office', payload '{"humidity":null,"keypad_lockout":0,"linkquality":174,"local_temperature":22,"occupied_heating_setpoint":21.5,"operation":"heating","pi_heating_demand":7,"running_state":"heat","system_mode":"heat"}'
+
+
+
 
 logger:
   default: warning
@@ -73,7 +118,7 @@ http:
 binary_sensor:
   - platform: template
     sensors:
-      is_nico_at_home:
+      is_nico_at_home_from_file:
         value_template: >-
           {%- if 
           states('binary_sensor.nic_s_pixel_kitchen_ibeacon_backwards') == 'on' or
@@ -89,7 +134,7 @@ binary_sensor:
           {%- endif  %}
   - platform: template
     sensors:
-      is_vick_at_home:
+      is_vick_at_home_from_file:
         value_template: >-
           {%- if 
           states('binary_sensor.vick_s_pixel_kitchen_ibeacon_backwards') == 'on' or
@@ -105,7 +150,7 @@ binary_sensor:
           {%- endif  %}          
   - platform: template
     sensors:
-      is_someone_at_home:
+      is_someone_at_home_from_file:
         value_template: >-
           {%- if 
           states('binary_sensor.is_vick_at_home') == 'on' or
@@ -132,7 +177,22 @@ tts: # Text to speech
   - platform: google_translate
 
 
-discovery:
+telegram_bot:
+  - platform: broadcast
+    api_key: !secret telegram_fullum_bot_token
+    allowed_chat_ids:
+      - !secret telegram_fullum_bot_chat_id
+      - !secret telegram_fullumbasement_bot_chat_id
+
+notify:
+  - platform: telegram
+    name: "fullumcoowners"
+    chat_id: !secret telegram_fullumbasement_bot_chat_id
+
+  - platform: telegram
+    name: "home"
+    chat_id: !secret telegram_fullum_bot_chat_id
+
 weather: !include weather.yaml
 scene: !include scenes.yaml
 script: !include scripts.yaml
@@ -150,5 +210,19 @@ input_select:
 schedule:
 input_boolean:
 
-
 yeelight: !include yeelight.yaml
+
+
+# influxdb:
+#  api_version: 2
+#  host: 192.168.1.157
+#  port: 8086
+#  ssl: false
+#  verify_ssl: false
+#  organization: homeOrg
+#  bucket: homeBucket
+#  token: !secret influxdb_token
+#  precision: s
+#  default_measurement: _default
+#  tags:
+#    source: HA

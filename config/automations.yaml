@@ -52,34 +52,13 @@
     entity_id: group.lights_interior
     service: light.turn_off
   mode: single
-- id: '1598587050856'
-  alias: WLED 01 Adjustments
-  description: ''
-  trigger:
-  - entity_id: input_number.wled01_speed
-    platform: state
-  - entity_id: input_number.wled01_intensity
-    platform: state
-  condition: []
-  action:
-  - data_template:
-      intensity: '{{ states(''input_number.wled01_intensity'') | default(0, true)
-        | int }}
-
-        '
-      speed: '{{ states(''input_number.wled01_speed'') | default(0, true) | int }}
-
-        '
-    entity_id: light.wledoffice
-    service: wled.effect
-  mode: single
 - id: '1607490599558'
   alias: Temperature - Sleeping
   description: ''
   trigger:
   - platform: state
     entity_id:
-    - group.lights_interior
+    - light.main_room_lights
     to: 'off'
     from: 'on'
     for:
@@ -88,6 +67,14 @@
       seconds: 0
   - platform: time
     at: '22:00:00'
+  - platform: state
+    entity_id:
+    - input_number.temperature_night
+  - platform: state
+    entity_id:
+    - binary_sensor.is_nico_at_home
+    - binary_sensor.is_vick_at_home
+    - binary_sensor.is_someone_at_home
   condition:
   - condition: and
     conditions:
@@ -99,16 +86,19 @@
         after: '20:00:00'
         before: 00:00:00
     - condition: state
-      entity_id: group.lights_interior
+      entity_id: light.main_room_lights
       state: 'off'
       for:
         hours: 0
         minutes: 0
         seconds: 0
+  - condition: state
+    entity_id: binary_sensor.is_someone_at_home
+    state: 'on'
   action:
   - service: input_number.set_value
     data_template:
-      temperature: '{{ states(''input_number.temperature_night'') | float }}
+      value: '{{ states(''input_number.temperature_night'') | float }}
 
         '
     target:
@@ -119,7 +109,7 @@
   description: ''
   trigger:
   - platform: time
-    at: 06:15:00
+    at: 07:45:00
   - platform: state
     entity_id: binary_sensor.is_someone_at_home
     from: 'off'
@@ -128,21 +118,46 @@
       hours: 0
       minutes: 0
       seconds: 0
+    enabled: false
   - platform: state
     entity_id:
     - input_number.temperature_nic
     - input_number.temperature_vick
+  - platform: state
+    entity_id:
+    - light.main_room_lights
+    to: 'on'
+    enabled: false
+  - platform: sun
+    event: sunrise
+    offset: 0
+  - platform: state
+    entity_id:
+    - input_select.presence_occupancy
+    from: Empty
+    to: Occupied
+  - platform: state
+    entity_id:
+    - input_select.presence_occupancy
+    to: Occupied
   condition:
-  - condition: state
-    entity_id: binary_sensor.is_someone_at_home
-    state: 'on'
+  - condition: numeric_state
+    entity_id: sensor.longueuil_temperature
+    below: 15
+  - condition: or
+    conditions:
+    - condition: state
+      entity_id: input_select.presence_occupancy
+      state: Occupied
+    - condition: state
+      entity_id: binary_sensor.is_someone_at_home
+      state: 'on'
   action:
   - service: input_number.set_value
     data_template:
       value: "{% if is_state(\"binary_sensor.is_vick_at_home\", \"on\") -%}\n  {{
-        states('input_number.temperature_vick') | float}}\n{%- else -%}\n  {% if is_state(\"binary_sensor.is_nico_at_home\",
-        \"on\") -%}\n    {{ states('input_number.temperature_nic') | float}}\n  {%-
-        endif %}\n{%- endif %}\n"
+        states('input_number.temperature_vick') | float}}\n{%- else -%}\n  {{ states('input_number.temperature_nic')
+        | float}}\n{%- endif %}\n"
     target:
       entity_id: input_number.temperature_main_room
   mode: single
@@ -157,20 +172,21 @@
   action:
   - service: climate.set_temperature
     data_template:
-      temperature: '{{ states(''input_number.temperature_main_room'') | float }}
+      temperature: '{{ 0.0 + states(''input_number.temperature_main_room'') | float
+        }}
 
         '
     target:
       entity_id:
       - climate.climate_living
+      - climate.climate_office
   - service: climate.set_temperature
     data_template:
-      temperature: '{{ states(''input_number.temperature_main_room'') | float + 0.5}}
+      temperature: '{{ states(''input_number.temperature_main_room'') | float }}
 
         '
     target:
       entity_id:
-      - climate.climate_office
       - climate.climate_kitchen
   mode: single
 - id: '1615737828189'
@@ -218,97 +234,6 @@
     data:
       entity_id: light.vicks_spot_main_lamp
   mode: single
-- id: '1621693900634'
-  alias: Kitchen Magic Cube
-  description: ''
-  use_blueprint:
-    path: luckypoppy/z2m-xiaomi-cube-controller.yaml
-    input:
-      slide_face_0: []
-      flipped180_face_0:
-      - service: light.toggle
-        data: {}
-        entity_id: light.countertop
-      - service: light.toggle
-        data: {}
-        entity_id: light.kitchen_lamp
-      flipped180_face_1:
-      - service: light.toggle
-        data: {}
-        entity_id: light.countertop
-      - service: light.toggle
-        data: {}
-        entity_id: light.kitchen_lamp
-      flipped180_face_2:
-      - service: light.toggle
-        data: {}
-        entity_id: light.countertop
-      - service: light.toggle
-        data: {}
-        entity_id: light.kitchen_lamp
-      flipped180_face_3:
-      - service: light.toggle
-        data: {}
-        entity_id: light.countertop
-      - service: light.toggle
-        data: {}
-        entity_id: light.kitchen_lamp
-      flipped180_face_4:
-      - service: light.toggle
-        data: {}
-        entity_id: light.countertop
-      - service: light.toggle
-        data: {}
-        entity_id: light.kitchen_lamp
-      flipped180_face_5:
-      - service: light.toggle
-        data: {}
-        entity_id: light.countertop
-      - service: light.toggle
-        data: {}
-        entity_id: light.kitchen_lamp
-      remote: sensor.0x00158d000544a42e_action
-- id: '1621696669089'
-  alias: Kitchen Cube Lamp - Flip 180
-  description: ''
-  trigger:
-  - platform: mqtt
-    topic: zigbee2mqtt-aqara/aqara-cube-kitchen
-    payload: flip180
-    value_template: '{{ value_json.action }}'
-  condition: []
-  action:
-  - service: light.toggle
-    data: {}
-    target:
-      entity_id: light.kitchen_lamp
-  mode: single
-- id: '1621715079279'
-  alias: Office Cube - Slides
-  description: ''
-  trigger:
-  - platform: mqtt
-    payload: slide
-    value_template: '{{ value_json.action }}'
-    topic: zigbee2mqtt-aqara/aqara-cube-office
-  condition: []
-  action:
-  - service: '{% if states(''light.office_yee'') == ''on'' %}
-
-      light.turn_off
-
-      {% else %}
-
-      light.turn_on
-
-      {% endif %}
-
-      '
-    data:
-      entity_id:
-      - light.office_yee
-      - light.office_lamp_left_side
-  mode: single
 - id: '1621805678074'
   alias: Kitchen Cube Shake
   description: ''
@@ -323,20 +248,6 @@
     data: {}
     target:
       entity_id: light.counter
-  mode: single
-- id: '1629250564408'
-  alias: WLedOffice White Set
-  description: ''
-  trigger:
-  - platform: state
-    entity_id: input_number.wledoffice_kelvin
-  condition: []
-  action:
-  - service: light.turn_on
-    data_template:
-      kelvin: '{{ states(''input_number.wledoffice_kelvin'') | int(1) }}'
-    target:
-      device_id: 3aafe1d34f701960fe66d2c2da0b05b8
   mode: single
 - id: '1629415038976'
   alias: Cube - Living
@@ -358,85 +269,27 @@
   mode: single
 - id: '1638765519594'
   alias: Breakfast light
-  description: ''
+  description: Kitchen and Office light at morning for a warm wake up
   trigger:
   - platform: time
-    at: 07:15:00
+    at: 07:30:00
   condition: []
   action:
   - service: light.turn_on
     data:
-      brightness_pct: 100
+      brightness_pct: 25
+      transition: 30
     target:
-      entity_id: light.kitchen_counter_led
-  mode: single
-- id: '1639019639828'
-  alias: Vicks spot heater On
-  description: ''
-  trigger:
-  - platform: time
-    at: 06:00:00
-  - platform: state
-    entity_id: binary_sensor.is_vick_at_home
-    from: 'off'
-    to: 'on'
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 30
-      milliseconds: 0
-  condition:
-  - condition: time
-    before: '21:00:00'
-    after: 05:59:00
-  - condition: state
-    entity_id: binary_sensor.is_vick_at_home
-    state: 'on'
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 15
-      milliseconds: 0
-  action:
-  - service: climate.set_temperature
+      device_id:
+      - 290a03a20708f0eefafbdf4e61f51d8b
+      - 08429d00a338df4b7521e1c7d975112e
+      - 49c8737ce97a155411f09b9a9ada96fb
+  - service: light.turn_on
     data:
-      temperature: 20.5
+      brightness_pct: 50
+      transition: 30
     target:
-      entity_id: climate.0xf8f005fffff483ab
-  mode: single
-- id: '1639019928666'
-  alias: Vick spot heater off
-  description: ''
-  trigger:
-  - platform: time
-    at: '19:01:00'
-  - platform: state
-    entity_id: light.vicks_spot_main_dimmer
-    from: 'on'
-    to: 'off'
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 30
-      milliseconds: 0
-  - platform: state
-    entity_id: binary_sensor.is_vick_at_home
-    from: 'on'
-    to: 'off'
-    for:
-      hours: 0
-      minutes: 1
-      seconds: 0
-      milliseconds: 0
-  condition:
-  - condition: time
-    after: '17:30:00'
-  action:
-  - service: climate.set_temperature
-    data:
-      temperature: 18
-    target:
-      entity_id: climate.0xf8f005fffff483ab
+      device_id: 2af3fc204f6bf1df64dcc67b9d1f9527
   mode: single
 - id: '1639235579204'
   alias: Heaters when home is alone
@@ -512,24 +365,6 @@
 
         '
   mode: single
-- id: '1641237229359'
-  alias: Office Cube - Flip
-  description: ''
-  trigger:
-  - platform: mqtt
-    payload: flip180
-    value_template: '{{ value_json.action }}'
-    topic: zigbee2mqtt-aqara/aqara-cube-office
-  condition: []
-  action:
-  - service: light.toggle
-    data: {}
-    target:
-      entity_id:
-      - light.wled_segment_1
-      - light.wled
-      - light.wled_master
-  mode: single
 - id: '1642108860891'
   alias: Printer Lights when printing
   description: ''
@@ -565,81 +400,6 @@
       '
     target:
       entity_id: light.printer_light
-  mode: single
-- id: '1642113839486'
-  alias: ZugbeeRemote
-  description: ''
-  trigger:
-  - platform: device
-    domain: mqtt
-    device_id: 8c2c704a6654427fa5c0b593317cb49c
-    type: action
-    subtype: 'on'
-    discovery_id: 0xb4e3f9fffec28918 action_on
-    id: button_on
-  - platform: device
-    domain: mqtt
-    device_id: 8c2c704a6654427fa5c0b593317cb49c
-    type: action
-    subtype: 'off'
-    discovery_id: 0xb4e3f9fffec28918 action_off
-    id: button_off
-  - platform: device
-    domain: mqtt
-    device_id: 8c2c704a6654427fa5c0b593317cb49c
-    type: action
-    subtype: brightness_step_up
-    discovery_id: 0xb4e3f9fffec28918 action_brightness_step_up
-    id: brightness_up
-  - platform: device
-    domain: mqtt
-    device_id: 8c2c704a6654427fa5c0b593317cb49c
-    type: action
-    subtype: brightness_step_down
-    discovery_id: 0xb4e3f9fffec28918 action_brightness_step_down
-    id: brightness_down
-  - platform: device
-    domain: mqtt
-    device_id: 8c2c704a6654427fa5c0b593317cb49c
-    type: action
-    subtype: color_temperature_step_down
-    discovery_id: 0xb4e3f9fffec28918 action_color_temperature_step_down
-    id: brightness_big_down
-  - platform: device
-    domain: mqtt
-    device_id: 8c2c704a6654427fa5c0b593317cb49c
-    type: action
-    subtype: color_temperature_step_up
-    discovery_id: 0xb4e3f9fffec28918 action_color_temperature_step_up
-    id: brightness_big_up
-  condition: []
-  action:
-  - service: light.turn_on
-    data:
-      brightness: '{% if trigger.id == ''button_off'' %}
-
-        0
-
-        {% elif trigger.id == ''brightness_up'' %}
-
-        {{ min(255, (state_attr(''light.counter'',''brightness'') | int) + 32) }}
-
-        {% elif trigger.id == ''brightness_down'' %}
-
-        {{ max(0, (state_attr(''light.counter'',''brightness'') | int) - 32) }}
-
-        {% elif trigger.id == ''brightness_big_up'' %}
-
-        128
-
-        {% elif trigger.id == ''brightness_big_down'' %}
-
-        1
-
-        {% else %}255{% endif %}
-
-        '
-      entity_id: light.counter
   mode: single
 - id: '1642440511035'
   alias: Printer Cam Flash On-Off
@@ -732,26 +492,6 @@
       - light.living_corner_lamp
       - light.living_tortue
       - light.bedroom_main_dimmer
-  mode: single
-- id: '1654974013311'
-  alias: Bathroom Fan - Turn Off after X time
-  description: Turns of the Bathroom fan after it has been running for X time non-stop
-  trigger:
-  - platform: device
-    type: turned_on
-    device_id: 0af877f53914487da80840bc31401826
-    entity_id: switch.bathroom_fan
-    domain: switch
-    for:
-      hours: 0
-      minutes: 30
-      seconds: 0
-  condition: []
-  action:
-  - type: turn_off
-    device_id: 0af877f53914487da80840bc31401826
-    entity_id: switch.bathroom_fan
-    domain: switch
   mode: single
 - id: '1655572973321'
   alias: Hue Remote 01 - Office
@@ -935,4 +675,858 @@
         {% endif %}
 
         '
+  mode: single
+- id: '1680235631501'
+  alias: Temperature - Presence Changes
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.is_someone_at_home
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 0
+  condition: []
+  action:
+  - service: input_number.set_value
+    data_template:
+      value: "{% if is_state('binary_sensor.is_vick_at_home', 'on') -%}\n  {{ states('input_number.temperature_vick')
+        | float }}\n{% elif is_state('binary_sensor.is_nico_at_home_at_home', 'on')
+        -%}\n  {{ states('input_number.temperature_nic') | float }}\n{% else %}\n
+        \ {{ states('input_number.temperature_alone') | float }}\n{% endif %}\n"
+    target:
+      entity_id: input_number.temperature_main_room
+  mode: single
+- id: '1680814092675'
+  alias: Living Dimmer
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - light.livingdimmer
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 1
+  condition: []
+  action:
+  - service: light.turn_on
+    data:
+      brightness: "{% if is_state('light.livingdimmer', 'on') %}\n  {{ state_attr('light.livingdimmer',
+        'brightness') }}\n{% else %}\n  0\n{% endif %}\n"
+    target:
+      entity_id:
+      - light.living_tortue
+      - light.living_corner_lamp
+      - light.bolita_victoria
+  mode: single
+- id: '1703962070919'
+  alias: Balcon-On
+  description: ''
+  trigger:
+  - platform: sun
+    event: sunset
+    offset: -01:00:00
+  condition: []
+  action:
+  - type: turn_on
+    device_id: 6628640a26c8bcd192e4efd78ea07e18
+    entity_id: f2fffc841fe5568e6bec370ec1acd042
+    domain: light
+    brightness_pct: 25
+  mode: single
+- id: '1703962105228'
+  alias: Balcon - Off
+  description: ''
+  trigger:
+  - platform: sun
+    event: sunrise
+    offset: -01:00:00
+  condition: []
+  action:
+  - type: turn_off
+    device_id: 6628640a26c8bcd192e4efd78ea07e18
+    entity_id: f2fffc841fe5568e6bec370ec1acd042
+    domain: light
+  mode: single
+- id: '1703976766805'
+  alias: Fullum Basement Alerts
+  description: ''
+  trigger:
+  - platform: template
+    value_template: "{{ \n  (states('sensor.basement01_humidity') | float(0) > 60)
+      or \n  (states('sensor.basement01_temperature') | float(0) > 20) or\n  (states('sensor.basement01_temperature')
+      | float(0) < 10)\n}}"
+    for:
+      hours: 0
+      minutes: 2
+      seconds: 0
+  condition: []
+  action:
+  - service: notify.fullumcoowners
+    data:
+      message: 'Basement Humidity: {{ states(''sensor.basement01_humidity'') }} %
+        Basement Temperature: {{ states(''sensor.basement01_temperature'') }} C'
+  mode: single
+- id: '1706897249249'
+  alias: Update Sinope Thermostat Outdoor Temperature
+  description: Updates the Outdoor Temp in Sinope Thermostats
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.longueuil_temperature
+  - platform: time_pattern
+    hours: /4
+    minutes: '0'
+    seconds: '0'
+  condition: []
+  action:
+  - service: mqtt.publish
+    data:
+      payload_template: '{{ states(''sensor.longueuil_temperature'') | string }}'
+      topic: zigbee2mqtt/0x943469fffeb77d70/set/thermostat_outdoor_temperature
+      qos: 0
+      retain: false
+  - service: mqtt.publish
+    data:
+      payload_template: ''
+      topic: zigbee2mqtt/0x943469fffeb77d70/set/thermostat_time
+      qos: 0
+      retain: false
+    enabled: true
+  - service: mqtt.publish
+    data:
+      payload_template: '{{ states(''sensor.longueuil_temperature'') | string }}'
+      topic: zigbee2mqtt/0x943469fffeb779ec/set/thermostat_outdoor_temperature
+      qos: 0
+      retain: false
+  - service: mqtt.publish
+    data:
+      payload_template: ''
+      topic: zigbee2mqtt/0x943469fffeb779ec/set/thermostat_time
+      qos: 0
+      retain: false
+    enabled: true
+  - service: mqtt.publish
+    data:
+      payload_template: '{{ states(''sensor.longueuil_temperature'') | string }}'
+      topic: zigbee2mqtt/0x4c5bb3fffeaf17b5/set/thermostat_outdoor_temperature
+      qos: 0
+      retain: false
+  - service: mqtt.publish
+    data:
+      payload_template: ''
+      topic: zigbee2mqtt/0x4c5bb3fffeaf17b5/set/thermostat_time
+      qos: 0
+      retain: false
+    enabled: true
+  - service: mqtt.publish
+    data:
+      payload_template: ''
+      topic: zigbee2mqtt/0x943469fffeb77d37/set/thermostat_time
+      qos: 0
+      retain: false
+    enabled: true
+    alias: Time, Bathroom
+  - service: mqtt.publish
+    data:
+      payload_template: '{{ states(''sensor.longueuil_temperature'') | string }}'
+      topic: zigbee2mqtt/0x943469fffeb77d37/set/thermostat_outdoor_temperature
+      qos: 0
+      retain: false
+    alias: Outdoor temp, bathroom
+  mode: single
+- id: '1706909015439'
+  alias: Configure Stelpro Thermostats
+  description: Updates StelPro Thermostats Config
+  trigger:
+  - platform: time_pattern
+    hours: '*'
+    minutes: /30
+    seconds: '0'
+  condition: []
+  action:
+  - alias: Set outdoor temperature (office)
+    service: mqtt.publish
+    data:
+      payload_template: '{{ states(''sensor.longueuil_temperature'') | string }}'
+      topic: zigbee2mqtt/0xf8f005fffff78aa7/set/thermostat_outdoor_temperature
+      qos: 0
+      retain: false
+  - alias: Set outdoor temperature (bedroom)
+    service: mqtt.publish
+    data:
+      payload_template: '{{ states(''sensor.longueuil_temperature'') | string }}'
+      topic: zigbee2mqtt/climate_bedroom/set/thermostat_outdoor_temperature
+      qos: 0
+      retain: false
+  - alias: Set outdoor temperature (vicks)
+    service: mqtt.publish
+    data:
+      payload_template: '{{ states(''sensor.longueuil_temperature'') | string }}'
+      topic: zigbee2mqtt/climate_vicks/set/thermostat_outdoor_temperature
+      qos: 0
+      retain: false
+    enabled: true
+  - alias: Set modes (climate_office)
+    service: mqtt.publish
+    data:
+      topic: zigbee2mqtt/0xf8f005fffff78aa7/set
+      qos: 0
+      retain: false
+      payload: '{"system_mode":"heat"}'
+    enabled: true
+  - alias: Set modes (bedroom)
+    service: mqtt.publish
+    data:
+      topic: zigbee2mqtt/climate_bedroom/set
+      qos: 0
+      retain: false
+      payload: '{"system_mode":"heat"}'
+    enabled: true
+  - alias: Set modes (vicks)
+    service: mqtt.publish
+    data:
+      topic: zigbee2mqtt/climate_vicks/set
+      qos: 0
+      retain: false
+      payload: '{"system_mode":"heat"}'
+    enabled: true
+  mode: single
+- id: '1707018729762'
+  alias: Blue Lights when Printing
+  description: ''
+  trigger:
+  - type: turned_on
+    platform: device
+    device_id: 43cd2db33952e1977da0bd730a0ba974
+    entity_id: d3ee42e4426f466cd7940a457135ac16
+    domain: binary_sensor
+  condition: []
+  action:
+  - service: light.turn_on
+    target:
+      device_id: 275ac9affeb5776750e3709ffe21335f
+    data:
+      rgb_color:
+      - 30
+      - 255
+      - 0
+  mode: single
+- id: '1707319418412'
+  alias: Bedroom Temperature - wakeup
+  description: ''
+  trigger:
+  - platform: time
+    at: 09:00:00
+  - platform: state
+    entity_id:
+    - binary_sensor.is_someone_at_home
+    to: 'off'
+  condition:
+  - condition: time
+    after: 08:59:30
+    before: '19:59:59'
+  action:
+  - service: climate.set_temperature
+    target:
+      device_id: a4053c0eb9eb654a95568d6a220784fc
+    data:
+      temperature: 17
+  mode: single
+- id: '1707320056030'
+  alias: Bedroom Temperature - Going to bed
+  description: ''
+  trigger:
+  - platform: time
+    at: '21:00:00'
+  - platform: state
+    entity_id:
+    - binary_sensor.is_someone_at_home
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: binary_sensor.is_someone_at_home
+    state: 'on'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 0
+  - condition: numeric_state
+    entity_id: sensor.climate_bedroom_local_temperature
+    attribute: local_temperature
+    below: 18.5
+  - condition: time
+    after: '19:59:00'
+    before: 09:00:00
+  action:
+  - service: climate.set_temperature
+    target:
+      device_id: a4053c0eb9eb654a95568d6a220784fc
+    data:
+      temperature: 18.5
+  mode: single
+- id: '1707430189699'
+  alias: Vick's spot Temperature Adjustment
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_select.vick_s_spot_mode
+  - platform: time
+    at: 08:00:00
+  - platform: time
+    at: '20:00:00'
+  condition:
+  - condition: numeric_state
+    entity_id: sensor.longueuil_temperature
+    below: 15
+  action:
+  - service: climate.set_temperature
+    data:
+      temperature: "{% set timenow = states('sensor.time_of_day') %}\n{% set isDay
+        = ('08:00' <= timenow <= '19:00') %}  \n{% if states('input_select.vick_s_spot_mode')
+        == 'Empty' %}\n  {% if (isDay) %}\n  17\n  {% else %}\n  16\n  {% endif %}\n{%
+        elif states('input_select.vick_s_spot_mode') == 'Office' %}\n  {% if (isDay)
+        %}\n    20.5\n  {% else %}\n    16\n  {% endif %}\n{% else %}\n  {% if isDay
+        %}\n  17.5\n  {% else %}\n   18.5\n  {% endif %}\n{% endif %}\n"
+    target:
+      entity_id: climate.climate_vicks
+  mode: single
+- id: '1707859035586'
+  alias: Bathroom Humidity and Heater
+  description: Sets the temperature of the bathroom based on the humidity level
+  trigger:
+  - type: humidity
+    platform: device
+    device_id: 2ebdb16a1b33a570018fadd3890556cd
+    entity_id: 5cc8caabfad475fca165017cc3746e7c
+    domain: sensor
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 0
+    below: 35
+    enabled: false
+  - platform: numeric_state
+    entity_id:
+    - sensor.desired_bathroom_temperature
+    for:
+      hours: 0
+      minutes: 10
+      seconds: 0
+    above: 18
+  - platform: numeric_state
+    entity_id:
+    - sensor.desired_bathroom_temperature
+    for:
+      hours: 0
+      minutes: 15
+      seconds: 0
+    above: 18
+  - type: temperature
+    platform: device
+    device_id: 2ebdb16a1b33a570018fadd3890556cd
+    entity_id: 2f040a9ffeb85d83198c415d53636a28
+    domain: sensor
+    above: 18
+    for:
+      hours: 0
+      minutes: 15
+      seconds: 0
+  condition: []
+  action:
+  - service: input_number.set_value
+    target:
+      entity_id: input_number.bathroom_desired_temperature
+    data:
+      value: 17
+  mode: single
+- id: '1707935503690'
+  alias: Adjust Bathroom Temperature based on Slider
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_number.bathroom_desired_temperature
+  condition: []
+  action:
+  - service: climate.set_temperature
+    data_template:
+      temperature: '{{ states(''input_number.bathroom_desired_temperature'') | float
+        }}
+
+        '
+    target:
+      entity_id:
+      - climate.climate_bathroom
+  mode: single
+- id: '1708021218113'
+  alias: Office Temperature based on Motion
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.office01_motion_gpio13
+    to: 'on'
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+  - platform: state
+    entity_id:
+    - binary_sensor.office01_motion_gpio13
+    to: 'off'
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+  - platform: state
+    entity_id:
+    - input_number.temperature_main_room
+  condition: []
+  action:
+  - service: climate.set_temperature
+    data_template:
+      temperature: "{% set current_desired_temp = states('input_number.temperature_main_room')
+        | float %}\n{% set current_temp = state_attr('climate.climate_office', 'current_temperature')
+        | float %}\n{% set new_low_temp = states('input_number.temperature_main_room')
+        | float - 0.5 %}    \n{% set new_high_temp = current_temp + 0.5 %}\n{% if
+        new_high_temp > current_desired_temp %}\n  {% set new_high_temp = current_desired_temp
+        %}\n{% endif %}\n{% if states('binary_sensor.office01_motion_gpio13') == 'on'
+        %}\n  {{ new_high_temp }}\n{% else %}\n  {{ new_low_temp }}\n{% endif %}\n"
+    target:
+      entity_id:
+      - climate.climate_office
+  mode: single
+- id: '1708441244120'
+  alias: Delayed Occupancy / Presence
+  description: ''
+  trigger:
+  - platform: state
+    id: absent
+    entity_id:
+    - binary_sensor.is_someone_at_home
+    for:
+      hours: 0
+      minutes: 10
+      seconds: 0
+    to: 'off'
+  - platform: state
+    id: present
+    entity_id:
+    - binary_sensor.is_someone_at_home
+    to: 'on'
+  condition: []
+  action:
+  - service: input_select.set_options
+    data:
+      value: "{% if (trigger.id == \"present\") %}\n  Occupied\n{% else %}\n  Empty\n{%
+        endif %}\n"
+    target:
+      entity_id: input_select.presence_occupancy
+  mode: single
+- id: '1724539744832'
+  alias: Ikea Controller 01 Brightness
+  description: ''
+  trigger:
+  - platform: device
+    domain: mqtt
+    device_id: bc304625baeaeaee86e401c9147749b0
+    type: action
+    subtype: brightness_move_up
+    id: move_up
+  - platform: device
+    domain: mqtt
+    device_id: bc304625baeaeaee86e401c9147749b0
+    type: action
+    subtype: brightness_move_down
+    id: move_down
+  - platform: device
+    domain: mqtt
+    device_id: bc304625baeaeaee86e401c9147749b0
+    type: action
+    subtype: 'on'
+    id: 'on'
+  - platform: device
+    domain: mqtt
+    device_id: bc304625baeaeaee86e401c9147749b0
+    type: action
+    subtype: 'off'
+    id: 'off'
+  - platform: device
+    domain: mqtt
+    device_id: 9f660e3df38d507f667e1d9de40c1cb9
+    type: action
+    subtype: brightness_move_up
+    id: move_up
+  - platform: device
+    domain: mqtt
+    device_id: 9f660e3df38d507f667e1d9de40c1cb9
+    type: action
+    subtype: brightness_move_down
+    id: move_down
+  - platform: device
+    domain: mqtt
+    device_id: 9f660e3df38d507f667e1d9de40c1cb9
+    type: action
+    subtype: 'on'
+    id: 'on'
+  - platform: device
+    domain: mqtt
+    device_id: 9f660e3df38d507f667e1d9de40c1cb9
+    type: action
+    subtype: 'off'
+    id: 'off'
+  condition: []
+  action:
+  - service: system_log.write
+    metadata: {}
+    data:
+      level: warning
+      message: 'Payload: {{ trigger.payload }}'
+  - if:
+    - condition: trigger
+      id:
+      - move_up
+    then:
+    - device_id: 290a03a20708f0eefafbdf4e61f51d8b
+      domain: light
+      entity_id: e0ed8023c9e1c6b418d6df5a1b03727d
+      type: brightness_increase
+    - device_id: 08429d00a338df4b7521e1c7d975112e
+      domain: light
+      entity_id: 06aafd0b4dce2f08eabb873fb9953842
+      type: brightness_increase
+    - domain: light
+      device_id: 49c8737ce97a155411f09b9a9ada96fb
+      entity_id: ae78ec68b3aa3dd8976e37ac83fd493a
+      type: brightness_increase
+  - if:
+    - condition: trigger
+      id:
+      - move_down
+    then:
+    - device_id: 290a03a20708f0eefafbdf4e61f51d8b
+      domain: light
+      entity_id: e0ed8023c9e1c6b418d6df5a1b03727d
+      type: brightness_decrease
+    - device_id: 08429d00a338df4b7521e1c7d975112e
+      domain: light
+      entity_id: 06aafd0b4dce2f08eabb873fb9953842
+      type: brightness_decrease
+    - domain: light
+      device_id: 49c8737ce97a155411f09b9a9ada96fb
+      entity_id: ae78ec68b3aa3dd8976e37ac83fd493a
+      type: brightness_decrease
+  - alias: Payload On
+    if:
+    - condition: trigger
+      id:
+      - 'on'
+    then:
+    - type: turn_on
+      device_id: 290a03a20708f0eefafbdf4e61f51d8b
+      entity_id: e0ed8023c9e1c6b418d6df5a1b03727d
+      domain: light
+      brightness_pct: 100
+      enabled: false
+    - type: turn_on
+      brightness_pct: 100
+      device_id: 08429d00a338df4b7521e1c7d975112e
+      domain: light
+      entity_id: 06aafd0b4dce2f08eabb873fb9953842
+      enabled: false
+    - service: light.turn_on
+      data:
+        brightness_pct: 100
+        transition: 1
+      target:
+        entity_id:
+        - ae78ec68b3aa3dd8976e37ac83fd493a
+        - 06aafd0b4dce2f08eabb873fb9953842
+        - e0ed8023c9e1c6b418d6df5a1b03727d
+  - if:
+    - condition: trigger
+      id:
+      - 'off'
+    then:
+    - type: turn_off
+      device_id: 290a03a20708f0eefafbdf4e61f51d8b
+      entity_id: e0ed8023c9e1c6b418d6df5a1b03727d
+      domain: light
+      enabled: false
+    - type: turn_off
+      device_id: 08429d00a338df4b7521e1c7d975112e
+      domain: light
+      entity_id: 06aafd0b4dce2f08eabb873fb9953842
+      enabled: false
+    - type: turn_off
+      domain: light
+      device_id: 49c8737ce97a155411f09b9a9ada96fb
+      entity_id: ae78ec68b3aa3dd8976e37ac83fd493a
+      enabled: false
+    - service: light.turn_off
+      data:
+        transition: 1
+      target:
+        entity_id:
+        - ae78ec68b3aa3dd8976e37ac83fd493a
+        - 06aafd0b4dce2f08eabb873fb9953842
+        - e0ed8023c9e1c6b418d6df5a1b03727d
+  mode: single
+- id: '1725732001203'
+  alias: Ikea Rodret Kitchen Main Lamp
+  description: ''
+  trigger:
+  - platform: device
+    domain: mqtt
+    device_id: 53e4fa42d61b0c7b1bda3c0772e5d501
+    type: action
+    subtype: brightness_move_up
+    id: move_up
+  - platform: device
+    domain: mqtt
+    device_id: 53e4fa42d61b0c7b1bda3c0772e5d501
+    type: action
+    subtype: brightness_move_down
+    id: move_down
+  - platform: device
+    domain: mqtt
+    device_id: 53e4fa42d61b0c7b1bda3c0772e5d501
+    type: action
+    subtype: 'on'
+    id: 'on'
+  - platform: device
+    domain: mqtt
+    device_id: 53e4fa42d61b0c7b1bda3c0772e5d501
+    type: action
+    subtype: 'off'
+    id: 'off'
+  condition: []
+  action:
+  - if:
+    - condition: trigger
+      id:
+      - move_up
+    then:
+    - device_id: 1138f3ba163c3780c60bc0f2a7cff537
+      domain: light
+      entity_id: e3982d862be4b0a21e3fd2f664df302d
+      type: brightness_increase
+  - if:
+    - condition: trigger
+      id:
+      - move_down
+    then:
+    - device_id: 1138f3ba163c3780c60bc0f2a7cff537
+      domain: light
+      entity_id: e3982d862be4b0a21e3fd2f664df302d
+      type: brightness_decrease
+  - alias: Payload On
+    if:
+    - condition: trigger
+      id:
+      - 'on'
+    then:
+    - type: turn_on
+      device_id: 1138f3ba163c3780c60bc0f2a7cff537
+      entity_id: e3982d862be4b0a21e3fd2f664df302d
+      domain: light
+      brightness_pct: 100
+  - if:
+    - condition: trigger
+      id:
+      - 'off'
+    then:
+    - type: turn_off
+      device_id: 1138f3ba163c3780c60bc0f2a7cff537
+      entity_id: e3982d862be4b0a21e3fd2f664df302d
+      domain: light
+  mode: single
+- id: '1726165373377'
+  alias: Tuya Remote 01 Office
+  description: Tuya Remote 01 Office
+  use_blueprint:
+    path: atomicpapa/tuya_zigbee_mini_remote.yaml
+    input:
+      switch: sensor.0xb4e3f9fffec28918_action
+      1_single:
+      - service: light.turn_on
+        metadata: {}
+        data:
+          brightness_pct: 100
+        target:
+          entity_id:
+          - light.office_accent
+          - light.office_side_left
+      2_single:
+      - service: light.turn_off
+        metadata: {}
+        target:
+          entity_id:
+          - light.office_accent
+          - light.office_side_left
+        data: {}
+      1_double:
+      - service: light.turn_on
+        metadata: {}
+        data:
+          brightness_pct: 100
+        target:
+          entity_id: light.office_dimmer
+      2_double:
+      - service: light.turn_off
+        metadata: {}
+        target:
+          entity_id: light.office_dimmer
+        data: {}
+      3_single: []
+- id: '1727046113579'
+  alias: Living Watch Scene
+  description: ''
+  trigger:
+  - platform: device
+    domain: mqtt
+    device_id: e9cb15bf6ff351578a53423eb9fb5a08
+    type: action
+    subtype: 'on'
+    id: 'on'
+  - platform: device
+    domain: mqtt
+    device_id: e9cb15bf6ff351578a53423eb9fb5a08
+    type: action
+    subtype: 'off'
+    id: 'off'
+  condition: []
+  action:
+  - if:
+    - condition: trigger
+      id:
+      - 'on'
+    then:
+    - service: light.turn_on
+      metadata: {}
+      data:
+        brightness_pct: 100
+        color_temp: 412
+        transition: 1
+      target:
+        entity_id: light.living_tortue
+  - if:
+    - condition: trigger
+      id:
+      - 'off'
+    then:
+    - service: light.turn_off
+      target:
+        entity_id:
+        - light.living_tortue
+      data:
+        transition: 1
+  mode: single
+- id: '1732104574953'
+  alias: 'Bedroom light Nic Presence '
+  description: Lights on
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.is_nico_at_home
+    to: 'on'
+  - platform: sun
+    event: sunset
+    offset: 0
+  condition:
+  - condition: state
+    entity_id: binary_sensor.is_nico_at_home
+    state: 'on'
+  - condition: sun
+    after: sunset
+  - condition: state
+    entity_id: light.bedroom_candle
+    state: 'off'
+  action:
+  - service: light.turn_on
+    metadata: {}
+    data:
+      color_temp: 267
+      brightness_pct: 5
+    target:
+      device_id: e936f07a56b52552a8646d57e13c2731
+  mode: single
+- id: '1736399124277'
+  alias: 'Bathroom reset '
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id:
+    - climate.climate_bathroom
+    attribute: temperature
+    above: 18
+    for:
+      hours: 0
+      minutes: 30
+      seconds: 0
+  condition: []
+  action:
+  - service: climate.set_temperature
+    metadata: {}
+    data:
+      temperature: 18
+    target:
+      device_id: 30e955bbda4dd664978b2a704e71aff9
+  mode: single
+- id: '1744395459353'
+  alias: Presence Cameras Push On / Off
+  description: Enables or disables Camera Push Notifications based on presence at
+    home
+  trigger:
+  - platform: state
+    entity_id:
+    - input_select.presence_occupancy
+    to: Empty
+    id: empty
+  - platform: state
+    entity_id:
+    - input_select.presence_occupancy
+    to: Occupied
+    id: occupied
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - empty
+      sequence:
+      - type: turn_on
+        device_id: 4d347b8cb02f9f09bc5e0d0e7f8ff776
+        entity_id: 0926915797f4b363bb971d94fe358570
+        domain: switch
+      - type: turn_on
+        device_id: b7d923ad6e2ee25dba3d96505a9b88ac
+        entity_id: 0dee0d20a22df66827bfc6d703fc797e
+        domain: switch
+      - type: turn_on
+        device_id: 3e878ed0c5fba8b74f1881c7cb2e17ac
+        entity_id: 2b0f993d93591639a872942d97d30f5c
+        domain: switch
+    - conditions:
+      - condition: trigger
+        id:
+        - occupied
+      sequence:
+      - type: turn_off
+        device_id: 4d347b8cb02f9f09bc5e0d0e7f8ff776
+        entity_id: 0926915797f4b363bb971d94fe358570
+        domain: switch
+      - type: turn_off
+        device_id: b7d923ad6e2ee25dba3d96505a9b88ac
+        entity_id: 0dee0d20a22df66827bfc6d703fc797e
+        domain: switch
+      - type: turn_off
+        device_id: 3e878ed0c5fba8b74f1881c7cb2e17ac
+        entity_id: 2b0f993d93591639a872942d97d30f5c
+        domain: switch
   mode: single

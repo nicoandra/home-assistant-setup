@@ -1,12 +1,10 @@
 version: "3.4"
 services:
   homeassistant:
-    image: homeassistant/home-assistant:2024.2
-    # image: homeassistant/home-assistant:2023.12
+    image: homeassistant/home-assistant:2025.10
     restart: unless-stopped
-    network_mode: host
     volumes:
-      - ./config:/config
+      - ./etc/home-assistant:/config
     depends_on:
       - mosquitto
       - zigbee2mqtt
@@ -14,12 +12,12 @@ services:
       - TZ=America/Montreal
     # labels:
     #   - "traefik.enable=true"
-    #   - "traefik.http.routers.ha.rule=Host(`ha.f1961.nmac.com.ar`)"
+    #   - "traefik.http.routers.ha.rule=Host(`tbd.f1961.nmac.com.ar`)"
     #   - "traefik.http.services.ha.loadbalancer.server.port=8123"
     #   - "traefik.http.routers.ha.tls.certresolver=lets-encr"
     #   - "traefik.http.routers.ha.tls.domains[0].main=ha.f1961.nmac.com.ar"
     ports:
-      - "192.168.1.157:8123:8123"
+      - "8123:8123"
 
   mosquitto:
     image: ansi/mosquitto
@@ -29,21 +27,7 @@ services:
     entrypoint: /usr/local/sbin/mosquitto -c /etc/mosquitto/mosquitto.conf
     volumes:
       - ./etc/mosquitto:/etc/mosquitto:ro
-      - ./var/log/mosquitto:/var/log/mosquitto:rw
       - ./var/lib/mosquitto/mosquitto.db:/var/lib/mosquitto/mosquitto.db:rw
-    environment:
-      - TZ=America/Montreal
-
-  mosquitto-external:
-    image: ansi/mosquitto
-    restart: unless-stopped
-    ports:
-      - 1884:1883
-    entrypoint: /usr/local/sbin/mosquitto -c /etc/mosquitto/mosquitto.conf
-    volumes:
-      - ./etc/mosquitto-external:/etc/mosquitto:ro
-      - ./var/log/mosquitto-external:/var/log/mosquitto:rw
-      - ./var/lib/mosquitto-external/mosquitto.db:/var/lib/mosquitto/mosquitto.db:rw
     environment:
       - TZ=America/Montreal
 
@@ -55,7 +39,6 @@ services:
     volumes:
       - ./etc/nginx/homeassistant.conf:/etc/nginx/conf.d/homeassistant.conf
       - ./etc/nginx/querini.homeassistant.conf:/etc/nginx/conf.d/querini.homeassistant.conf
-      - ./etc/nginx/wled.conf:/etc/nginx/conf.d/wled.conf
       - ./etc/certificates:/etc/certificates
     depends_on:
       - homeassistant
@@ -67,18 +50,16 @@ services:
 
 
   cloud9: # https://hub.docker.com/r/sapk/cloud9/
-    # container_name: cloud9
     image: linuxserver/cloud9
     restart: unless-stopped
     privileged: true
     volumes:
     - ./:/code/homeassistant
-    - ./../zoneminder:/code/zoneminder
-    - ./../wireguard:/code/wireguard
+    - ./zoneminder:/code/zoneminder
+    - ./wireguard:/code/wireguard
     - /var/run/docker.sock:/var/run/docker.sock
     environment:
     - PGID=1000
-    # - PUID=99
     - TZ=America/Montreal
     - GITURL=https://github.com/linuxserver/docker-cloud9.git
     ports:
@@ -93,6 +74,7 @@ services:
     command: -h logio -n docker
     depends_on:
       - logio
+
   logio:
     image: temal/logio-server
     ports:
@@ -102,7 +84,7 @@ services:
     image: linuxserver/duckdns:amd64-version-d3a93533
     restart: unless-stopped
     volumes:
-    - ./volumes/duckdns/token/token:/config/token/token
+    - ./etc/duckdns/token/token:/config/token/token
     environment:
     - PUID=1000 #optional
     - PGID=1000 #optional
@@ -111,7 +93,7 @@ services:
     - LOG_FILE=false
     # - FILE__TOKEN=/config/token/token
     env_file:
-    - ./volumes/duckdns/token/env_token
+    - ./etc/duckdns/token/env_token
     
   tasmoadmin:
     image: raymondmm/tasmoadmin
@@ -131,54 +113,3 @@ services:
       - /run/udev:/run/udev:ro
     environment:
     - TZ=America/Montreal
-    # - DEBUG=xxzigbee-herdsman*
- 
- 
-  zigbee2mqttAqara:
-    image: koenkk/zigbee2mqtt:1.22.0
-    privileged: true
-    restart: unless-stopped
-    volumes:
-      - ./volumes/zigbee2mqtt-aqara/data:/app/data
-      - /dev/ttyACM0:/dev/ttyUSB0
-      - /run/udev:/run/udev:ro
-    environment:
-    - TZ=America/Montreal    
- 
-  zigbee2mqttAssistant:
-    image: carldebilly/zigbee2mqttassistant
-    environment:
-      - Z2MA_SETTINGS__MQTTSERVER=mosquitto
-      # Set to your TimeZone when using on Linux https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-      # Won't work if you're using the Windows version of the container
-      - TZ=America/Montreal
-    ports:
-      - 8880:80
-    restart: unless-stopped
-
-  zigbee2mqttAssistantAqara:
-    image: carldebilly/zigbee2mqttassistant
-    environment:
-      - Z2MA_SETTINGS__MQTTSERVER=mosquitto
-      - Z2MA_SETTINGS__BASETOPIC=zigbee2mqttAqara
-      # Set to your TimeZone when using on Linux https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-      # Won't work if you're using the Windows version of the container
-      - TZ=America/Montreal
-    ports:
-      - 8881:80
-    restart: unless-stopped
-
-  influxdb:
-    image: influxdb:2.7.5
-    environment:
-      - DOCKER_INFLUXDB_INIT_MODE=setup
-      - DOCKER_INFLUXDB_INIT_USERNAME=influxdb
-      - DOCKER_INFLUXDB_INIT_PASSWORD=influxdb
-      - DOCKER_INFLUXDB_INIT_ORG=homeOrg
-      - DOCKER_INFLUXDB_INIT_BUCKET=homeBucket
-    volumes:
-     - ./volumes/influxdb/data:/var/lib/influxdb2
-     - ./volumes/influxdb/config:/etc/influxdb2
-    ports:
-     - 8086:8086
-         

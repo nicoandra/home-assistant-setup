@@ -4,3 +4,6 @@
       friendly_name: "Sun Elevation"
       unit_of_measurement: '°'
       value_template: "{{ state_attr('sun.sun', 'elevation') }}"
+- platform: time_date
+  display_options:
+  - 'date_time_iso'

@@ -1,44 +1,76 @@
 ir_increment_light:
   alias: IR Increase Light
   sequence:
-    - service: input_number.increment
-      data:
-        entity_id: input_number.ir_light_level
-    - service: light.turn_on
-      data_template:
-        entity_id: group.lights_interior
-        brightness: "{{ (states('input_number.ir_light_level') | int * 255 / 7) | int }}"
-
+  - service: input_number.increment
+    data:
+      entity_id: input_number.ir_light_level
+  - service: light.turn_on
+    data_template:
+      entity_id: group.lights_interior
+      brightness: '{{ (states(''input_number.ir_light_level'') | int * 255 / 7) |
+        int }}'
 ir_decrement_light:
   alias: IR Decrease Light
   sequence:
-    - service: input_number.decrement
-      data:
-        entity_id: input_number.ir_light_level
-    - service: light.turn_on
-      data_template:
-        entity_id: group.lights_interior
-        brightness: "{{ (states('input_number.ir_light_level') | int * 255 / 7) | int }}"
-
+  - service: input_number.decrement
+    data:
+      entity_id: input_number.ir_light_level
+  - service: light.turn_on
+    data_template:
+      entity_id: group.lights_interior
+      brightness: '{{ (states(''input_number.ir_light_level'') | int * 255 / 7) |
+        int }}'
 ir_max_light:
   alias: IR Max Light
   sequence:
-    - service: input_number.set_value
-      data:
-        entity_id: input_number.ir_light_level
-        value: 7
-    - service: light.turn_on
-      data:
-        entity_id: group.lights_interior
-        brightness: 255
-
+  - service: input_number.set_value
+    data:
+      entity_id: input_number.ir_light_level
+      value: 7
+  - service: light.turn_on
+    data:
+      entity_id: group.lights_interior
+      brightness: 255
 ir_no_light:
   alias: IR No Light
   sequence:
-    - service: input_number.set_value
-      data:
-        entity_id: input_number.ir_light_level
-        value: 0
-    - service: light.turn_off
-      data:
-        entity_id: group.lights_interior
+  - service: input_number.set_value
+    data:
+      entity_id: input_number.ir_light_level
+      value: 0
+  - service: light.turn_off
+    data:
+      entity_id: group.lights_interior
+office_dimmer_night_mode:
+  alias: Office Dimmer Flip Night Mode
+  sequence:
+  - type: turn_off
+    device_id: df1f4086163e84fc3a2062ad4fc45f0f
+    entity_id: 8dd5dafbdf1e47b02ba39ae3ec896acf
+    domain: light
+    enabled: false
+  - service: light.turn_on
+    metadata: {}
+    data: {}
+    target:
+      device_id: df1f4086163e84fc3a2062ad4fc45f0f
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 1
+      milliseconds: 0
+  - type: turn_off
+    device_id: df1f4086163e84fc3a2062ad4fc45f0f
+    entity_id: 8dd5dafbdf1e47b02ba39ae3ec896acf
+    domain: light
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 1
+      milliseconds: 0
+  - service: light.turn_on
+    metadata: {}
+    data: {}
+    target:
+      device_id: df1f4086163e84fc3a2062ad4fc45f0f
+  mode: single

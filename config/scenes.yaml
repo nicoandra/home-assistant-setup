@@ -523,3 +523,121 @@
       friendly_name: Vick's spot
       supported_features: 43
       state: 'off'
+- id: '1726195259216'
+  name: Movie Living
+  entities:
+    light.0x00178801035353ad:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6666
+      min_mireds: 150
+      max_mireds: 500
+      effect_list:
+      - blink
+      - breathe
+      - okay
+      - channel_change
+      - candle
+      - finish_effect
+      - stop_effect
+      - stop_hue_effect
+      supported_color_modes:
+      - color_temp
+      effect:
+      color_mode: color_temp
+      brightness: 255
+      color_temp_kelvin: 2732
+      color_temp: 366
+      hs_color:
+      - 28.327
+      - 64.71
+      rgb_color:
+      - 255
+      - 167
+      - 89
+      xy_color:
+      - 0.524
+      - 0.387
+      linkquality: 98
+      power_on_behavior:
+      update:
+        installed_version: -1
+        latest_version: -1
+        state:
+      update_available:
+      friendly_name: Living Side Lamp
+      supported_features: 44
+      state: 'on'
+    light.0x500b91400001f081:
+      supported_color_modes:
+      - brightness
+      color_mode: brightness
+      brightness: 71
+      led_intensity_off: 100
+      led_intensity_on: 100
+      linkquality: 185
+      minimumBrightness: 5
+      minimum_brightness:
+      timer_seconds:
+      friendly_name: Living Main Dimmer
+      supported_features: 40
+      state: 'on'
+    number.0x500b91400001f081_timer_seconds:
+      min: 0
+      max: 65535
+      step: 1
+      mode: auto
+      brightness: 71
+      led_intensity_off: 100
+      led_intensity_on: 100
+      linkquality: 185
+      minimumBrightness: 5
+      minimum_brightness:
+      timer_seconds:
+      unit_of_measurement: s
+      friendly_name: living_main_dimmer Timer seconds
+      state: unknown
+    number.0x500b91400001f081_led_intensity_on:
+      min: 0
+      max: 100
+      step: 1
+      mode: auto
+      brightness: 71
+      led_intensity_off: 100
+      led_intensity_on: 100
+      linkquality: 185
+      minimumBrightness: 5
+      minimum_brightness:
+      timer_seconds:
+      unit_of_measurement: '%'
+      friendly_name: living_main_dimmer Led intensity on
+      state: '100'
+    number.0x500b91400001f081_led_intensity_off:
+      min: 0
+      max: 100
+      step: 1
+      mode: auto
+      brightness: 71
+      led_intensity_off: 100
+      led_intensity_on: 100
+      linkquality: 185
+      minimumBrightness: 5
+      minimum_brightness:
+      timer_seconds:
+      unit_of_measurement: '%'
+      friendly_name: living_main_dimmer Led intensity off
+      state: '100'
+    number.0x500b91400001f081_minimum_brightness:
+      min: 0
+      max: 3000
+      step: 1
+      mode: auto
+      brightness: 71
+      led_intensity_off: 100
+      led_intensity_on: 100
+      linkquality: 185
+      minimumBrightness: 5
+      minimum_brightness:
+      timer_seconds:
+      friendly_name: living_main_dimmer Minimum brightness
+      state: unknown
+  metadata: {}

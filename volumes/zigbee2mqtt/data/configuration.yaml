@@ -12,8 +12,6 @@ advanced:
   rtscts: false
   log_level: debug
 devices:
-  '0xf8f005fffff781ab':
-    friendly_name: climate_kitchen
   '0xf8f005fffff7840d':
     friendly_name: climate_bedroom
   '0x001788010385b70f':
@@ -32,16 +30,12 @@ devices:
     friendly_name: kitchen-main
     transition: 0
     debounce: 0.2
-  '0xf8f005fffff78aa7':
-    friendly_name: climate_office
   '0xf8f005fffff483ab':
     friendly_name: climate_vicks
   '0x0000000000444584':
     friendly_name: hue_tap_switch
   '0xa4c1387abe378b75':
     friendly_name: kitchen-counter-led
-  '0xb4e3f9fffec28918':
-    friendly_name: remote-tuya-01
   '0x0017880103fb165c':
     friendly_name: office_side_left
   '0x0017880104f026ab':
@@ -56,11 +50,49 @@ devices:
     friendly_name: hue-remote-02
   '0x00158d000544a749':
     friendly_name: '0x00158d000544a749'
-  '0x00158d000544a42e':
-    friendly_name: '0x00158d000544a42e'
-  '0x385cfbfffed9e5ee':
-    friendly_name: '0x385cfbfffed9e5ee'
-  '0x385cfbfffedeaae5':
-    friendly_name: '0x385cfbfffedeaae5'
+  '0xb4e3f9fffeeac910':
+    friendly_name: '0xb4e3f9fffeeac910'
+  '0xb4e3f9fffec28918':
+    friendly_name: '0xb4e3f9fffec28918'
+  '0xa4c138409b465024':
+    friendly_name: '0xa4c138409b465024'
+  '0xa4c1381bda57d42d':
+    friendly_name: '0xa4c1381bda57d42d'
+  '0x943469fffeb77d70':
+    friendly_name: '0x943469fffeb77d70'
+  '0x943469fffeb779ec':
+    friendly_name: '0x943469fffeb779ec'
+  '0x0017880103fadc18':
+    friendly_name: '0x0017880103fadc18'
+  '0x00178801035353ad':
+    friendly_name: '0x00178801035353ad'
+  '0x4c5bb3fffeaf17b5':
+    friendly_name: climate_office
+  '0xf8f005fffff78aa7':
+    friendly_name: '0xf8f005fffff78aa7'
+  '0x943469fffeb77d37':
+    friendly_name: climate_bathroom
+  '0x500b91400001f081':
+    friendly_name: living_main_dimmer
+  '0x60efabfffe530bc1':
+    friendly_name: counter_coffee
+  '0x60efabfffe530b71':
+    friendly_name: counter_range
+  '0xecf64cfffe503608':
+    friendly_name: '0xecf64cfffe503608'
+  '0xecf64cfffe344ed5':
+    friendly_name: '0xecf64cfffe344ed5'
+  '0xecf64cfffe551b3d':
+    friendly_name: '0xecf64cfffe551b3d'
+  '0xa4c138011c33f4b3':
+    friendly_name: '0xa4c138011c33f4b3'
+  '0xa4c138ed6d3fe037':
+    friendly_name: '0xa4c138ed6d3fe037'
+  '0x28dba7fffeee2cc8':
+    friendly_name: '0x28dba7fffeee2cc8'
+  '0xecf64cfffe33d8d2':
+    friendly_name: '0xecf64cfffe33d8d2'
+  '0x00124b002242519e':
+    friendly_name: '0x00124b002242519e'
 external_converters:
   - ysrMini01.js
