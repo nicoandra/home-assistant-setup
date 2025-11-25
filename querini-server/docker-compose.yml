@@ -21,18 +21,19 @@ services:
     - 9003:80
 
   zigbee2mqtt:
-    image: koenkk/zigbee2mqtt:1.35.2
-    # Was 1.25.1
-    privileged: true
+    image: koenkk/zigbee2mqtt:2.6
     restart: always
+    ports:
+      - 8124:8080
     depends_on:
       - mosquitto
     volumes:
       - ./volumes/zigbee2mqtt/data:/app/data
-      - /dev/ttyACM0:/dev/ttyACM0
       - /run/udev:/run/udev:ro
+    devices:
+      - /dev/ttyACM0:/dev/ttyACM0
     environment:
-    - TZ=America/Montreal
+      - TZ=America/Montreal
 
   mosquitto:
     image: ansi/mosquitto
@@ -66,17 +67,17 @@ services:
   logs:
     image: gerchardon/docker-logio
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+    - /var/run/docker.sock:/var/run/docker.sock
     command: -h logio -n docker
     depends_on:
-      - logio
-    restart: no
+    - logio
+    restart: unless-stopped
 
   logio:
     image: temal/logio-server
-    restart: no
+    restart: unless-stopped
     ports:
-      - 9002:28778
+    - 9002:28778
 
   zoneminder:
     image: zoneminderhq/zoneminder:latest-ubuntu18.04
@@ -86,10 +87,10 @@ services:
      - /mnt/sdb1/zoneminder/images:/var/cache/zoneminder/images
      - /mnt/sdb1/zoneminder/mysql:/var/lib/mysql
      - /mnt/sdb1/zoneminder/logs:/var/log/zm
-    devices:
-     - /dev/video0:/dev/video0
-     - /dev/video1:/dev/video1
-    shm_size: 4gb
+#    devices:
+#     - /dev/video0:/dev/video0
+#     - /dev/video1:/dev/video1
+    shm_size: 3gb
     ports:
       - 1080:80
     environment:
@@ -99,3 +100,29 @@ services:
      - "traefik.enable=true"
      - "traefik.http.routers.zoneminder.tls.certresolver=lets-encr"
      - "traefik.http.routers.zoneminder.tls.domains[0].main=zm3.f1961.nmac.com.ar"
+
+
+  frigate:
+    privileged: true # this may not be necessary for all setups
+    restart: unless-stopped
+    stop_grace_period: 30s # allow enough time to shut down the various services
+    image: ghcr.io/blakeblackshear/frigate:stable
+    shm_size: "512mb" # update for your cameras based on calculation above
+    devices:
+      - /dev/video0:/dev/video0
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./volumes/frigate/config:/config
+      - /mnt/sdb1/frigate/:/media/frigate
+      - type: tmpfs # Optional: 1GB of memory, reduces SSD/SD Card wear
+        target: /tmp/cache
+        tmpfs:
+          size: 1000000000
+    ports:
+      - "8971:8971"
+      # - "5000:5000" # Internal unauthenticated access. Expose carefully.
+      - "8554:8554" # RTSP feeds
+      - "8555:8555/tcp" # WebRTC over tcp
+      - "8555:8555/udp" # WebRTC over udp
+    environment:
+      FRIGATE_RTSP_PASSWORD: "password"
