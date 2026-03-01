@@ -1,7 +1,7 @@
 version: "3.4"
 services:
   homeassistant:
-    image: homeassistant/home-assistant:2025.10
+    image: homeassistant/home-assistant:2025.12
     restart: unless-stopped
     volumes:
       - ./volumes/homeassistant/config:/config
@@ -10,15 +10,9 @@ services:
       - zigbee2mqtt
     environment:
       - TZ=America/Montreal
-    ports:
-      - 8123:8123
-
-  tasmoadmin:
-    image: raymondmm/tasmoadmin
-    volumes:
-    - ./volumes/tasmoadmin/data:/data
-    ports:
-    - 9003:80
+#    ports:
+#      - 8123:8123
+    network_mode: host
 
   zigbee2mqtt:
     image: koenkk/zigbee2mqtt:2.6
@@ -30,8 +24,8 @@ services:
     volumes:
       - ./volumes/zigbee2mqtt/data:/app/data
       - /run/udev:/run/udev:ro
-    devices:
-      - /dev/ttyACM0:/dev/ttyACM0
+#    devices:
+#      - /dev/ttyACM0:/dev/ttyACM0
     environment:
       - TZ=America/Montreal
 
@@ -126,3 +120,27 @@ services:
       - "8555:8555/udp" # WebRTC over udp
     environment:
       FRIGATE_RTSP_PASSWORD: "password"
+
+  whisper:
+    container_name: whisper
+    image: rhasspy/wyoming-whisper
+    command: --model tiny-int8 --language en
+    volumes:
+      - /volumes/whisper/data:/data
+    environment:
+      - TZ=America/Montreal
+    restart: unless-stopped
+    ports:
+      - 10300:10300
+### 
+  piper:
+    container_name: piper
+    image: rhasspy/wyoming-piper
+    command: --voice en_US-lessac-medium
+    volumes:
+      - /voulmes/pipe/-data:/data
+    environment:
+      - TZ=America/Montreal
+    restart: unless-stopped
+    ports:
+      - 10200:10200
